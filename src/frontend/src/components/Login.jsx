@@ -55,14 +55,26 @@ function Login({ onLogin }) {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <div className="relative w-16 h-16 rounded-full flex items-center justify-center" style={{
-              background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
-              boxShadow: '0 8px 24px rgba(0, 217, 255, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.2)'
-            }}>
-              <div className="absolute inset-0 rounded-full" style={{
-                background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 50%)'
-              }}></div>
-              <Phone className="w-8 h-8 text-white relative z-10" style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))' }} />
+            <div className="relative">
+              {/* Sun ray lines */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6" style={{ transform: 'translate(50%, -50%)' }}>
+                <div className="absolute w-3 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.7, top: '50%', left: '0', transform: 'rotate(0deg) translateY(-50%)' }}></div>
+                <div className="absolute w-2.5 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.6, top: '30%', left: '0', transform: 'rotate(-20deg)' }}></div>
+                <div className="absolute w-2.5 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.6, top: '70%', left: '0', transform: 'rotate(20deg)' }}></div>
+                <div className="absolute w-2 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.5, top: '15%', left: '0', transform: 'rotate(-35deg)' }}></div>
+                <div className="absolute w-2 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.5, top: '85%', left: '0', transform: 'rotate(35deg)' }}></div>
+              </div>
+              
+              {/* Phone icon */}
+              <div className="relative w-16 h-16 rounded-full flex items-center justify-center" style={{
+                background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
+                boxShadow: '0 8px 24px rgba(0, 217, 255, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.2)'
+              }}>
+                <div className="absolute inset-0 rounded-full" style={{
+                  background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 50%)'
+                }}></div>
+                <Phone className="w-8 h-8 text-white relative z-10" style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))' }} />
+              </div>
             </div>
             <h1 className="text-4xl font-bold ml-3" style={{ color: 'var(--gold)' }}>AfterCallPro</h1>
           </div>
