@@ -50,36 +50,39 @@ function Login({ onLogin }) {
   }
   
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, var(--cream-bg) 0%, var(--sage-very-light) 100%)' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 rounded-xl" style={{ backgroundColor: 'var(--sage-primary)' }}>
+            <div className="p-3 rounded-xl" style={{ 
+              background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
+              boxShadow: 'var(--shadow-glow)'
+            }}>
               <Phone className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-4xl font-bold" style={{ color: 'var(--sage-dark)' }}>AfterCallPro</h1>
+            <h1 className="text-4xl font-bold" style={{ color: 'var(--gold)' }}>AfterCallPro</h1>
           </div>
           <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>24/7 AI Call Assistant - Sign in to your account</p>
         </div>
         
-        <Card style={{ backgroundColor: 'var(--cream-card)', boxShadow: 'var(--shadow-lg)' }}>
+        <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
           <CardHeader>
-            <CardTitle style={{ color: 'var(--sage-dark)' }}>Welcome Back</CardTitle>
-            <CardDescription style={{ color: 'var(--text-secondary)' }}>Enter your credentials to access your dashboard</CardDescription>
+            <CardTitle style={{ color: 'var(--navy-dark)' }}>Welcome Back</CardTitle>
+            <CardDescription style={{ color: 'var(--slate-dark)' }}>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               {error && (
-                <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(168, 90, 82, 0.1)', border: '1px solid var(--error)', color: 'var(--error)' }}>
+                <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(252, 129, 129, 0.1)', border: '1px solid var(--error)', color: 'var(--error)' }}>
                   {error}
                 </div>
               )}
               
               <div>
-                <Label htmlFor="email" style={{ color: 'var(--text-primary)' }}>Email</Label>
+                <Label htmlFor="email" style={{ color: 'var(--text-dark)' }}>Email</Label>
                 <div className="relative mt-1.5">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--sage-medium)' }} />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--teal-primary)' }} />
                   <Input
                     id="email"
                     type="email"
@@ -87,16 +90,16 @@ function Login({ onLogin }) {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
                     className="pl-10 h-11"
-                    style={{ borderColor: 'var(--sage-light)', backgroundColor: 'var(--white)' }}
+                    style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                     required
                   />
                 </div>
               </div>
               
               <div>
-                <Label htmlFor="password" style={{ color: 'var(--text-primary)' }}>Password</Label>
+                <Label htmlFor="password" style={{ color: 'var(--text-dark)' }}>Password</Label>
                 <div className="relative mt-1.5">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--sage-medium)' }} />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--teal-primary)' }} />
                   <Input
                     id="password"
                     type="password"
@@ -104,7 +107,7 @@ function Login({ onLogin }) {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     className="pl-10 h-11"
-                    style={{ borderColor: 'var(--sage-light)', backgroundColor: 'var(--white)' }}
+                    style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                     required
                   />
                 </div>
@@ -115,19 +118,25 @@ function Login({ onLogin }) {
                 className="w-full btn-primary" 
                 disabled={loading}
                 size="lg"
-                style={{ backgroundColor: 'var(--sage-primary)', color: 'white', height: '44px' }}
+                style={{ 
+                  background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
+                  color: 'white',
+                  height: '44px',
+                  boxShadow: '0 4px 12px rgba(0, 217, 255, 0.3)',
+                  fontWeight: '600'
+                }}
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
             
             <div className="mt-6 text-center">
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-sm" style={{ color: 'var(--slate-dark)' }}>
                 Don't have an account?{' '}
                 <button
                   onClick={() => navigate('/signup')}
                   className="font-medium"
-                  style={{ color: 'var(--sage-primary)' }}
+                  style={{ color: 'var(--teal-primary)' }}
                 >
                   Sign up
                 </button>

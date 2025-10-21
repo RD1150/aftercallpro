@@ -22,14 +22,17 @@ function Navigation({ user, onLogout }) {
   
   return (
     <nav className="fixed left-0 top-0 h-full w-64 sidebar">
-      <div className="p-6 border-b border-white border-opacity-10">
+      <div className="p-6 border-b" style={{ borderColor: 'rgba(0, 217, 255, 0.1)' }}>
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg" style={{ backgroundColor: 'var(--sage-primary)' }}>
-            <Phone className="w-6 h-6" />
+          <div className="p-2 rounded-lg" style={{ 
+            background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
+            boxShadow: 'var(--shadow-glow)'
+          }}>
+            <Phone className="w-6 h-6" style={{ color: 'white' }} />
           </div>
           <div>
-            <h1 className="text-xl font-bold sidebar-logo" style={{ color: 'var(--gold)' }}>AfterCallPro</h1>
-            <p className="text-xs" style={{ color: 'var(--sage-very-light)' }}>24/7 AI Call Assistant</p>
+            <h1 className="text-xl font-bold sidebar-logo" style={{ color: 'var(--gold)', textShadow: '0 2px 8px rgba(255, 184, 77, 0.3)' }}>AfterCallPro</h1>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>24/7 AI Call Assistant</p>
           </div>
         </div>
       </div>
@@ -45,8 +48,9 @@ function Navigation({ user, onLogout }) {
               to={item.path}
               className="sidebar-nav-item"
               style={{
-                backgroundColor: isActive ? 'rgba(107, 138, 122, 0.3)' : 'transparent',
-                borderLeft: isActive ? '3px solid var(--gold)' : 'none'
+                backgroundColor: isActive ? 'rgba(0, 217, 255, 0.2)' : 'transparent',
+                borderLeft: isActive ? '3px solid var(--teal-primary)' : 'none',
+                color: isActive ? 'var(--teal-primary)' : 'var(--text-secondary)'
               }}
             >
               <Icon className="w-5 h-5 mr-3" />
@@ -57,15 +61,19 @@ function Navigation({ user, onLogout }) {
       </div>
       
       {user && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white border-opacity-10">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t" style={{ borderColor: 'rgba(0, 217, 255, 0.1)' }}>
           <div className="mb-3 px-4">
-            <p className="text-sm font-medium">{user.email}</p>
-            <p className="text-xs" style={{ color: 'var(--sage-very-light)' }}>{user.business_name}</p>
+            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{user.email}</p>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{user.business_name}</p>
           </div>
           <Button 
             onClick={onLogout}
-            className="w-full flex items-center justify-center gap-2 btn-secondary"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: 'none' }}
+            className="w-full flex items-center justify-center gap-2"
+            style={{ 
+              backgroundColor: 'rgba(0, 217, 255, 0.1)',
+              color: 'var(--teal-primary)',
+              border: '1px solid var(--teal-primary)'
+            }}
           >
             <LogOut className="w-4 h-4" />
             Sign Out
@@ -115,9 +123,9 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: 'var(--cream-bg)' }}>
+      <div className="flex items-center justify-center min-h-screen" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--sage-primary)' }}></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--teal-primary)' }}></div>
           <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
         </div>
       </div>
@@ -126,7 +134,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen" style={{ backgroundColor: 'var(--cream-bg)' }}>
+      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
         <Routes>
           <Route path="/login" element={
             user ? <Navigate to="/" /> : <Login onLogin={setUser} />
