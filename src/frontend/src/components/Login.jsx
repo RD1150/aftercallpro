@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Phone, Lock, Mail } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -81,36 +81,30 @@ function Login({ onLogin }) {
               
               <div>
                 <Label htmlFor="email" className="text-center block" style={{ color: 'var(--text-dark)' }}>Email</Label>
-                <div className="relative mt-1.5">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--teal-primary)' }} />
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    className="pl-12 h-11"
-                    style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
-                    required
-                  />
-                </div>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="mt-1.5 h-11"
+                  style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
+                  required
+                />
               </div>
               
               <div>
                 <Label htmlFor="password" className="text-center block" style={{ color: 'var(--text-dark)' }}>Password</Label>
-                <div className="relative mt-1.5">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--teal-primary)' }} />
-                  <Input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="pl-12 h-11"
-                    style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
-                    required
-                  />
-                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="mt-1.5 h-11"
+                  style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
+                  required
+                />
               </div>
               
               <Button 
