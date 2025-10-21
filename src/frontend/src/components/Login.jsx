@@ -50,59 +50,61 @@ function Login({ onLogin }) {
   }
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, var(--cream-bg) 0%, var(--sage-very-light) 100%)' }}>
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-blue-600 rounded-xl">
+            <div className="p-3 rounded-xl" style={{ backgroundColor: 'var(--sage-primary)' }}>
               <Phone className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-4xl font-bold text-slate-900">AfterCallPro</h1>
+            <h1 className="text-4xl font-bold" style={{ color: 'var(--sage-dark)' }}>AfterCallPro</h1>
           </div>
-          <p className="text-lg text-slate-600">24/7 AI Call Assistant - Sign in to your account</p>
+          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>24/7 AI Call Assistant - Sign in to your account</p>
         </div>
         
-        <Card>
+        <Card style={{ backgroundColor: 'var(--cream-card)', boxShadow: 'var(--shadow-lg)' }}>
           <CardHeader>
-            <CardTitle>Welcome Back</CardTitle>
-            <CardDescription>Enter your credentials to access your dashboard</CardDescription>
+            <CardTitle style={{ color: 'var(--sage-dark)' }}>Welcome Back</CardTitle>
+            <CardDescription style={{ color: 'var(--text-secondary)' }}>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+                <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(168, 90, 82, 0.1)', border: '1px solid var(--error)', color: 'var(--error)' }}>
                   {error}
                 </div>
               )}
               
               <div>
-                <Label htmlFor="email">Email</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Label htmlFor="email" style={{ color: 'var(--text-primary)' }}>Email</Label>
+                <div className="relative mt-1.5">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--sage-medium)' }} />
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="pl-10"
+                    className="pl-10 h-11"
+                    style={{ borderColor: 'var(--sage-light)', backgroundColor: 'var(--white)' }}
                     required
                   />
                 </div>
               </div>
               
               <div>
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Label htmlFor="password" style={{ color: 'var(--text-primary)' }}>Password</Label>
+                <div className="relative mt-1.5">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--sage-medium)' }} />
                   <Input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="pl-10"
+                    className="pl-10 h-11"
+                    style={{ borderColor: 'var(--sage-light)', backgroundColor: 'var(--white)' }}
                     required
                   />
                 </div>
@@ -110,20 +112,22 @@ function Login({ onLogin }) {
               
               <Button 
                 type="submit" 
-                className="w-full" 
+                className="w-full btn-primary" 
                 disabled={loading}
                 size="lg"
+                style={{ backgroundColor: 'var(--sage-primary)', color: 'white', height: '44px' }}
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
             
             <div className="mt-6 text-center">
-              <p className="text-sm text-slate-600">
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                 Don't have an account?{' '}
                 <button
                   onClick={() => navigate('/signup')}
-                  className="text-blue-600 hover:text-blue-700 font-medium"
+                  className="font-medium"
+                  style={{ color: 'var(--sage-primary)' }}
                 >
                   Sign up
                 </button>
@@ -132,8 +136,8 @@ function Login({ onLogin }) {
           </CardContent>
         </Card>
         
-        <div className="text-center mt-8 text-sm text-slate-500">
-          <p>© 2025 AI Call Service. All rights reserved.</p>
+        <div className="text-center mt-8 text-sm" style={{ color: 'var(--text-light)' }}>
+          <p>© 2025 AfterCallPro. All rights reserved.</p>
         </div>
       </div>
     </div>
