@@ -54,14 +54,17 @@ function Login({ onLogin }) {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 rounded-xl" style={{ 
+          <div className="flex items-center justify-center mb-4">
+            <div className="relative w-16 h-16 rounded-full flex items-center justify-center" style={{
               background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
-              boxShadow: 'var(--shadow-glow)'
+              boxShadow: '0 8px 24px rgba(0, 217, 255, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.2)'
             }}>
-              <Phone className="w-8 h-8 text-white" />
+              <div className="absolute inset-0 rounded-full" style={{
+                background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 50%)'
+              }}></div>
+              <Phone className="w-8 h-8 text-white relative z-10" style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))' }} />
             </div>
-            <h1 className="text-4xl font-bold" style={{ color: 'var(--gold)' }}>AfterCallPro</h1>
+            <h1 className="text-4xl font-bold ml-3" style={{ color: 'var(--gold)' }}>AfterCallPro</h1>
           </div>
           <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>24/7 AI Call Assistant - Sign in to your account</p>
         </div>
@@ -124,25 +127,23 @@ function Login({ onLogin }) {
                 {loading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
-            
-            <div className="mt-6 text-center">
-              <p className="text-sm" style={{ color: 'var(--slate-dark)' }}>
-                Don't have an account?{' '}
-                <button
-                  onClick={() => navigate('/signup')}
-                  className="font-medium"
-                  style={{ color: 'var(--teal-primary)' }}
-                >
-                  Sign up
-                </button>
-              </p>
-            </div>
           </CardContent>
         </Card>
         
-        <div className="text-center mt-8 text-sm" style={{ color: 'var(--text-light)' }}>
-          <p>© 2025 AfterCallPro. All rights reserved.</p>
-        </div>
+        <p className="text-center mt-6" style={{ color: 'var(--text-secondary)' }}>
+          Don't have an account?{' '}
+          <button 
+            onClick={() => navigate('/signup')}
+            className="font-semibold hover:underline"
+            style={{ color: 'var(--teal-primary)' }}
+          >
+            Sign up
+          </button>
+        </p>
+        
+        <p className="text-center mt-8 text-sm" style={{ color: 'var(--text-secondary)' }}>
+          © 2025 AfterCallPro. All rights reserved.
+        </p>
       </div>
     </div>
   )
