@@ -70,7 +70,7 @@ function Login({ onLogin }) {
         </div>
         
         <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-          <CardHeader className="text-center pb-6">
+          <CardHeader className="text-center pb-4">
             <CardTitle className="text-2xl mb-2" style={{ color: 'var(--navy-dark)' }}>Welcome Back</CardTitle>
             <CardDescription style={{ color: 'var(--slate-dark)' }}>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
