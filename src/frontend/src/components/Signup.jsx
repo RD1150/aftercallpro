@@ -129,7 +129,7 @@ function Signup() {
         {/* Step 1: Business Info */}
         {step === 1 && (
           <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-            <CardHeader>
+            <CardHeader className="text-center">
               <CardTitle style={{ color: 'var(--navy-dark)' }}>Business Information</CardTitle>
               <CardDescription style={{ color: 'var(--slate-dark)' }}>Tell us about your business</CardDescription>
             </CardHeader>
@@ -209,7 +209,7 @@ function Signup() {
         {/* Step 2: AI Configuration */}
         {step === 2 && (
           <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-            <CardHeader>
+            <CardHeader className="text-center">
               <CardTitle style={{ color: 'var(--navy-dark)' }}>Configure Your AI Assistant</CardTitle>
               <CardDescription style={{ color: 'var(--slate-dark)' }}>Customize how your AI answers calls</CardDescription>
             </CardHeader>
@@ -289,7 +289,7 @@ function Signup() {
         {/* Step 3: Choose Plan */}
         {step === 3 && (
           <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-            <CardHeader>
+            <CardHeader className="text-center">
               <CardTitle style={{ color: 'var(--navy-dark)' }}>Choose Your Plan</CardTitle>
               <CardDescription style={{ color: 'var(--slate-dark)' }}>Select a subscription tier that fits your needs</CardDescription>
             </CardHeader>

@@ -67,7 +67,7 @@ function Login({ onLogin }) {
         </div>
         
         <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-          <CardHeader>
+          <CardHeader className="text-center">
             <CardTitle style={{ color: 'var(--navy-dark)' }}>Welcome Back</CardTitle>
             <CardDescription style={{ color: 'var(--slate-dark)' }}>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
@@ -80,7 +80,7 @@ function Login({ onLogin }) {
               )}
               
               <div>
-                <Label htmlFor="email" style={{ color: 'var(--text-dark)' }}>Email</Label>
+                <Label htmlFor="email" className="text-center block" style={{ color: 'var(--text-dark)' }}>Email</Label>
                 <div className="relative mt-1.5">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--teal-primary)' }} />
                   <Input
@@ -89,7 +89,7 @@ function Login({ onLogin }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="pl-10 h-11"
+                    className="pl-12 h-11"
                     style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                     required
                   />
@@ -97,7 +97,7 @@ function Login({ onLogin }) {
               </div>
               
               <div>
-                <Label htmlFor="password" style={{ color: 'var(--text-dark)' }}>Password</Label>
+                <Label htmlFor="password" className="text-center block" style={{ color: 'var(--text-dark)' }}>Password</Label>
                 <div className="relative mt-1.5">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: 'var(--teal-primary)' }} />
                   <Input
@@ -106,7 +106,7 @@ function Login({ onLogin }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="pl-10 h-11"
+                    className="pl-12 h-11"
                     style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                     required
                   />
