@@ -67,41 +67,41 @@ function Login({ onLogin }) {
         </div>
         
         <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-          <CardHeader className="text-center">
-            <CardTitle style={{ color: 'var(--navy-dark)' }}>Welcome Back</CardTitle>
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-2xl mb-2" style={{ color: 'var(--navy-dark)' }}>Welcome Back</CardTitle>
             <CardDescription style={{ color: 'var(--slate-dark)' }}>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
+          <CardContent className="px-8 pb-8">
+            <form onSubmit={handleLogin} className="space-y-5">
               {error && (
                 <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(252, 129, 129, 0.1)', border: '1px solid var(--error)', color: 'var(--error)' }}>
                   {error}
                 </div>
               )}
               
-              <div>
-                <Label htmlFor="email" className="text-center block" style={{ color: 'var(--text-dark)' }}>Email</Label>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-center block text-sm font-medium" style={{ color: 'var(--text-dark)' }}>Email</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="mt-1.5 h-11"
+                  className="h-12 text-base"
                   style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                   required
                 />
               </div>
               
-              <div>
-                <Label htmlFor="password" className="text-center block" style={{ color: 'var(--text-dark)' }}>Password</Label>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-center block text-sm font-medium" style={{ color: 'var(--text-dark)' }}>Password</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="mt-1.5 h-11"
+                  className="h-12 text-base"
                   style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                   required
                 />
@@ -109,13 +109,14 @@ function Login({ onLogin }) {
               
               <Button 
                 type="submit" 
-                className="w-full btn-primary" 
+                className="w-full btn-primary mt-6" 
                 disabled={loading}
                 size="lg"
                 style={{ 
                   background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
                   color: 'white',
-                  height: '44px',
+                  height: '48px',
+                  fontSize: '16px',
                   boxShadow: '0 4px 12px rgba(0, 217, 255, 0.3)',
                   fontWeight: '600'
                 }}
