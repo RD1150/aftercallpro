@@ -75,7 +75,7 @@ function Login({ onLogin }) {
             <CardDescription style={{ color: 'var(--slate-dark)' }}>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
           <CardContent className="px-8 pb-8">
-            <form onSubmit={handleLogin} className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-6">
               {error && (
                 <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(252, 129, 129, 0.1)', border: '1px solid var(--error)', color: 'var(--error)' }}>
                   {error}
