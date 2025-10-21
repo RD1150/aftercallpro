@@ -58,6 +58,11 @@ with app.app_context():
         db.session.commit()
         print("Demo business created successfully!")
 
+# Privacy policy route
+@app.route('/privacy')
+def privacy():
+    return send_from_directory(app.static_folder, 'privacy.html')
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
