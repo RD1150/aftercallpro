@@ -7,6 +7,8 @@ import BusinessSettings from './components/BusinessSettings'
 import Subscription from './components/Subscription'
 import Signup from './components/Signup'
 import Login from './components/Login'
+import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from './components/ResetPassword'
 import { Button } from '@/components/ui/button'
 import './App.css'
 import './theme.css'
@@ -141,6 +143,12 @@ function App() {
           } />
           <Route path="/signup" element={
             user ? <Navigate to="/" /> : <Signup onSignup={setUser} />
+          } />
+          <Route path="/forgot-password" element={
+            user ? <Navigate to="/" /> : <ForgotPassword />
+          } />
+          <Route path="/reset-password" element={
+            user ? <Navigate to="/" /> : <ResetPassword />
           } />
           <Route path="/*" element={
             user ? (

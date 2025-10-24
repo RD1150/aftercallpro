@@ -120,6 +120,16 @@ function Login({ onLogin }) {
                   style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
                   required
                 />
+                <div className="text-right">
+                  <button
+                    type="button"
+                    onClick={() => navigate('/forgot-password')}
+                    className="text-sm hover:underline"
+                    style={{ color: 'var(--teal-primary)' }}
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
               </div>
               
               <Button 

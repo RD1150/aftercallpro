@@ -132,3 +132,82 @@ def check_auth():
     else:
         return jsonify({'authenticated': False}), 200
 
+@auth_bp.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    """Request password reset - generates token"""
+    data = request.get_json()
+    
+    if not data.get('email'):
+        return jsonify({'error': 'Email is required'}), 400
+    
+    user = User.query.filter_by(email=data['email']).first()
+    
+    # Always return success to prevent email enumeration
+    if not user:
+        return jsonify({
+            'message': 'If an account exists with this email, a reset link will be provided',
+            'token': None
+        }), 200
+    
+    # Generate reset token
+    reset_token = user.generate_reset_token()
+    db.session.commit()
+    
+    # In production, you would send this via email
+    # For now, we'll return it in the response
+    # TODO: Integrate email service (SendGrid, AWS SES, etc.)
+    
+    return jsonify({
+        'message': 'Password reset token generated',
+        'token': reset_token,
+        'email': user.email,
+        'expires_in': '1 hour'
+    }), 200
+
+@auth_bp.route('/reset-password', methods=['POST'])
+def reset_password():
+    """Reset password using token"""
+    data = request.get_json()
+    
+    required_fields = ['email', 'token', 'new_password']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'error': f'Missing required field: {field}'}), 400
+    
+    user = User.query.filter_by(email=data['email']).first()
+    
+    if not user:
+        return jsonify({'error': 'Invalid reset request'}), 400
+    
+    # Verify token
+    if not user.verify_reset_token(data['token']):
+        return jsonify({'error': 'Invalid or expired reset token'}), 400
+    
+    # Validate new password
+    if len(data['new_password']) < 6:
+        return jsonify({'error': 'Password must be at least 6 characters'}), 400
+    
+    # Set new password
+    user.set_password(data['new_password'])
+    user.clear_reset_token()
+    db.session.commit()
+    
+    return jsonify({'message': 'Password reset successful'}), 200
+
+@auth_bp.route('/verify-reset-token', methods=['POST'])
+def verify_reset_token():
+    """Verify if a reset token is valid"""
+    data = request.get_json()
+    
+    if not data.get('email') or not data.get('token'):
+        return jsonify({'error': 'Email and token required'}), 400
+    
+    user = User.query.filter_by(email=data['email']).first()
+    
+    if not user:
+        return jsonify({'valid': False}), 200
+    
+    is_valid = user.verify_reset_token(data['token'])
+    
+    return jsonify({'valid': is_valid}), 200
+
