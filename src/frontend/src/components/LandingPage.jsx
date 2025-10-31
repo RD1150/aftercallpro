@@ -20,10 +20,10 @@ export default function LandingPage() {
                 AfterCallPro
               </span>
             </div>
-            <div className="flex items-center space-x-6 absolute right-4">
+            <div className="flex items-center space-x-4 absolute right-4">
               <Link
                 to="/login"
-                className="text-gray-300 hover:text-white transition-colors px-4 py-2"
+                className="text-white border border-gray-600 hover:border-gray-400 transition-colors px-5 py-2 rounded-lg font-medium"
               >
                 Login
               </Link>
@@ -220,7 +220,7 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-4xl mx-auto px-8 py-32 pb-48">
+      <div className="max-w-4xl mx-auto px-8 pt-40 pb-48">
         <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-16 border border-teal-500/30 text-center">
           <h2 className="text-xl font-bold text-white mb-4">
             Ready to Transform Your Business?
