@@ -37,12 +37,6 @@ export default function LandingPage() {
             >
               Start Free 14-Day Trial
             </Link>
-            <a 
-              href="#demo" 
-              className="bg-transparent border-2 border-[#00d4ff] text-[#00d4ff] px-10 py-4 rounded-lg font-semibold text-lg hover:bg-[#00d4ff] hover:text-[#1a1a2e] transition-all"
-            >
-              Listen to a Demo
-            </a>
           </div>
           <div className="mt-16 pt-12 border-t border-white/10">
             <p className="text-sm text-gray-400 mb-4">Trusted by businesses who refuse to lose customers to voicemail</p>
@@ -130,22 +124,6 @@ export default function LandingPage() {
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">10-Minute Setup</h3>
               <p className="text-gray-600 leading-relaxed">Answer a few questions, upload your FAQ, and you're live. No hardware needed.</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Demo Section */}
-      <section id="demo" className="py-20 px-5 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white text-center">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Hear It In Action</h2>
-          <p className="text-xl text-gray-300 mb-10">Listen to how AfterCallPro handles real customer calls</p>
-          <div className="bg-white/10 backdrop-blur-lg p-16 rounded-xl">
-            <div className="text-7xl mb-6">🎧</div>
-            <h3 className="text-2xl font-bold mb-4">Sample Call: Restaurant Reservation</h3>
-            <p className="text-gray-300 mb-6">Experience how naturally our AI handles customer interactions</p>
-            <button className="bg-[#00d4ff] text-[#1a1a2e] px-10 py-4 rounded-lg font-semibold text-lg hover:bg-[#00b8e6] transition-all">
-              Play Demo Call
-            </button>
           </div>
         </div>
       </section>
