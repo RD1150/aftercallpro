@@ -71,8 +71,8 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <header className="text-center py-32 md:py-48 px-6 md:px-12 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-12 mt-16 md:mt-8 leading-tight">
+      <header className="text-center py-40 md:py-48 px-6 md:px-12 max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-16 mt-24 md:mt-8 leading-tight">
           Never Miss a Call Again
         </h1>
         <p className="text-white/70 text-lg max-w-2xl mx-auto mb-14 leading-relaxed">
@@ -95,8 +95,8 @@ export default function LandingPage() {
       </header>
 
       {/* Features */}
-      <section id="features" className="py-32 md:py-48 px-6 md:px-12 pb-48 md:pb-72 bg-white/5">
-        <h2 className="text-2xl font-bold text-center mb-20 md:mb-28 mt-24 md:mt-12">Why Choose AfterCallPro?</h2>
+      <section id="features" className="py-40 md:py-48 px-6 md:px-12 pb-56 md:pb-72 bg-white/5">
+        <h2 className="text-2xl font-bold text-center mb-24 md:mb-28 mt-32 md:mt-12">Why Choose AfterCallPro?</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
             <div
@@ -116,8 +116,8 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="pt-48 md:pt-80 pb-48 md:pb-72 px-6 md:px-12">
-        <h2 className="text-3xl font-bold text-center mb-20 md:mb-36 mt-24 md:mt-16">Simple, Transparent Pricing</h2>
+      <section className="pt-56 md:pt-80 pb-56 md:pb-72 px-6 md:px-12">
+        <h2 className="text-3xl font-bold text-center mb-24 md:mb-36 mt-32 md:mt-16">Simple, Transparent Pricing</h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 items-start">
           {/* Starter */}
           <div className="p-12 rounded-3xl border-2 border-white/20 bg-white/5 hover:border-white/30 transition-all flex flex-col h-full">
@@ -233,9 +233,9 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 md:py-48 px-6 md:px-12">
+      <section className="py-40 md:py-48 px-6 md:px-12">
         <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 rounded-3xl p-12 md:p-28 border-2 border-white/20 text-center">
-          <h2 className="text-2xl font-bold mb-10 mt-12 md:mt-8">Ready to Transform Your Business?</h2>
+          <h2 className="text-2xl font-bold mb-12 mt-16 md:mt-8">Ready to Transform Your Business?</h2>
           <p className="text-white/70 text-base mb-14 max-w-2xl mx-auto leading-relaxed">
             Join hundreds of businesses using AfterCallPro to never miss a call again.
           </p>
@@ -249,9 +249,9 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-32 md:py-48 px-6 md:px-12 bg-white/5">
+      <section className="py-40 md:py-48 px-6 md:px-12 bg-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-16 md:mb-12 mt-24 md:mt-16">Your questions answered.</h2>
+          <h2 className="text-3xl font-bold text-center mb-20 md:mb-12 mt-32 md:mt-16">Your questions answered.</h2>
           <p className="text-white/70 text-center mb-20 text-base">
             Can't find the answer to your question? Call us now:{" "}
             <a href="tel:+18005551234" className="text-[#00D9FF] hover:underline font-semibold">800-555-1234</a>
