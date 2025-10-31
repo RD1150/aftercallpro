@@ -48,7 +48,7 @@ export default function LandingPage() {
         <p className="text-white/70 text-lg max-w-2xl mx-auto mb-14 leading-relaxed">
           AI-Powered 24/7 Call Assistant that answers, schedules, and informs customers when you can't.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-5">
+        <div className="flex flex-col sm:flex-row justify-center gap-8">
           <Link 
             to="/signup" 
             className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] text-white px-14 py-5 rounded-xl font-bold text-base hover:shadow-2xl hover:shadow-cyan-500/40 transition-all"
@@ -73,11 +73,11 @@ export default function LandingPage() {
               key={f.title}
               className="p-10 rounded-2xl border-2 border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/15 hover:border-cyan-500/50 transition-all flex flex-col"
             >
-              <div className="flex flex-col items-center text-center mb-6">
-                <div className="p-4 bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] rounded-xl mb-5 shadow-lg shadow-cyan-500/30">
+              <div className="flex flex-col items-center text-center mb-8">
+                <div className="p-4 bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] rounded-xl mb-6 shadow-lg shadow-cyan-500/30">
                   {f.icon}
                 </div>
-                <h3 className="font-bold text-lg mb-3">{f.title}</h3>
+                <h3 className="font-bold text-lg mb-4">{f.title}</h3>
                 <p className="text-white/70 text-sm leading-relaxed">{f.desc}</p>
               </div>
             </div>
