@@ -258,7 +258,7 @@ export default function LandingPage() {
             {" "}or email us at{" "}
             <a href="mailto:support@aftercallpro.com" className="text-[#00D9FF] hover:underline font-semibold">support@aftercallpro.com</a>
           </p>
-          <div className="space-y-6">
+          <div className="space-y-8 md:space-y-6">
             {faqs.map((faq, idx) => (
               <div
                 key={idx}
