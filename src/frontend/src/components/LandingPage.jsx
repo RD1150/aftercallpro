@@ -151,7 +151,7 @@ export default function LandingPage() {
       </section>
 
       {/* Use Cases */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-24 px-5 bg-white mt-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Perfect For Your Industry</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -217,7 +217,7 @@ export default function LandingPage() {
       <section className="py-20 px-5 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">Simple, Transparent Pricing</h2>
-          <p className="text-lg text-gray-600 text-center mb-16">Start with a 14-day free trial. No credit card required. Cancel anytime.</p>
+          <p className="text-lg text-gray-600 text-center mb-20">Start with a 14-day free trial. No credit card required. Cancel anytime.</p>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
               <div className="text-2xl font-bold mb-3 text-[#1a1a2e]">Starter</div>
@@ -235,8 +235,8 @@ export default function LandingPage() {
               </Link>
             </div>
             
-            <div className="bg-white p-10 rounded-xl shadow-lg border-3 border-[#00d4ff] relative transform md:scale-105 hover:-translate-y-1 hover:shadow-xl transition-all">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00d4ff] text-[#1a1a2e] px-6 py-1.5 rounded-full font-bold text-sm">
+            <div className="bg-white p-10 rounded-xl shadow-lg border-3 border-[#00d4ff] relative transform md:scale-105 hover:-translate-y-1 hover:shadow-xl transition-all mt-6">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00d4ff] text-[#1a1a2e] px-6 py-1.5 rounded-full font-bold text-sm z-10">
                 MOST POPULAR
               </div>
               <div className="text-2xl font-bold mb-3 text-[#1a1a2e]">Professional</div>
