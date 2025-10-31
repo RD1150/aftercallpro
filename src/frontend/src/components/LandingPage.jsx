@@ -44,25 +44,25 @@ export default function LandingPage() {
     <div className="min-h-screen bg-[#0b1524] text-white font-sans">
       {/* Header */}
       <nav className="sticky top-0 z-50 border-b border-white/20 bg-[#0b1524]/90 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-12 py-8">
-          <div className="flex items-center space-x-4">
-            <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-lg shadow-cyan-500/30">
-              <Phone className="w-5 h-5" />
+        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 md:px-12 py-4 md:py-8">
+          <div className="flex items-center space-x-2 md:space-x-4">
+            <div className="grid h-8 w-8 md:h-11 md:w-11 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-lg shadow-cyan-500/30">
+              <Phone className="w-4 h-4 md:w-5 md:h-5" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
+            <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
               AfterCallPro
             </span>
           </div>
-          <div className="flex items-center space-x-12">
+          <div className="flex items-center space-x-3 md:space-x-12">
             <Link 
               to="/login" 
-              className="bg-white/10 text-white hover:bg-white/15 transition-colors px-8 py-4 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-sm"
+              className="bg-white/10 text-white hover:bg-white/15 transition-colors px-4 py-2 md:px-8 md:py-4 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-xs md:text-sm"
             >
               Login
             </Link>
             <Link 
               to="/signup" 
-              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-14 py-5 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-sm"
+              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-5 py-2 md:px-14 md:py-5 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-xs md:text-sm whitespace-nowrap"
             >
               Get Started
             </Link>
