@@ -65,7 +65,7 @@ export default function LandingPage() {
       </header>
 
       {/* Features */}
-      <section id="features" className="py-32 px-8 bg-white/5">
+      <section id="features" className="py-32 px-8 pb-48 bg-white/5">
         <h2 className="text-4xl font-bold text-center mb-20">Why Choose AfterCallPro?</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           {features.map((f) => (
@@ -86,7 +86,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-40 px-8">
+      <section className="pt-56 pb-48 px-8">
         <h2 className="text-5xl font-bold text-center mb-24">Simple, Transparent Pricing</h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
           {/* Starter */}
@@ -123,13 +123,13 @@ export default function LandingPage() {
           </div>
 
           {/* Professional */}
-          <div className="p-10 rounded-3xl border-2 border-[#00D9FF] bg-gradient-to-br from-[#00D9FF]/15 to-[#00A8CC]/15 relative transform scale-105 shadow-2xl shadow-cyan-500/20 flex flex-col">
-            <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
-              <span className="bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+          <div className="p-10 rounded-3xl border-2 border-[#00D9FF] bg-gradient-to-br from-[#00D9FF]/15 to-[#00A8CC]/15 transform scale-105 shadow-2xl shadow-cyan-500/20 flex flex-col">
+            <div className="mb-4">
+              <span className="bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg inline-block">
                 MOST POPULAR
               </span>
             </div>
-            <h3 className="text-3xl font-bold mb-4 mt-2">Professional</h3>
+            <h3 className="text-3xl font-bold mb-4">Professional</h3>
             <div className="mb-8">
               <span className="text-6xl font-bold text-[#00D9FF]">$79</span>
               <span className="text-white/60 text-xl">/month</span>
