@@ -41,8 +41,8 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <header className="text-center py-40 px-12 max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-10 leading-tight">
+      <header className="text-center py-48 px-12 max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-12 leading-tight">
           Never Miss a Call Again
         </h1>
         <p className="text-white/70 text-lg max-w-2xl mx-auto mb-14 leading-relaxed">
@@ -65,8 +65,8 @@ export default function LandingPage() {
       </header>
 
       {/* Features */}
-      <section id="features" className="py-40 px-12 pb-60 bg-white/5">
-        <h2 className="text-3xl font-bold text-center mb-24">Why Choose AfterCallPro?</h2>
+      <section id="features" className="py-48 px-12 pb-72 bg-white/5">
+        <h2 className="text-2xl font-bold text-center mb-28">Why Choose AfterCallPro?</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
             <div
@@ -86,12 +86,12 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="pt-72 pb-60 px-12">
-        <h2 className="text-4xl font-bold text-center mb-32">Simple, Transparent Pricing</h2>
+      <section className="pt-80 pb-72 px-12">
+        <h2 className="text-3xl font-bold text-center mb-36">Simple, Transparent Pricing</h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 items-start">
           {/* Starter */}
           <div className="p-12 rounded-3xl border-2 border-white/20 bg-white/5 hover:border-white/30 transition-all flex flex-col h-full">
-            <h3 className="text-2xl font-bold mb-6">Starter</h3>
+            <h3 className="text-xl font-bold mb-6">Starter</h3>
             <div className="mb-10">
               <span className="text-5xl font-bold text-[#00D9FF]">$29</span>
               <span className="text-white/60 text-lg">/month</span>
@@ -129,7 +129,7 @@ export default function LandingPage() {
                 MOST POPULAR
               </span>
             </div>
-            <h3 className="text-2xl font-bold mb-6">Professional</h3>
+            <h3 className="text-xl font-bold mb-6">Professional</h3>
             <div className="mb-10">
               <span className="text-5xl font-bold text-[#00D9FF]">$79</span>
               <span className="text-white/60 text-lg">/month</span>
@@ -166,7 +166,7 @@ export default function LandingPage() {
 
           {/* Enterprise */}
           <div className="p-12 rounded-3xl border-2 border-white/20 bg-white/5 hover:border-white/30 transition-all flex flex-col h-full">
-            <h3 className="text-2xl font-bold mb-6">Enterprise</h3>
+            <h3 className="text-xl font-bold mb-6">Enterprise</h3>
             <div className="mb-10">
               <span className="text-5xl font-bold text-[#00D9FF]">Custom</span>
             </div>
@@ -203,9 +203,9 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-40 px-12">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 rounded-3xl p-24 border-2 border-white/20 text-center">
-          <h2 className="text-3xl font-bold mb-8">Ready to Transform Your Business?</h2>
+      <section className="py-48 px-12">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 rounded-3xl p-28 border-2 border-white/20 text-center">
+          <h2 className="text-2xl font-bold mb-10">Ready to Transform Your Business?</h2>
           <p className="text-white/70 text-base mb-14 max-w-2xl mx-auto leading-relaxed">
             Join hundreds of businesses using AfterCallPro to never miss a call again.
           </p>
