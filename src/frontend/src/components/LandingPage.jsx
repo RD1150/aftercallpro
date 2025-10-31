@@ -1,8 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Phone, CheckCircle2, ShieldCheck, LineChart, Clock, Sparkles } from "lucide-react";
+import { Phone, CheckCircle2, ShieldCheck, LineChart, Clock, Sparkles, Plus } from "lucide-react";
+import { useState } from "react";
 
 export default function LandingPage() {
+  const [openFaq, setOpenFaq] = useState(null);
+
+  const faqs = [
+    {
+      question: "How long does it take to set up my call answering service?",
+      answer: "Setup takes just 5 minutes! Simply sign up, configure your business information and FAQs, forward your calls to your AfterCallPro number, and you're ready to go. No technical knowledge required."
+    },
+    {
+      question: "Is your call answering service available 24/7? Does it cost more at certain times?",
+      answer: "Yes, AfterCallPro is available 24/7/365 with no additional charges for nights, weekends, or holidays. All plans include unlimited availability at the same flat monthly rate."
+    },
+    {
+      question: "How much does a call answering service typically cost?",
+      answer: "Our plans start at $29/month for 100 calls. Professional plans are $79/month for 500 calls, and Enterprise plans offer custom pricing for unlimited calls with dedicated support."
+    },
+    {
+      question: "Can I customize the AI to match my business?",
+      answer: "Absolutely! You can train the AI with your business FAQs, set custom greetings, configure call routing rules, and even adjust the tone and personality to match your brand."
+    },
+    {
+      question: "What happens if I go over my call limit?",
+      answer: "You'll receive a notification when approaching your limit. Additional calls are billed at $0.25 per call, or you can upgrade to a higher tier plan at any time with no penalties."
+    },
+    {
+      question: "Do you offer a free trial?",
+      answer: "Yes! We offer a 14-day free trial with 50 calls included. No credit card required to start. Experience the full power of AfterCallPro risk-free."
+    }
+  ];
+
   const features = [
     { icon: <Clock className="w-5 h-5" />, title: "24/7 Coverage", desc: "Always-on AI assistant that answers, routes, and books—day or night." },
     { icon: <Sparkles className="w-5 h-5" />, title: "GPT-4 Intelligence", desc: "Natural, on-brand conversations trained on your business FAQs." },
@@ -215,6 +245,44 @@ export default function LandingPage() {
           >
             Start Your Free Trial
           </Link>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-48 px-12 bg-white/5">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 mt-16">Your questions answered.</h2>
+          <p className="text-white/70 text-center mb-20 text-base">
+            Can't find the answer to your question? Call us now:{" "}
+            <a href="tel:+18005551234" className="text-[#00D9FF] hover:underline font-semibold">800-555-1234</a>
+            {" "}or email us at{" "}
+            <a href="mailto:support@aftercallpro.com" className="text-[#00D9FF] hover:underline font-semibold">support@aftercallpro.com</a>
+          </p>
+          <div className="space-y-6">
+            {faqs.map((faq, idx) => (
+              <div
+                key={idx}
+                className="bg-white/10 rounded-2xl border-2 border-white/20 overflow-hidden transition-all hover:border-[#00D9FF]/50"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-8 text-left"
+                >
+                  <span className="font-semibold text-base pr-8">{faq.question}</span>
+                  <Plus
+                    className={`w-6 h-6 text-[#00D9FF] flex-shrink-0 transition-transform ${
+                      openFaq === idx ? "rotate-45" : ""
+                    }`}
+                  />
+                </button>
+                {openFaq === idx && (
+                  <div className="px-8 pb-8 text-white/70 text-sm leading-relaxed">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
