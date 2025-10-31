@@ -67,82 +67,41 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Features Section */}
-      <div id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8 md:mb-10">
+      {/* Features Section - Simple List */}
+      <div id="features" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
           Why Choose AfterCallPro?
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Feature 1 */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
-            <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <Clock className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">24/7 Availability</h3>
-            <p className="text-gray-400">
-              Your AI assistant never sleeps. Answer calls at any time, day or night, ensuring you never miss an opportunity.
-            </p>
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-4 text-gray-300">
+          <div className="flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
+            <span>24/7 AI-powered call answering</span>
           </div>
-
-          {/* Feature 2 */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
-            <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <Brain className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Intelligent AI</h3>
-            <p className="text-gray-400">
-              Powered by GPT-4, our AI understands context, answers questions naturally, and provides helpful information.
-            </p>
+          <div className="flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
+            <span>Intelligent GPT-4 responses</span>
           </div>
-
-          {/* Feature 3 */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
-            <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <Phone className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Call Recording</h3>
-            <p className="text-gray-400">
-              Every call is recorded and transcribed automatically. Review conversations and gain insights from customer interactions.
-            </p>
+          <div className="flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
+            <span>Automatic call recording & transcription</span>
           </div>
-
-          {/* Feature 4 */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
-            <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <TrendingUp className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Analytics Dashboard</h3>
-            <p className="text-gray-400">
-              Track call volume, duration, sentiment, and more with our comprehensive analytics dashboard.
-            </p>
+          <div className="flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
+            <span>Comprehensive analytics dashboard</span>
           </div>
-
-          {/* Feature 5 */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
-            <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Secure & Private</h3>
-            <p className="text-gray-400">
-              Your data is encrypted and secure. We take privacy seriously and comply with all industry standards.
-            </p>
+          <div className="flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
+            <span>Enterprise-grade security</span>
           </div>
-
-          {/* Feature 6 */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
-            <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <CheckCircle className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="text-lg font-bold text-white mb-2">Easy Setup</h3>
-            <p className="text-gray-400">
-              Get started in minutes. No complex setup or technical knowledge required. Just sign up and start receiving calls.
-            </p>
+          <div className="flex items-start space-x-3">
+            <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
+            <span>Quick 5-minute setup</span>
           </div>
         </div>
       </div>
 
       {/* Pricing Section - FOCAL POINT */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-24 md:pb-32">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16 md:mb-20">
           Simple, Transparent Pricing
         </h2>
