@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Phone, CheckCircle2, ShieldCheck, LineChart, Clock, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { Phone, CheckCircle2, ShieldCheck, LineChart, Clock, Sparkles, ArrowRight } from "lucide-react";
 
 export default function LandingPage() {
   const features = [
@@ -11,212 +11,69 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0A1628] via-[#1E2936] to-[#0A1628] text-white font-sans">
+    <div className="min-h-screen bg-[#0b1524] text-white font-sans">
       {/* Header */}
-      <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0A1628]/70 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-5">
+      <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#0b1524]/70 backdrop-blur-xl">
+        <div className="mx-auto max-w-6xl flex items-center justify-between p-4">
           <div className="flex items-center space-x-3">
-            <div className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-lg shadow-teal-500/50">
-              <Phone className="w-6 h-6" />
+            <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC]">
+              <Phone className="w-5 h-5" />
             </div>
-            <span className="text-3xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">AfterCallPro</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">AfterCallPro</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link to="/login" className="text-white border border-gray-600 hover:border-gray-400 transition-colors px-5 py-2 rounded-lg font-medium">Login</Link>
-            <Link to="/signup" className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all">Get Started</Link>
+          <div className="flex space-x-4">
+            <a href="/login" className="text-white/80 hover:text-white">Login</a>
+            <a href="/signup" className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all">Get Started</a>
           </div>
         </div>
       </nav>
 
       {/* Hero */}
-      <header className="text-center py-32 px-6 max-w-5xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+      <header className="text-center py-20 px-6">
+        <motion.h1
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl md:text-6xl font-extrabold mb-4"
+        >
           Never Miss a Call Again
-        </h1>
-        <p className="text-white/70 text-lg max-w-2xl mx-auto mb-10">
+        </motion.h1>
+        <p className="text-white/70 max-w-2xl mx-auto mb-8">
           AI-Powered 24/7 Call Assistant that answers, schedules, and informs customers when you can't.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link to="/signup" className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-teal-500/50 transition-all">Start Free Trial</Link>
-          <a href="#features" className="border border-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all">Learn More</a>
+          <a href="/signup" className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transition-all">Start Free Trial</a>
+          <a href="#features" className="border border-white/20 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/10 transition-all">Learn More</a>
         </div>
       </header>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6 bg-white/5">
-        <h2 className="text-3xl font-bold text-center mb-16">Why Choose AfterCallPro?</h2>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section id="features" className="py-20 px-6 bg-white/5">
+        <h2 className="text-3xl font-bold text-center mb-12">Why Choose AfterCallPro?</h2>
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
-            <div
+            <motion.div
               key={f.title}
-              className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-teal-500/30 transition-all"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+              className="p-6 rounded-2xl border border-white/10 bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-all"
             >
-              <div className="flex items-center mb-4">
+              <div className="flex items-center mb-3">
                 <div className="p-2 bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] rounded-full mr-3">{f.icon}</div>
                 <h3 className="font-semibold text-lg">{f.title}</h3>
               </div>
-              <p className="text-white/70 text-sm leading-relaxed">{f.desc}</p>
-            </div>
+              <p className="text-white/70 text-sm">{f.desc}</p>
+            </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-32 px-6">
-        <h2 className="text-4xl font-bold text-center mb-20">Simple, Transparent Pricing</h2>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          {/* Starter Plan */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-teal-500/30 transition-all flex flex-col">
-            <h3 className="text-2xl font-bold mb-2">Starter</h3>
-            <div className="mb-6">
-              <span className="text-5xl font-bold text-[#00D9FF]">$29</span>
-              <span className="text-white/60 text-lg">/month</span>
-            </div>
-            <ul className="space-y-3 mb-8 flex-grow">
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Up to 100 calls/month</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Call recording & transcription</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Basic analytics</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Email support</span>
-              </li>
-            </ul>
-            <Link
-              to="/signup"
-              className="block w-full bg-white/10 text-white text-center px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition-all"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          {/* Professional Plan */}
-          <div className="bg-gradient-to-br from-[#00D9FF]/10 to-[#00A8CC]/10 backdrop-blur-sm rounded-2xl p-8 border-2 border-[#00D9FF] relative transform scale-105 flex flex-col">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span className="bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] text-white px-4 py-1 rounded-full text-sm font-bold">
-                POPULAR
-              </span>
-            </div>
-            <h3 className="text-2xl font-bold mb-2">Professional</h3>
-            <div className="mb-6">
-              <span className="text-5xl font-bold text-[#00D9FF]">$79</span>
-              <span className="text-white/60 text-lg">/month</span>
-            </div>
-            <ul className="space-y-3 mb-8 flex-grow">
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Up to 500 calls/month</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Advanced AI responses</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Full analytics dashboard</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Priority support</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Custom AI training</span>
-              </li>
-            </ul>
-            <Link
-              to="/signup"
-              className="block w-full bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] text-white text-center px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          {/* Enterprise Plan */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-teal-500/30 transition-all flex flex-col">
-            <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
-            <div className="mb-6">
-              <span className="text-5xl font-bold text-[#00D9FF]">Custom</span>
-            </div>
-            <ul className="space-y-3 mb-8 flex-grow">
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Unlimited calls</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Dedicated account manager</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">Custom integrations</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">24/7 phone support</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-5 h-5 text-[#00D9FF] mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-white/80">SLA guarantee</span>
-              </li>
-            </ul>
-            <a
-              href="mailto:contact@aftercallpro.com"
-              className="block w-full bg-white/10 text-white text-center px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition-all"
-            >
-              Contact Sales
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-3xl p-16 border border-teal-500/30 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Business?</h2>
-          <p className="text-white/70 text-lg mb-8 max-w-2xl mx-auto">
-            Join hundreds of businesses using AfterCallPro to never miss a call again.
-          </p>
-          <Link
-            to="/signup"
-            className="inline-block bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] text-white px-10 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-teal-500/50 transition-all"
-          >
-            Start Your Free Trial
-          </Link>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="py-12 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC]">
-                <Phone className="w-5 h-5" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
-                AfterCallPro
-              </span>
-            </div>
-            <div className="flex space-x-6 text-white/60">
-              <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-              <a href="mailto:contact@aftercallpro.com" className="hover:text-white transition-colors">Contact</a>
-            </div>
-          </div>
-          <div className="text-center text-white/50 text-sm">
-            © {new Date().getFullYear()} AfterCallPro — All rights reserved.
-          </div>
-        </div>
+      <footer className="py-10 border-t border-white/10 text-center text-sm text-white/60">
+        © {new Date().getFullYear()} AfterCallPro — All rights reserved.
       </footer>
     </div>
   );
 }
-
