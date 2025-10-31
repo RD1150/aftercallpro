@@ -39,15 +39,15 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 py-24 md:py-32">
+      <div className="max-w-5xl mx-auto px-8 py-32 md:py-40">
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Never Miss a Call Again
           </h1>
-          <p className="text-base md:text-lg text-gray-300 mb-4 text-left max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-gray-300 mb-3 max-w-2xl mx-auto">
             AI-Powered 24/7 Call Assistant for Your Business
           </p>
-          <p className="text-sm md:text-base text-gray-400 mb-10 max-w-3xl mx-auto text-left">
+          <p className="text-sm text-gray-400 mb-12 max-w-2xl mx-auto">
             AfterCallPro uses advanced AI to answer calls, schedule appointments, and provide information to your customers - even when you're unavailable.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -68,11 +68,11 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section - Simple List */}
-      <div id="features" className="max-w-4xl mx-auto px-8 sm:px-10 lg:px-12 py-20 md:py-24 pb-28 md:pb-36">
-        <h2 className="text-xl md:text-2xl font-bold text-center text-white mb-10">
+      <div id="features" className="max-w-3xl mx-auto px-8 py-24 pb-40">
+        <h2 className="text-xl font-bold text-center text-white mb-12">
           Why Choose AfterCallPro?
         </h2>
-        <div className="grid md:grid-cols-2 gap-x-16 gap-y-6 text-gray-300 text-sm md:text-base">
+        <div className="grid md:grid-cols-2 gap-x-20 gap-y-8 text-gray-300 text-sm">
           <div className="flex items-start space-x-3">
             <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
             <span>24/7 AI-powered call answering</span>
@@ -101,11 +101,11 @@ export default function LandingPage() {
       </div>
 
       {/* Pricing Section - FOCAL POINT */}
-      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 pt-36 md:pt-44 pb-36 md:pb-44">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-20 md:mb-24">
+      <div className="max-w-6xl mx-auto px-8 pt-48 pb-48">
+        <h2 className="text-2xl font-bold text-center text-white mb-24">
           Simple, Transparent Pricing
         </h2>
-        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
           {/* Starter Plan */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-10 border border-teal-500/20 hover:border-teal-500/50 transition-all">
             <h3 className="text-2xl font-bold text-white mb-2">Starter</h3>
@@ -220,9 +220,9 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 py-24 md:py-28 pb-36 md:pb-44">
-        <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-14 border border-teal-500/30 text-center">
-          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+      <div className="max-w-4xl mx-auto px-8 py-32 pb-48">
+        <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-16 border border-teal-500/30 text-center">
+          <h2 className="text-xl font-bold text-white mb-4">
             Ready to Transform Your Business?
           </h2>
           <p className="text-base text-gray-300 mb-8 max-w-2xl mx-auto">
