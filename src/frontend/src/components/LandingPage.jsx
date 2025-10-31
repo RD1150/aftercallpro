@@ -96,7 +96,7 @@ export default function LandingPage() {
 
       {/* Features */}
       <section id="features" className="py-24 md:py-48 px-6 md:px-12 pb-32 md:pb-72 bg-white/5">
-        <h2 className="text-2xl font-bold text-center mb-28 mt-12">Why Choose AfterCallPro?</h2>
+        <h2 className="text-2xl font-bold text-center mb-16 md:mb-28 mt-20 md:mt-12">Why Choose AfterCallPro?</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
             <div
