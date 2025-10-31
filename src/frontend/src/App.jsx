@@ -10,6 +10,7 @@ import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import LandingPage from './components/LandingPage'
+import FAQPage from './components/FAQPage'
 import { Button } from '@/components/ui/button'
 import './App.css'
 import './theme.css'
@@ -141,6 +142,7 @@ function App() {
         <Routes>
           {/* Public routes - no authentication required */}
           <Route path="/home" element={<LandingPage />} />
+          <Route path="/faq" element={<FAQPage />} />
           
           {/* Auth routes */}
           <Route path="/login" element={
