@@ -71,7 +71,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <header className="text-center py-48 px-12 max-w-4xl mx-auto">
+      <header className="text-center py-24 md:py-48 px-6 md:px-12 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-12 mt-8 leading-tight">
           Never Miss a Call Again
         </h1>
@@ -95,7 +95,7 @@ export default function LandingPage() {
       </header>
 
       {/* Features */}
-      <section id="features" className="py-48 px-12 pb-72 bg-white/5">
+      <section id="features" className="py-24 md:py-48 px-6 md:px-12 pb-32 md:pb-72 bg-white/5">
         <h2 className="text-2xl font-bold text-center mb-28 mt-12">Why Choose AfterCallPro?</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
@@ -116,7 +116,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="pt-80 pb-72 px-12">
+      <section className="pt-32 md:pt-80 pb-32 md:pb-72 px-6 md:px-12">
         <h2 className="text-3xl font-bold text-center mb-36 mt-16">Simple, Transparent Pricing</h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 items-start">
           {/* Starter */}
@@ -233,8 +233,8 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-48 px-12">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 rounded-3xl p-28 border-2 border-white/20 text-center">
+      <section className="py-24 md:py-48 px-6 md:px-12">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 rounded-3xl p-12 md:p-28 border-2 border-white/20 text-center">
           <h2 className="text-2xl font-bold mb-10 mt-8">Ready to Transform Your Business?</h2>
           <p className="text-white/70 text-base mb-14 max-w-2xl mx-auto leading-relaxed">
             Join hundreds of businesses using AfterCallPro to never miss a call again.
@@ -249,7 +249,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-48 px-12 bg-white/5">
+      <section className="py-24 md:py-48 px-6 md:px-12 bg-white/5">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 mt-16">Your questions answered.</h2>
           <p className="text-white/70 text-center mb-20 text-base">
