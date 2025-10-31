@@ -39,15 +39,15 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <div className="text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Never Miss a Call Again
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-4">
+          <p className="text-lg md:text-xl text-gray-300 mb-3">
             AI-Powered 24/7 Call Assistant for Your Business
           </p>
-          <p className="text-lg text-gray-400 mb-8 max-w-3xl mx-auto">
+          <p className="text-base text-gray-400 mb-6 max-w-3xl mx-auto">
             AfterCallPro uses advanced AI to answer calls, schedule appointments, and provide information to your customers - even when you're unavailable.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -68,11 +68,11 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section */}
-      <div id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 md:mb-16">
+      <div id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8 md:mb-10">
           Why Choose AfterCallPro?
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Feature 1 */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-teal-500/20 hover:border-teal-500/50 transition-all">
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
@@ -141,12 +141,12 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Pricing Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 md:mb-16">
+      {/* Pricing Section - FOCAL POINT */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16 md:mb-20">
           Simple, Transparent Pricing
         </h2>
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Starter Plan */}
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-teal-500/20 hover:border-teal-500/50 transition-all">
             <h3 className="text-2xl font-bold text-white mb-2">Starter</h3>
@@ -261,12 +261,12 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 pb-24">
         <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-12 border border-teal-500/30 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
             Join hundreds of businesses using AfterCallPro to never miss a call again.
           </p>
           <Link
