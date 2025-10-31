@@ -8,19 +8,19 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="bg-[#0A1628]/80 backdrop-blur-md border-b border-teal-500/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <div className="relative w-12 h-12">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center justify-center flex-1">
+              <div className="relative w-14 h-14">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] rounded-full opacity-80 blur-sm"></div>
-                <div className="relative bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] rounded-full w-12 h-12 flex items-center justify-center shadow-lg shadow-teal-500/50">
-                  <Phone className="w-6 h-6 text-white" strokeWidth={2.5} />
+                <div className="relative bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] rounded-full w-14 h-14 flex items-center justify-center shadow-lg shadow-teal-500/50">
+                  <Phone className="w-7 h-7 text-white" strokeWidth={2.5} />
                 </div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
+              <span className="text-3xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent ml-3">
                 AfterCallPro
               </span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-6 absolute right-4">
               <Link
                 to="/login"
                 className="text-gray-300 hover:text-white transition-colors px-4 py-2"
@@ -39,15 +39,15 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 py-24 md:py-32">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Never Miss a Call Again
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-3">
+          <p className="text-base md:text-lg text-gray-300 mb-4 text-left max-w-2xl mx-auto">
             AI-Powered 24/7 Call Assistant for Your Business
           </p>
-          <p className="text-base text-gray-400 mb-6 max-w-3xl mx-auto">
+          <p className="text-sm md:text-base text-gray-400 mb-10 max-w-3xl mx-auto text-left">
             AfterCallPro uses advanced AI to answer calls, schedule appointments, and provide information to your customers - even when you're unavailable.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -68,11 +68,11 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section - Simple List */}
-      <div id="features" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 pb-24 md:pb-32">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
+      <div id="features" className="max-w-4xl mx-auto px-8 sm:px-10 lg:px-12 py-20 md:py-24 pb-28 md:pb-36">
+        <h2 className="text-xl md:text-2xl font-bold text-center text-white mb-10">
           Why Choose AfterCallPro?
         </h2>
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-4 text-gray-300">
+        <div className="grid md:grid-cols-2 gap-x-16 gap-y-6 text-gray-300 text-sm md:text-base">
           <div className="flex items-start space-x-3">
             <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
             <span>24/7 AI-powered call answering</span>
@@ -101,13 +101,13 @@ export default function LandingPage() {
       </div>
 
       {/* Pricing Section - FOCAL POINT */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-32 md:pb-40">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16 md:mb-20">
+      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 pt-36 md:pt-44 pb-36 md:pb-44">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-20 md:mb-24">
           Simple, Transparent Pricing
         </h2>
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {/* Starter Plan */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-teal-500/20 hover:border-teal-500/50 transition-all">
+          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-10 border border-teal-500/20 hover:border-teal-500/50 transition-all">
             <h3 className="text-2xl font-bold text-white mb-2">Starter</h3>
             <div className="mb-6">
               <span className="text-4xl font-bold text-[#00D9FF]">$29</span>
@@ -182,7 +182,7 @@ export default function LandingPage() {
           </div>
 
           {/* Enterprise Plan */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-teal-500/20 hover:border-teal-500/50 transition-all">
+          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-10 border border-teal-500/20 hover:border-teal-500/50 transition-all">
             <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
             <div className="mb-6">
               <span className="text-4xl font-bold text-[#00D9FF]">Custom</span>
@@ -220,12 +220,12 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 pb-32 md:pb-40">
-        <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-12 border border-teal-500/30 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-12 py-24 md:py-28 pb-36 md:pb-44">
+        <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-14 border border-teal-500/30 text-center">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+          <p className="text-base text-gray-300 mb-8 max-w-2xl mx-auto">
             Join hundreds of businesses using AfterCallPro to never miss a call again.
           </p>
           <Link
