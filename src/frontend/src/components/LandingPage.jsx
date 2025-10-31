@@ -68,8 +68,8 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section */}
-      <div id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <h2 className="text-4xl font-bold text-center text-white mb-16">
+      <div id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 md:mb-16">
           Why Choose AfterCallPro?
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -78,7 +78,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
               <Clock className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">24/7 Availability</h3>
+            <h3 className="text-lg font-bold text-white mb-2">24/7 Availability</h3>
             <p className="text-gray-400">
               Your AI assistant never sleeps. Answer calls at any time, day or night, ensuring you never miss an opportunity.
             </p>
@@ -89,7 +89,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
               <Brain className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Intelligent AI</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Intelligent AI</h3>
             <p className="text-gray-400">
               Powered by GPT-4, our AI understands context, answers questions naturally, and provides helpful information.
             </p>
@@ -100,7 +100,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
               <Phone className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Call Recording</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Call Recording</h3>
             <p className="text-gray-400">
               Every call is recorded and transcribed automatically. Review conversations and gain insights from customer interactions.
             </p>
@@ -111,7 +111,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Analytics Dashboard</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Analytics Dashboard</h3>
             <p className="text-gray-400">
               Track call volume, duration, sentiment, and more with our comprehensive analytics dashboard.
             </p>
@@ -122,7 +122,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
               <Shield className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Secure & Private</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Secure & Private</h3>
             <p className="text-gray-400">
               Your data is encrypted and secure. We take privacy seriously and comply with all industry standards.
             </p>
@@ -133,7 +133,7 @@ export default function LandingPage() {
             <div className="bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
               <CheckCircle className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Easy Setup</h3>
+            <h3 className="text-lg font-bold text-white mb-2">Easy Setup</h3>
             <p className="text-gray-400">
               Get started in minutes. No complex setup or technical knowledge required. Just sign up and start receiving calls.
             </p>
@@ -142,8 +142,8 @@ export default function LandingPage() {
       </div>
 
       {/* Pricing Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <h2 className="text-4xl font-bold text-center text-white mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 md:mb-16">
           Simple, Transparent Pricing
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -261,9 +261,9 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 pb-32">
         <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-12 border border-teal-500/30 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Transform Your Business?
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
