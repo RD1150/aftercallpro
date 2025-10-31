@@ -9,6 +9,7 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
+import LandingPage from './components/LandingPage'
 import { Button } from '@/components/ui/button'
 import './App.css'
 import './theme.css'
@@ -138,6 +139,7 @@ function App() {
     <Router>
       <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
         <Routes>
+          <Route path="/home" element={<LandingPage />} />
           <Route path="/login" element={
             user ? <Navigate to="/" /> : <Login onLogin={setUser} />
           } />
@@ -164,7 +166,7 @@ function App() {
                 </div>
               </>
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/home" />
             )
           } />
         </Routes>
