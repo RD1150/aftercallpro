@@ -53,7 +53,7 @@ export default function LandingPage() {
               AfterCallPro
             </span>
           </div>
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-12">
             <Link 
               to="/login" 
               className="bg-white/10 text-white hover:bg-white/15 transition-colors px-8 py-4 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-sm"
@@ -62,7 +62,7 @@ export default function LandingPage() {
             </Link>
             <Link 
               to="/signup" 
-              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-10 py-4 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-sm"
+              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-14 py-5 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-sm"
             >
               Get Started
             </Link>
