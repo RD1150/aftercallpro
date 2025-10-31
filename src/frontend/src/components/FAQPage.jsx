@@ -46,16 +46,16 @@ export default function FAQPage() {
               AfterCallPro
             </span>
           </Link>
-          <div className="flex items-center space-x-3 md:space-x-12">
+          <div className="flex items-center space-x-3 md:space-x-16">
             <Link 
               to="/login" 
-              className="bg-white/10 text-white hover:bg-white/15 transition-colors px-4 py-2 md:px-8 md:py-4 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-xs md:text-sm"
+              className="bg-white/10 text-white hover:bg-white/15 transition-colors px-4 py-2 md:px-10 md:py-5 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-xs md:text-sm"
             >
               Login
             </Link>
             <Link 
               to="/signup" 
-              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-5 py-2 md:px-14 md:py-5 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-xs md:text-sm whitespace-nowrap"
+              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-5 py-2 md:px-16 md:py-6 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-xs md:text-sm whitespace-nowrap"
             >
               Get Started
             </Link>
