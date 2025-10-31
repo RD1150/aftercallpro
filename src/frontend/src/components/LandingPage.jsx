@@ -39,7 +39,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Never Miss a Call Again
@@ -68,7 +68,7 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section - Simple List */}
-      <div id="features" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 pb-20 md:pb-28">
+      <div id="features" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 pb-24 md:pb-32">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-white mb-8">
           Why Choose AfterCallPro?
         </h2>
@@ -101,7 +101,7 @@ export default function LandingPage() {
       </div>
 
       {/* Pricing Section - FOCAL POINT */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 md:pt-52 pb-24 md:pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-32 md:pb-40">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16 md:mb-20">
           Simple, Transparent Pricing
         </h2>
@@ -220,7 +220,7 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 pb-32 md:pb-40">
         <div className="bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 backdrop-blur-sm rounded-2xl p-12 border border-teal-500/30 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Ready to Transform Your Business?
