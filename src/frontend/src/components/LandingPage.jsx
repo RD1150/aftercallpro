@@ -72,7 +72,7 @@ export default function LandingPage() {
         <h2 className="text-xl font-bold text-center text-white mb-16">
           Why Choose AfterCallPro?
         </h2>
-        <div className="grid md:grid-cols-2 gap-x-20 gap-y-8 text-gray-300 text-sm">
+        <div className="grid md:grid-cols-2 gap-x-20 gap-y-4 text-gray-300 text-sm">
           <div className="flex items-start space-x-3">
             <CheckCircle className="w-5 h-5 text-[#00D9FF] mt-0.5 flex-shrink-0" />
             <span>24/7 AI-powered call answering</span>
