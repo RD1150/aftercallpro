@@ -11,6 +11,8 @@ import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import LandingPage from './components/LandingPage'
 import FAQPage from './components/FAQPage'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import TermsConditions from './components/TermsConditions'
 import { Button } from '@/components/ui/button'
 import './App.css'
 import './theme.css'
@@ -143,6 +145,8 @@ function App() {
           {/* Public routes - no authentication required */}
           <Route path="/home" element={<LandingPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
           
           {/* Auth routes */}
           <Route path="/login" element={

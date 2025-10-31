@@ -233,7 +233,8 @@ export default function LandingPage() {
             </div>
             <div className="flex space-x-10 text-white/70">
               <Link to="/faq" className="hover:text-white transition-colors text-sm">FAQ</Link>
-              <Link to="/privacy" className="hover:text-white transition-colors text-sm">Privacy Policy</Link>
+              <Link to="/privacy-policy" className="hover:text-white transition-colors text-sm">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-white transition-colors text-sm">Terms & Conditions</Link>
               <a href="mailto:contact@aftercallpro.com" className="hover:text-white transition-colors text-sm">Contact</a>
             </div>
           </div>
