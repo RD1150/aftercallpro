@@ -18,7 +18,7 @@ function Navigation({ user, onLogout }) {
   const location = useLocation()
   
   const navItems = [
-    { path: '/', icon: BarChart3, label: 'Dashboard' },
+    { path: '/dashboard', icon: BarChart3, label: 'Dashboard' },
     { path: '/calls', icon: PhoneCall, label: 'Call History' },
     { path: '/settings', icon: Settings, label: 'Settings' }
   ]
@@ -139,35 +139,76 @@ function App() {
     <Router>
       <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
         <Routes>
+          {/* Public routes - no authentication required */}
           <Route path="/home" element={<LandingPage />} />
+          
+          {/* Auth routes */}
           <Route path="/login" element={
-            user ? <Navigate to="/" /> : <Login onLogin={setUser} />
+            user ? <Navigate to="/dashboard" /> : <Login onLogin={setUser} />
           } />
           <Route path="/signup" element={
-            user ? <Navigate to="/" /> : <Signup onSignup={setUser} />
+            user ? <Navigate to="/dashboard" /> : <Signup onSignup={setUser} />
           } />
           <Route path="/forgot-password" element={
-            user ? <Navigate to="/" /> : <ForgotPassword />
+            user ? <Navigate to="/dashboard" /> : <ForgotPassword />
           } />
           <Route path="/reset-password" element={
-            user ? <Navigate to="/" /> : <ResetPassword />
+            user ? <Navigate to="/dashboard" /> : <ResetPassword />
           } />
-          <Route path="/*" element={
+          
+          {/* Protected routes - authentication required */}
+          <Route path="/dashboard" element={
             user ? (
               <>
                 <Navigation user={user} onLogout={handleLogout} />
                 <div className="ml-64 p-8">
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/calls" element={<CallHistory />} />
-                    <Route path="/settings" element={<BusinessSettings />} />
-                    <Route path="/subscription" element={<Subscription />} />
-                  </Routes>
+                  <Dashboard />
                 </div>
               </>
             ) : (
-              <Navigate to="/home" />
+              <Navigate to="/login" />
             )
+          } />
+          <Route path="/calls" element={
+            user ? (
+              <>
+                <Navigation user={user} onLogout={handleLogout} />
+                <div className="ml-64 p-8">
+                  <CallHistory />
+                </div>
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          } />
+          <Route path="/settings" element={
+            user ? (
+              <>
+                <Navigation user={user} onLogout={handleLogout} />
+                <div className="ml-64 p-8">
+                  <BusinessSettings />
+                </div>
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          } />
+          <Route path="/subscription" element={
+            user ? (
+              <>
+                <Navigation user={user} onLogout={handleLogout} />
+                <div className="ml-64 p-8">
+                  <Subscription />
+                </div>
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          } />
+          
+          {/* Default route */}
+          <Route path="/" element={
+            user ? <Navigate to="/dashboard" /> : <Navigate to="/home" />
           } />
         </Routes>
       </div>
