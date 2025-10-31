@@ -68,8 +68,8 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section - Simple List */}
-      <div id="features" className="max-w-3xl mx-auto px-8 py-24 pb-40">
-        <h2 className="text-xl font-bold text-center text-white mb-12">
+      <div id="features" className="max-w-3xl mx-auto px-8 pt-32 pb-44">
+        <h2 className="text-xl font-bold text-center text-white mb-16">
           Why Choose AfterCallPro?
         </h2>
         <div className="grid md:grid-cols-2 gap-x-20 gap-y-8 text-gray-300 text-sm">
