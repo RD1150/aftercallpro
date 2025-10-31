@@ -23,10 +23,10 @@ export default function LandingPage() {
               AfterCallPro
             </span>
           </div>
-          <div className="flex items-center space-x-5">
+          <div className="flex items-center space-x-8">
             <Link 
               to="/login" 
-              className="text-white/90 hover:text-white transition-colors px-8 py-4 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-sm"
+              className="bg-white/10 text-white hover:bg-white/15 transition-colors px-8 py-4 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-sm"
             >
               Login
             </Link>
@@ -42,7 +42,7 @@ export default function LandingPage() {
 
       {/* Hero */}
       <header className="text-center py-48 px-12 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-12 leading-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-12 mt-8 leading-tight">
           Never Miss a Call Again
         </h1>
         <p className="text-white/70 text-lg max-w-2xl mx-auto mb-14 leading-relaxed">
@@ -66,7 +66,7 @@ export default function LandingPage() {
 
       {/* Features */}
       <section id="features" className="py-48 px-12 pb-72 bg-white/5">
-        <h2 className="text-2xl font-bold text-center mb-28">Why Choose AfterCallPro?</h2>
+        <h2 className="text-2xl font-bold text-center mb-28 mt-12">Why Choose AfterCallPro?</h2>
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
             <div
@@ -87,7 +87,7 @@ export default function LandingPage() {
 
       {/* Pricing */}
       <section className="pt-80 pb-72 px-12">
-        <h2 className="text-3xl font-bold text-center mb-36">Simple, Transparent Pricing</h2>
+        <h2 className="text-3xl font-bold text-center mb-36 mt-16">Simple, Transparent Pricing</h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 items-start">
           {/* Starter */}
           <div className="p-12 rounded-3xl border-2 border-white/20 bg-white/5 hover:border-white/30 transition-all flex flex-col h-full">
@@ -205,7 +205,7 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="py-48 px-12">
         <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#00D9FF]/20 to-[#00A8CC]/20 rounded-3xl p-28 border-2 border-white/20 text-center">
-          <h2 className="text-2xl font-bold mb-10">Ready to Transform Your Business?</h2>
+          <h2 className="text-2xl font-bold mb-10 mt-8">Ready to Transform Your Business?</h2>
           <p className="text-white/70 text-base mb-14 max-w-2xl mx-auto leading-relaxed">
             Join hundreds of businesses using AfterCallPro to never miss a call again.
           </p>
