@@ -117,7 +117,7 @@ export default function LandingPage() {
 
       {/* Pricing */}
       <section className="pt-32 md:pt-80 pb-32 md:pb-72 px-6 md:px-12">
-        <h2 className="text-3xl font-bold text-center mb-36 mt-16">Simple, Transparent Pricing</h2>
+        <h2 className="text-3xl font-bold text-center mb-16 md:mb-36 mt-20 md:mt-16">Simple, Transparent Pricing</h2>
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 items-start">
           {/* Starter */}
           <div className="p-12 rounded-3xl border-2 border-white/20 bg-white/5 hover:border-white/30 transition-all flex flex-col h-full">
