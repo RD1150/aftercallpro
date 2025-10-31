@@ -128,3 +128,4 @@ This project is a complete AI-powered after-hours call answering service. It pro
 *   `POST /api/voice/process`: Process caller speech
 *   `POST /api/voice/status`: Receive call status updates
 
+# Force deployment Fri Oct 31 03:52:07 EDT 2025
