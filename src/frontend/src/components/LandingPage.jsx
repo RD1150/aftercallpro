@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PricingSection from './PricingSection';
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState(null);
@@ -245,120 +246,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-[#f8f9fa]">
-        <div className="max-w-[1200px] mx-auto px-5">
-          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-2">
-            Simple, Transparent Pricing
-          </h2>
-          <p className="text-center text-lg text-[#666] mb-8">
-            Start with a 14-day free trial. No credit card required. Cancel anytime.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1000px] mx-auto items-stretch">
-            {/* Starter Plan */}
-            <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col">
-              <div className="text-2xl font-bold mb-2.5 text-[#1a1a2e]">Starter</div>
-              <div className="text-5xl font-bold text-[#00d4ff] mb-1">
-                $49<span className="text-lg text-[#666]">/month</span>
-              </div>
-              <div className="text-[#666] mb-8 min-h-[50px]">Perfect for testing the waters</div>
-              <ul className="space-y-0 mb-8 flex-grow">
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Up to 50 calls/month
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Call recording & transcription
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Basic analytics
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Email support
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Custom greetings
-                </li>
-              </ul>
-              <Link to="/signup?plan=starter" className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 text-center block">
-                Get Started
-              </Link>
-            </div>
-
-            {/* Professional Plan - Featured */}
-            <div className="bg-white p-10 rounded-xl relative border-[3px] border-[#00d4ff] shadow-lg flex flex-col">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00d4ff] text-[#1a1a2e] px-5 py-1.5 rounded-full font-bold text-xs">
-                MOST POPULAR
-              </div>
-              <div className="text-2xl font-bold mb-2.5 text-[#1a1a2e]">Professional</div>
-              <div className="text-5xl font-bold text-[#00d4ff] mb-1">
-                $79<span className="text-lg text-[#666]">/month</span>
-              </div>
-              <div className="text-[#666] mb-8 min-h-[50px]">For growing businesses</div>
-              <ul className="space-y-0 mb-8 flex-grow">
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Up to 500 calls/month
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Advanced AI responses
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Calendar integration
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Full analytics dashboard
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Priority support
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Custom AI training
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>SMS notifications
-                </li>
-              </ul>
-              <Link to="/signup?plan=professional" className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 text-center block">
-                Get Started
-              </Link>
-            </div>
-
-            {/* Enterprise Plan */}
-            <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col">
-              <div className="text-2xl font-bold mb-2.5 text-[#1a1a2e]">Enterprise</div>
-              <div className="text-5xl font-bold text-[#00d4ff] mb-1">Custom</div>
-              <div className="text-[#666] mb-8 min-h-[50px]">For high-volume operations</div>
-              <ul className="space-y-0 mb-8 flex-grow">
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Unlimited calls
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Dedicated account manager
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Custom integrations
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>24/7 phone support
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>SLA guarantee
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Multi-location support
-                </li>
-                <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
-                  <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>White-label options
-                </li>
-              </ul>
-              <Link to="/signup?plan=enterprise" className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 text-center block">
-                Contact Sales
-              </Link>
-            </div>
-          </div>
-          <p className="text-center mt-8 text-[#666]">
-            <strong>Overage?</strong> Just $0.15 per additional call. No surprises.
-          </p>
-        </div>
-      </section>
+      <PricingSection />
 
       {/* FAQ Section */}
       <section className="py-20 bg-white">
