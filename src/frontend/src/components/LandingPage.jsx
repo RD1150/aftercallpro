@@ -253,15 +253,15 @@ export default function LandingPage() {
           <p className="text-center text-lg text-[#666] mb-8">
             Start with a 14-day free trial. No credit card required. Cancel anytime.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1000px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1000px] mx-auto items-stretch">
             {/* Starter Plan */}
-            <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col">
               <div className="text-2xl font-bold mb-2.5 text-[#1a1a2e]">Starter</div>
               <div className="text-5xl font-bold text-[#00d4ff] mb-1">
                 $49<span className="text-lg text-[#666]">/month</span>
               </div>
               <div className="text-[#666] mb-8 min-h-[50px]">Perfect for testing the waters</div>
-              <ul className="space-y-0 mb-8">
+              <ul className="space-y-0 mb-8 flex-grow">
                 <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
                   <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Up to 50 calls/month
                 </li>
@@ -284,7 +284,7 @@ export default function LandingPage() {
             </div>
 
             {/* Professional Plan - Featured */}
-            <div className="bg-white p-10 rounded-xl relative border-[3px] border-[#00d4ff] shadow-lg">
+            <div className="bg-white p-10 rounded-xl relative border-[3px] border-[#00d4ff] shadow-lg flex flex-col">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00d4ff] text-[#1a1a2e] px-5 py-1.5 rounded-full font-bold text-xs">
                 MOST POPULAR
               </div>
@@ -293,7 +293,7 @@ export default function LandingPage() {
                 $79<span className="text-lg text-[#666]">/month</span>
               </div>
               <div className="text-[#666] mb-8 min-h-[50px]">For growing businesses</div>
-              <ul className="space-y-0 mb-8">
+              <ul className="space-y-0 mb-8 flex-grow">
                 <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
                   <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Up to 500 calls/month
                 </li>
@@ -322,11 +322,11 @@ export default function LandingPage() {
             </div>
 
             {/* Enterprise Plan */}
-            <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col">
               <div className="text-2xl font-bold mb-2.5 text-[#1a1a2e]">Enterprise</div>
               <div className="text-5xl font-bold text-[#00d4ff] mb-1">Custom</div>
               <div className="text-[#666] mb-8 min-h-[50px]">For high-volume operations</div>
-              <ul className="space-y-0 mb-8">
+              <ul className="space-y-0 mb-8 flex-grow">
                 <li className="py-3 text-[#333] border-b border-[#f0f0f0]">
                   <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Unlimited calls
                 </li>
