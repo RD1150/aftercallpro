@@ -283,7 +283,7 @@ export default function LandingPage() {
             </div>
 
             {/* Professional Plan - Featured */}
-            <div className="bg-white p-10 rounded-xl relative border-[3px] border-[#00d4ff] shadow-lg scale-105">
+            <div className="bg-white p-10 rounded-xl relative border-[3px] border-[#00d4ff] shadow-lg">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#00d4ff] text-[#1a1a2e] px-5 py-1.5 rounded-full font-bold text-xs">
                 MOST POPULAR
               </div>
