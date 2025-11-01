@@ -18,7 +18,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 py-4 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-5 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-5 flex justify-between items-center">
           <div className="text-2xl font-bold text-blue-600">📞 AfterCallPro</div>
           <button 
             onClick={() => scrollToSection('pricing')}
@@ -31,7 +31,7 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 to-indigo-50 py-24 text-center">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h1 className="text-5xl md:text-6xl font-bold mb-5 leading-tight text-gray-900">
             Never Miss Another <span className="text-blue-600">Customer Call</span>
           </h1>
@@ -78,7 +78,7 @@ export default function LandingPage() {
 
       {/* Problem Section */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
             Every Missed Call Is Money Walking Out the Door
           </h2>
@@ -117,7 +117,7 @@ export default function LandingPage() {
 
       {/* Solution Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-5 text-gray-900">
             Meet Your New AI Receptionist
           </h2>
@@ -186,7 +186,7 @@ export default function LandingPage() {
 
       {/* Demo Section */}
       <section id="demo" className="py-20 bg-blue-600 text-white text-center">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold mb-5">Hear It In Action</h2>
           <p className="text-xl mb-10 text-blue-100">
             Listen to how AfterCallPro handles real customer calls
@@ -206,7 +206,7 @@ export default function LandingPage() {
 
       {/* Use Cases */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
             Perfect For Your Industry
           </h2>
@@ -271,7 +271,7 @@ export default function LandingPage() {
 
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-5 text-gray-900">
             Simple, Transparent Pricing
           </h2>
@@ -387,7 +387,7 @@ export default function LandingPage() {
 
       {/* FAQ Section */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
             Frequently Asked Questions
           </h2>
@@ -445,7 +445,7 @@ export default function LandingPage() {
 
       {/* Final CTA */}
       <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-center">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="text-4xl md:text-5xl font-bold mb-5">Ready to Stop Missing Calls?</h2>
           <p className="text-xl mb-10">
             Join hundreds of businesses capturing every opportunity with AfterCallPro
@@ -464,7 +464,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-10 text-center">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <div className="flex gap-8 justify-center mb-8 flex-wrap">
             <a href="/privacy" className="text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</a>
             <a href="/terms" className="text-gray-400 hover:text-blue-400 transition-colors">Terms & Conditions</a>
