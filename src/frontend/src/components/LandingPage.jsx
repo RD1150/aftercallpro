@@ -47,26 +47,26 @@ export default function LandingPage() {
       {/* Problem Section */}
       <section className="py-32 md:py-48 px-5 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-24 md:mb-32">Every Missed Call Is Money Walking Out the Door</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-40 md:mb-56">Every Missed Call Is Money Walking Out the Door</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-4xl mb-4 mt-4">📉</div>
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">Lost Revenue</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Lost Revenue</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">67% of customers won't call back if you don't answer. That's $1,000s lost every month to voicemail.</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-4xl mb-4 mt-4">😤</div>
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">Frustrated Customers</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Frustrated Customers</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Your competitors answer their phones. Yours rings and rings. Guess who gets the business?</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-4xl mb-4 mt-4">💸</div>
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">Expensive Solutions</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Expensive Solutions</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Traditional answering services cost $300-500/month. And they still miss calls during high-volume times.</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm">
               <div className="text-4xl mb-4 mt-4">😓</div>
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">Staff Burnout</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Staff Burnout</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Your team is handling calls on personal phones after hours, leading to turnover and resentment.</p>
             </div>
           </div>
@@ -76,8 +76,8 @@ export default function LandingPage() {
       {/* Solution Section */}
       <section className="py-32 md:py-48 px-5 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8">Meet Your New AI Receptionist</h2>
-          <p className="text-xl text-gray-600 text-center mb-24 md:mb-32 max-w-2xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mt-8 mb-16 md:mt-16 md:mb-32">Meet Your New AI Receptionist</h2>
+          <p className="text-xl text-gray-600 text-center mb-40 md:mb-56 max-w-2xl mx-auto px-4">
             Answers calls, books appointments, takes messages, and routes emergencies—all with human-like conversation
           </p>
           
@@ -86,42 +86,42 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-gradient-to-br from-[#0d9488] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-4 mt-4 text-3xl">
                 🤖
               </div>
-              <h3 className="text-lg font-bold my-4 text-[#1f2937] px-2">Sounds Human</h3>
+              <h3 className="text-lg font-bold my-8 md:my-12 text-[#1f2937] px-2">Sounds Human</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Natural conversations powered by GPT-4. Your customers won't know they're talking to AI.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-[#0d9488] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-4 mt-4 text-3xl">
                 📅
               </div>
-              <h3 className="text-lg font-bold my-4 text-[#1f2937] px-2">Books Appointments</h3>
+              <h3 className="text-lg font-bold my-8 md:my-12 text-[#1f2937] px-2">Books Appointments</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Integrates with your calendar. Schedules, reschedules, and sends confirmations automatically.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-[#0d9488] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-4 mt-4 text-3xl">
                 💬
               </div>
-              <h3 className="text-lg font-bold my-4 text-[#1f2937] px-2">Takes Messages</h3>
+              <h3 className="text-lg font-bold my-8 md:my-12 text-[#1f2937] px-2">Takes Messages</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Captures detailed information and instantly texts or emails you the details.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-[#0d9488] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-4 mt-4 text-3xl">
                 🚨
               </div>
-              <h3 className="text-lg font-bold my-4 text-[#1f2937] px-2">Routes Emergencies</h3>
+              <h3 className="text-lg font-bold my-8 md:my-12 text-[#1f2937] px-2">Routes Emergencies</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Identifies urgent calls and immediately transfers to your emergency line.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-[#0d9488] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-4 mt-4 text-3xl">
                 📊
               </div>
-              <h3 className="text-lg font-bold my-4 text-[#1f2937] px-2">Analytics Dashboard</h3>
+              <h3 className="text-lg font-bold my-8 md:my-12 text-[#1f2937] px-2">Analytics Dashboard</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">See exactly which calls converted, common questions, and missed opportunities.</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-[#0d9488] to-[#059669] rounded-full flex items-center justify-center mx-auto mb-4 mt-4 text-3xl">
                 ⚡
               </div>
-              <h3 className="text-lg font-bold my-4 text-[#1f2937] px-2">10-Minute Setup</h3>
+              <h3 className="text-lg font-bold my-8 md:my-12 text-[#1f2937] px-2">10-Minute Setup</h3>
               <p className="text-sm text-gray-600 leading-relaxed px-3 pb-2">Answer a few questions, upload your FAQ, and you're live. No hardware needed.</p>
             </div>
           </div>
@@ -131,10 +131,10 @@ export default function LandingPage() {
       {/* Use Cases */}
       <section className="py-32 md:py-48 px-5 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-24 md:mb-32">Perfect For Your Industry</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-40 md:mb-56">Perfect For Your Industry</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0d9488] shadow-sm">
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">🍽️ Restaurants</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">🍽️ Restaurants</h3>
               <ul className="space-y-3">
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Take reservations 24/7</span></li>
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Answer menu questions</span></li>
@@ -143,7 +143,7 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0d9488] shadow-sm">
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">💇 Salons & Spas</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">💇 Salons & Spas</h3>
               <ul className="space-y-3">
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Book and manage appointments</span></li>
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Answer service questions</span></li>
@@ -152,7 +152,7 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0d9488] shadow-sm">
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">🔧 Home Services</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">🔧 Home Services</h3>
               <ul className="space-y-3">
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Capture emergency calls</span></li>
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Schedule service appointments</span></li>
@@ -161,7 +161,7 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0d9488] shadow-sm">
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">🏠 Real Estate</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">🏠 Real Estate</h3>
               <ul className="space-y-3">
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Capture buyer inquiries</span></li>
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Schedule property showings</span></li>
@@ -170,7 +170,7 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0d9488] shadow-sm">
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">⚖️ Law Firms</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">⚖️ Law Firms</h3>
               <ul className="space-y-3">
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Screen potential clients</span></li>
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Schedule consultations</span></li>
@@ -179,7 +179,7 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0d9488] shadow-sm">
-              <h3 className="text-xl font-bold my-4 text-[#1f2937] px-2">🏥 Medical Practices</h3>
+              <h3 className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">🏥 Medical Practices</h3>
               <ul className="space-y-3">
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Schedule patient appointments</span></li>
                 <li className="flex items-start"><span className="text-[#0d9488] font-bold mr-2">✓</span><span className="text-sm text-gray-600 px-2">Answer office questions</span></li>
@@ -194,11 +194,11 @@ export default function LandingPage() {
       {/* Pricing Section */}
       <section className="py-32 md:py-48 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8">Simple, Transparent Pricing</h2>
-          <p className="text-lg text-gray-600 text-center mb-24 md:mb-32">Start with a 14-day free trial. No credit card required. Cancel anytime.</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mt-8 mb-16 md:mt-16 md:mb-32">Simple, Transparent Pricing</h2>
+          <p className="text-lg text-gray-600 text-center mb-40 md:mb-56">Start with a 14-day free trial. No credit card required. Cancel anytime.</p>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="text-xl font-bold my-4 text-[#1f2937] px-2">Starter</div>
+              <div className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Starter</div>
               <div className="text-4xl font-bold text-[#0d9488] mb-2 px-2">$49<span className="text-lg text-gray-600">/month</span></div>
               <div className="text-gray-600 mb-8 min-h-[50px]">Perfect for testing the waters</div>
               <ul className="space-y-4 mb-8">
@@ -217,7 +217,7 @@ export default function LandingPage() {
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#0d9488] text-[#1f2937] px-6 py-1.5 rounded-full font-bold text-sm z-10">
                 MOST POPULAR
               </div>
-              <div className="text-xl font-bold my-4 text-[#1f2937] px-2">Professional</div>
+              <div className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Professional</div>
               <div className="text-4xl font-bold text-[#0d9488] mb-2 px-2">$79<span className="text-lg text-gray-600">/month</span></div>
               <div className="text-gray-600 mb-8 min-h-[50px]">For growing businesses</div>
               <ul className="space-y-4 mb-8">
@@ -235,7 +235,7 @@ export default function LandingPage() {
             </div>
             
             <div className="bg-white p-8 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
-              <div className="text-xl font-bold my-4 text-[#1f2937] px-2">Enterprise</div>
+              <div className="text-xl font-bold my-8 md:my-12 text-[#1f2937] px-2">Enterprise</div>
               <div className="text-4xl font-bold text-[#0d9488] mb-2 px-2">Custom</div>
               <div className="text-gray-600 mb-8 min-h-[50px]">For high-volume operations</div>
               <ul className="space-y-4 mb-8">
