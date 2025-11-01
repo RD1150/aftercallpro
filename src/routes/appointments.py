@@ -1,5 +1,4 @@
-from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask import Blueprint, request, jsonify, session
 from datetime import datetime, timedelta
 from src.models.appointment import Appointment, CalendarSettings
 from src.models.business import Business
@@ -16,10 +15,11 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI', 'http://localhost:5000/api/appointments/oauth2callback')
 
 @appointments_bp.route('/', methods=['GET'])
-@jwt_required()
 def get_appointments():
     """Get all appointments for the business"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -52,10 +52,11 @@ def get_appointments():
 
 
 @appointments_bp.route('/<int:appointment_id>', methods=['GET'])
-@jwt_required()
 def get_appointment(appointment_id):
     """Get a specific appointment"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -73,10 +74,11 @@ def get_appointment(appointment_id):
 
 
 @appointments_bp.route('/', methods=['POST'])
-@jwt_required()
 def create_appointment():
     """Create a new appointment"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -145,10 +147,11 @@ def create_appointment():
 
 
 @appointments_bp.route('/<int:appointment_id>', methods=['PUT'])
-@jwt_required()
 def update_appointment(appointment_id):
     """Update an appointment"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -202,10 +205,11 @@ def update_appointment(appointment_id):
 
 
 @appointments_bp.route('/<int:appointment_id>', methods=['DELETE'])
-@jwt_required()
 def delete_appointment(appointment_id):
     """Delete/cancel an appointment"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -232,10 +236,11 @@ def delete_appointment(appointment_id):
 
 
 @appointments_bp.route('/available-slots', methods=['GET'])
-@jwt_required()
 def get_available_slots():
     """Get available time slots for a date"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -264,10 +269,11 @@ def get_available_slots():
 # Calendar Settings Endpoints
 
 @appointments_bp.route('/calendar/settings', methods=['GET'])
-@jwt_required()
 def get_calendar_settings():
     """Get calendar settings for the business"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -301,10 +307,11 @@ def get_calendar_settings():
 
 
 @appointments_bp.route('/calendar/settings', methods=['PUT'])
-@jwt_required()
 def update_calendar_settings():
     """Update calendar settings"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -333,10 +340,11 @@ def update_calendar_settings():
 
 
 @appointments_bp.route('/calendar/connect', methods=['GET'])
-@jwt_required()
 def connect_google_calendar():
     """Initiate Google Calendar OAuth flow"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
@@ -426,10 +434,11 @@ def oauth2callback():
 
 
 @appointments_bp.route('/calendar/disconnect', methods=['POST'])
-@jwt_required()
 def disconnect_google_calendar():
     """Disconnect Google Calendar"""
-    user_id = get_jwt_identity()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+    user_id = session['user_id']
     business = Business.query.filter_by(user_id=user_id).first()
     
     if not business:
