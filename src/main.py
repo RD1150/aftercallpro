@@ -13,6 +13,7 @@ from src.routes.voice import voice_bp
 from src.routes.business import business_bp
 from src.routes.auth import auth_bp
 from src.routes.payments import payments_bp
+from src.routes.appointments import appointments_bp
 
 # Load environment variables
 load_dotenv()
@@ -32,6 +33,7 @@ app.register_blueprint(voice_bp, url_prefix='/api/voice')
 app.register_blueprint(business_bp, url_prefix='/api')
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(payments_bp, url_prefix='/api/payments')
+app.register_blueprint(appointments_bp, url_prefix='/api/appointments')
 
 # Database configuration
 # Use /tmp for database on Render (writable directory)

@@ -87,30 +87,25 @@ def process_speech():
     else:
         call.transcript = f"Caller: {speech_result}"
     
-    # Get AI response using OpenAI
-    from openai import OpenAI
-    client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+    # Get AI response using enhanced AI service
+    from src.services.ai_service import AIService
     
     business = call.business
+    ai_service = AIService(business, call)
     
-    # Create system prompt
-    system_prompt = f"""You are an AI assistant for {business.name}. 
-    You are handling after-hours calls professionally and courteously.
-    Keep responses brief and natural for phone conversations.
-    If the caller needs urgent assistance, offer to forward them to a human.
-    If they want to schedule an appointment, collect their contact information."""
+    # Build conversation history from transcript
+    conversation_history = []
+    if call.transcript:
+        lines = call.transcript.split('\n')
+        for line in lines:
+            if line.startswith('Caller: '):
+                conversation_history.append({"role": "user", "content": line[8:]})
+            elif line.startswith('AI: '):
+                conversation_history.append({"role": "assistant", "content": line[4:]})
     
     try:
-        # Get AI response
-        completion = client.chat.completions.create(
-            model="gpt-4.1-mini",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": speech_result}
-            ]
-        )
-        
-        ai_response = completion.choices[0].message.content
+        # Get AI response with appointment booking capability
+        ai_response = ai_service.process_with_functions(speech_result, conversation_history)
         
         # Update transcript with AI response
         call.transcript += f"\nAI: {ai_response}"

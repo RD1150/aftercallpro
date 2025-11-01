@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
-import { Phone, BarChart3, Settings, Clock, PhoneCall, LogOut } from 'lucide-react'
+import { Phone, BarChart3, Settings, Clock, PhoneCall, LogOut, Calendar } from 'lucide-react'
 import Dashboard from './components/Dashboard'
 import CallHistory from './components/CallHistory'
 import BusinessSettings from './components/BusinessSettings'
@@ -13,6 +13,7 @@ import LandingPage from './components/LandingPage'
 import FAQPage from './components/FAQPage'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsConditions from './components/TermsConditions'
+import Appointments from './pages/Appointments'
 import { Button } from '@/components/ui/button'
 import './App.css'
 import './theme.css'
@@ -23,6 +24,7 @@ function Navigation({ user, onLogout }) {
   const navItems = [
     { path: '/dashboard', icon: BarChart3, label: 'Dashboard' },
     { path: '/calls', icon: PhoneCall, label: 'Call History' },
+    { path: '/appointments', icon: Calendar, label: 'Appointments' },
     { path: '/settings', icon: Settings, label: 'Settings' }
   ]
   
@@ -193,6 +195,18 @@ function App() {
                 <Navigation user={user} onLogout={handleLogout} />
                 <div className="ml-64 p-8">
                   <BusinessSettings />
+                </div>
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          } />
+          <Route path="/appointments" element={
+            user ? (
+              <>
+                <Navigation user={user} onLogout={handleLogout} />
+                <div className="ml-64 p-8">
+                  <Appointments />
                 </div>
               </>
             ) : (
