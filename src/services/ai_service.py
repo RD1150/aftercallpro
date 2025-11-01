@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from openai import OpenAI
 from src.models.appointment import Appointment, CalendarSettings
 from src.services.calendar_service import CalendarService
-from src.database import db
+from src.models.user import db
 
 class AIService:
     """Service for AI-powered call handling with appointment booking"""

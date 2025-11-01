@@ -5,7 +5,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from src.models.appointment import CalendarSettings, Appointment
-from src.database import db
+from src.models.user import db
 
 class CalendarService:
     """Service for managing Google Calendar integration"""
