@@ -77,7 +77,7 @@ export default function LandingPage() {
       <section className="py-20 px-5 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">Meet Your New AI Receptionist</h2>
-          <p className="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 text-center mb-16 max-w-2xl mx-auto px-4">
             Answers calls, books appointments, takes messages, and routes emergencies—all with human-like conversation
           </p>
           
