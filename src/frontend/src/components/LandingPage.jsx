@@ -22,7 +22,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 px-5">
+      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-32 md:py-48 px-5">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
@@ -45,9 +45,9 @@ export default function LandingPage() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-20 px-5 bg-gray-50">
+      <section className="py-24 md:py-32 px-5 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Every Missed Call Is Money Walking Out the Door</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 md:mb-24">Every Missed Call Is Money Walking Out the Door</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white p-8 rounded-xl shadow-sm">
               <div className="text-5xl mb-5">📉</div>
@@ -74,10 +74,10 @@ export default function LandingPage() {
       </section>
 
       {/* Solution Section */}
-      <section className="py-20 px-5 bg-white">
+      <section className="py-24 md:py-32 px-5 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">Meet Your New AI Receptionist</h2>
-          <p className="text-xl text-gray-600 text-center mb-16 max-w-2xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8">Meet Your New AI Receptionist</h2>
+          <p className="text-xl text-gray-600 text-center mb-20 md:mb-24 max-w-2xl mx-auto px-4">
             Answers calls, books appointments, takes messages, and routes emergencies—all with human-like conversation
           </p>
           
@@ -129,9 +129,9 @@ export default function LandingPage() {
       </section>
 
       {/* Use Cases */}
-      <section className="py-24 px-5 bg-white mt-8">
+      <section className="py-24 md:py-32 px-5 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Perfect For Your Industry</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 md:mb-24">Perfect For Your Industry</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-8 rounded-xl border-l-4 border-[#00d4ff]">
               <h3 className="text-2xl font-bold mb-4 text-[#1a1a2e]">🍽️ Restaurants</h3>
@@ -192,10 +192,10 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 px-5 bg-gray-50">
+      <section className="py-24 md:py-32 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">Simple, Transparent Pricing</h2>
-          <p className="text-lg text-gray-600 text-center mb-20">Start with a 14-day free trial. No credit card required. Cancel anytime.</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8">Simple, Transparent Pricing</h2>
+          <p className="text-lg text-gray-600 text-center mb-20 md:mb-24">Start with a 14-day free trial. No credit card required. Cancel anytime.</p>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-10 rounded-xl shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all">
               <div className="text-2xl font-bold mb-3 text-[#1a1a2e]">Starter</div>
@@ -259,7 +259,7 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-5 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] text-white text-center">
+      <section className="py-24 md:py-32 px-5 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] text-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Stop Missing Calls?</h2>
           <p className="text-xl mb-10">Join hundreds of businesses capturing every opportunity with AfterCallPro</p>
