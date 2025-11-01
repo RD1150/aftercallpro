@@ -7,7 +7,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white text-gray-900 font-sans">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#1a1a2e] text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-5 py-5 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 md:px-8 py-6 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Phone className="w-6 h-6 text-[#00d4ff]" />
             <span className="text-2xl font-bold text-[#00d4ff]">AfterCallPro</span>
