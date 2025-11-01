@@ -205,9 +205,9 @@ export default function LandingPage() {
       </section>
 
       {/* Use Cases */}
-      <section className="py-20 bg-white">
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-5">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 text-gray-900">
             Perfect For Your Industry
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -270,12 +270,12 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-gray-50">
+      <section id="pricing" className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-5">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-5 text-gray-900">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-gray-900">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-lg text-center text-gray-600 mb-16">
+          <p className="text-lg text-center text-gray-600 mb-20">
             Start with a 14-day free trial. No credit card required. Cancel anytime.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
