@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState(null);
@@ -20,12 +21,12 @@ export default function LandingPage() {
       <header className="bg-[#1a1a2e] text-white py-5 sticky top-0 z-50 shadow-lg">
         <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center">
           <div className="text-2xl font-bold text-[#00d4ff]">📞 AfterCallPro</div>
-          <button 
-            onClick={() => scrollToSection('pricing')}
+          <Link 
+            to="/signup"
             className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
           >
             Start Free Trial
-          </button>
+          </Link>
         </div>
       </header>
 
@@ -39,12 +40,12 @@ export default function LandingPage() {
             Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
           </p>
           <div className="flex gap-5 justify-center flex-wrap">
-            <button 
-              onClick={() => scrollToSection('pricing')}
+            <Link 
+              to="/signup"
               className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
             >
               Start Free 14-Day Trial
-            </button>
+            </Link>
             <button 
               onClick={() => scrollToSection('demo')}
               className="bg-transparent border-2 border-[#00d4ff] text-[#00d4ff] px-8 py-3 rounded-lg font-semibold hover:bg-[#00d4ff] hover:text-[#1a1a2e] transition-all duration-300"
@@ -277,9 +278,9 @@ export default function LandingPage() {
                   <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>Custom greetings
                 </li>
               </ul>
-              <button className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300">
+              <Link to="/signup?plan=starter" className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 text-center block">
                 Get Started
-              </button>
+              </Link>
             </div>
 
             {/* Professional Plan - Featured */}
@@ -315,9 +316,9 @@ export default function LandingPage() {
                   <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>SMS notifications
                 </li>
               </ul>
-              <button className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300">
+              <Link to="/signup?plan=professional" className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 text-center block">
                 Get Started
-              </button>
+              </Link>
             </div>
 
             {/* Enterprise Plan */}
@@ -348,9 +349,9 @@ export default function LandingPage() {
                   <span className="text-[#00d4ff] font-bold mr-2.5">✓</span>White-label options
                 </li>
               </ul>
-              <button className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300">
+              <Link to="/signup?plan=enterprise" className="w-full bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 text-center block">
                 Contact Sales
-              </button>
+              </Link>
             </div>
           </div>
           <p className="text-center mt-8 text-[#666]">
@@ -407,9 +408,9 @@ export default function LandingPage() {
         <div className="max-w-[1200px] mx-auto px-5">
           <h2 className="text-4xl md:text-[42px] font-bold mb-5">Ready to Stop Missing Calls?</h2>
           <p className="text-xl mb-10">Join hundreds of businesses capturing every opportunity with AfterCallPro</p>
-          <button className="bg-white text-[#00d4ff] px-10 py-4 rounded-lg font-semibold text-lg hover:-translate-y-0.5 transition-all duration-300">
+          <Link to="/signup" className="bg-white text-[#00d4ff] px-10 py-4 rounded-lg font-semibold text-lg hover:-translate-y-0.5 transition-all duration-300 inline-block">
             Start Your Free 14-Day Trial
-          </button>
+          </Link>
           <p className="mt-5 text-sm">No credit card required • Setup in 10 minutes • Cancel anytime</p>
         </div>
       </section>
