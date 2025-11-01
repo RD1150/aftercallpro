@@ -245,12 +245,12 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="pt-12 pb-20 bg-[#f8f9fa]">
+      <section id="pricing" className="py-20 bg-[#f8f9fa]">
         <div className="max-w-[1200px] mx-auto px-5">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-2">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-center text-lg text-[#666] mb-15">
+          <p className="text-center text-lg text-[#666] mb-8">
             Start with a 14-day free trial. No credit card required. Cancel anytime.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1000px] mx-auto">
