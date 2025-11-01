@@ -1,5 +1,5 @@
 from datetime import datetime
-from src.database import db
+from src.models.user import db
 
 class Appointment(db.Model):
     __tablename__ = 'appointments'
