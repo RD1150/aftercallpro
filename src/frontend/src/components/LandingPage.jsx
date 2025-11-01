@@ -245,7 +245,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-[#f8f9fa]">
+      <section id="pricing" className="pt-12 pb-20 bg-[#f8f9fa]">
         <div className="max-w-[1200px] mx-auto px-5">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-2">
             Simple, Transparent Pricing
