@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify, session
 from datetime import datetime, timedelta
 from src.models.appointment import Appointment, CalendarSettings
-from src.models.business import Business
+from src.models.call import Business
 from src.services.calendar_service import CalendarService
-from src.database import db
+from src.models.user import db
 import os
 from google_auth_oauthlib.flow import Flow
 from google.oauth2.credentials import Credentials
