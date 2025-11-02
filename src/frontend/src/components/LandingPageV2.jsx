@@ -104,22 +104,22 @@ export default function LandingPage() {
             Every Missed Call Is Money Walking Out the Door
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-15">
-            <div className="bg-white p-8 rounded-xl shadow-sm">
+            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
               <div className="text-5xl mb-5">📉</div>
               <h3 className="text-[22px] font-bold mb-4 text-[#1a1a2e]">Lost Revenue</h3>
               <p className="text-[#666] leading-relaxed">67% of customers won't call back if you don't answer. That's $1,000s lost every month to voicemail.</p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm">
+            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
               <div className="text-5xl mb-5">😤</div>
               <h3 className="text-[22px] font-bold mb-4 text-[#1a1a2e]">Frustrated Customers</h3>
               <p className="text-[#666] leading-relaxed">Your competitors answer their phones. Yours rings and rings. Guess who gets the business?</p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm">
+            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
               <div className="text-5xl mb-5">💸</div>
               <h3 className="text-[22px] font-bold mb-4 text-[#1a1a2e]">Expensive Solutions</h3>
               <p className="text-[#666] leading-relaxed">Traditional answering services cost $300-500/month. And they still miss calls during high-volume times.</p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm">
+            <div className="bg-white p-8 rounded-xl shadow-sm text-center">
               <div className="text-5xl mb-5">😓</div>
               <h3 className="text-[22px] font-bold mb-4 text-[#1a1a2e]">Staff Burnout</h3>
               <p className="text-[#666] leading-relaxed">Your team is handling calls on personal phones after hours, leading to turnover and resentment.</p>
