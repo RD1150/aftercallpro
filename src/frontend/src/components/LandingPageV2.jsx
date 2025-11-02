@@ -21,7 +21,13 @@ export default function LandingPage() {
       {/* Header */}
       <header className="bg-[#1a1a2e] text-white py-5 sticky top-0 z-50 shadow-lg">
         <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center">
-          <div className="text-2xl font-bold text-[#00d4ff]">📞 AfterCallPro</div>
+          <div className="flex items-center gap-3">
+            <div className="text-4xl">📞</div>
+            <div>
+              <div className="text-3xl font-bold text-[#00d4ff] leading-none">AfterCallPro</div>
+              <div className="text-xs text-[#00d4ff]/70 font-medium">AI Receptionist 24/7</div>
+            </div>
+          </div>
           <div className="flex items-center gap-5">
             <a href="tel:+18885551234" className="text-white hover:text-[#00d4ff] transition-colors duration-300 font-medium hidden md:block">
               📞 (888) 555-1234
@@ -34,7 +40,7 @@ export default function LandingPage() {
             </Link>
             <Link 
               to="/signup"
-              className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
+              className="bg-[#00d4ff] text-[#1a1a2e] px-10 py-4 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
             >
               Start Free Trial
             </Link>
@@ -54,13 +60,13 @@ export default function LandingPage() {
           <div className="flex gap-5 justify-center flex-wrap">
             <Link 
               to="/signup"
-              className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
+              className="bg-[#00d4ff] text-[#1a1a2e] px-12 py-5 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)] text-lg"
             >
               Start Free 14-Day Trial
             </Link>
             <button 
               onClick={() => scrollToSection('demo')}
-              className="bg-transparent border-2 border-[#00d4ff] text-[#00d4ff] px-8 py-3 rounded-lg font-semibold hover:bg-[#00d4ff] hover:text-[#1a1a2e] transition-all duration-300"
+              className="bg-transparent border-2 border-[#00d4ff] text-[#00d4ff] px-12 py-5 rounded-lg font-semibold hover:bg-[#00d4ff] hover:text-[#1a1a2e] transition-all duration-300 text-lg"
             >
               Listen to a Demo
             </button>
@@ -68,7 +74,7 @@ export default function LandingPage() {
           
           {/* Trust Bar */}
           <div className="mt-12 pt-10 border-t border-white/10">
-            <p className="text-sm text-[#aaa] mb-2.5">Trusted by businesses who refuse to lose customers to voicemail</p>
+            <p className="text-sm text-[#aaa] mb-2.5 text-center">Trusted by businesses who refuse to lose customers to voicemail</p>
             <div className="flex gap-10 justify-center flex-wrap mt-5">
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#00d4ff]">2,500+</div>
@@ -376,12 +382,12 @@ export default function LandingPage() {
       {/* Final CTA */}
       <section className="py-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] text-white text-center">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h2 className="text-4xl md:text-[42px] font-bold mb-5">Ready to Stop Missing Calls?</h2>
-          <p className="text-xl mb-10">Join hundreds of businesses capturing every opportunity with AfterCallPro</p>
-          <Link to="/signup" className="bg-white text-[#00d4ff] px-10 py-4 rounded-lg font-semibold text-lg hover:-translate-y-0.5 transition-all duration-300 inline-block">
+          <h2 className="text-4xl md:text-[42px] font-bold mb-8 leading-tight">Ready to Stop Missing Calls?</h2>
+          <p className="text-xl mb-12 leading-relaxed">Join hundreds of businesses capturing every opportunity with AfterCallPro</p>
+          <Link to="/signup" className="bg-white text-[#00d4ff] px-12 py-5 rounded-lg font-semibold text-lg hover:-translate-y-0.5 transition-all duration-300 inline-block shadow-lg">
             Start Your Free 14-Day Trial
           </Link>
-          <p className="mt-5 text-sm">No credit card required • Setup in 10 minutes • Cancel anytime</p>
+          <p className="mt-8 text-sm leading-relaxed">No credit card required • Setup in 10 minutes • Cancel anytime</p>
         </div>
       </section>
 
