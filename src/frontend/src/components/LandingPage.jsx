@@ -22,12 +22,20 @@ export default function LandingPage() {
       <header className="bg-[#1a1a2e] text-white py-5 sticky top-0 z-50 shadow-lg">
         <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center">
           <div className="text-2xl font-bold text-[#00d4ff]">📞 AfterCallPro</div>
-          <Link 
-            to="/signup"
-            className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
-          >
-            Start Free Trial
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link 
+              to="/login"
+              className="text-white hover:text-[#00d4ff] transition-colors duration-300 font-medium"
+            >
+              Login
+            </Link>
+            <Link 
+              to="/signup"
+              className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
+            >
+              Start Free Trial
+            </Link>
+          </div>
         </div>
       </header>
 
