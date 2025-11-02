@@ -51,13 +51,13 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 pb-20 text-center">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight">
+          <h1 className="text-5xl md:text-[52px] font-bold mb-10 leading-tight text-center">
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
-          <p className="text-xl md:text-[22px] mb-10 text-[#e0e0e0] max-w-[700px] mx-auto">
+          <p className="text-xl md:text-[22px] mb-16 text-[#e0e0e0] max-w-[800px] mx-auto text-center leading-relaxed">
             Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
           </p>
-          <div className="flex gap-5 justify-center flex-wrap">
+          <div className="flex gap-5 justify-center flex-wrap mb-20">
             <Link 
               to="/signup"
               className="bg-[#00d4ff] text-[#1a1a2e] px-12 py-5 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)] text-lg"
@@ -73,9 +73,9 @@ export default function LandingPage() {
           </div>
           
           {/* Trust Bar */}
-          <div className="mt-12 pt-10 border-t border-white/10">
-            <p className="text-sm text-[#aaa] mb-2.5 text-center">Trusted by businesses who refuse to lose customers to voicemail</p>
-            <div className="flex gap-10 justify-center flex-wrap mt-5">
+          <div className="pt-16 border-t border-white/10">
+            <p className="text-sm text-[#aaa] mb-6 text-center">Trusted by businesses who refuse to lose customers to voicemail</p>
+            <div className="flex gap-10 justify-center flex-wrap mt-8">
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#00d4ff]">2,500+</div>
                 <div className="text-sm text-[#aaa]">Business Clients</div>
