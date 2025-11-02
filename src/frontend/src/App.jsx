@@ -10,6 +10,8 @@ import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
 import ResetPassword from './components/ResetPassword'
 import LandingPage from './components/LandingPage'
+import LandingPageV1 from './components/LandingPageV1'
+import LandingPageV2 from './components/LandingPageV2'
 import FAQPage from './components/FAQPage'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsConditions from './components/TermsConditions'
@@ -146,6 +148,8 @@ function App() {
         <Routes>
           {/* Public routes - no authentication required */}
           <Route path="/home" element={<LandingPage />} />
+          <Route path="/home-v1" element={<LandingPageV1 />} />
+          <Route path="/home-v2" element={<LandingPageV2 />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
