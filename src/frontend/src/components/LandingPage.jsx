@@ -190,15 +190,31 @@ export default function LandingPage() {
         <div className="max-w-[1200px] mx-auto px-5">
           <h2 className="text-4xl md:text-[38px] font-bold mb-5">Hear It In Action</h2>
           <p className="text-xl mb-10 text-[#e0e0e0]">Listen to how AfterCallPro handles real customer calls</p>
-          <div className="bg-white/10 backdrop-blur-sm p-15 rounded-xl max-w-[600px] mx-auto">
-            <div className="text-6xl mb-5">🎧</div>
-            <h3 className="text-2xl font-bold mb-4">Sample Call: Real Estate Showing</h3>
-            <p className="mb-5">Listen to how our AI books a property showing appointment</p>
-            <audio controls className="w-full mt-5" style={{ maxWidth: '500px', margin: '0 auto' }}>
-              <source src="/demo_call.wav" type="audio/wav" />
-              Your browser does not support the audio element.
-            </audio>
-            <p className="text-sm mt-4 text-[#e0e0e0]">Customer calls after hours to schedule a property viewing</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[1100px] mx-auto">
+            {/* Real Estate Demo */}
+            <div className="bg-white/10 backdrop-blur-sm p-10 rounded-xl">
+              <div className="text-5xl mb-4">🏠</div>
+              <h3 className="text-2xl font-bold mb-3">Real Estate Showing</h3>
+              <p className="mb-5 text-[#e0e0e0]">AI books a property showing appointment</p>
+              <audio controls className="w-full mt-4">
+                <source src="/demo_call.wav" type="audio/wav" />
+                Your browser does not support the audio element.
+              </audio>
+              <p className="text-sm mt-4 text-[#e0e0e0]">Customer calls after hours to schedule viewing</p>
+            </div>
+
+            {/* Plumbing Emergency Demo */}
+            <div className="bg-white/10 backdrop-blur-sm p-10 rounded-xl">
+              <div className="text-5xl mb-4">🚨</div>
+              <h3 className="text-2xl font-bold mb-3">Emergency Plumbing</h3>
+              <p className="mb-5 text-[#e0e0e0]">AI handles urgent pipe burst and routes to dispatcher</p>
+              <audio controls className="w-full mt-4">
+                <source src="/demo_call_plumbing.wav" type="audio/wav" />
+                Your browser does not support the audio element.
+              </audio>
+              <p className="text-sm mt-4 text-[#e0e0e0]">Emergency call routed within 60 seconds</p>
+            </div>
           </div>
         </div>
       </section>
