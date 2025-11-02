@@ -235,7 +235,7 @@ export default function LandingPage() {
       </section>
 
       {/* Demo Section */}
-      <section id="demo" className="py-20 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white text-center">
+      <section id="demo" className="pt-32 pb-20 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white text-center">
         <div className="max-w-[1200px] mx-auto px-5">
           <h2 className="text-4xl md:text-[38px] font-bold mb-5">Hear It In Action</h2>
           <p className="text-xl mb-10 text-[#e0e0e0]">Listen to how AfterCallPro handles real customer calls</p>
