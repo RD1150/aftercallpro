@@ -192,11 +192,13 @@ export default function LandingPage() {
           <p className="text-xl mb-10 text-[#e0e0e0]">Listen to how AfterCallPro handles real customer calls</p>
           <div className="bg-white/10 backdrop-blur-sm p-15 rounded-xl max-w-[600px] mx-auto">
             <div className="text-6xl mb-5">🎧</div>
-            <h3 className="text-2xl font-bold mb-4">Sample Call: Restaurant Reservation</h3>
-            <p className="mb-5">Experience how naturally our AI handles customer interactions</p>
-            <button className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 mt-5">
-              Play Demo Call
-            </button>
+            <h3 className="text-2xl font-bold mb-4">Sample Call: Real Estate Showing</h3>
+            <p className="mb-5">Listen to how our AI books a property showing appointment</p>
+            <audio controls className="w-full mt-5" style={{ maxWidth: '500px', margin: '0 auto' }}>
+              <source src="/demo_call.wav" type="audio/wav" />
+              Your browser does not support the audio element.
+            </audio>
+            <p className="text-sm mt-4 text-[#e0e0e0]">Customer calls after hours to schedule a property viewing</p>
           </div>
         </div>
       </section>
