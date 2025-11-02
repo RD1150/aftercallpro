@@ -117,7 +117,7 @@ export default function LandingPage() {
             Answers calls, books appointments, takes messages, and routes emergencies—all with human-like conversation
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-15">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-15">
             <div className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
                 🤖
@@ -159,6 +159,27 @@ export default function LandingPage() {
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">10-Minute Setup</h3>
               <p className="text-[#666] leading-relaxed">Answer a few questions, upload your FAQ, and you're live. No hardware needed.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+                🔗
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Seamless Integrations</h3>
+              <p className="text-[#666] leading-relaxed">Connects with your calendar, CRM, and existing phone system. Works with your current workflow.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+                🔒
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">HIPAA Compliant</h3>
+              <p className="text-[#666] leading-relaxed">Fully compliant with HIPAA standards. Secure handling of sensitive patient information.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+                📱
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Instant Notifications</h3>
+              <p className="text-[#666] leading-relaxed">Get SMS and email alerts immediately when calls come in. Never miss an important message.</p>
             </div>
           </div>
         </div>
