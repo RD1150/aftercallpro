@@ -210,6 +210,20 @@ export default function LandingPage() {
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Lead Qualification</h3>
               <p className="text-[#666] leading-relaxed">AI asks qualifying questions and scores leads automatically. Focus on your hottest prospects.</p>
             </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+                🔄
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Automated Follow-Ups</h3>
+              <p className="text-[#666] leading-relaxed">Missed a call? AI automatically calls or texts back to re-engage customers. Never lose a lead.</p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+                📡
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Smart Call Routing</h3>
+              <p className="text-[#666] leading-relaxed">Route calls to the right department or person automatically. Seamless transfers, zero hold time.</p>
+            </div>
           </div>
         </div>
       </section>

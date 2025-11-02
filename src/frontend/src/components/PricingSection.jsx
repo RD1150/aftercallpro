@@ -94,6 +94,20 @@ export default function PricingSection() {
   return (
     <section id="pricing" style={{ padding: '80px 0', background: '#f8f9fa' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+          <span style={{ 
+            display: 'inline-block',
+            background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
+            color: 'white',
+            padding: '10px 30px',
+            borderRadius: '30px',
+            fontWeight: 'bold',
+            fontSize: '14px',
+            marginBottom: '20px'
+          }}>
+            ✨ UNLIMITED CALLS INCLUDED - No Per-Minute Fees!
+          </span>
+        </div>
         <h2 style={{ textAlign: 'center', fontSize: '38px', fontWeight: 'bold', marginBottom: '20px', color: '#1a1a2e' }}>
           Simple, Transparent Pricing
         </h2>
