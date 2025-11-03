@@ -2,6 +2,17 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 import secrets
+import os
+
+# Import encryption utilities (will be created)
+try:
+    from src.utils.encryption import encrypt_field, decrypt_field
+except ImportError:
+    # Fallback if encryption module not available
+    def encrypt_field(value):
+        return value
+    def decrypt_field(value):
+        return value
 
 db = SQLAlchemy()
 
@@ -12,6 +23,22 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     reset_token = db.Column(db.String(100), nullable=True)
     reset_token_expiry = db.Column(db.DateTime, nullable=True)
+    
+    # Role-based access control
+    role = db.Column(db.String(20), nullable=False, default='user')  # 'admin', 'business_owner', 'staff', 'user'
+    
+    # Security enhancements
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    last_login = db.Column(db.DateTime, nullable=True)
+    failed_login_attempts = db.Column(db.Integer, default=0)
+    account_locked_until = db.Column(db.DateTime, nullable=True)
+    two_factor_enabled = db.Column(db.Boolean, default=False)
+    two_factor_secret = db.Column(db.String(32), nullable=True)
+    
+    # GDPR compliance
+    data_processing_consent = db.Column(db.Boolean, default=False)
+    marketing_consent = db.Column(db.Boolean, default=False)
+    consent_date = db.Column(db.DateTime, nullable=True)
 
     def set_password(self, password):
         """Hash and set the password"""
@@ -49,6 +76,44 @@ class User(db.Model):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'role': self.role,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'last_login': self.last_login.isoformat() if self.last_login else None,
+            'two_factor_enabled': self.two_factor_enabled
         }
+    
+    def has_role(self, role):
+        """Check if user has a specific role"""
+        return self.role == role
+    
+    def has_permission(self, permission):
+        """Check if user has a specific permission based on role"""
+        permissions = {
+            'admin': ['all'],
+            'business_owner': ['manage_business', 'view_calls', 'view_reports', 'manage_staff'],
+            'staff': ['view_calls', 'manage_appointments'],
+            'user': ['view_own_data']
+        }
+        user_permissions = permissions.get(self.role, [])
+        return 'all' in user_permissions or permission in user_permissions
+    
+    def is_account_locked(self):
+        """Check if account is currently locked"""
+        if not self.account_locked_until:
+            return False
+        return datetime.utcnow() < self.account_locked_until
+    
+    def record_failed_login(self):
+        """Record a failed login attempt and lock account if necessary"""
+        self.failed_login_attempts += 1
+        if self.failed_login_attempts >= 5:
+            # Lock account for 30 minutes after 5 failed attempts
+            self.account_locked_until = datetime.utcnow() + timedelta(minutes=30)
+    
+    def record_successful_login(self):
+        """Record a successful login and reset failed attempts"""
+        self.last_login = datetime.utcnow()
+        self.failed_login_attempts = 0
+        self.account_locked_until = None
 
