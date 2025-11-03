@@ -100,7 +100,7 @@ export default function LandingPage() {
       {/* Problem Section */}
       <section className="py-20 bg-[#f8f9fa]">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15">
+          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Every Missed Call Is Money Walking Out the Door
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-15">
@@ -131,7 +131,7 @@ export default function LandingPage() {
       {/* Solution Section */}
       <section className="py-20 bg-white">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-5">
+          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-5 text-[#1a1a2e]">
             Meet Your New AI Receptionist
           </h2>
           <p className="text-center text-xl text-[#666] mb-15">
@@ -271,7 +271,7 @@ export default function LandingPage() {
       {/* Use Cases */}
       <section className="py-20 bg-white">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15">
+          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Perfect For Your Industry
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -339,7 +339,7 @@ export default function LandingPage() {
       {/* FAQ Section */}
       <section className="py-20 bg-white">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15">
+          <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Frequently Asked Questions
           </h2>
           <div className="max-w-[800px] mx-auto space-y-5">
