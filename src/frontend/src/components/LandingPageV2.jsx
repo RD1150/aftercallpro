@@ -20,7 +20,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-[#1a1a2e] text-white py-5 sticky top-0 z-50 shadow-lg">
-        <div className="max-w-[1200px] mx-auto px-5 flex justify-between items-center">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="text-4xl">📞</div>
             <div>
@@ -49,15 +49,15 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 pb-20 text-center">
-        <div className="max-w-[1200px] mx-auto px-5">
-          <h1 className="text-5xl md:text-[52px] font-bold mb-10 leading-tight text-center">
+      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 pb-20">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8 flex flex-col items-center">
+          <h1 className="text-5xl md:text-[52px] font-bold mb-10 leading-tight text-center w-full">
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
-          <p className="text-lg md:text-[18px] mb-16 text-[#e0e0e0] max-w-[900px] mx-auto leading-relaxed text-center">
+          <p className="text-lg md:text-[18px] mb-16 text-[#e0e0e0] max-w-[900px] leading-relaxed text-center">
             Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
           </p>
-          <div className="flex gap-5 justify-center flex-wrap mb-20">
+          <div className="flex gap-5 justify-center flex-wrap mb-20 w-full">
             <Link 
               to="/signup"
               className="bg-[#00d4ff] text-[#1a1a2e] px-12 py-5 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)] text-lg"
@@ -99,7 +99,7 @@ export default function LandingPage() {
 
       {/* Problem Section */}
       <section className="py-20 bg-[#f8f9fa]">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Every Missed Call Is Money Walking Out the Door
           </h2>
@@ -130,7 +130,7 @@ export default function LandingPage() {
 
       {/* Solution Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-5 text-[#1a1a2e]">
             Meet Your New AI Receptionist
           </h2>
@@ -236,7 +236,7 @@ export default function LandingPage() {
 
       {/* Demo Section */}
       <section id="demo" className="pt-32 pb-20 bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white text-center">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <h2 className="text-4xl md:text-[38px] font-bold mb-5">Hear It In Action</h2>
           <p className="text-xl mb-10 text-[#e0e0e0]">Listen to how AfterCallPro handles real customer calls</p>
           
@@ -270,7 +270,7 @@ export default function LandingPage() {
 
       {/* Use Cases */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Perfect For Your Industry
           </h2>
@@ -338,7 +338,7 @@ export default function LandingPage() {
 
       {/* FAQ Section */}
       <section className="py-20 bg-white">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Frequently Asked Questions
           </h2>
@@ -381,7 +381,7 @@ export default function LandingPage() {
 
       {/* Final CTA */}
       <section className="py-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] text-white text-center">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <h2 className="text-4xl md:text-[42px] font-bold mb-8 leading-tight">Ready to Stop Missing Calls?</h2>
           <p className="text-xl mb-12 leading-relaxed">Join hundreds of businesses capturing every opportunity with AfterCallPro</p>
           <Link to="/signup" className="bg-white text-[#00d4ff] px-12 py-5 rounded-lg font-semibold text-lg hover:-translate-y-0.5 transition-all duration-300 inline-block shadow-lg">
@@ -393,7 +393,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="bg-[#1a1a2e] text-white py-10 pb-5 text-center">
-        <div className="max-w-[1200px] mx-auto px-5">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8">
           <div className="flex gap-8 justify-center mb-8 flex-wrap">
             <a href="#" className="text-[#aaa] hover:text-[#00d4ff] transition-colors duration-300">Privacy Policy</a>
             <a href="#" className="text-[#aaa] hover:text-[#00d4ff] transition-colors duration-300">Terms & Conditions</a>
