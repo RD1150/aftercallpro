@@ -15,6 +15,7 @@ import LandingPageV2 from './components/LandingPageV2'
 import FAQPage from './components/FAQPage'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import TermsConditions from './components/TermsConditions'
+import SMSConsentPage from './components/SMSConsentPage'
 import Appointments from './pages/Appointments'
 import { Button } from '@/components/ui/button'
 import './App.css'
@@ -153,6 +154,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsConditions />} />
+          <Route path="/sms-consent" element={<SMSConsentPage />} />
           
           {/* Auth routes */}
           <Route path="/login" element={
