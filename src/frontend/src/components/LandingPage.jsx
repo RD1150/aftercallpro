@@ -40,44 +40,57 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 pb-20 text-center">
-        <div className="max-w-[1200px] mx-auto px-5">
-          <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight">
-            Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
-          </h1>
-          <p className="text-xl md:text-[22px] mb-10 text-[#e0e0e0] max-w-[700px] mx-auto">
-            Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
-          </p>
-          <div className="flex gap-5 justify-center flex-wrap">
+      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-20 md:py-28 text-center relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 text-6xl">📞</div>
+          <div className="absolute top-40 right-20 text-5xl">✨</div>
+          <div className="absolute bottom-20 left-1/4 text-4xl">💼</div>
+          <div className="absolute bottom-32 right-1/3 text-5xl">🎯</div>
+        </div>
+        
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8 relative z-10">
+          {/* Main Heading */}
+          <div className="mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-[900px] mx-auto">
+              Never Miss Another <span className="text-[#00d4ff] inline-block">Customer Call</span>
+            </h1>
+            <p className="text-lg md:text-xl lg:text-2xl text-[#e0e0e0] max-w-[750px] mx-auto leading-relaxed font-light">
+              Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
+            </p>
+          </div>
+          
+          {/* CTA Buttons */}
+          <div className="flex gap-4 justify-center flex-wrap mt-10 mb-16">
             <Link 
               to="/signup"
-              className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
+              className="bg-[#00d4ff] text-[#1a1a2e] px-10 py-4 rounded-xl font-bold text-lg hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,212,255,0.5)] inline-flex items-center gap-2"
             >
-              Start Free 14-Day Trial
+              🚀 Start Free 14-Day Trial
             </Link>
             <button 
               onClick={() => scrollToSection('demo')}
-              className="bg-transparent border-2 border-[#00d4ff] text-[#00d4ff] px-8 py-3 rounded-lg font-semibold hover:bg-[#00d4ff] hover:text-[#1a1a2e] transition-all duration-300"
+              className="bg-transparent border-2 border-[#00d4ff] text-[#00d4ff] px-10 py-4 rounded-xl font-bold text-lg hover:bg-[#00d4ff] hover:text-[#1a1a2e] transition-all duration-300 inline-flex items-center gap-2"
             >
-              Listen to a Demo
+              🎧 Listen to a Demo
             </button>
           </div>
           
           {/* Trust Bar */}
-          <div className="mt-12 pt-10 border-t border-white/10">
-            <p className="text-sm text-[#aaa] mb-2.5">Trusted by businesses who refuse to lose customers to voicemail</p>
-            <div className="flex gap-10 justify-center flex-wrap mt-5">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#00d4ff]">98%</div>
-                <div className="text-sm text-[#aaa]">Customer Satisfaction</div>
+          <div className="mt-16 pt-12 border-t border-white/10 max-w-[900px] mx-auto">
+            <p className="text-sm text-[#aaa] mb-8 font-medium">Trusted by businesses who refuse to lose customers to voicemail</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="text-5xl font-bold text-[#00d4ff] mb-2">98%</div>
+                <div className="text-sm text-[#ccc] font-medium">Customer Satisfaction</div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#00d4ff]">10min</div>
-                <div className="text-sm text-[#aaa]">Average Setup Time</div>
+              <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="text-5xl font-bold text-[#00d4ff] mb-2">10min</div>
+                <div className="text-sm text-[#ccc] font-medium">Average Setup Time</div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-[#00d4ff]">24/7</div>
-                <div className="text-sm text-[#aaa]">Always Available</div>
+              <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+                <div className="text-5xl font-bold text-[#00d4ff] mb-2">24/7</div>
+                <div className="text-sm text-[#ccc] font-medium">Always Available</div>
               </div>
             </div>
           </div>
