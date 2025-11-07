@@ -55,7 +55,7 @@ export default function LandingPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-[900px] mx-auto">
               Never Miss Another <span className="text-[#00d4ff] inline-block">Customer Call</span>
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-[#e0e0e0] max-w-[750px] mx-auto leading-relaxed font-light">
+            <p className="text-lg md:text-xl lg:text-2xl text-[#e0e0e0] max-w-[750px] mx-auto leading-relaxed font-light text-center">
               Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
             </p>
           </div>
