@@ -49,7 +49,7 @@ export default function LandingPage() {
           <div className="absolute bottom-32 right-1/3 text-5xl">🎯</div>
         </div>
         
-        <div className="max-w-[1200px] mx-auto px-5 md:px-8 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8 relative z-10 flex flex-col items-center">
           {/* Main Heading */}
           <div className="mb-6 text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-[900px] mx-auto text-center">
