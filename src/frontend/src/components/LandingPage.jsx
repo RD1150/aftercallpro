@@ -40,7 +40,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-20 md:py-28 text-center relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-20 md:py-28 pb-32 md:pb-40 text-center relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 text-6xl">📞</div>
