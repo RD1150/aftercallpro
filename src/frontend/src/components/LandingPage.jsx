@@ -55,7 +55,7 @@ export default function LandingPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-[900px] mx-auto text-center">
               Never Miss Another <span className="text-[#00d4ff] inline-block">Customer Call</span>
             </h1>
-            <p style={{textAlign: 'center', margin: '0 auto', maxWidth: '750px'}} className="text-xl text-gray-300 leading-relaxed">
+            <p style={{textAlign: 'center', margin: '0 auto', maxWidth: '750px', paddingLeft: '30%', paddingRight: '0%'}} className="text-xl text-gray-300 leading-relaxed">
               Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
             </p>
           </div>
