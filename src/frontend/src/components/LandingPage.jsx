@@ -40,7 +40,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-20 md:py-28 pb-32 md:pb-40 text-center relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-20 md:py-28 pb-48 md:pb-56 text-center relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 text-6xl">📞</div>
@@ -55,7 +55,7 @@ export default function LandingPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight max-w-[900px] mx-auto text-center">
               Never Miss Another <span className="text-[#00d4ff] inline-block">Customer Call</span>
             </h1>
-            <p style={{textAlign: 'center', margin: '0 auto', maxWidth: '750px', paddingLeft: '30%', paddingRight: '0%'}} className="text-xl text-gray-300 leading-relaxed">
+            <p className="text-xl text-gray-300 leading-relaxed" style={{display: 'block', width: '100%', textAlign: 'center'}}>
               Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
             </p>
           </div>
@@ -98,7 +98,7 @@ export default function LandingPage() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-20 bg-[#f8f9fa]">
+      <section className="py-20 mt-12 bg-[#f8f9fa]">
         <div className="max-w-[1200px] mx-auto px-5">
           <h2 className="text-center text-4xl md:text-[38px] font-bold mb-15 text-[#1a1a2e]">
             Every Missed Call Is Money Walking Out the Door
