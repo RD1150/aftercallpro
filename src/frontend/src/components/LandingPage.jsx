@@ -361,7 +361,7 @@ export default function LandingPage() {
           <Link to="/signup" className="bg-white text-[#00d4ff] px-10 py-4 rounded-lg font-semibold text-lg hover:-translate-y-0.5 transition-all duration-300 inline-block">
             Start Your Free 14-Day Trial
           </Link>
-          <p className="mt-5 text-sm">No credit card required • Setup in 10 minutes • Cancel anytime</p>
+          <p className="mt-5 text-sm text-center">No credit card required • Setup in 10 minutes • Cancel anytime</p>
         </div>
       </section>
 
