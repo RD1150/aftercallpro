@@ -45,9 +45,11 @@ export default function LandingPage() {
           <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight">
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
-                    <p className="text-xl md:text-[22px] mb-10 text-[#e0e0e0] max-w-[700px] mx-auto text-center">
-            Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
-          </p>
+                            <div className="flex justify-center w-full mb-10">
+            <p className="text-xl md:text-[22px] text-[#e0e0e0] max-w-[700px] text-center">
+              Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
+            </p>
+          </div>
 
           <div className="flex gap-5 justify-center flex-wrap">
             <Link 
