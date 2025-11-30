@@ -1,246 +1,205 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
-import { Phone, BarChart3, Settings, Clock, PhoneCall, LogOut, Calendar } from 'lucide-react'
-import Dashboard from './components/Dashboard'
-import CallHistory from './components/CallHistory'
-import BusinessSettings from './components/BusinessSettings'
-import Subscription from './components/Subscription'
-import Signup from './components/Signup'
-import Login from './components/Login'
-import ForgotPassword from './components/ForgotPassword'
-import ResetPassword from './components/ResetPassword'
-import LandingPage from './components/LandingPage'
-// Removed V1/V2 to avoid confusion:
-// import LandingPageV1 from './components/LandingPageV1'
-// import LandingPageV2 from './components/LandingPageV2'
-import FAQPage from './components/FAQPage'
-import PrivacyPolicy from './components/PrivacyPolicy'
-import TermsConditions from './components/TermsConditions'
-import SMSConsentPage from './components/SMSConsentPage'
-import Appointments from './pages/Appointments'
-import { Button } from '@/components/ui/button'
-import './App.css'
-import './theme.css'
+// src/App.jsx
+import React from "react";
+import "./App.css"; // Keep this if you have tailwind or custom styles
 
-function Navigation({ user, onLogout }) {
-  const location = useLocation()
-  
-  const navItems = [
-    { path: '/dashboard', icon: BarChart3, label: 'Dashboard' },
-    { path: '/calls', icon: PhoneCall, label: 'Call History' },
-    { path: '/appointments', icon: Calendar, label: 'Appointments' },
-    { path: '/settings', icon: Settings, label: 'Settings' }
-  ]
-  
+function Navbar() {
   return (
-    <nav className="fixed left-0 top-0 h-full w-64 sidebar">
-      <div className="p-6 border-b" style={{ borderColor: 'rgba(0, 217, 255, 0.1)' }}>
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg" style={{ 
-            background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
-            boxShadow: 'var(--shadow-glow)'
-          }}>
-            <Phone className="w-6 h-6" style={{ color: 'white' }} />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold sidebar-logo" style={{ color: 'var(--gold)', textShadow: '0 2px 8px rgba(255, 184, 77, 0.3)' }}>AfterCallPro</h1>
-            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>24/7 AI Call Assistant</p>
-          </div>
-        </div>
-      </div>
-      
-      <div className="p-4">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = location.pathname === item.path
-          
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className="sidebar-nav-item"
-              style={{
-                backgroundColor: isActive ? 'rgba(0, 217, 255, 0.2)' : 'transparent',
-                borderLeft: isActive ? '3px solid var(--teal-primary)' : 'none',
-                color: isActive ? 'var(--teal-primary)' : 'var(--text-secondary)'
-              }}
-            >
-              <Icon className="w-5 h-5 mr-3" />
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          )
-        })}
-      </div>
-      
-      {user && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t" style={{ borderColor: 'rgba(0, 217, 255, 0.1)' }}>
-          <div className="mb-3 px-4">
-            <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{user.email}</p>
-            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>{user.business_name}</p>
-          </div>
-          <Button 
-            onClick={onLogout}
-            className="w-full flex items-center justify-center gap-2"
-            style={{ 
-              backgroundColor: 'rgba(0, 217, 255, 0.1)',
-              color: 'var(--teal-primary)',
-              border: '1px solid var(--teal-primary)'
-            }}
+    <header className="w-full bg-white/70 backdrop-blur sticky top-0 z-40 border-b border-gray-200">
+      <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" className="flex items-center gap-2">
+          <span className="inline-block h-8 w-8 rounded-xl bg-gray-900" />
+          <span className="font-semibold tracking-tight">MindRocket</span>
+        </a>
+        <div className="hidden sm:flex items-center gap-6">
+          <a href="#features" className="text-gray-700 hover:text-gray-900">Features</a>
+          <a href="#pricing" className="text-gray-700 hover:text-gray-900">Pricing</a>
+          <a href="#contact" className="text-gray-700 hover:text-gray-900">Contact</a>
+          <a
+            href="#get-started"
+            className="px-4 py-2 rounded-lg bg-gray-900 text-white hover:bg-black transition"
           >
-            <LogOut className="w-4 h-4" />
-            Sign Out
-          </Button>
+            Get Started
+          </a>
         </div>
-      )}
-    </nav>
-  )
+      </nav>
+    </header>
+  );
 }
 
-function App() {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    checkAuth()
-  }, [])
-
-  const checkAuth = async () => {
-    try {
-      const response = await fetch('/api/auth/me', {
-        credentials: 'include'
-      })
-      
-      if (response.ok) {
-        const data = await response.json()
-        setUser(data)
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleLogout = async () => {
-    try {
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-      })
-      setUser(null)
-    } catch (error) {
-      console.error('Logout failed:', error)
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: 'var(--teal-primary)' }}></div>
-          <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
-        </div>
-      </div>
-    )
-  }
-
+function Hero() {
   return (
-    <Router>
-      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
-        <Routes>
-          {/* Public routes - unified to a single LandingPage */}
-          <Route path="/home" element={<LandingPage />} />
-          <Route path="/home-v1" element={<LandingPage />} />
-          <Route path="/home-v2" element={<LandingPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsConditions />} />
-          <Route path="/sms-consent" element={<SMSConsentPage />} />
-          
-          {/* Auth routes */}
-          <Route path="/login" element={
-            user ? <Navigate to="/dashboard" /> : <Login onLogin={setUser} />
-          } />
-          <Route path="/signup" element={
-            user ? <Navigate to="/dashboard" /> : <Signup onSignup={setUser} />
-          } />
-          <Route path="/forgot-password" element={
-            user ? <Navigate to="/dashboard" /> : <ForgotPassword />
-          } />
-          <Route path="/reset-password" element={
-            user ? <Navigate to="/dashboard" /> : <ResetPassword />
-          } />
-          
-          {/* Protected routes - authentication required */}
-          <Route path="/dashboard" element={
-            user ? (
-              <>
-                <Navigation user={user} onLogout={handleLogout} />
-                <div className="ml-64 p-8">
-                  <Dashboard />
-                </div>
-              </>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } />
-          <Route path="/calls" element={
-            user ? (
-              <>
-                <Navigation user={user} onLogout={handleLogout} />
-                <div className="ml-64 p-8">
-                  <CallHistory />
-                </div>
-              </>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } />
-          <Route path="/settings" element={
-            user ? (
-              <>
-                <Navigation user={user} onLogout={handleLogout} />
-                <div className="ml-64 p-8">
-                  <BusinessSettings />
-                </div>
-              </>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } />
-          <Route path="/appointments" element={
-            user ? (
-              <>
-                <Navigation user={user} onLogout={handleLogout} />
-                <div className="ml-64 p-8">
-                  <Appointments />
-                </div>
-              </>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } />
-          <Route path="/subscription" element={
-            user ? (
-              <>
-                <Navigation user={user} onLogout={handleLogout} />
-                <div className="ml-64 p-8">
-                  <Subscription />
-                </div>
-              </>
-            ) : (
-              <Navigate to="/login" />
-            )
-          } />
-          
-          {/* Default route */}
-          <Route path="/" element={
-            user ? <Navigate to="/dashboard" /> : <Navigate to="/home" />
-          } />
-        </Routes>
+    <section className="relative w-full bg-gray-900 text-white">
+      <div className="absolute inset-0">
+        <img
+          src="/hero-bg.jpg"
+          alt="background"
+          className="w-full h-full object-cover opacity-30"
+        />
       </div>
-    </Router>
-  )
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+      <div className="relative max-w-6xl mx-auto px-6 py-24 text-center flex flex-col items-center justify-center">
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl mx-auto">
+          AfterCallPro by MindRocket
+        </h1>
+
+        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#get-started"
+            className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-semibold shadow-lg transition"
+          >
+            Start Free
+          </a>
+          <a
+            href="#features"
+            className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-lg text-lg font-semibold border border-white/20 backdrop-blur-sm transition"
+          >
+            See Features
+          </a>
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default App
+function Features() {
+  return (
+    <section id="features" className="py-14 bg-white text-gray-900">
+      <div className="max-w-5xl mx-auto px-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-semibold">What MindRocket Does</h2>
+        <p className="mt-6 text-lg md:text-xl text-gray-700">
+          AI call answering, lead capture, appointment booking, and intelligent follow-up —
+          fully automated and available 24/7.
+        </p>
+        <ul className="mt-8 space-y-4 text-lg md:text-xl text-gray-800">
+          <li>• Capture missed calls instantly</li>
+          <li>• Book appointments automatically</li>
+          <li>• Send caller summaries into your CRM</li>
+          <li>• Perfect for Realtors and local businesses</li>
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function CTA() {
+  return (
+    <section id="get-started" className="py-16 bg-gray-50">
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        <h3 className="text-2xl md:text-3xl font-semibold">
+          Ready to never miss another lead?
+        </h3>
+        <p className="mt-4 text-gray-600">
+          Plug in your number, choose your script, connect your calendar — AfterCallPro handles the rest.
+        </p>
+
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="#"
+            className="px-7 py-3 rounded-lg bg-gray-900 text-white hover:bg-black transition"
+          >
+            Create My Account
+          </a>
+          <a
+            href="#contact"
+            className="px-7 py-3 rounded-lg border border-gray-300 hover:border-gray-400"
+          >
+            Book a Demo
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  return (
+    <section id="pricing" className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <h3 className="text-3xl md:text-4xl font-semibold text-center">Pricing</h3>
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { name: "Free", price: "$0", items: ["3 tools", "20 credits/mo", "Email support"] },
+            { name: "Starter", price: "$29", items: ["10 tools", "200 credits/mo", "Basic automations"] },
+            { name: "Pro", price: "$59", items: ["All tools", "High credits", "AI agents + workflows"] },
+            { name: "Elite", price: "$147", items: ["Unlimited", "Priority support", "White-label ready"] },
+          ].map((plan) => (
+            <div
+              key={plan.name}
+              className="border rounded-2xl p-6 text-center hover:shadow-md transition"
+            >
+              <h4 className="text-xl font-semibold">{plan.name}</h4>
+              <div className="mt-3 text-3xl font-bold">
+                {plan.price}
+                <span className="text-base font-medium">/mo</span>
+              </div>
+              <ul className="mt-6 space-y-2 text-gray-700">
+                {plan.items.map((item) => (
+                  <li key={item}>• {item}</li>
+                ))}
+              </ul>
+              <a
+                href="#"
+                className="mt-6 inline-block px-5 py-3 rounded-lg bg-gray-900 text-white hover:bg-black transition"
+              >
+                Choose {plan.name}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer id="contact" className="bg-gray-900 text-gray-300">
+      <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
+        <div>
+          <h5 className="font-semibold text-white">MindRocket</h5>
+          <p className="mt-3 text-sm">
+            AI call answering, lead capture, and booking — 24/7.
+          </p>
+        </div>
+        <div>
+          <h6 className="font-semibold text-white">Company</h6>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li><a href="#features" className="hover:text-white">Features</a></li>
+            <li><a href="#pricing" className="hover:text-white">Pricing</a></li>
+            <li><a href="#get-started" className="hover:text-white">Get Started</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 className="font-semibold text-white">Contact</h6>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li>📞 805-340-2583</li>
+            <li>✉️ sold@reenadutta.com</li>
+            <li>🌐 reenadutta.com</li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 py-6 text-xs text-center text-gray-400">
+          © {new Date().getFullYear()} MindRocket. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Hero />
+        <Features />
+        <CTA />
+        <Pricing />
+      </main>
+      <Footer />
+    </div>
+  );
+}
