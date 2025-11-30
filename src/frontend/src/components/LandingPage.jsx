@@ -14,59 +14,51 @@ export default function LandingPage() {
   return (
     <div className="bg-[#0b0f19] text-white leading-relaxed">
 
-      {/* ================= HEADER ================= */}
-      <header className="fixed top-0 left-0 z-50 w-full border-b border-white/10 bg-[#0b0f19]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <h1 className="text-2xl font-bold">
-            AfterCall<span className="text-[#00d4ff]">Pro</span>
-          </h1>
+{/* HERO SECTION */}
+<div className="bg-[#0A1628] text-white pt-24 pb-20">
+  <div className="max-w-[1200px] mx-auto px-5">
 
-          <nav className="hidden gap-8 text-sm font-medium md:flex">
-            <button onClick={() => scrollTo("features")} className="transition-colors hover:text-[#00d4ff]">
-              Features
-            </button>
-            <button onClick={() => scrollTo("pricing")} className="transition-colors hover:text-[#00d4ff]">
-              Pricing
-            </button>
-            <button onClick={() => scrollTo("faq")} className="transition-colors hover:text-[#00d4ff]">
-              FAQ
-            </button>
-          </nav>
+    <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight text-center">
+      Never Miss Another <span className="text-primary">Customer Call</span>
+    </h1>
 
-          <div className="flex gap-3">
-            <Link
-              to="/login"
-              className="rounded-lg border border-white/20 px-4 py-2 transition hover:bg-white/10"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="rounded-lg bg-[#00d4ff] px-4 py-2 font-semibold text-[#0b0f19] shadow-md transition hover:shadow-lg"
-            >
-              Start Free Trial
-            </Link>
-          </div>
+    {/* FIXED SUBTITLE – LEFT-ALIGNED */}
+    <p className="text-xl md:text-[22px] mb-10 max-w-[900px] text-left">
+      Your AI receptionist answers every call, books appointments, and captures
+      leads 24/7—while you focus on running your business
+    </p>
+
+    {/* BUTTONS */}
+    <div className="flex gap-3 justify-center flex-wrap">
+      <button className="bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-primary/80 transition">
+        Start Free 14-Day Trial
+      </button>
+
+      <button className="border border-white/80 px-6 py-3 rounded-full text-white font-semibold hover:bg-white/10 transition">
+        Listen to a Demo
+      </button>
+    </div>
+
+    {/* STATS */}
+    <div className="mt-12 pt-10 border-t border-white/10">
+      <div className="flex justify-center gap-16 text-center">
+        <div>
+          <p className="text-3xl font-bold text-primary">98%</p>
+          <p className="text-sm opacity-80">Customer Satisfaction</p>
         </div>
-      </header>
+        <div>
+          <p className="text-3xl font-bold text-primary">10min</p>
+          <p className="text-sm opacity-80">Average Setup Time</p>
+        </div>
+        <div>
+          <p className="text-3xl font-bold text-primary">24/7</p>
+          <p className="text-sm opacity-80">Always Available</p>
+        </div>
+      </div>
+    </div>
 
-      {/* ================= HERO (flex-based, subtitle anchored right) ================= */}
-      <section id="hero" className="w-full pt-44 pb-16 text-center md:pt-48 md:pb-24">
-        {/* Remove horizontal padding bias here */}
-        <div className="mx-auto max-w-5xl px-0">
-          <h1 className="px-6 text-4xl font-bold leading-tight md:text-6xl">
-            Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
-          </h1>
-
-          {/* Right-anchored subtitle */}
-          <div className="mt-6 flex px-6 md:px-6">
-            <p
-              className="ml-auto w-full max-w-3xl rounded-lg bg-black/40 px-4 py-3 text-left text-lg text-gray-100 backdrop-blur md:text-xl"
-            >
-              Your AI receptionist answers every call, books appointments, handles questions,
-              and captures leads 24/7 — so you can focus on running your business.
-            </p>
-          </div>
+  </div>
+</div>
 
           {/* CTAs */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4 px-6">
