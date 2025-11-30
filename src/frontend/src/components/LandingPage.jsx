@@ -55,7 +55,7 @@ export default function LandingPage() {
       <section
         id="hero"
         className="relative overflow-hidden bg-gradient-to-br from-[#1a1a2e] to-[#0b1220]
-                   min-h-[100svh] w-full pt-44 pb-80 flex items-center justify-center"
+                   min-h-[100svh] w-full pt-48 pb-96 flex items-center justify-center"
       >
         {/* Soft bottom glow */}
         <div
@@ -168,7 +168,7 @@ export default function LandingPage() {
       {/* ===== Buffer to guarantee separation from next section ===== */}
       <div className="h-12 md:h-16 bg-gradient-to-b from-transparent to-[#0b0f19]" />
 
-      {/* ================= FEATURES (with background headline moved BEHIND) ================= */}
+      {/* ================= FEATURES (background headline moved BEHIND) ================= */}
       <section id="features" className="relative z-0 bg-[#0b0f19] pt-24 md:pt-28 overflow-hidden">
         {/* Background mega-headline behind content */}
         <h2
