@@ -46,11 +46,9 @@ export default function LandingPage() {
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
           
-          <div style={{display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '40px'}}>
-            <p style={{fontSize: '20px', color: '#e0e0e0', maxWidth: '700px', textAlign: 'center', margin: '0 auto', lineHeight: '1.6'}}>
-              Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
-            </p>
-          </div>
+          <p style={{fontSize: '22px', color: '#e0e0e0', maxWidth: '750px', textAlign: 'center', margin: '0 auto 40px auto', lineHeight: '1.6', padding: '0 20px'}}>
+            Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
+          </p>
           
           <div className="flex gap-5 justify-center flex-wrap">
             <Link 
@@ -71,15 +69,15 @@ export default function LandingPage() {
           <div className="mt-12 pt-10 border-t border-white/10">
             <p className="text-sm text-[#aaa] mb-2.5">Trusted by businesses who refuse to lose customers to voicemail</p>
             <div className="flex gap-10 justify-center flex-wrap mt-5">
-              <div className="text-center">
+              <div style={{textAlign: 'center'}}>
                 <div className="text-4xl font-bold text-[#00d4ff]">98%</div>
                 <div className="text-sm text-[#aaa]">Customer Satisfaction</div>
               </div>
-              <div className="text-center">
+              <div style={{textAlign: 'center'}}>
                 <div className="text-4xl font-bold text-[#00d4ff]">10min</div>
                 <div className="text-sm text-[#aaa]">Average Setup Time</div>
               </div>
-              <div className="text-center">
+              <div style={{textAlign: 'center'}}>
                 <div className="text-4xl font-bold text-[#00d4ff]">24/7</div>
                 <div className="text-sm text-[#aaa]">Always Available</div>
               </div>
@@ -130,64 +128,64 @@ export default function LandingPage() {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-15">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 🤖
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Sounds Human</h3>
               <p className="text-[#666] leading-relaxed">Natural conversations powered by GPT-4. Your customers won't know they're talking to AI.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 📅
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Books Appointments</h3>
               <p className="text-[#666] leading-relaxed">Integrates with your calendar. Schedules, reschedules, and sends confirmations automatically.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 💬
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Takes Messages</h3>
               <p className="text-[#666] leading-relaxed">Captures detailed information and instantly texts or emails you the details.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 🚨
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Routes Emergencies</h3>
               <p className="text-[#666] leading-relaxed">Identifies urgent calls and immediately transfers to your emergency line.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 📊
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Analytics Dashboard</h3>
               <p className="text-[#666] leading-relaxed">See exactly which calls converted, common questions, and missed opportunities.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 ⚡
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">10-Minute Setup</h3>
               <p className="text-[#666] leading-relaxed">Answer a few questions, upload your FAQ, and you're live. No hardware needed.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 🔗
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Seamless Integrations</h3>
               <p className="text-[#666] leading-relaxed">Connects with your calendar, CRM, and existing phone system. Works with your current workflow.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 🔒
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">HIPAA Compliant</h3>
               <p className="text-[#666] leading-relaxed">Fully compliant with HIPAA standards. Secure handling of sensitive patient information.</p>
             </div>
-            <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-[#00d4ff] to-[#0099cc] rounded-full flex items-center justify-center mx-auto mb-5 text-4xl">
+            <div style={{textAlign: 'center'}}>
+              <div style={{width: '80px', height: '80px', background: 'linear-gradient(to bottom right, #00d4ff, #0099cc)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px auto', fontSize: '36px'}}>
                 📱
               </div>
               <h3 className="text-xl font-bold mb-3 text-[#1a1a2e]">Instant Notifications</h3>
@@ -373,3 +371,7 @@ export default function LandingPage() {
   );
 }
 
+
+     
+            
+        
