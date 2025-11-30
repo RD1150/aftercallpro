@@ -1,4 +1,4 @@
-  import { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import PricingSection from "./PricingSection";
 
@@ -39,16 +39,4 @@ export default function LandingPage() {
               to="/login"
               className="px-5 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition"
             >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="bg-[#00d4ff] text-[#0b0f19] px-5 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition"
-            >
-              Start Free Trial
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      {/* ================= HERO SECTION (Smooth + Glow + Parti*
+              Lo
