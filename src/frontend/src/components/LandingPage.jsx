@@ -11,7 +11,7 @@
     </h1>
 
     {/* SUBTITLE — RIGHT ALIGNED WITH DARK BACKGROUND */}
-    <div className="flex justify-end mt-6">
+    <div className="flex justify-center mt-6">
       <p className="max-w-[700px] bg-black/50 backdrop-blur px-4 py-3 rounded-md text-left text-lg md:text-xl text-gray-100 shadow-lg">
         Your AI receptionist answers every call, books appointments, and captures
         leads 24/7—while you focus on running your business.
