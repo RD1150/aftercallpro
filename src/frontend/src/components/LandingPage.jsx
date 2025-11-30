@@ -55,51 +55,13 @@ export default function LandingPage() {
       <section
         id="hero"
         className="relative overflow-hidden bg-gradient-to-br from-[#1a1a2e] to-[#0b1220]
-                   min-h-[100svh] w-full pt-44 pb-80 flex items-center justify-center"
+                   min-h-[100svh] w-full pt-48 pb-96 flex items-center justify-center"
       >
         {/* Soft bottom glow */}
         <div
           aria-hidden
           className="pointer-events-none absolute bottom-[-120px] left-1/2 -translate-x-1/2 w-[1100px] h-[360px] rounded-[999px] bg-[#00d4ff]/35 blur-[110px] opacity-70"
         />
-
-        {/* Background emojis */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-20 left-10 text-6xl">📞</div>
-          <div className="absolute top-40 right-20 text-5xl">✨</div>
-          <div className="absolute bottom-24 left-1/4 text-4xl">💼</div>
-          <div className="absolute bottom-32 right-1/3 text-5xl">🎯</div>
-        </div>
-
-        {/* Floating Particles */}
-        <div className="absolute inset-0 z-[1] pointer-events-none">
-          {[
-            { l: "12%", t: "18%", d: 10, s: 0 },
-            { l: "28%", t: "30%", d: 12, s: 1.1 },
-            { l: "46%", t: "22%", d: 11, s: 0.4 },
-            { l: "64%", t: "28%", d: 13, s: 0.7 },
-            { l: "78%", t: "18%", d: 10, s: 1.5 },
-            { l: "20%", t: "64%", d: 12, s: 0.9 },
-            { l: "38%", t: "70%", d: 11, s: 1.3 },
-            { l: "54%", t: "66%", d: 13, s: 0.2 },
-            { l: "72%", t: "60%", d: 12, s: 1.8 },
-            { l: "86%", t: "50%", d: 10, s: 0.6 },
-          ].map((p, i) => (
-            <span
-              key={i}
-              className="absolute block rounded-full bg-[#00d4ff]"
-              style={{
-                left: p.l,
-                top: p.t,
-                width: "4px",
-                height: "4px",
-                opacity: 0.25,
-                filter: "drop-shadow(0 0 6px rgba(0,212,255,0.55))",
-                animation: `afcp-float ${p.d}s ease-in-out ${p.s}s infinite alternate`,
-              }}
-            />
-          ))}
-        </div>
 
         {/* HERO CONTENT */}
         <div className="relative z-10 max-w-[1200px] px-6 text-center flex flex-col items-center justify-center">
@@ -156,7 +118,7 @@ export default function LandingPage() {
         <div className="absolute bottom-0 left-0 w-full h-32 pointer-events-none bg-gradient-to-b from-transparent to-[#0b0f19]" />
       </section>
 
-      {/* Local Keyframes */}
+      {/* Local Keyframes (particles removed for simplicity) */}
       <style>{`
         @keyframes afcp-float {
           0%   { transform: translateY(0px); opacity: 0.18; }
@@ -165,86 +127,37 @@ export default function LandingPage() {
         }
       `}</style>
 
-      <div className="h-12 md:h-16 bg-gradient-to-b from-transparent to-[#0b0f19]" />
+      {/* Buffer below hero to prevent overlap */}
+      <div className="h-12 md:h-16 bg-[#0b0f19]" />
 
-      {/* ================= FEATURES (Aligned Icons + Text) ================= */}
-      <section id="features" className="relative z-0 bg-[#0b0f19] pt-24 md:pt-28 overflow-hidden">
-
-        {/* BACKGROUND HEADLINE */}
-        <h2
-          aria-hidden
-          className="
-            pointer-events-none select-none
-            absolute inset-x-0 -top-6 md:-top-10
-            text-[8vw] md:text-[6vw] font-extrabold tracking-tight
-            text-white/5 leading-none
-            -z-10
-          "
-        >
-          Every Missed Call Is Money Walking Out the Door
-        </h2>
-
-        <div className="max-w-[1200px] mx-auto px-6 relative z-10">
-          <h2 className="text-3xl font-bold mb-6 text-center md:text-left">Features</h2>
-          <p className="text-gray-400 max-w-[900px] mx-auto md:mx-0 mb-10 text-center md:text-left">
-            Answers calls, books appointments, takes messages, and routes emergencies — all with human-like conversation.
+      {/* ================= FEATURES (icons centered, text aligned) ================= */}
+      <section id="features" className="bg-[#0b0f19] py-24">
+        <div className="max-w-[1200px] mx-auto px-6">
+          {/* Centered intro sentence with fixed width so it aligns */}
+          <p className="text-gray-300 text-center max-w-[900px] mx-auto mb-12">
+            Answers calls, books appointments, takes messages, and routes emergencies—all with human-like conversation.
           </p>
 
-          {/* FEATURE GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-            {/* Card 1 */}
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-8 flex flex-col">
-              <div className="flex justify-center mb-5">
-                <span className="text-5xl">📞</span>
+          {/* 4-up grid; icons centered; text left and aligned across cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: "🤖", title: "Sounds Human", text: "Natural conversations powered by AI. Your customers won’t know they’re talking to AI." },
+              { icon: "📅", title: "Books Appointments", text: "Integrates with your calendar. Schedules, reschedules, and sends confirmations automatically." },
+              { icon: "💬", title: "Takes Messages", text: "Captures details and instantly texts or emails you the info for quick follow-up." },
+              { icon: "⏰", title: "24/7 Coverage", text: "Never miss a call — nights, weekends, and holidays covered with consistent service." },
+            ].map((f, i) => (
+              <div key={i} className="rounded-2xl bg-white/5 border border-white/10 p-8">
+                {/* icon centered */}
+                <div className="flex justify-center mb-5">
+                  <span className="text-5xl leading-none">{f.icon}</span>
+                </div>
+                {/* text left; consistent heights so lines line up */}
+                <div className="text-left">
+                  <h3 className="font-semibold text-lg mb-2 min-h-[56px]">{f.title}</h3>
+                  <p className="text-sm text-gray-300 min-h-[72px]">{f.text}</p>
+                </div>
               </div>
-              <h3 className="font-semibold text-lg text-left min-h-[56px]">
-                Sounds Human
-              </h3>
-              <p className="text-sm text-gray-300 text-left min-h-[72px]">
-                Natural conversations powered by AI. Your customers won’t know they’re talking to AI.
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-8 flex flex-col">
-              <div className="flex justify-center mb-5">
-                <span className="text-5xl">🗓️</span>
-              </div>
-              <h3 className="font-semibold text-lg text-left min-h-[56px]">
-                Books Appointments
-              </h3>
-              <p className="text-sm text-gray-300 text-left min-h-[72px]">
-                Integrates with your calendar. Schedules, reschedules, and sends confirmations automatically.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-8 flex flex-col">
-              <div className="flex justify-center mb-5">
-                <span className="text-5xl">📝</span>
-              </div>
-              <h3 className="font-semibold text-lg text-left min-h-[56px]">
-                Takes Messages
-              </h3>
-              <p className="text-sm text-gray-300 text-left min-h-[72px]">
-                Captures details and instantly texts or emails you the info for quick follow-up.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-8 flex flex-col">
-              <div className="flex justify-center mb-5">
-                <span className="text-5xl">⏰</span>
-              </div>
-              <h3 className="font-semibold text-lg text-left min-h-[56px]">
-                24/7 Coverage
-              </h3>
-              <p className="text-sm text-gray-300 text-left min-h-[72px]">
-                Never miss a call — nights, weekends, and holidays covered with consistent service.
-              </p>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>
