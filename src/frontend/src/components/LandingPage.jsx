@@ -50,23 +50,18 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* ================= HERO (grid-based, right-shifted subtitle) ================= */}
+      {/* ================= HERO (flex-based, subtitle anchored right) ================= */}
       <section id="hero" className="w-full pt-44 pb-16 text-center md:pt-48 md:pb-24">
-        {/* Remove horizontal padding at this level to eliminate left/right bias on small screens */}
-        <div className="mx-auto max-w-5xl px-0 md:px-6">
-          <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+        {/* Remove horizontal padding bias here */}
+        <div className="mx-auto max-w-5xl px-0">
+          <h1 className="px-6 text-4xl font-bold leading-tight md:text-6xl">
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
 
-          {/* 12-col grid: subtitle begins at ~33% (col 5), ending near the right (col -2) */}
-          <div className="mt-6 grid grid-cols-12">
+          {/* Right-anchored subtitle */}
+          <div className="mt-6 flex px-6 md:px-6">
             <p
-              className="
-                col-start-5 col-end-[-2]
-                justify-self-start text-left
-                rounded-lg bg-black/40 px-4 py-3
-                text-lg text-gray-100 backdrop-blur md:text-xl
-              "
+              className="ml-auto w-full max-w-3xl rounded-lg bg-black/40 px-4 py-3 text-left text-lg text-gray-100 backdrop-blur md:text-xl"
             >
               Your AI receptionist answers every call, books appointments, handles questions,
               and captures leads 24/7 — so you can focus on running your business.
@@ -74,7 +69,7 @@ export default function LandingPage() {
           </div>
 
           {/* CTAs */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4 px-6">
             <Link
               to="/signup"
               className="rounded-xl bg-[#00d4ff] px-8 py-3 text-lg font-semibold text-[#0b0f19] transition hover:opacity-90"
@@ -91,7 +86,7 @@ export default function LandingPage() {
           </div>
 
           {/* Trust bar */}
-          <div className="mx-auto mt-12 w-full max-w-3xl border-t border-white/10 pt-10">
+          <div className="mx-auto mt-12 w-full max-w-3xl border-t border-white/10 pt-10 px-6">
             <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
               {[
                 { number: "98%", label: "Customer Satisfaction" },
