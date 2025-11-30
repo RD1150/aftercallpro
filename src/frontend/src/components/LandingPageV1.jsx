@@ -39,18 +39,31 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 pb-20 text-center">
+            {/* Hero Section */}
+      <section className="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] text-white py-24 pb-20">
         <div className="max-w-[1200px] mx-auto px-5">
-          <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight">
-            Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
-          </h1>
-                            <div className="flex justify-center w-full mb-10">
-            <p className="text-xl md:text-[22px] text-[#e0e0e0] max-w-[700px] text-center">
+          {/* Heading */}
+          <div style={{textAlign: 'center', marginBottom: '20px'}}>
+            <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight">
+              Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
+            </h1>
+          </div>
+          
+          {/* Subtitle - with inline styles to force centering */}
+          <div style={{display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '40px'}}>
+            <p style={{
+              fontSize: '20px',
+              color: '#e0e0e0',
+              maxWidth: '700px',
+              textAlign: 'center',
+              lineHeight: '1.6',
+              margin: '0 auto'
+            }}>
               Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
             </p>
           </div>
-
+          
+          {/* CTA Buttons */}
           <div className="flex gap-5 justify-center flex-wrap">
             <Link 
               to="/signup"
@@ -66,9 +79,18 @@ export default function LandingPage() {
             </button>
           </div>
           
-          {/* Trust Bar */}
+          {/* Trust Bar - with darker background for better readability */}
           <div className="mt-12 pt-10 border-t border-white/10">
-            <p className="text-sm text-[#aaa] mb-2.5">Trusted by businesses who refuse to lose customers to voicemail</p>
+            <div style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              padding: '15px',
+              borderRadius: '8px',
+              marginBottom: '20px'
+            }}>
+              <p className="text-sm text-white mb-2.5" style={{textAlign: 'center'}}>
+                Trusted by businesses who refuse to lose customers to voicemail
+              </p>
+            </div>
             <div className="flex gap-10 justify-center flex-wrap mt-5">
               <div className="text-center">
                 <div className="text-4xl font-bold text-[#00d4ff]">98%</div>
@@ -85,6 +107,8 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+      </section>
+
       </section>
 
       {/* Problem Section */}
