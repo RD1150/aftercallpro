@@ -10,13 +10,25 @@
       Never Miss Another <span className="text-teal-primary">Customer Call</span>
     </h1>
 
-    {/* SUBTITLE — RIGHT ALIGNED WITH DARK BACKGROUND */}
-    <div className="flex justify-center mt-6">
-      <p className="max-w-[700px] bg-black/50 backdrop-blur px-4 py-3 rounded-md text-center text-lg md:text-xl text-gray-100 shadow-lg">
-        Your AI receptionist answers every call, books appointments, and captures
-        leads 24/7—while you focus on running your business.
-      </p>
-    </div>
+   {/* SUBTITLE — CENTER ALIGNED WITH DARK BACKGROUND */}
+<div className="w-full flex justify-center mt-6">
+  <p className="
+      max-w-[800px]
+      text-center
+      bg-black/40
+      backdrop-blur-sm
+      px-6 py-4
+      rounded-md
+      text-lg md:text-xl
+      text-gray-100
+      leading-relaxed
+      shadow-md
+  ">
+    Your AI receptionist answers every call, books appointments, 
+    and captures leads 24/7—while you focus on running your business.
+  </p>
+</div>
+
 
     {/* CTA BUTTONS */}
     <div className="flex justify-center gap-4 mt-8">
