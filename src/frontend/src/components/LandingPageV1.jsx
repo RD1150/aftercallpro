@@ -45,11 +45,13 @@ export default function LandingPage() {
           <h1 className="text-5xl md:text-[52px] font-bold mb-5 leading-tight">
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
-          <div className="flex justify-center w-full mb-10">
-            <p className="text-xl md:text-[22px] text-[#e0e0e0] max-w-[700px] text-center">
+          
+          <div style={{display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '40px'}}>
+            <p style={{fontSize: '20px', color: '#e0e0e0', maxWidth: '700px', textAlign: 'center', margin: '0 auto', lineHeight: '1.6'}}>
               Your AI receptionist answers every call, books appointments, and captures leads 24/7—while you focus on running your business
             </p>
           </div>
+          
           <div className="flex gap-5 justify-center flex-wrap">
             <Link 
               to="/signup"
