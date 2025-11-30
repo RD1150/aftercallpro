@@ -58,14 +58,62 @@ export default function LandingPage() {
             Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
 
-          {/* HERO SUBTITLE REMOVED */}
+          {/* Subtitle shifted 30% to the right */}
+          <div className="mt-5 relative w-full" style={{ height: "80px" }}>
+            <p
+              className="absolute mx-auto max-w-3xl rounded-lg bg-black/40 px-4 py-3 text-lg text-gray-100 backdrop-blur md:text-xl"
+              style={{
+                left: "30%",
+                transform: "translateX(-30%)",
+                width: "fit-content",
+                whiteSpace: "normal",
+              }}
+            >
+              Your AI receptionist answers every call, books appointments, handles questions,
+              and captures leads 24/7 — so you can focus on running your business.
+            </p>
+          </div>
+
+          {/* CTAs */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/signup"
+              className="rounded-xl bg-[#00d4ff] px-8 py-3 text-lg font-semibold text-[#0b0f19] transition hover:opacity-90"
+            >
+              🚀 Start Free 14-Day Trial
+            </Link>
+
+            <button
+              onClick={() => scrollTo("pricing")}
+              className="rounded-xl border-2 border-[#00d4ff] px-8 py-3 text-lg font-semibold transition hover:bg-[#00d4ff]/10"
+            >
+              See Pricing
+            </button>
+          </div>
+
+          {/* Trust bar */}
+          <div className="mx-auto mt-12 w-full max-w-3xl border-t border-white/10 pt-10">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+              {[
+                { number: "98%", label: "Customer Satisfaction" },
+                { number: "45%", label: "More Leads Answered" },
+                { number: "10min", label: "Average Setup Time" },
+                { number: "24/7", label: "Always Available" },
+              ].map((item, i) => (
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
+                  <div className="text-3xl font-bold text-[#00d4ff]">{item.number}</div>
+                  <div className="mt-1 text-xs text-[#ccc]">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ================= FEATURES ================= */}
       <section id="features" className="relative bg-[#0b0f19] pt-24 md:pt-28 overflow-hidden">
 
-        {/* Visible Background Watermark FIXED */}
+        {/* Watermark - now visible */}
         <h2
           aria-hidden
           className="
@@ -73,19 +121,16 @@ export default function LandingPage() {
             absolute inset-x-0 -top-6 md:-top-10
             text-[8vw] md:text-[6vw] font-extrabold tracking-tight
             text-black/25 leading-none
-            -z-10
-            text-center
+            -z-10 text-center
           "
         >
           Every Missed Call Is Money Walking Out the Door
         </h2>
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 text-center">
-
           <h2 className="mb-2 text-3xl font-bold md:text-4xl">Why Businesses Choose AfterCallPro</h2>
 
           <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-
             {[
               { icon: "🤖", title: "Sounds Human", text: "Natural conversations powered by AI. Your customers won’t know they’re talking to AI." },
               { icon: "📅", title: "Books Appointments", text: "Integrates with your calendar. Schedules, reschedules, and sends confirmations automatically." },
@@ -105,7 +150,6 @@ export default function LandingPage() {
                 <p className="text-left text-sm text-gray-300">{f.text}</p>
               </div>
             ))}
-
           </div>
         </div>
       </section>
@@ -129,6 +173,7 @@ export default function LandingPage() {
           © {new Date().getFullYear()} AfterCallPro — All Rights Reserved.
         </div>
       </footer>
+
     </div>
   );
 }
