@@ -31,7 +31,7 @@ export default function LandingPage() {
             </Link>
             <Link 
               to="/signup"
-              className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
+              className="bg-[#00d4ff] text-[#1a1a2e] px-10 py-4 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
             >
               Start Free Trial
             </Link>
@@ -53,7 +53,7 @@ export default function LandingPage() {
           <div className="flex gap-5 justify-center flex-wrap">
             <Link 
               to="/signup"
-              className="bg-[#00d4ff] text-[#1a1a2e] px-8 py-3 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
+              className="bg-[#00d4ff] text-[#1a1a2e] px-10 py-4 rounded-lg font-semibold hover:bg-[#00b8e6] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,212,255,0.4)]"
             >
               Start Free 14-Day Trial
             </Link>
