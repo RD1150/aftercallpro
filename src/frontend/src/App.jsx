@@ -10,7 +10,7 @@ function PricingSection() {
       monthly: 49,
       yearly: 39,
       features: [
-        "AI call answering (9–5 local)",
+        "24/7 AI call answering",
         "Spam & robocall filtering",
         "Lead capture to CRM",
         "Email + SMS follow-up (basic)",
