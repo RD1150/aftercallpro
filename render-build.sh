@@ -1,16 +1,28 @@
 #!/usr/bin/env bash
-set -o errexit
+set -euo pipefail
 
-printf "\n--- Installing frontend dependencies ---\n"
+echo ""
+echo "--- Installing frontend dependencies ---"
 cd src/frontend
-npm install
+# Use legacy-peer-deps to avoid strict peer conflicts in CI
+npm ci --legacy-peer-deps
 
-printf "\n--- Building frontend with Vite ---\n"
+echo ""
+echo "--- Building frontend with Vite ---"
 npm run build
 
-printf "\n--- Moving build output into backend static folder ---\n"
-cd ../..
-rm -rf src/static/*
-cp -r src/frontend/dist/* src/static/
+echo ""
+echo "--- Moving build output into backend static folder ---"
+cd ..
+mkdir -p static
+rm -rf static/*
+cp -R frontend/dist/* static/
 
-printf "\n--- Frontend build complete ---\n"
+echo ""
+echo "--- Installing backend Python dependencies ---"
+cd ..
+python -m pip install --upgrade pip
+pip install --no-cache-dir -r requirements.txt
+
+echo ""
+echo "--- Frontend build complete ---"
