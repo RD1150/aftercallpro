@@ -1,5 +1,138 @@
 import React from "react";
 
+// ----- Pricing Section (self-contained) -----
+function PricingSection() {
+  const [annual, setAnnual] = React.useState(true);
+  const tiers = [
+    {
+      name: "Starter",
+      blurb: "Perfect for solo operators",
+      monthly: 49,
+      yearly: 39,
+      features: [
+        "AI call answering (9–5 local)",
+        "Spam & robocall filtering",
+        "Lead capture to CRM",
+        "Email + SMS follow-up (basic)",
+      ],
+      featured: false,
+    },
+    {
+      name: "Growth",
+      blurb: "Best for small teams",
+      monthly: 149,
+      yearly: 119,
+      features: [
+        "24/7 answering + call routing",
+        "Calendar bookings & reminders",
+        "CRM sync (GHL / HubSpot / SFDC)",
+        "Custom call flows + tags",
+      ],
+      featured: true,
+    },
+    {
+      name: "Pro",
+      blurb: "Scale with advanced controls",
+      monthly: 349,
+      yearly: 279,
+      features: [
+        "High‑volume minutes bundle",
+        "Multiple lines & IVR menus",
+        "Advanced analytics & transcripts",
+        "Priority support & SLAs",
+      ],
+      featured: false,
+    },
+  ];
+
+  return (
+    <section id="pricing" className="py-12 md:py-16">
+      <div className="max-w-screen-xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Simple, transparent pricing</h2>
+          <p className="text-slate-600 mt-2">Start free, upgrade when you’re ready. Cancel anytime.</p>
+        </div>
+
+        {/* Monthly / Yearly toggle */}
+        <div className="flex items-center justify-center gap-3 select-none">
+          <span className={`text-sm ${annual ? "text-slate-400" : "text-slate-900"}`}>Monthly</span>
+          <button
+            type="button"
+            onClick={() => setAnnual((v) => !v)}
+            className="relative h-8 w-16 rounded-full bg-slate-200 transition-colors"
+            aria-label="Toggle billing period"
+          >
+            <span
+              className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${
+                annual ? "left-9" : "left-1"
+              }`}
+            />
+          </button>
+          <span className={`text-sm ${annual ? "text-slate-900" : "text-slate-400"}`}>
+            Yearly <span className="text-emerald-600">(-20%)</span>
+          </span>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 mt-8">
+          {tiers.map((t) => {
+            const price = annual ? t.yearly : t.monthly;
+            return (
+              <div
+                key={t.name}
+                className={`relative rounded-3xl overflow-hidden p-[1px] ${
+                  t.featured
+                    ? "shadow-[0_1px_0_0_rgba(15,23,42,0.06),0_20px_45px_-15px_rgba(2,132,199,0.35)]"
+                    : "shadow-[0_1px_0_0_rgba(15,23,42,0.05),0_10px_25px_-10px_rgba(2,132,199,0.25)]"
+                } bg-gradient-to-br from-sky-200/40 via-cyan-200/30 to-transparent`}
+              >
+                <div className="relative rounded-3xl bg-white p-6 h-full">
+                  {t.featured && (
+                    <span className="absolute -top-3 right-4 text-[11px] font-semibold uppercase tracking-wide rounded-full bg-sky-600 text-white px-2 py-1 shadow">
+                      Most Popular
+                    </span>
+                  )}
+
+                  <h3 className="text-lg font-semibold">{t.name}</h3>
+                  <p className="text-sm text-slate-600 mt-1">{t.blurb}</p>
+
+                  <div className="mt-4 flex items-end gap-1">
+                    <span className="text-4xl font-extrabold tracking-tight">${price}</span>
+                    <span className="text-slate-500">/mo</span>
+                  </div>
+
+                  <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                    {t.features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    href="#start"
+                    className={`mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 font-semibold shadow-sm ring-1 ring-sky-700/20 ${
+                      t.featured
+                        ? "bg-sky-600 text-white hover:bg-sky-700"
+                        : "border border-slate-300/80 hover:bg-slate-50"
+                    }`}
+                  >
+                    Get started
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <p className="text-xs text-slate-500 text-center mt-4">
+          Prices shown in USD. Yearly billed annually. Minute overages and live‑agent add‑ons available.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const [submitted, setSubmitted] = React.useState(false);
   const onSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
@@ -26,9 +159,10 @@ export default function App() {
           </div>
           <nav className="hidden md:flex items-center gap-8 text-sm">
             <a href="#features" className="hover:text-sky-800 transition-colors">Features</a>
-            <a href="#faqs" className="hover:text-sky-800 transition-colors">FAQs</a>
-            <a href="#demo" className="hover:text-sky-800 transition-colors">Demo</a>
-            <a href="#contact" className="hover:text-sky-800 transition-colors">Contact</a>
+            <a href="#pricing"  className="hover:text-sky-800 transition-colors">Pricing</a>
+            <a href="#faqs"     className="hover:text-sky-800 transition-colors">FAQs</a>
+            <a href="#demo"     className="hover:text-sky-800 transition-colors">Demo</a>
+            <a href="#contact"  className="hover:text-sky-800 transition-colors">Contact</a>
           </nav>
           <a href="#start" className="inline-flex items-center justify-center rounded-xl border border-slate-300/80 px-3 py-2 text-sm font-medium hover:bg-white shadow-sm">Login</a>
         </div>
@@ -104,6 +238,9 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* Pricing */}
+      <PricingSection />
 
       {/* FAQs */}
       <section id="faqs" className="py-12 md:py-16">
