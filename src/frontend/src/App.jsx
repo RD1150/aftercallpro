@@ -149,4 +149,56 @@ export default function App() {
       {/* ================= FAQ ================= */}
       <section id="faq" className="relative z-[60] bg-white text-gray-900 py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extra
+          <h3 className="text-3xl md:text-4xl font-extrabold text-center">FAQ</h3>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { q:"Do I need to change my phone number?", a:"No. You keep your number and forward calls to MindRocket." },
+              { q:"Can it book into my calendar?", a:"Yes. We support Google, Outlook, or direct scheduling links." },
+              { q:"What if a caller needs a human?", a:"We route emergencies and escalations to your team instantly." },
+              { q:"Is it secure?", a:"Yes. Encryption in transit/at rest, access controls, and audit logs." },
+            ].map((f, i) => (
+              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                <h4 className="font-semibold">{f.q}</h4>
+                <p className="mt-2 text-sm text-gray-700">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= CONTACT ================= */}
+      <section id="contact" className="relative z-[60] bg-gray-50 text-gray-900 py-16">
+        <div className="max-w-3xl mx-auto px-6">
+          <h3 className="text-3xl md:text-4xl font-extrabold text-center">Talk to Us</h3>
+          <p className="mt-3 text-center text-gray-600">
+            Have questions? Send a note and we’ll get back quickly.
+          </p>
+          <form className="mt-8 grid grid-cols-1 gap-4">
+            <input className="rounded-md border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Name" />
+            <input className="rounded-md border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Email" type="email" />
+            <textarea className="rounded-md border border-gray-300 px-4 py-3 h-28 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="How can we help?" />
+            <button type="button" className="rounded-md bg-cyan-500 px-5 py-3 text-sm font-semibold text-white hover:bg-cyan-600 w-fit">
+              Send message
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* ================= FOOTER ================= */}
+      <footer className="relative z-[60] w-full border-t border-gray-800 bg-gray-900">
+        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-sm">
+            © {new Date().getFullYear()} MindRocket — All rights reserved.
+          </div>
+          <div className="flex gap-4 text-sm text-gray-300">
+            <a href="#privacy" className="hover:text-white">Privacy</a>
+            <a href="#terms" className="hover:text-white">Terms</a>
+          </div>
+        </div>
+      </footer>
+
+      {/* One-time in-page safety */}
+      <style>{`h2[aria-hidden], .ghost-headline { display: none !important; }`}</style>
+    </div>
+  );
+}
