@@ -1,204 +1,350 @@
-// src/App.jsx
 import React from "react";
-import "./App.css";
+
+/**
+ * AfterCallPro — Polished, single-page marketing site
+ * - One centered container controls width (max-w-screen-xl)
+ * - Strict vertical rhythm (space-y-*) for consistent spacing
+ * - Hero is truly centered with tight text width and clear CTAs
+ * - Simple inline SVG icons (no external icon packages required)
+ * - Fully responsive with accessible markup
+ */
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-white">
-      {/* ================= NAVBAR ================= */}
-      <header className="w-full bg-gray-900/80 backdrop-blur border-b border-gray-800 sticky top-0 z-[100]">
-        <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-extrabold tracking-tight">
-            <span>Mind</span><span className="text-cyan-400">Rocket</span>
-          </h1>
-          <div className="hidden sm:flex gap-6 text-gray-300">
-            <a href="#features" className="hover:text-white">Features</a>
-            <a href="#pricing" className="hover:text-white">Pricing</a>
-            <a href="#faq" className="hover:text-white">FAQ</a>
-            <a href="#contact" className="hover:text-white">Contact</a>
-          </div>
-        </nav>
-      </header>
+    <main className="min-h-screen bg-[linear-gradient(180deg,#0b1423_0%,#0e1a2a_100%)] text-white">
+      {/* Top Navigation */}
+      <header className="sticky top-0 z-40/ backdrop-blur bg-black/20 border-b border-white/10">
+        <div className="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2 group">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-cyan-500/20 ring-1 ring-cyan-400/30">
+              {/* phone glyph */}
+              <svg width="16" height="16" viewBox="0 0 24 24" className="text-cyan-300 fill-current">
+                <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C10.4 22.01 2 13.61 2 3.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/>
+              </svg>
+            </span>
+            <span className="text-lg font-bold tracking-tight">
+              After<span className="text-cyan-300">Call</span>Pro
+            </span>
+          </a>
 
-      {/* ================= HERO ================= */}
-      <section
-        id="hero"
-        className="relative z-[10] w-full overflow-hidden"
-        aria-label="Hero"
-      >
-        {/* Background image */}
-        <div className="absolute inset-0 -z-[1]">
-          <img
-            src="/hero-bg.jpg"
-            alt=""
-            className="w-full h-full object-cover opacity-30"
-          />
-        </div>
-
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 -z-[1] bg-gradient-to-b from-black/60 via-black/50 to-gray-900/90"></div>
-
-        <div className="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
-          <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
-            Never Miss Another <span className="text-cyan-400">Customer Call</span>
-          </h2>
-
-          {/* Subtitle */}
-          <div className="mt-6 flex justify-center">
-            <p className="max-w-2xl bg-black/55 backdrop-blur px-5 py-4 rounded-md text-base md:text-lg text-gray-100">
-              Your AI receptionist answers calls, qualifies leads, books appointments,
-              and sends instant summaries — 24/7 — so you can focus on your business.
-            </p>
-          </div>
-
-          {/* CTAs */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
+            <a href="#features" className="hover:text-white transition">Features</a>
+            <a href="#how" className="hover:text-white transition">How it works</a>
+            <a href="#faq" className="hover:text-white transition">FAQ</a>
             <a
-              href="#pricing"
-              className="rounded-md bg-cyan-500 px-6 py-3 text-sm font-semibold text-white hover:bg-cyan-600"
+              href="#get-started"
+              className="px-4 py-2 rounded-md bg-cyan-400 text-black font-semibold hover:bg-cyan-300 transition"
             >
               Start Free Trial
             </a>
+          </nav>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section id="hero" className="relative">
+        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(6,182,212,.18),rgba(0,0,0,0))]" />
+        <div className="max-w-screen-xl mx-auto px-6 py-20 md:py-28 relative">
+          <div className="mx-auto text-center max-w-4xl space-y-6">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+              Never Miss Another <span className="text-cyan-300">Customer Call</span>
+            </h1>
+
+            {/* subtitle with subtle dark chip */}
+            <p className="mx-auto max-w-2xl text-base md:text-lg text-white/80 bg-black/30 backdrop-blur px-5 py-3 rounded-md">
+              Your AI receptionist answers every call, books appointments, and captures leads 24/7 —
+              while you focus on running your business.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <a
+                href="#get-started"
+                className="px-6 py-3 rounded-md bg-cyan-400 text-black font-semibold shadow-lg shadow-cyan-500/20 hover:bg-cyan-300 transition"
+              >
+                Start Free 14-Day Trial
+              </a>
+              <a
+                href="#demo"
+                className="px-6 py-3 rounded-md border border-cyan-400/60 text-cyan-300 hover:bg-white/5 transition"
+              >
+                Listen to a Demo
+              </a>
+            </div>
+
+            {/* Social proof */}
+            <div className="grid grid-cols-3 gap-6 pt-10 text-cyan-300">
+              <Kpi label="Customer Satisfaction" value="98%" />
+              <Kpi label="Average Setup Time" value="10 min" />
+              <Kpi label="Availability" value="24/7" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section id="features" className="border-t border-white/10">
+        <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20 space-y-12">
+          <header className="text-center space-y-3">
+            <h2 className="text-3xl md:text-4xl font-bold">Why Businesses Choose AfterCallPro</h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              Answers calls, books appointments, takes messages, and routes emergencies — all with
+              natural, human-like conversation.
+            </p>
+          </header>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Feature
+              title="Sounds Human"
+              desc="Natural conversations powered by advanced language models."
+              icon={<ChatIcon />}
+            />
+            <Feature
+              title="Books Appointments"
+              desc="Connects to Google, Outlook, or your scheduling link."
+              icon={<CalendarIcon />}
+            />
+            <Feature
+              title="Takes Messages"
+              desc="Instant summaries via SMS/email with caller info and next steps."
+              icon={<BubbleIcon />}
+            />
+            <Feature
+              title="Routes Emergencies"
+              desc="Urgent calls recognized and forwarded to your emergency line."
+              icon={<BoltIcon />}
+            />
+            <Feature
+              title="Analytics Dashboard"
+              desc="See missed opportunities, top questions, and converted calls."
+              icon={<ChartIcon />}
+            />
+            <Feature
+              title="10-Minute Setup"
+              desc="Keep your number. Forward calls and you’re live — no hardware."
+              icon={<ShieldIcon />}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section id="how" className="border-t border-white/10 bg-white/5">
+        <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20 space-y-12">
+          <header className="text-center space-y-3">
+            <h2 className="text-3xl md:text-4xl font-bold">How It Works</h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              Simple forward, instant value. No code. No headaches.
+            </p>
+          </header>
+
+          <ol className="grid md:grid-cols-3 gap-6">
+            <Step
+              number={1}
+              title="Connect Your Line"
+              desc="Forward your existing number or use a new one — minutes to configure."
+            />
+            <Step
+              number={2}
+              title="Add Your FAQ & Schedule"
+              desc="Point us to your calendar and common questions — we do the rest."
+            />
+            <Step
+              number={3}
+              title="Go Live"
+              desc="Your AI receptionist starts answering and booking 24/7."
+            />
+          </ol>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="border-t border-white/10">
+        <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20">
+          <header className="text-center space-y-3 mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold">What Customers Say</h2>
+            <p className="text-white/70 max-w-2xl mx-auto">
+              Real teams, real results — fewer missed calls, more booked business.
+            </p>
+          </header>
+
+          <div className="grid lg:grid-cols-3 gap-6">
+            <Testimonial
+              quote="We stopped losing after-hours calls. Bookings come in while we sleep."
+              name="Jenna R."
+              role="Property Manager"
+            />
+            <Testimonial
+              quote="Setup took 10 minutes. Now every call gets answered — game-changer."
+              name="Marcus L."
+              role="Plumbing Company Owner"
+            />
+            <Testimonial
+              quote="The summaries are gold. We follow up fast and close more jobs."
+              name="Priya S."
+              role="Medical Office Director"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING TEASER */}
+      <section id="get-started" className="border-y border-white/10 bg-[linear-gradient(180deg,#0d1929_0%,#0b1523_100%)]">
+        <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20 text-center space-y-6">
+          <h2 className="text-3xl md:text-4xl font-bold">Try It Free for 14 Days</h2>
+          <p className="text-white/75 max-w-2xl mx-auto">
+            No credit card required. Cancel anytime. Full access to booking, messages, and analytics.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="/signup"
+              className="px-6 py-3 rounded-md bg-cyan-400 text-black font-semibold shadow-lg shadow-cyan-500/20 hover:bg-cyan-300 transition"
+            >
+              Create My Account
+            </a>
             <a
               href="#demo"
-              className="rounded-md px-6 py-3 text-sm font-semibold text-cyan-300 ring-1 ring-cyan-400/50 hover:bg-white/10"
+              className="px-6 py-3 rounded-md border border-cyan-400/60 text-cyan-300 hover:bg-white/5 transition"
             >
-              ▶︎ Listen to a Demo
+              Hear a Sample Call
             </a>
           </div>
+        </div>
+      </section>
 
-          {/* Stats */}
-          <div className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center">
-            {[
-              { n: "98%", l: "Customer Satisfaction" },
-              { n: "10 min", l: "Average Setup Time" },
-              { n: "24/7", l: "Always Available" },
-            ].map((s, i) => (
-              <div key={i} className="rounded-lg border border-white/10 bg-white/5 px-4 py-5">
-                <div className="text-2xl font-extrabold text-cyan-300 md:text-3xl">{s.n}</div>
-                <div className="mt-1 text-xs text-gray-300 md:text-sm">{s.l}</div>
-              </div>
-            ))}
+      {/* FAQ */}
+      <section id="faq" className="border-b border-white/10">
+        <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20 space-y-8">
+          <header className="text-center space-y-3">
+            <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+            <p className="text-white/70">Short answers to the most common questions.</p>
+          </header>
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            <Faq q="Does it replace my phone number?" a="No. You keep your number and simply forward calls to AfterCallPro. You can turn forwarding on/off anytime." />
+            <Faq q="Can it book on my calendar?" a="Yes. Connect Google or Outlook (or your scheduling link) and we’ll book, reschedule, and send confirmations." />
+            <Faq q="What about emergencies?" a="We detect urgency and immediately route calls to your designated line, while logging a summary for your records." />
+            <Faq q="How fast is setup?" a="Most teams go live in under 10 minutes." />
           </div>
         </div>
       </section>
 
-      {/* ================= FEATURES ================= */}
-      <section id="features" className="relative z-[60] bg-white text-gray-900 py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">
-            Why Choose MindRocket
-          </h3>
-          <p className="mt-3 text-center text-gray-600 max-w-3xl mx-auto">
-            Answers calls, books appointments, takes messages, and routes emergencies —
-            with natural, human-like conversation.
-          </p>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon:"🗣️", title:"Sounds Human", text:"Natural conversations powered by advanced language models." },
-              { icon:"📅", title:"Books Appointments", text:"Connects to Google, Outlook, or your scheduling link." },
-              { icon:"✉️", title:"Instant Messages", text:"Summaries via SMS/email with caller info and next steps." },
-              { icon:"⚡", title:"10-Minute Setup", text:"Keep your number. Forward calls and you’re live." },
-              { icon:"🔒", title:"Secure by Design", text:"Encryption in transit/at rest, access controls, audit logs." },
-              { icon:"📈", title:"Actionable Insights", text:"See which calls convert and common questions." },
-            ].map((f, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <div className="text-3xl">{f.icon}</div>
-                <h4 className="mt-3 text-lg font-semibold">{f.title}</h4>
-                <p className="mt-2 text-sm text-gray-600">{f.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= PRICING ================= */}
-      <section id="pricing" className="relative z-[60] bg-gray-50 text-gray-900 py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">Simple Pricing</h3>
-          <p className="mt-3 text-center text-gray-600 max-w-2xl mx-auto">
-            Start free. Upgrade when you’re ready. Cancel anytime.
-          </p>
-
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name:"Starter", price:"$49/mo", desc:"Solo owners, low volume", items:["AI answers 24/7","Message summaries","Basic booking"]},
-              { name:"Growth", price:"$149/mo", desc:"Most popular", items:["Everything in Starter","Calendar integrations","Priority routing","Analytics"]},
-              { name:"Pro", price:"$349/mo", desc:"Multi-location", items:["Everything in Growth","Advanced reporting","SLA available","Custom workflows"]},
-            ].map((p, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col">
-                <div className="text-sm font-semibold text-cyan-600">{p.desc}</div>
-                <h4 className="mt-1 text-xl font-bold">{p.name}</h4>
-                <div className="mt-2 text-3xl font-extrabold">{p.price}</div>
-                <ul className="mt-4 space-y-2 text-sm text-gray-700">
-                  {p.items.map((it, idx) => <li key={idx}>• {it}</li>)}
-                </ul>
-                <a
-                  href="#"
-                  className="mt-6 inline-flex justify-center rounded-md bg-cyan-500 px-4 py-2 text-sm font-semibold text-white hover:bg-cyan-600"
-                >
-                  Get Started
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= FAQ ================= */}
-      <section id="faq" className="relative z-[60] bg-white text-gray-900 py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">FAQ</h3>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { q:"Do I need to change my phone number?", a:"No. You keep your number and forward calls to MindRocket." },
-              { q:"Can it book into my calendar?", a:"Yes. We support Google, Outlook, or direct scheduling links." },
-              { q:"What if a caller needs a human?", a:"We route emergencies and escalations to your team instantly." },
-              { q:"Is it secure?", a:"Yes. Encryption in transit/at rest, access controls, and audit logs." },
-            ].map((f, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h4 className="font-semibold">{f.q}</h4>
-                <p className="mt-2 text-sm text-gray-700">{f.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= CONTACT ================= */}
-      <section id="contact" className="relative z-[60] bg-gray-50 text-gray-900 py-16">
-        <div className="max-w-3xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">Talk to Us</h3>
-          <p className="mt-3 text-center text-gray-600">
-            Have questions? Send a note and we’ll get back quickly.
-          </p>
-          <form className="mt-8 grid grid-cols-1 gap-4">
-            <input className="rounded-md border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Name" />
-            <input className="rounded-md border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Email" type="email" />
-            <textarea className="rounded-md border border-gray-300 px-4 py-3 h-28 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="How can we help?" />
-            <button type="button" className="rounded-md bg-cyan-500 px-5 py-3 text-sm font-semibold text-white hover:bg-cyan-600 w-fit">
-              Send message
-            </button>
-          </form>
-        </div>
-      </section>
-
-      {/* ================= FOOTER ================= */}
-      <footer className="relative z-[60] w-full border-t border-gray-800 bg-gray-900">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm">
-            © {new Date().getFullYear()} MindRocket — All rights reserved.
-          </div>
-          <div className="flex gap-4 text-sm text-gray-300">
-            <a href="#privacy" className="hover:text-white">Privacy</a>
-            <a href="#terms" className="hover:text-white">Terms</a>
+      {/* FOOTER */}
+      <footer className="py-10 text-center text-sm text-white/60">
+        <div className="max-w-screen-xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>© {new Date().getFullYear()} AfterCallPro. All rights reserved.</p>
+            <nav className="flex items-center gap-6">
+              <a className="hover:text-white" href="/privacy-policy">Privacy</a>
+              <a className="hover:text-white" href="/terms">Terms</a>
+              <a className="hover:text-white" href="/faq">FAQ</a>
+            </nav>
           </div>
         </div>
       </footer>
+    </main>
+  );
+}
 
-      {/* One-time in-page safety */}
-      <style>{`h2[aria-hidden], .ghost-headline { display: none !important; }`}</style>
+/* ----------------------------- helpers ----------------------------- */
+
+function Kpi({ value, label }) {
+  return (
+    <div className="space-y-1">
+      <div className="text-3xl md:text-4xl font-extrabold">{value}</div>
+      <div className="text-xs md:text-sm text-white/70">{label}</div>
     </div>
+  );
+}
+
+function Feature({ title, desc, icon }) {
+  return (
+    <div className="group rounded-xl border border-white/10 bg-white/5 p-5 hover:bg-white/[0.08] transition">
+      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-md bg-cyan-400/15 ring-1 ring-cyan-400/30 text-cyan-300">
+        {icon}
+      </div>
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="mt-1 text-sm text-white/70">{desc}</p>
+    </div>
+  );
+}
+
+function Step({ number, title, desc }) {
+  return (
+    <li className="rounded-xl border border-white/10 bg-white/5 p-6">
+      <div className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cyan-400 text-black font-bold">
+        {number}
+      </div>
+      <h3 className="mt-3 text-lg font-semibold">{title}</h3>
+      <p className="mt-1 text-sm text-white/70">{desc}</p>
+    </li>
+  );
+}
+
+function Testimonial({ quote, name, role }) {
+  return (
+    <figure className="rounded-xl border border-white/10 bg-white/5 p-6">
+      <blockquote className="text-white/90">“{quote}”</blockquote>
+      <figcaption className="mt-4 text-sm text-white/70">
+        <span className="font-semibold text-white">{name}</span> — {role}
+      </figcaption>
+    </figure>
+  );
+}
+
+function Faq({ q, a }) {
+  return (
+    <details className="group rounded-lg border border-white/10 bg-white/5 p-4">
+      <summary className="cursor-pointer list-none font-medium">
+        <span className="mr-2 text-cyan-300">?</span>
+        {q}
+      </summary>
+      <p className="mt-2 text-sm text-white/70">{a}</p>
+    </details>
+  );
+}
+
+/* --------------------------- inline icons -------------------------- */
+
+function ChatIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" className="fill-current">
+      <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2z" />
+    </svg>
+  );
+}
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" className="fill-current">
+      <path d="M7 2v2H5a2 2 0 00-2 2v2h18V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm14 8H3v10a2 2 0 002 2h14a2 2 0 002-2V10z" />
+    </svg>
+  );
+}
+function BubbleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" className="fill-current">
+      <path d="M4 4h16v10H7l-3 3V4z" />
+    </svg>
+  );
+}
+function BoltIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" className="fill-current">
+      <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+    </svg>
+  );
+}
+function ChartIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" className="fill-current">
+      <path d="M3 3h2v18H3V3zm4 8h2v10H7V11zm4-6h2v16h-2V5zm4 9h2v7h-2v-7zm4-4h2v11h-2V10z" />
+    </svg>
+  );
+}
+function ShieldIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" className="fill-current">
+      <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z" />
+    </svg>
   );
 }
