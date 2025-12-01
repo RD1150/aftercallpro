@@ -6,7 +6,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-white">
       {/* ================= NAVBAR ================= */}
-      <header className="w-full bg-gray-900/80 backdrop-blur border-b border-gray-800 sticky top-0 z-40">
+      <header className="w-full bg-gray-900/80 backdrop-blur border-b border-gray-800 sticky top-0 z-[100]">
         <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-xl font-extrabold tracking-tight">
             <span>Mind</span><span className="text-cyan-400">Rocket</span>
@@ -21,26 +21,31 @@ export default function App() {
       </header>
 
       {/* ================= HERO ================= */}
-      <section className="relative w-full">
+      <section
+        id="hero"
+        className="relative z-[10] w-full overflow-hidden"
+        aria-label="Hero"
+      >
         {/* Background image */}
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 -z-[1]">
           <img
             src="/hero-bg.jpg"
-            alt="hero background"
+            alt=""
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        {/* Overlay gradient (prevents washout) */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/50 to-gray-900/90"></div>
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 -z-[1] bg-gradient-to-b from-black/60 via-black/50 to-gray-900/90"></div>
 
         <div className="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
           <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
             Never Miss Another <span className="text-cyan-400">Customer Call</span>
           </h2>
 
-          {/* Subtitle with dark chip so it never disappears */}
+          {/* Subtitle */}
           <div className="mt-6 flex justify-center">
-            <p className="max-w-2xl bg-black/50 backdrop-blur px-5 py-4 rounded-md text-base md:text-lg text-gray-100">
+            <p className="max-w-2xl bg-black/55 backdrop-blur px-5 py-4 rounded-md text-base md:text-lg text-gray-100">
               Your AI receptionist answers calls, qualifies leads, books appointments,
               and sends instant summaries — 24/7 — so you can focus on your business.
             </p>
@@ -79,11 +84,14 @@ export default function App() {
       </section>
 
       {/* ================= FEATURES ================= */}
-      <section id="features" className="w-full bg-white text-gray-900 py-16">
+      <section id="features" className="relative z-[60] bg-white text-gray-900 py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">Why Choose MindRocket</h3>
+          <h3 className="text-3xl md:text-4xl font-extrabold text-center">
+            Why Choose MindRocket
+          </h3>
           <p className="mt-3 text-center text-gray-600 max-w-3xl mx-auto">
-            Answers calls, books appointments, takes messages, and routes emergencies — with natural, human-like conversation.
+            Answers calls, books appointments, takes messages, and routes emergencies —
+            with natural, human-like conversation.
           </p>
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -106,7 +114,7 @@ export default function App() {
       </section>
 
       {/* ================= PRICING ================= */}
-      <section id="pricing" className="w-full bg-gray-50 text-gray-900 py-16">
+      <section id="pricing" className="relative z-[60] bg-gray-50 text-gray-900 py-16">
         <div className="max-w-6xl mx-auto px-6">
           <h3 className="text-3xl md:text-4xl font-extrabold text-center">Simple Pricing</h3>
           <p className="mt-3 text-center text-gray-600 max-w-2xl mx-auto">
@@ -139,55 +147,6 @@ export default function App() {
       </section>
 
       {/* ================= FAQ ================= */}
-      <section id="faq" className="w-full bg-white text-gray-900 py-16">
+      <section id="faq" className="relative z-[60] bg-white text-gray-900 py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">FAQ</h3>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { q:"Do I need to change my phone number?", a:"No. You keep your number and forward calls to MindRocket." },
-              { q:"Can it book into my calendar?", a:"Yes. We support Google, Outlook, or direct scheduling links." },
-              { q:"What if a caller needs a human?", a:"We route emergencies and escalations to your team instantly." },
-              { q:"Is it secure?", a:"Yes. Encryption in transit/at rest, access controls, and audit logs." },
-            ].map((f, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h4 className="font-semibold">{f.q}</h4>
-                <p className="mt-2 text-sm text-gray-700">{f.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= CONTACT ================= */}
-      <section id="contact" className="w-full bg-gray-50 text-gray-900 py-16">
-        <div className="max-w-3xl mx-auto px-6">
-          <h3 className="text-3xl md:text-4xl font-extrabold text-center">Talk to Us</h3>
-          <p className="mt-3 text-center text-gray-600">
-            Have questions? Send a note and we’ll get back quickly.
-          </p>
-          <form className="mt-8 grid grid-cols-1 gap-4">
-            <input className="rounded-md border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Name" />
-            <input className="rounded-md border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Email" type="email" />
-            <textarea className="rounded-md border border-gray-300 px-4 py-3 h-28 outline-none focus:ring-2 focus:ring-cyan-500" placeholder="How can we help?" />
-            <button type="button" className="rounded-md bg-cyan-500 px-5 py-3 text-sm font-semibold text-white hover:bg-cyan-600 w-fit">
-              Send message
-            </button>
-          </form>
-        </div>
-      </section>
-
-      {/* ================= FOOTER ================= */}
-      <footer className="w-full border-t border-gray-800 bg-gray-900">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm">
-            © {new Date().getFullYear()} MindRocket — All rights reserved.
-          </div>
-          <div className="flex gap-4 text-sm text-gray-300">
-            <a href="#privacy" className="hover:text-white">Privacy</a>
-            <a href="#terms" className="hover:text-white">Terms</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+          <h3 className="text-3xl md:text-4xl font-extra
