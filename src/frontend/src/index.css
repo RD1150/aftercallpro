@@ -1,3 +1,20 @@
-@import './App.css';
-@import './theme.css';
+/* Tailwind v4 style entry */
+@import "tailwindcss";
 
+/* (Optional) small base tweaks */
+:root {
+  --navy-dark: #071426;
+  --charcoal: #0f1d2e;
+  --teal-primary: #00d9ff;
+  --gold: #ffb84d;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, var(--navy-dark) 0%, var(--charcoal) 100%);
+}
+
+/* You can add any component-level classes here if you want */
