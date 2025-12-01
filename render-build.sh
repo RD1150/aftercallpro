@@ -4,8 +4,8 @@ set -euo pipefail
 echo ""
 echo "--- Installing frontend dependencies ---"
 cd src/frontend
-# Use legacy-peer-deps to avoid strict peer conflicts in CI
-npm ci --legacy-peer-deps
+# Use install (not ci) because there's no package-lock.json in the repo
+npm install --legacy-peer-deps
 
 echo ""
 echo "--- Building frontend with Vite ---"
@@ -26,3 +26,5 @@ pip install --no-cache-dir -r requirements.txt
 
 echo ""
 echo "--- Frontend build complete ---"
+
+
