@@ -1,8 +1,17 @@
 import React from "react";
 
 export default function App() {
+  const [submitted, setSubmitted] = React.useState(false);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800">
+    <main className="relative min-h-screen text-slate-800
+      bg-[radial-gradient(1200px_600px_at_10%_-10%,rgba(56,189,248,0.38),transparent_60%),
+          radial-gradient(900px_500px_at_90%_0%,rgba(45,212,191,0.42),transparent_55%)]
+      bg-gradient-to-b from-white via-sky-50/90 to-teal-50/90">
       {/* Header */}
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200">
         <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -15,6 +24,7 @@ export default function App() {
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a href="#features" className="hover:text-sky-700">Features</a>
             <a href="#faqs" className="hover:text-sky-700">FAQs</a>
+            <a href="#demo" className="hover:text-sky-700">Demo</a>
             <a href="#contact" className="hover:text-sky-700">Contact</a>
           </nav>
           <a href="#start" className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-3 py-2 text-sm font-medium hover:bg-slate-100">Login</a>
@@ -25,18 +35,18 @@ export default function App() {
       <section className="relative">
         <div className="max-w-screen-xl mx-auto px-4">
           <div className="flex flex-col items-center text-center py-16 md:py-24 gap-6">
-            <p className="text-xs uppercase tracking-[0.2em] text-sky-700/80 font-semibold">24/7 Virtual Reception • Real Conversations</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-sky-700/90 font-semibold">24/7 Virtual Reception • Real Conversations</p>
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight max-w-3xl">
               Never miss a lead again. We answer, qualify, and route your calls in seconds.
             </h1>
-            <p className="text-base md:text-lg text-slate-600 max-w-2xl">
+            <p className="text-base md:text-lg text-slate-700 max-w-2xl">
               AfterCallPro captures every call with AI+human‑style flows, books appointments, and syncs with your CRM.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#start" className="inline-flex items-center justify-center rounded-xl bg-sky-600 text-white px-5 py-3 font-semibold hover:bg-sky-700">
+              <a href="#start" className="inline-flex items-center justify-center rounded-xl bg-sky-600 text-white px-5 py-3 font-semibold hover:bg-sky-700 shadow-sm">
                 Start free trial
               </a>
-              <a href="#demo" className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-100">
+              <a href="#demo" className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-100 shadow-sm">
                 Watch 60‑sec demo
               </a>
             </div>
@@ -105,6 +115,44 @@ export default function App() {
               </details>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Demo anchor so #demo doesn't 404 */}
+      <section id="demo" className="py-8">
+        <div className="max-w-screen-md mx-auto px-4">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-600">
+            Demo video coming soon. (Drop in a Loom/YouTube iframe here.)
+          </div>
+        </div>
+      </section>
+
+      {/* Start (Signup) */}
+      <section id="start" className="py-12 md:py-16">
+        <div className="max-w-screen-md mx-auto px-4">
+          <h3 className="text-2xl font-bold mb-2 text-center">Start your free trial</h3>
+          <p className="text-slate-600 text-center mb-6">No credit card required. Cancel anytime.</p>
+
+          {submitted ? (
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-emerald-800 text-center">
+              You're in! We'll email setup steps in a moment.
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="grid gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <input className="rounded-xl border border-slate-300 bg-white px-4 py-3 shadow-sm focus:outline-none focus:ring-4 focus:ring-sky-200" placeholder="Full name" required />
+                <input type="email" className="rounded-xl border border-slate-300 bg-white px-4 py-3 shadow-sm focus:outline-none focus:ring-4 focus:ring-sky-200" placeholder="Work email" required />
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <input className="rounded-xl border border-slate-300 bg-white px-4 py-3 shadow-sm focus:outline-none focus:ring-4 focus:ring-sky-200" placeholder="Company (optional)" />
+                <input className="rounded-xl border border-slate-300 bg-white px-4 py-3 shadow-sm focus:outline-none focus:ring-4 focus:ring-sky-200" placeholder="Phone (optional)" />
+              </div>
+              <button type="submit" className="inline-flex items-center justify-center rounded-xl bg-sky-600 text-white px-5 py-3 font-semibold hover:bg-sky-700 shadow-sm">
+                Create my account
+              </button>
+              <div className="text-xs text-slate-500 text-center">By continuing you agree to our <a className="underline" href="#">Terms</a> and <a className="underline" href="#">Privacy</a>.</div>
+            </form>
+          )}
         </div>
       </section>
 
