@@ -4,7 +4,7 @@ set -euo pipefail
 echo ""
 echo "--- Installing frontend dependencies ---"
 cd src/frontend
-# Use install (not ci) because there's no package-lock.json in the repo
+# No lockfile in repo, use install
 npm install --legacy-peer-deps
 
 echo ""
@@ -25,6 +25,4 @@ python -m pip install --upgrade pip
 pip install --no-cache-dir -r requirements.txt
 
 echo ""
-echo "--- Frontend build complete ---"
-
-
+echo "--- Build complete ---"
