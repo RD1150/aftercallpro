@@ -1,241 +1,205 @@
+// aftercallpro/src/frontend/src/components/LandingPage.jsx
 import { Link } from "react-router-dom";
 
-/**
- * AfterCallPro – Landing Page (clean rebuild)
- * - One centered container (max-w-screen-xl) controls layout width
- * - Hero is fully centered; subtitle has dark backdrop
- * - Sections use strict grid with equal columns and gaps
- * - No external icon packages; emojis only for visual hints
- */
 export default function LandingPage() {
   return (
-    <main className="min-h-screen w-full bg-white text-gray-900">
-      {/* Top Nav */}
-      <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-screen-xl items-center justify-between px-6">
-          <Link to="/" className="text-lg font-extrabold tracking-tight">
-            <span className="text-gray-900">AfterCall</span>
-            <span className="text-cyan-600">Pro</span>
-          </Link>
-          <nav className="hidden items-center gap-6 md:flex">
-            <a href="#how" className="text-sm text-gray-600 hover:text-gray-900">How it works</a>
-            <a href="#features" className="text-sm text-gray-600 hover:text-gray-900">Features</a>
-            <a href="#security" className="text-sm text-gray-600 hover:text-gray-900">Security</a>
-            <a href="#testimonials" className="text-sm text-gray-600 hover:text-gray-900">Results</a>
+    <div className="bg-[#0b0f19] text-white leading-relaxed">
+      {/* ================= HEADER ================= */}
+      <header className="w-full py-6 bg-[#0b0f19]/80 backdrop-blur-md fixed top-0 left-0 z-50 border-b border-white/10">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
+          <h1 className="text-2xl font-bold">
+            AfterCall<span className="text-[#00d4ff]">Pro</span>
+          </h1>
+
+          <nav className="hidden md:flex gap-8 text-sm font-medium">
+            <a href="#features" className="hover:text-[#00d4ff] transition-colors">
+              Features
+            </a>
+            <a href="#pricing" className="hover:text-[#00d4ff] transition-colors">
+              Pricing
+            </a>
+            <a href="#faq" className="hover:text-[#00d4ff] transition-colors">
+              FAQ
+            </a>
+          </nav>
+
+          <div className="flex gap-3">
             <Link
               to="/login"
-              className="rounded-md px-3 py-1.5 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 hover:bg-gray-50"
+              className="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 transition"
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="rounded-md bg-cyan-500 px-3.5 py-1.5 text-sm font-semibold text-white hover:bg-cyan-600"
+              className="bg-[#00d4ff] text-[#0b0f19] px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition"
             >
               Start Free Trial
             </Link>
-          </nav>
+          </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="w-full bg-gradient-to-b from-[#0b1220] to-[#0e1626] py-20 text-white">
-        <div className="mx-auto max-w-screen-xl px-6 text-center">
-          <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
-            Never Miss Another <span className="text-cyan-400">Customer Call</span>
+      {/* ================= HERO ================= */}
+      <section
+        id="hero"
+        className="relative overflow-hidden bg-gradient-to-b from-[#121a2a] to-[#0b1220] min-h-[92svh] w-full pt-36 pb-20 flex items-center justify-center"
+      >
+        {/* Background (subtle grid) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+            backgroundSize: "36px 36px",
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-[1100px] px-6 text-center mx-auto">
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mx-auto">
+            Never Miss Another <span className="text-[#00d4ff]">Customer Call</span>
           </h1>
 
-          {/* subtitle with dark background for readability */}
-          <div className="mx-auto mt-6 flex w-full justify-center">
-            <p className="mx-auto max-w-2xl rounded-md bg-black/40 px-5 py-4 text-base leading-relaxed text-gray-100 backdrop-blur md:text-lg">
-              Your AI receptionist answers calls, qualifies leads, books appointments, and sends instant summaries — 24/7 — so you can focus on running your business.
+          {/* Subtitle chip (always readable) */}
+          <div className="mt-6 flex justify-center">
+            <p className="max-w-[780px] bg-black/55 backdrop-blur-sm px-5 py-4 rounded-md text-base md:text-lg text-gray-100 leading-relaxed shadow-[0_6px_24px_rgba(0,0,0,.25)]">
+              Your AI receptionist answers every call, books appointments, and captures
+              leads 24/7 — so you can focus on running your business.
             </p>
           </div>
 
           {/* CTAs */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="flex gap-3 justify-center items-center flex-wrap mt-8">
             <Link
               to="/signup"
-              className="rounded-md bg-cyan-500 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-cyan-600"
+              className="bg-[#00d4ff] text-[#0b0f19] px-6 py-3 rounded-xl text-base font-semibold shadow-[0_10px_28px_rgba(0,212,255,.45)] hover:-translate-y-0.5 transition-all duration-300"
             >
-              Start Free 14-Day Trial
+              🚀 Start Free 14-Day Trial
             </Link>
+
             <a
               href="#demo"
-              className="rounded-md px-5 py-3 text-sm font-semibold text-cyan-300 ring-1 ring-cyan-400/50 hover:bg-white/10"
+              className="border-2 border-[#00d4ff] px-6 py-3 rounded-xl text-base font-semibold hover:bg-[#00d4ff]/10 transition-all duration-300"
             >
-              ▶︎ Listen to a Demo
+              🎧 Listen to a Demo
             </a>
           </div>
 
-          {/* Stats */}
-          <div className="mx-auto mt-12 grid max-w-3xl grid-cols-3 gap-4 text-center">
+          {/* Metrics */}
+          <div className="mt-12 grid grid-cols-3 gap-3 md:gap-6 max-w-[760px] mx-auto">
             {[
-              { n: "98%", l: "Customer Satisfaction" },
-              { n: "10 min", l: "Average Setup Time" },
-              { n: "24/7", l: "Always Available" },
-            ].map((s, i) => (
-              <div key={i} className="rounded-lg border border-white/10 bg-white/5 px-4 py-5">
-                <div className="text-2xl font-extrabold text-cyan-300 md:text-3xl">{s.n}</div>
-                <div className="mt-1 text-xs text-gray-300 md:text-sm">{s.l}</div>
+              { number: "98%", label: "Customer Satisfaction" },
+              { number: "10 min", label: "Average Setup Time" },
+              { number: "24/7", label: "Always Available" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="p-5 bg-white/[.06] border border-white/10 rounded-xl"
+              >
+                <div className="text-2xl md:text-3xl font-extrabold text-[#00d4ff]">
+                  {item.number}
+                </div>
+                <div className="text-xs md:text-sm text-[#cfd6e4] mt-1">{item.label}</div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Bottom fade to next section */}
+        <div className="absolute bottom-0 left-0 w-full h-32 pointer-events-none bg-gradient-to-b from-transparent to-[#0b0f19]" />
       </section>
 
-      {/* Pain Points */}
-      <section className="w-full bg-white py-16">
-        <div className="mx-auto max-w-screen-xl px-6">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight md:text-4xl">
-            Every Missed Call Is Money Walking Out the Door
-          </h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-4">
-            {[
-              { icon: "📉", title: "Lost Revenue", text: "67% of callers won’t try again if you miss them. Those leads don’t come back." },
-              { icon: "😤", title: "Frustrated Customers", text: "Competitors answer first. Long rings or voicemail push people elsewhere." },
-              { icon: "💸", title: "Expensive Services", text: "Traditional answering services cost $300–$500/mo and still miss peak times." },
-              { icon: "😓", title: "Staff Burnout", text: "After-hours calls drain teams and increase turnover." },
-            ].map((c, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <div className="text-4xl">{c.icon}</div>
-                <h3 className="mt-3 text-lg font-semibold">{c.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{c.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ===== Spacer to guarantee separation (prevents overlap/whiting) ===== */}
+      <div className="h-10 bg-[#0b0f19]" />
 
-      {/* How it Works */}
-      <section id="how" className="w-full bg-gray-50 py-16">
-        <div className="mx-auto max-w-screen-xl px-6">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight md:text-4xl">
-            How AfterCallPro Works
+      {/* ================= FEATURES ================= */}
+      <section id="features" className="relative bg-[#0b0f19] py-16 md:py-20">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-3">
+            Why Businesses Choose AfterCall<span className="text-[#00d4ff]">Pro</span>
           </h2>
-          <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              { icon: "📲", title: "Forward Your Calls", text: "Keep your number. Point it to AfterCallPro in minutes." },
-              { icon: "🤖", title: "AI Answers 24/7", text: "Greets callers in your brand voice, answers FAQs, qualifies, and books." },
-              { icon: "📩", title: "You Get Results", text: "Instant SMS/email summaries with caller details and calendar bookings." },
-            ].map((s, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6">
-                <div className="text-4xl">{s.icon}</div>
-                <h3 className="mt-3 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{s.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="w-full bg-white py-16">
-        <div className="mx-auto max-w-screen-xl px-6 text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-            Smarter Than an Answering Service — Built for Small Business
-          </h2>
-          <p className="mx-auto mt-3 max-w-3xl text-sm text-gray-600">
-            Answers calls, books appointments, takes messages, and routes emergencies — with natural, human-like conversation.
+          <p className="text-center text-gray-300 max-w-[820px] mx-auto">
+            Answers calls, books appointments, takes messages, and routes emergencies —
+            all with natural, human-like conversation.
           </p>
-          <div className="mt-10 grid grid-cols-1 gap-8 text-left md:grid-cols-3">
+
+          {/* Cards: centered icon, left-aligned text */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
             {[
-              { icon: "🗣️", title: "Sounds Human", text: "Natural conversations powered by advanced language models." },
-              { icon: "📅", title: "Books Appointments", text: "Connects to Google, Outlook, or your scheduling link." },
-              { icon: "✉️", title: "Instant Messages", text: "Summaries via SMS/email with caller info and next steps." },
+              {
+                icon: "🤖",
+                title: "Sounds Human",
+                text: "Natural conversations powered by AI. Your customers won’t know they’re talking to AI.",
+              },
+              {
+                icon: "📅",
+                title: "Books Appointments",
+                text: "Integrates with your calendar. Schedules, reschedules, and sends confirmations.",
+              },
+              {
+                icon: "💬",
+                title: "Takes Messages",
+                text: "Instant SMS/email summaries with caller details and next steps.",
+              },
+              {
+                icon: "⚡",
+                title: "10-Minute Setup",
+                text: "Keep your number. Forward calls and you’re live — no hardware needed.",
+              },
             ].map((f, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <div className="text-3xl">{f.icon}</div>
-                <h3 className="mt-3 text-lg font-semibold">{f.title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{f.text}</p>
+              <div
+                key={i}
+                className="rounded-2xl bg-white/[.06] border border-white/10 p-6"
+              >
+                <div className="flex flex-col items-center">
+                  <div className="text-4xl">{f.icon}</div>
+                </div>
+                <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>
+                <p className="mt-2 text-sm text-gray-300">{f.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Security / Trust */}
-      <section id="security" className="w-full bg-gray-50 py-16">
-        <div className="mx-auto max-w-screen-xl px-6">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight md:text-4xl">Security & Compliance</h2>
-          <p className="mx-auto mt-3 max-w-3xl text-center text-sm text-gray-600">
-            Encryption in transit and at rest • Access controls and audit logs • Configurable data retention •
-            Optional BAA for healthcare practices.
+      {/* ================= PRICING (placeholder hook) ================= */}
+      <section id="pricing" className="bg-[#0b0f19] py-16">
+        <div className="max-w-[1200px] mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-3">Simple Pricing</h2>
+          <p className="text-gray-300 mb-8">
+            Start free. Upgrade when you’re ready. Cancel anytime.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 text-xs">
-            {["HIPAA-Ready", "Encryption", "Audit Logs", "SLA Available", "99.9% Uptime"].map((b) => (
-              <span key={b} className="rounded-lg bg-white px-3 py-1 ring-1 ring-gray-200">
-                {b}
-              </span>
-            ))}
-          </div>
+          {/* Your existing <PricingSection /> can be mounted here if desired */}
+          <Link
+            to="/signup"
+            className="inline-flex items-center justify-center bg-[#00d4ff] text-[#0b0f19] px-6 py-3 rounded-xl font-semibold shadow-[0_10px_28px_rgba(0,212,255,.45)] hover:-translate-y-0.5 transition-all"
+          >
+            Get Started
+          </Link>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section id="testimonials" className="w-full bg-white py-16">
-        <div className="mx-auto max-w-screen-xl px-6">
-          <h2 className="text-center text-3xl font-extrabold tracking-tight md:text-4xl">What Customers Say</h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              { quote: "We booked 12 new patients in the first week. The phone stress is gone.", name: "Sarah P.", role: "Dental Office Manager" },
-              { quote: "Weekends used to be dead leads. Now we never miss urgent calls.", name: "Luis R.", role: "HVAC Owner" },
-              { quote: "Callers get answers and appointments without me touching the phone.", name: "Dana K.", role: "Real Estate Team Lead" },
-            ].map((t, i) => (
-              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <p className="text-gray-800">“{t.quote}”</p>
-                <div className="mt-4 text-sm font-semibold">{t.name}</div>
-                <div className="text-xs text-gray-500">{t.role}</div>
-              </div>
-            ))}
-          </div>
+      {/* ================= FAQ (placeholder) ================= */}
+      <section id="faq" className="py-16 bg-[#0b0f19]">
+        <div className="max-w-[1200px] mx-auto px-6 text-center text-gray-300">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6">FAQ</h2>
+          <p>More answers coming soon.</p>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="w-full bg-gradient-to-t from-[#0b1220] to-[#0e1626] py-16 text-white">
-        <div className="mx-auto max-w-screen-xl px-6 text-center">
-          <h3 className="mx-auto max-w-3xl text-3xl font-extrabold md:text-4xl">
-            Turn missed calls into booked customers — automatically.
-          </h3>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              to="/signup"
-              className="rounded-md bg-cyan-500 px-6 py-3 text-sm font-semibold text-white hover:bg-cyan-600"
-            >
-              Start Free 14-Day Trial
-            </Link>
-            <a
-              href="#how"
-              className="rounded-md px-6 py-3 text-sm font-semibold text-cyan-300 ring-1 ring-cyan-400/50 hover:bg-white/10"
-            >
-              See How It Works
-            </a>
-          </div>
-          <p className="mt-4 text-xs text-cyan-200/80">
-            Cancel anytime • No number change • 10-minute setup
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="w-full border-t border-gray-200 bg-white py-10">
-        <div className="mx-auto max-w-screen-xl px-6">
-          <div className="grid grid-cols-1 items-center justify-between gap-6 md:grid-cols-3">
-            <div className="text-sm font-extrabold">
-              AfterCall<span className="text-cyan-600">Pro</span>
-            </div>
-            <div className="text-center text-xs text-gray-500">
-              © {new Date().getFullYear()} AfterCallPro — All rights reserved.
-            </div>
-            <div className="flex justify-end gap-4 text-xs text-gray-600">
-              <Link to="/privacy-policy" className="hover:text-gray-900">Privacy</Link>
-              <Link to="/terms" className="hover:text-gray-900">Terms</Link>
-              <Link to="/faq" className="hover:text-gray-900">FAQ</Link>
-            </div>
-          </div>
+      {/* ================= FOOTER ================= */}
+      <footer className="py-10 border-t border-white/10 bg-[#0b0f19]">
+        <div className="max-w-[1200px] mx-auto px-6 text-center text-gray-400 text-sm">
+          © {new Date().getFullYear()} AfterCallPro — All Rights Reserved.
         </div>
       </footer>
-    </main>
+
+      {/* Kill any ghost mega-headline injected by older builds */}
+      <style>{`
+        h2[aria-hidden], .ghost-headline { display: none !important; }
+      `}</style>
+    </div>
   );
 }
