@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
-set -e
+set -o errexit
 
-# 1) Python deps
-pip install --upgrade pip
-pip install -r requirements.txt
+printf "\n--- Installing frontend dependencies ---\n"
+cd src/frontend
+npm install
 
-# 2) Build React frontend (adjust path if different)
-pushd src/frontend
-# If you have a lockfile: use npm ci; otherwise npm install
-npm ci || npm install
+printf "\n--- Building frontend with Vite ---\n"
 npm run build
-popd
 
-# 3) Copy fresh build into Flask static dir (adjust paths to match your repo)
-# If your Flask static folder is src/static, do:
+printf "\n--- Moving build output into backend static folder ---\n"
+cd ../..
 rm -rf src/static/*
-cp -R src/frontend/dist/* src/static/
+cp -r src/frontend/dist/* src/static/
+
+printf "\n--- Frontend build complete ---\n"
