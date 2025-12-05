@@ -143,4 +143,76 @@ export default function TermsConditions() {
 
           {/* 8 - Liability */}
           <section>
-            <h2 className="text-2xl f
+            <h2 className="text-2xl font-bold text-white mb-4">8. Limitation of Liability</h2>
+            <p className="mb-4">
+              To the maximum extent allowed by law:
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>The Service is provided “as is” without warranties</li>
+              <li>We are not liable for indirect or consequential damages</li>
+              <li>Our total liability is limited to your payments over the past 12 months</li>
+              <li>We are not responsible for lost calls, business loss, or data loss</li>
+            </ul>
+          </section>
+
+          {/* 9 */}
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">9. Termination</h2>
+            <p>
+              We may suspend or terminate accounts for violations, non-payment, or 
+              misuse. Upon termination, access to your account and data may become 
+              restricted. Data retrieval is available for 30 days after termination.
+            </p>
+          </section>
+
+          {/* 10 - Law */}
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">10. Governing Law</h2>
+            <p>
+              These Terms are governed by the laws of the State of California. Any 
+              disputes shall be resolved in the courts of Ventura County, California.
+            </p>
+          </section>
+
+          {/* 11 - Contact */}
+          <section>
+            <h2 className="text-2xl font-bold text-white mb-4">11. Contact Information</h2>
+            <p className="mb-4">For questions regarding these Terms, contact:</p>
+
+            <ul className="space-y-2">
+              <li><strong>Business Name:</strong> MindRocket Systems LLC</li>
+              <li><strong>Email:</strong> <a href="mailto:support@aftercallpro.com" className="text-[#00D9FF] hover:underline">support@aftercallpro.com</a></li>
+              <li><strong>Address:</strong> 3645 E Thousand Oaks Blvd, Unit 2007, Thousand Oaks, CA 91362</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="py-20 border-t border-white/20 mt-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8">
+          
+          <div className="flex items-center space-x-4">
+            <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-lg shadow-cyan-500/30">
+              <Phone className="w-5 h-5" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
+              AfterCallPro
+            </span>
+          </div>
+
+          <div className="flex gap-8 text-sm text-white/70">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
+            <Link to="/home" className="hover:text-white transition-colors">Home</Link>
+          </div>
+
+          <p className="text-white/50 text-sm">
+            © {new Date().getFullYear()} AfterCallPro — All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
