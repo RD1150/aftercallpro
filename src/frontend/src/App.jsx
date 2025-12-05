@@ -1,7 +1,14 @@
 import React from "react";
 import logo from "./assets/aftercallpro-logo-blue.png";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 export default function App() {
+  const path = window.location.pathname;
+
+  if (path === "/privacy-policy") {
+    return <PrivacyPolicy />;
+  }
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       {/* Top Navigation */}
