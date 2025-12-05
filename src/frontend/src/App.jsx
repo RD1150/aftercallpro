@@ -3,7 +3,9 @@ import logo from "./assets/aftercallpro-logo-blue.png";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 
 export default function App() {
-  const path = window.location.pathname;
+  // Normalize path so `/privacy-policy/` also works
+  const rawPath = window.location.pathname || "/";
+  const path = rawPath.replace(/\/+$/, "") || "/";
 
   if (path === "/privacy-policy") {
     return <PrivacyPolicy />;
