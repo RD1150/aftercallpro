@@ -1,31 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Phone } from "lucide-react";
+import logo from "../assets/aftercallpro-logo-blue.png";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-[#0b1524] text-white font-sans">
+    <div className="min-h-screen bg-white text-gray-900 font-sans">
+
       {/* Header */}
-      <nav className="sticky top-0 z-50 border-b border-white/20 bg-[#0b1524]/90 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 md:px-12 py-4 md:py-8">
-          <Link to="/home" className="flex items-center space-x-2 md:space-x-4">
-            <div className="grid h-8 w-8 md:h-11 md:w-11 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-lg shadow-cyan-500/30">
-              <Phone className="w-4 h-4 md:w-5 md:h-5" />
-            </div>
-            <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
+      <nav className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 md:px-12 py-4 md:py-6">
+          <Link to="/home" className="flex items-center space-x-3">
+            <img 
+              src={logo}
+              alt="AfterCallPro Logo"
+              className="h-10 w-10 object-contain"
+            />
+            <span className="text-xl md:text-2xl font-bold text-[#0b1524]">
               AfterCallPro
             </span>
           </Link>
-          <div className="flex items-center space-x-3 md:space-x-16">
-            <Link 
-              to="/login" 
-              className="bg-white/10 text-white hover:bg-white/15 transition-colors px-4 py-2 md:px-10 md:py-5 rounded-lg border-2 border-white/30 hover:border-white/50 font-medium text-xs md:text-sm"
+
+          <div className="flex items-center space-x-4 md:space-x-10">
+            <Link
+              to="/login"
+              className="text-gray-700 hover:text-black transition-colors text-sm font-medium"
             >
               Login
             </Link>
-            <Link 
-              to="/signup" 
-              className="bg-gradient-to-r from-[#00D9FF] to-[#00A8CC] px-5 py-2 md:px-16 md:py-6 rounded-lg font-semibold hover:shadow-xl hover:shadow-cyan-500/40 transition-all text-xs md:text-sm whitespace-nowrap"
+            <Link
+              to="/signup"
+              className="bg-[#0b1524] text-white px-5 py-2 rounded-md font-semibold text-sm hover:bg-black transition-all"
             >
               Get Started
             </Link>
@@ -33,133 +37,251 @@ export default function PrivacyPolicy() {
         </div>
       </nav>
 
-      {/* Privacy Policy Content */}
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-20">
-        <h1 className="text-4xl md:text-5xl font-bold mb-8">Privacy Policy</h1>
-        <p className="text-white/70 mb-12">Last updated: October 31, 2025</p>
+      {/* Content */}
+      <div className="max-w-4xl mx-auto px-6 md:px-12 py-16">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-[#0b1524]">Privacy Policy</h1>
+        <p className="text-gray-500 mb-12">Last updated: December 2025</p>
 
-        <div className="space-y-8 text-white/80 leading-relaxed">
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">1. Information We Collect</h2>
-            <p className="mb-4">
-              AfterCallPro collects information to provide and improve our AI-powered call answering service. We collect:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Account Information:</strong> Name, email address, business name, and phone number when you sign up</li>
-              <li><strong>Call Data:</strong> Call recordings, transcriptions, caller information, and call metadata</li>
-              <li><strong>Business Information:</strong> FAQs, custom greetings, and business settings you configure</li>
-              <li><strong>Usage Data:</strong> How you interact with our service, including dashboard analytics</li>
-              <li><strong>Payment Information:</strong> Billing details processed securely through our payment processor</li>
-            </ul>
-          </section>
+        <div className="space-y-10 text-gray-800 leading-relaxed">
 
+          {/* Introduction */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">2. How We Use Your Information</h2>
-            <p className="mb-4">We use the information we collect to:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Provide and maintain our call answering service</li>
-              <li>Process and transcribe calls using AI technology</li>
-              <li>Improve our AI models and service quality</li>
-              <li>Send you service updates and support communications</li>
-              <li>Process payments and prevent fraud</li>
-              <li>Comply with legal obligations</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">3. Data Security</h2>
             <p>
-              We implement industry-standard security measures to protect your data. All data is encrypted in transit using TLS/SSL and at rest using AES-256 encryption. Call recordings and transcriptions are stored securely on servers with restricted access. We conduct regular security audits and maintain strict access controls.
+              This Privacy Policy explains how AfterCallPro (“we”, “our”, “the Service”), 
+              owned and operated by <strong>MindRocket Systems LLC</strong>, collects, uses, 
+              stores, and protects your information when you interact with our AI-powered 
+              virtual receptionist platform. By using AfterCallPro, you consent to the 
+              practices described in this policy.
             </p>
           </section>
 
+          {/* 1. Information We Collect */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">4. Data Sharing</h2>
-            <p className="mb-4">
-              We do not sell your personal information. We may share your data with:
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">1. Information We Collect</h2>
+
+            <h3 className="font-semibold mb-1">1.1 Account Information</h3>
+            <p className="mb-3">
+              When you register, we collect your name, email, phone number, business name, 
+              and authentication credentials (stored securely).
+            </p>
+
+            <h3 className="font-semibold mb-1">1.2 Call & Caller Information</h3>
+            <p className="mb-3">
+              To provide our services, we collect:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Service Providers:</strong> Third-party vendors who help us operate our service (e.g., cloud hosting, payment processing)</li>
-              <li><strong>AI Partners:</strong> OpenAI and other AI providers to process calls (subject to their privacy policies)</li>
-              <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
+              <li>Call recordings and transcripts</li>
+              <li>Caller ID and phone numbers</li>
+              <li>Call routing data and metadata</li>
+              <li>Voicemail content</li>
+            </ul>
+
+            <h3 className="font-semibold mb-1 mt-4">1.3 Business Settings</h3>
+            <p className="mb-3">
+              This includes FAQs, call flow logic, routing rules, availability,
+              and custom greeting instructions you configure.
+            </p>
+
+            <h3 className="font-semibold mb-1">1.4 Usage Data</h3>
+            <p className="mb-3">
+              IP address, device type, browser information, dashboard activity,
+              and feature engagement metrics.
+            </p>
+
+            <h3 className="font-semibold mb-1">1.5 Payment Information</h3>
+            <p>
+              Payments are processed securely by <strong>Stripe</strong>. 
+              We do not store full credit card numbers.
+            </p>
+          </section>
+
+          {/* 2. How We Use Data */}
+          <section>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">2. How We Use Your Information</h2>
+            <p className="mb-3">We use your data to:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Answer, process, and route incoming calls using AI</li>
+              <li>Generate transcripts, summaries, and CRM updates</li>
+              <li>Improve call accuracy and service performance</li>
+              <li>Provide onboarding, support, and service updates</li>
+              <li>Detect fraud, abuse, or service misuse</li>
+              <li>Ensure legal compliance with telecom laws</li>
             </ul>
           </section>
 
+          {/* 3. AI Processing Disclosure */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">5. Data Retention</h2>
-            <p>
-              We retain call recordings and transcriptions for 90 days by default, or as configured in your account settings. Account information is retained for the duration of your subscription and for 30 days after cancellation. You can request deletion of your data at any time by contacting us.
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">3. AI & Language Model Processing</h2>
+            <p className="mb-3">
+              To provide transcription, summarization, and intelligent call handling, 
+              AfterCallPro uses third-party AI models, including <strong>OpenAI</strong>. 
+              Audio recordings and transcripts may be securely transmitted to these 
+              providers strictly for the purpose of processing and returning results.
+            </p>
+
+            <p className="mb-3">
+              We do <strong>not</strong> permit AI providers to use your data for training 
+              their public models. All processing is performed under strict confidentiality 
+              and data protection agreements.
             </p>
           </section>
 
+          {/* 4. Security */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">6. Your Rights</h2>
-            <p className="mb-4">You have the right to:</p>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">4. Data Security</h2>
+            <p>
+              We use enterprise-grade security, including TLS encryption in transit and 
+              AES-256 encryption at rest. Access to sensitive systems is restricted, 
+              monitored, and logged. While we maintain high security standards, no system 
+              can be guaranteed 100% secure.
+            </p>
+          </section>
+
+          {/* 5. Data Sharing */}
+          <section>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">5. Data Sharing</h2>
+
+            <p className="mb-3">We do not sell your data. We may share limited information with:</p>
+
             <ul className="list-disc pl-6 space-y-2">
-              <li>Access your personal information</li>
-              <li>Correct inaccurate data</li>
-              <li>Request deletion of your data</li>
-              <li>Export your data</li>
+              <li>Telecom and VoIP carriers (for call routing)</li>
+              <li>AI processors (OpenAI) strictly for call interpretation</li>
+              <li>Cloud hosting and infrastructure providers</li>
+              <li>CRM platforms when you enable integrations</li>
+              <li>Payment processor (Stripe)</li>
+              <li>Law enforcement when required</li>
+            </ul>
+          </section>
+
+          {/* 6. Retention */}
+          <section>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">6. Data Retention</h2>
+            <p>
+              Call recordings and transcripts are retained for <strong>90 days</strong> 
+              unless your settings specify otherwise. Account data is retained for as 
+              long as your subscription remains active and for 30 days after cancellation.
+            </p>
+          </section>
+
+          {/* 7. Your Rights */}
+          <section>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">7. Your Privacy Rights</h2>
+            <p className="mb-3">Depending on your location, you may request:</p>
+
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Access to your personal data</li>
+              <li>Correction of inaccurate information</li>
+              <li>Deletion of stored data</li>
+              <li>Export of your data</li>
+              <li>Restriction or objection to processing</li>
               <li>Opt-out of marketing communications</li>
-              <li>Object to data processing</li>
             </ul>
           </section>
 
+          {/* 8. Call Recording Compliance */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">7. Cookies and Tracking</h2>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">8. Call Recording Compliance</h2>
+            <p className="mb-3">
+              Call recording laws vary by state and country (e.g., California requires 
+              two-party consent). You are responsible for ensuring that your use of 
+              AfterCallPro complies with local regulations.
+            </p>
             <p>
-              We use cookies and similar technologies to maintain your session, remember your preferences, and analyze usage patterns. You can control cookies through your browser settings.
+              We provide tools to help you implement legally compliant call disclosures 
+              in your greeting message.
             </p>
           </section>
 
+          {/* 9. AI & Service Liability */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">8. Children's Privacy</h2>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">9. AI Accuracy & Service Limitations</h2>
+            <p className="mb-3">
+              AI transcription and interpretation may contain inaccuracies. 
+              Telecom carriers may cause call drops, delays, or degraded call quality. 
+              By using AfterCallPro, you acknowledge these limitations and agree that 
+              we are not liable for:
+            </p>
+
+            <ul className="list-disc pl-6 space-y-2">
+              <li>AI transcription or summarization errors</li>
+              <li>Misinterpretation of caller intent</li>
+              <li>Missed or lost calls due to carrier issues</li>
+              <li>Actions you take based on AI output</li>
+              <li>Any consequential or business damages</li>
+            </ul>
+          </section>
+
+          {/* 10. Cookies */}
+          <section>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">10. Cookies & Tracking</h2>
             <p>
-              Our service is not intended for children under 13. We do not knowingly collect information from children under 13.
+              We use cookies and local storage to maintain sessions, improve service 
+              performance, and analyze usage. You may disable cookies, but some features 
+              may not function properly.
             </p>
           </section>
 
+          {/* 11. Children */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">9. Changes to This Policy</h2>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">11. Children's Privacy</h2>
             <p>
-              We may update this Privacy Policy from time to time. We will notify you of significant changes by email or through our service.
+              AfterCallPro is not intended for individuals under age 13. We do not knowingly 
+              collect data from children.
             </p>
           </section>
 
+          {/* 12. Updates */}
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">10. Contact Us</h2>
-            <p className="mb-4">
-              If you have questions about this Privacy Policy or our data practices, please contact us:
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">12. Changes to This Privacy Policy</h2>
+            <p>
+              We may update this policy periodically. Material changes will be communicated 
+              via email or dashboard notifications.
             </p>
+          </section>
+
+          {/* 13. Contact */}
+          <section>
+            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">13. Contact Us</h2>
+
+            <p className="mb-4">For privacy-related questions or data requests:</p>
+
             <ul className="space-y-2">
-              <li><strong>Email:</strong> <a href="mailto:privacy@aftercallpro.com" className="text-[#00D9FF] hover:underline">privacy@aftercallpro.com</a></li>
-              <li><strong>Phone:</strong> <a href="tel:+18005551234" className="text-[#00D9FF] hover:underline">800-555-1234</a></li>
-              <li><strong>Address:</strong> AfterCallPro, 123 Business St, Suite 100, San Francisco, CA 94105</li>
+              <li>
+                <strong>Email:</strong>{" "}
+                <a href="mailto:support@aftercallpro.com" className="text-[#0b1524] underline">
+                  support@aftercallpro.com
+                </a>
+              </li>
+              <li><strong>Business Name:</strong> MindRocket Systems LLC</li>
+              <li><strong>Address:</strong> 3645 E Thousand Oaks Blvd, Unit 2007, Thousand Oaks, CA 91362</li>
             </ul>
           </section>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="py-20 border-t border-white/20 mt-20">
+      <footer className="py-16 border-t bg-gray-50 mt-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center space-x-4">
-            <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-lg shadow-cyan-500/30">
-              <Phone className="w-5 h-5" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-[#FFB84D] to-[#FF9A1F] bg-clip-text text-transparent">
-              AfterCallPro
-            </span>
+          <div className="flex items-center space-x-3">
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-10 w-10"
+            />
+            <span className="text-lg font-bold text-[#0b1524]">AfterCallPro</span>
           </div>
-          <div className="flex gap-8 text-sm text-white/70">
-            <Link to="/faq" className="hover:text-white transition-colors">FAQ</Link>
-            <Link to="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link>
-            <Link to="/home" className="hover:text-white transition-colors">Home</Link>
+
+          <div className="flex gap-8 text-sm text-gray-600">
+            <Link to="/terms" className="hover:text-black">Terms</Link>
+            <Link to="/privacy-policy" className="hover:text-black">Privacy Policy</Link>
+            <Link to="/home" className="hover:text-black">Home</Link>
           </div>
-          <p className="text-white/50 text-sm">© 2025 AfterCallPro — All rights reserved.</p>
+
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} AfterCallPro. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
   );
 }
-
