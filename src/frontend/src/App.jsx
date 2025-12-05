@@ -1,47 +1,39 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "./assets/aftercallpro-logo-blue.png";
 
 export default function App() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Top Navigation */}
+
+      {/* ─────────────────────── NAVBAR ───────────────────────── */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
-        <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
-          
+        <div className="max-w-screen-xl mx-auto flex items-center justify-between px-4 py-4">
+
           {/* Logo + Brand */}
-          <div className="flex items-center gap-3">
-            <img
-              src={logo}
-              alt="AfterCallPro"
-              className="h-10 w-auto md:h-12"
-            />
+          <Link to="/home" className="flex items-center gap-3">
+            <img src={logo} alt="AfterCallPro" className="h-10 w-auto" />
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className="font-semibold text-sm md:text-base tracking-wide text-slate-900">
+              <span className="font-semibold text-base tracking-wide">
                 AfterCallPro
               </span>
-              <span className="text-[11px] md:text-xs text-slate-500">
-                Your AI-powered virtual receptionist
+              <span className="text-[11px] text-slate-500">
+                AI-powered virtual receptionist
               </span>
             </div>
-          </div>
+          </Link>
 
-          {/* Right-side Navigation */}
-          <div className="flex items-center gap-3">
-            <a
-              href="#pricing"
-              className="hidden md:inline text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors"
-            >
+          {/* Nav Links */}
+          <div className="flex items-center gap-4 text-sm">
+            <a href="#pricing" className="text-slate-600 hover:text-slate-900">
               Pricing
             </a>
-            <a
-              href="#how-it-works"
-              className="hidden md:inline text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors"
-            >
+            <a href="#how-it-works" className="text-slate-600 hover:text-slate-900">
               How it works
             </a>
             <a
               href="#demo"
-              className="inline-flex items-center justify-center rounded-full border border-sky-500 bg-sky-500 px-4 py-1.5 text-xs md:text-sm font-semibold text-white shadow-sm hover:bg-sky-600 transition-colors"
+              className="inline-flex items-center justify-center rounded-full bg-sky-600 text-white px-4 py-2 font-semibold hover:bg-sky-700 transition"
             >
               Book a Demo
             </a>
@@ -49,82 +41,78 @@ export default function App() {
         </div>
       </header>
 
-      {/* Page Content */}
-      <div className="max-w-screen-xl mx-auto px-4 pb-16 md:pb-24 space-y-16 md:space-y-24">
-        
-        {/* HERO */}
-        <section className="pt-10 md:pt-16 lg:pt-20 grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-10 md:gap-14 items-center">
-          
-          {/* Left side text */}
-          <div className="space-y-6 md:space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[11px] md:text-xs text-emerald-700">
+      {/* ─────────────────────── CONTENT WRAPPER ───────────────────────── */}
+      <div className="max-w-screen-xl mx-auto px-4 pb-20 space-y-24">
+
+        {/* ─────────────────────── HERO ───────────────────────── */}
+        <section className="pt-14 grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* Left: Text */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs text-emerald-700">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
               Never miss another lead — even after hours.
             </div>
 
-            <div className="space-y-3 md:space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-900">
-                Turn missed calls into
-                <span className="block text-sky-700">booked appointments.</span>
-              </h1>
-              <p className="max-w-xl text-sm md:text-base text-slate-600">
-                AfterCallPro is your always-on, AI-powered virtual receptionist that 
-                answers, screens, and routes calls for your business — 24/7 — so you 
-                wake up to new leads instead of missed calls.
-              </p>
-            </div>
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+              Turn missed calls into  
+              <span className="block text-sky-700">booked appointments.</span>
+            </h1>
 
-            {/* Hero CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <p className="max-w-xl text-slate-600 text-base">
+              AfterCallPro automatically answers, screens, routes, and books
+              calls — 24/7 — so you wake up to new business instead of missed
+              opportunities.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="#pricing"
-                className="inline-flex items-center justify-center rounded-full bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 transition-colors"
+                className="rounded-full bg-sky-600 text-white px-6 py-3 text-sm font-semibold shadow hover:bg-sky-700"
               >
                 See Plans & Pricing
               </a>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-800 hover:bg-slate-50 transition-colors"
+                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-800 bg-white hover:bg-slate-50"
               >
                 Watch how it works
               </a>
             </div>
 
-            {/* Social Badges */}
-            <div className="flex flex-wrap items-center gap-3 text-[11px] md:text-xs text-slate-600">
-              <span>✅ Perfect for solo pros & small teams</span>
-              <span className="hidden sm:inline text-slate-300">•</span>
-              <span>✅ Integrates with your CRM</span>
-              <span className="hidden sm:inline text-slate-300">•</span>
-              <span>✅ Fully customizable call flows</span>
+            {/* Social Proof */}
+            <div className="text-xs text-slate-600 flex flex-wrap gap-3">
+              <span>✓ Perfect for solo pros & small teams</span>
+              <span>✓ Integrates with your CRM</span>
+              <span>✓ Fully customizable call flows</span>
             </div>
           </div>
 
-          {/* Right side preview */}
+          {/* Right: Phone Preview */}
           <div className="lg:justify-self-end w-full max-w-sm mx-auto">
-            <div className="rounded-3xl border border-slate-200 bg-white p-4 md:p-5 shadow-md">
-
-              <div className="flex items-center justify-between text-[11px] text-slate-500 mb-3">
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow">
+              <div className="text-[11px] text-slate-500 flex justify-between mb-3">
                 <span>AfterCallPro</span>
                 <span>Live Call Preview</span>
               </div>
 
               <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4 space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 text-sm font-semibold">
+                  <div className="h-9 w-9 rounded-full bg-sky-100 flex items-center justify-center text-sky-700 font-semibold">
                     AI
                   </div>
-                  <div className="flex-1">
+                  <div>
                     <p className="text-xs text-slate-700">
-                      “Hi, thanks for calling. Are you a new or existing client?”
+                      “Hi! Thanks for calling. Are you a new or existing client?”
                     </p>
-                    <p className="mt-1 text-[11px] text-emerald-600">
+                    <p className="text-[11px] text-emerald-600 mt-1">
                       Recognized lead • Auto-logged in CRM
                     </p>
                   </div>
                 </div>
 
-                <div className="space-y-2 text-[11px] text-slate-600">
+                <div className="text-[11px] text-slate-600 space-y-2">
                   <div className="flex justify-between">
                     <span>Missed calls today</span>
                     <span className="text-emerald-700 font-semibold">0</span>
@@ -139,118 +127,156 @@ export default function App() {
                   </div>
                 </div>
 
-                <button className="mt-3 w-full rounded-full bg-sky-600 py-1.5 text-xs font-semibold text-white hover:bg-sky-700 transition-colors">
-                  View today’s call summary
+                <button className="w-full bg-sky-600 text-white rounded-full py-1.5 text-xs font-semibold hover:bg-sky-700">
+                  View today's call summary
                 </button>
               </div>
 
-              <p className="mt-3 text-[11px] text-slate-500">
-                Every call is answered, transcribed, and synced — so nothing 
-                slips through the cracks while you’re with clients or off the clock.
+              <p className="text-[11px] text-slate-500 mt-3">
+                Every call is answered, transcribed, and synced automatically.
               </p>
             </div>
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
-        <section id="how-it-works" className="space-y-6 md:space-y-8">
-          <div className="space-y-2">
-            <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
-              How AfterCallPro works
-            </h2>
-            <p className="text-sm md:text-base text-slate-600 max-w-2xl">
-              Set it up once, and let it intelligently answer, route, and capture 
-              every call — without hiring, training, or managing a receptionist.
-            </p>
-          </div>
+        {/* ─────────────────────── HOW IT WORKS ───────────────────────── */}
+        <section id="how-it-works" className="space-y-8">
+          <h2 className="text-2xl font-bold">How AfterCallPro works</h2>
+          <p className="text-slate-600 max-w-2xl">
+            Set it up once. AfterCallPro handles every call professionally,
+            consistently, and instantly — without hiring a receptionist.
+          </p>
 
-          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 title: "1. Answer & greet",
-                body: "AfterCallPro answers in your brand voice with a warm, professional greeting tailored to your business.",
+                body: "Warm, professional AI greeting customized to your business.",
               },
               {
                 title: "2. Qualify & route",
-                body: "It asks smart questions, identifies whether the caller is a lead, client, or vendor, and routes or books accordingly.",
+                body: "Identifies callers, books appointments, and routes smartly.",
               },
               {
                 title: "3. Log & notify",
-                body: "Notes, transcripts, and key details are sent to your CRM or inbox instantly so you can follow up without digging.",
+                body: "Instant summaries, transcripts, and CRM logging.",
               },
             ].map((item, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl border border-slate-200 bg-white p-4 md:p-5 space-y-2 shadow-sm"
-              >
-                <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-700 mb-1">
+              <div key={idx} className="rounded-2xl border bg-white p-5 shadow-sm">
+                <div className="h-7 w-7 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center mb-2">
                   {idx + 1}
                 </div>
-                <h3 className="text-sm md:text-base font-medium text-slate-900">
-                  {item.title}
-                </h3>
-                <p className="text-xs md:text-sm text-slate-600">{item.body}</p>
+                <h3 className="font-medium mb-1">{item.title}</h3>
+                <p className="text-sm text-slate-600">{item.body}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* INDUSTRIES */}
-        <section className="space-y-6 md:space-y-8">
-          <div className="space-y-2">
-            <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
-              Built for service businesses that can’t afford to miss calls
-            </h2>
-            <p className="text-sm md:text-base text-slate-600 max-w-2xl">
-              Whether you’re solo or have a small team, AfterCallPro quietly runs in the background so your business looks bigger, faster, and more reliable.
-            </p>
-          </div>
+        {/* ─────────────────────── PRICING ───────────────────────── */}
+        <section id="pricing" className="space-y-8 text-center">
+          <h2 className="text-2xl font-bold">Simple, transparent pricing</h2>
+          <p className="text-slate-600 max-w-xl mx-auto">
+            Select the plan that fits your business today. Upgrade only when you grow.
+          </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 text-xs md:text-sm">
-            {[
-              "Real estate & property management",
-              "Legal & professional services",
-              "Healthcare & wellness practices",
-              "Home services & contractors",
-              "Financial & insurance advisors",
-              "Coaches & consultants",
-              "Salons, spas & studios",
-              "Local small businesses",
-            ].map((label, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm"
-              >
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-[11px] text-emerald-700 mr-2">
-                  ✓
-                </span>
-                <span className="align-middle text-slate-800">{label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+          <div className="grid md:grid-cols-3 gap-6">
 
-        {/* PRICING */}
-        <section id="pricing" className="space-y-6 md:space-y-8">
-          <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
-              Simple, transparent pricing
-            </h2>
-            <p className="text-sm md:text-base text-slate-600">
-              Start with the plan that fits where your business is now.
-              Upgrade only when your call volume does.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-            
-            {/* STARTER - $49 */}
-            <div className="rounded-3xl border border-slate-200 bg-white p-5 space-y-3 flex flex-col shadow-sm">
+            {/* Starter */}
+            <div className="border rounded-3xl bg-white p-6 shadow-sm space-y-4">
+              <h3 className="font-semibold text-lg">Starter</h3>
+              <p className="text-slate-600 text-sm">For solo pros.</p>
               <div>
-                <h3 className="text-sm md:text-base font-semibold text-slate-900">
-                  Starter
-                </h3>
-                <p className="text-xs text-slate-600">For solo pros testing AI reception.</p>
+                <span className="text-3xl font-bold">$49</span>
+                <span className="text-slate-600 text-sm"> / month</span>
               </div>
-              <div className="flex items-baseline gap-1">
-                <span className=
+              <ul className="text-sm text-slate-600 space-y-1">
+                <li>• Up to 200 calls / month</li>
+                <li>• Custom greeting</li>
+                <li>• Basic call flows</li>
+                <li>• Email summaries</li>
+              </ul>
+              <a className="block rounded-full border border-slate-300 py-2 hover:bg-slate-50">
+                Start with Starter
+              </a>
+            </div>
+
+            {/* Pro */}
+            <div className="border-2 border-sky-500 rounded-3xl bg-sky-50 p-6 shadow space-y-4">
+              <h3 className="font-semibold text-lg">Pro</h3>
+              <p className="text-slate-600 text-sm">Most popular.</p>
+              <div>
+                <span className="text-3xl font-bold text-sky-700">$99</span>
+                <span className="text-slate-600 text-sm"> / month</span>
+              </div>
+              <ul className="text-sm text-slate-700 space-y-1">
+                <li>• 600 calls / month</li>
+                <li>• Advanced routing</li>
+                <li>• SMS follow-up</li>
+                <li>• CRM automation</li>
+              </ul>
+              <a className="block rounded-full bg-sky-600 text-white py-2 hover:bg-sky-700">
+                Choose Pro
+              </a>
+            </div>
+
+            {/* Scale */}
+            <div className="border rounded-3xl bg-white p-6 shadow-sm space-y-4">
+              <h3 className="font-semibold text-lg">Scale</h3>
+              <p className="text-slate-600 text-sm">For high-volume teams.</p>
+              <div>
+                <span className="text-3xl font-bold">Custom</span>
+              </div>
+              <ul className="text-sm text-slate-600 space-y-1">
+                <li>• Unlimited calls</li>
+                <li>• Multi-location routing</li>
+                <li>• Dedicated support</li>
+              </ul>
+              <a className="block rounded-full border border-slate-300 py-2 hover:bg-slate-50">
+                Talk to Sales
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────────────── DEMO SECTION ───────────────────────── */}
+        <section
+          id="demo"
+          className="rounded-3xl border border-sky-200 bg-sky-50 px-6 py-10 space-y-4"
+        >
+          <h2 className="text-xl font-bold">See how AfterCallPro works for you</h2>
+          <p className="text-slate-700 max-w-xl">
+            Book a demo and preview your custom call flow, greeting, and scripting.
+          </p>
+
+          <a
+            href="https://calendly.com"
+            className="inline-flex items-center justify-center rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white hover:bg-sky-700"
+          >
+            Book a 15-minute demo
+          </a>
+        </section>
+
+        {/* ─────────────────────── FOOTER (UPDATED FOR LEGAL PAGES) ───────────────────────── */}
+        <footer className="border-t border-slate-200 pt-6 mt-10 text-xs text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p>© {new Date().getFullYear()} AfterCallPro. All rights reserved.</p>
+
+          <div className="flex gap-4">
+            <Link to="/privacy-policy" className="hover:text-slate-900">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="hover:text-slate-900">
+              Terms & Conditions
+            </Link>
+            <Link to="/billing-policy" className="hover:text-slate-900">
+              Billing Policy
+            </Link>
+            <Link to="/acceptable-use" className="hover:text-slate-900">
+              Acceptable Use
+            </Link>
+          </div>
+        </footer>
+      </div>
+    </main>
+  );
+}
