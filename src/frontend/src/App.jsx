@@ -1,14 +1,19 @@
 import React from "react";
 import logo from "./assets/aftercallpro-logo-blue.png";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsConditions from "./components/TermsConditions";
 
 export default function App() {
-  // Normalize path so `/privacy-policy/` also works
-  const rawPath = window.location.pathname || "/";
+  // Normalize the path so `/privacy-policy/` also works
+  const rawPath = (window.location.pathname || "/").toLowerCase();
   const path = rawPath.replace(/\/+$/, "") || "/";
 
   if (path === "/privacy-policy") {
     return <PrivacyPolicy />;
+  }
+
+  if (path === "/terms" || path === "/terms-conditions") {
+    return <TermsConditions />;
   }
 
   return (
