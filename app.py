@@ -1,22 +1,21 @@
-# src/app.py
+# app.py (repo root)
 import os
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 
-# Absolute paths regardless of where app.py lives
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))                 # aftercallpro/src
-PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))          # aftercallpro
-DIST_DIR = os.path.join(PROJECT_ROOT, "src", "frontend", "dist")      # aftercallpro/src/frontend/dist
-ASSETS_DIR = os.path.join(DIST_DIR, "assets")
+# Paths assuming THIS file is at the REPO ROOT (aftercallpro/app.py)
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))           # .../aftercallpro
+DIST_DIR = os.path.join(BASE_DIR, "src", "frontend", "dist")    # .../aftercallpro/src/frontend/dist
+ASSETS_DIR = os.path.join(DIST_DIR, "assets")                    # .../aftercallpro/src/frontend/dist/assets
 
 app = Flask(
     __name__,
-    static_folder=ASSETS_DIR,        # serve /assets/* from the dist assets dir
+    static_folder=ASSETS_DIR,        # serve /assets/* directly from Vite build
     static_url_path="/assets",
 )
 CORS(app)
 
-# Optional: register your API blueprint if you have one
+# (Optional) register API blueprint if present
 for dotted_path, name in [
     ("src.api", "api_bp"),
     ("api", "api_bp"),
@@ -35,10 +34,11 @@ for dotted_path, name in [
 def health():
     return jsonify(status="ok")
 
-# Debug: confirm dist and assets actually exist on the server
+# Debug endpoint to verify files exist on the server
 @app.get("/api/debug/frontend")
 def debug_frontend():
     data = {
+        "BASE_DIR": BASE_DIR,
         "DIST_DIR": DIST_DIR,
         "ASSETS_DIR": ASSETS_DIR,
         "dist_exists": os.path.exists(DIST_DIR),
@@ -48,7 +48,7 @@ def debug_frontend():
     }
     return jsonify(data)
 
-# Serve the built index.html for SPA routes
+# Serve the built SPA for all non-API routes
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def spa(path):
