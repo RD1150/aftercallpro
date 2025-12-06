@@ -1,53 +1,55 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import logo from "/assets/aftercallpro-logo-blue.png";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-export default function Header() {
-  const location = useLocation();
+/** Main Pages */
+import LandingPage from "./pages/LandingPage";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
-  const minimalRoutes = [
-    "/login",
-    "/signup",
-    "/privacy-policy",
-    "/terms",
-    "/billing-policy",
-    "/acceptable-use",
-  ];
+/** Legal & Compliance Pages */
+import TermsConditions from "./components/TermsConditions";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import AcceptableUse from "./components/AcceptableUse";
+import DataProcessing from "./components/DataProcessing";
 
-  const isMinimal = minimalRoutes.includes(location.pathname);
+/** Optional Future Pages (Uncomment if added later) */
+// import PricingSection from "./components/PricingSection";
+// import OnboardingWizard from "./components/OnboardingWizard";
 
+/** Global Styles */
+import "./index.css";
+import "./theme.css";
+import "./App.css";
+
+export default function App() {
   return (
-    <header className="w-full bg-white/90 border-b border-slate-200 backdrop-blur sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <Router>
+      <Routes>
+        {/* ===========================
+            Public Marketing Pages
+        ============================ */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<LandingPage />} />
 
-        {/* Logo */}
-        <Link to="/home" className="flex items-center gap-3">
-          <img src={logo} alt="AfterCallPro Logo" className="h-10 w-auto md:h-12" />
-          {!isMinimal && (
-            <span className="font-semibold text-lg tracking-tight text-slate-900">
-              AfterCallPro
-            </span>
-          )}
-        </Link>
+        {/* ===========================
+            Authentication
+        ============================ */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
 
-        {/* Minimal header (auth/legal pages) */}
-        {isMinimal && <div></div>}
+        {/* ===========================
+            Legal + Compliance (Required)
+        ============================ */}
+        <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/acceptable-use" element={<AcceptableUse />} />
+        <Route path="/data-processing" element={<DataProcessing />} />
 
-        {/* Full header (marketing pages) */}
-        {!isMinimal && (
-          <div className="flex items-center gap-6 text-sm">
-            <Link to="/login" className="text-slate-700 hover:text-slate-900 transition">
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="rounded-full bg-sky-600 text-white px-5 py-2 font-medium shadow hover:bg-sky-700 transition"
-            >
-              Get Started
-            </Link>
-          </div>
-        )}
-      </div>
-    </header>
+        {/* ===========================
+            Fallback Route (prevents 404 crashes)
+        ============================ */}
+        <Route path="*" element={<LandingPage />} />
+      </Routes>
+    </Router>
   );
 }
