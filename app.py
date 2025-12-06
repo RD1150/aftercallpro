@@ -16,7 +16,7 @@ app = Flask(
 )
 CORS(app)
 
-# --- OPTIONAL: register your API blueprint if you have one ---
+# Optional: register your API blueprint if you have one
 for dotted_path, name in [
     ("src.api", "api_bp"),
     ("api", "api_bp"),
@@ -52,7 +52,6 @@ def debug_frontend():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def spa(path):
-    # All non-API routes should return the built index.html
     return send_from_directory(DIST_DIR, "index.html")
 
 if __name__ == "__main__":
