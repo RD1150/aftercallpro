@@ -3,17 +3,13 @@ set -euo pipefail
 
 echo "--- Python deps ---"
 if command -v poetry >/dev/null 2>&1 && [ -f "pyproject.toml" ]; then
-  poetry --version
   poetry install --no-root --only main
-else
-  if [ -f "requirements.txt" ]; then
-    pip install -r requirements.txt
-  fi
+elif [ -f "requirements.txt" ]; then
+  pip install -r requirements.txt
 fi
 
 echo "--- Frontend build (Vite) ---"
 pushd src/frontend >/dev/null
-# Use clean, lockfile-based install if package-lock.json exists
 if [ -f "package-lock.json" ]; then
   npm ci
 else
@@ -25,8 +21,6 @@ popd >/dev/null
 echo "--- Prepare Flask templates/static ---"
 rm -rf templates static
 mkdir -p templates static/assets
-
-# Copy Vite output: dist/index.html + dist/assets/*
 cp -f src/frontend/dist/index.html templates/
 cp -R src/frontend/dist/assets/* static/assets/ || true
 
