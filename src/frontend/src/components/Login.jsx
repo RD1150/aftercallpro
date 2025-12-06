@@ -1,175 +1,97 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Phone } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Phone } from "lucide-react";
 
-function Login({ onLogin }) {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  
+export default function Login() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const handleLogin = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-    
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
-      })
-      
-      const data = await response.json()
-      
-      if (response.ok) {
-        // Store business ID in localStorage
-        if (data.business) {
-          localStorage.setItem('businessId', data.business.id)
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        if (data.business?.id) {
+          localStorage.setItem("businessId", data.business.id);
         }
-        // Call the onLogin callback
-        onLogin(data.user, data.business)
-        // Navigate to dashboard
-        navigate('/')
+        navigate("/");
       } else {
-        setError(data.error || 'Login failed')
+        setError(data.error || "Login failed");
       }
     } catch (err) {
-      console.error('Login error:', err)
-      setError('An error occurred. Please try again.')
+      console.error("Login error:", err);
+      setError("An unexpected error occurred.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-  
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, var(--navy-dark) 0%, var(--charcoal) 100%)' }}>
-      <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-4">
-            <div className="relative">
-              {/* Sun ray lines */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6" style={{ transform: 'translate(50%, -50%)' }}>
-                <div className="absolute w-3 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.7, top: '50%', left: '0', transform: 'rotate(0deg) translateY(-50%)' }}></div>
-                <div className="absolute w-2.5 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.6, top: '30%', left: '0', transform: 'rotate(-20deg)' }}></div>
-                <div className="absolute w-2.5 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.6, top: '70%', left: '0', transform: 'rotate(20deg)' }}></div>
-                <div className="absolute w-2 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.5, top: '15%', left: '0', transform: 'rotate(-35deg)' }}></div>
-                <div className="absolute w-2 h-0.5 rounded-full" style={{ backgroundColor: 'var(--gold)', opacity: 0.5, top: '85%', left: '0', transform: 'rotate(35deg)' }}></div>
-              </div>
-              
-              {/* Phone icon */}
-              <div className="relative w-16 h-16 rounded-full flex items-center justify-center" style={{
-                background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
-                boxShadow: '0 8px 24px rgba(0, 217, 255, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.2)'
-              }}>
-                <div className="absolute inset-0 rounded-full" style={{
-                  background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 50%)'
-                }}></div>
-                <Phone className="w-8 h-8 text-white relative z-10" style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))' }} />
-              </div>
-            </div>
-            <h1 className="text-4xl font-bold ml-3" style={{ color: 'var(--gold)' }}>AfterCallPro</h1>
+    <div className="min-h-screen w-full grid grid-cols-1 md:grid-cols-2 bg-[#0b1423]">
+      {/* LEFT SIDE — Minimal Branding */}
+      <div className="hidden md:flex flex-col items-center justify-center px-10 bg-gradient-to-br from-[#0b1423] to-[#0e1a2a] border-r border-white/10">
+        {/* Logo Container */}
+        <div className="flex flex-col items-center gap-4">
+          <div className="p-5 rounded-2xl bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-xl shadow-cyan-500/30">
+            <Phone className="w-10 h-10 text-white" />
           </div>
-          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>24/7 AI Call Assistant - Sign in to your account</p>
+
+          <h1 className="text-4xl font-bold tracking-wide text-[#FFB84D] drop-shadow-lg">
+            AfterCallPro
+          </h1>
+
+          <p className="text-white/70 text-lg max-w-xs text-center leading-relaxed">
+            Your always-on AI receptionist — never miss a call again.
+          </p>
         </div>
-        
-        <Card style={{ backgroundColor: 'var(--soft-white)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--slate-very-light)' }}>
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl mb-2" style={{ color: 'var(--navy-dark)' }}>Welcome Back</CardTitle>
-            <CardDescription style={{ color: 'var(--slate-dark)' }}>Enter your credentials to access your dashboard</CardDescription>
-          </CardHeader>
-          <CardContent className="px-8 pb-8">
-            <form onSubmit={handleLogin} className="space-y-6">
-              {error && (
-                <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(252, 129, 129, 0.1)', border: '1px solid var(--error)', color: 'var(--error)' }}>
-                  {error}
-                </div>
-              )}
-              
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-center block text-sm font-medium" style={{ color: 'var(--text-dark)' }}>Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="h-12 text-base text-center"
-                  style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
-                  required
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-center block text-sm font-medium" style={{ color: 'var(--text-dark)' }}>Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="h-12 text-base text-center"
-                  style={{ borderColor: 'var(--slate-light)', backgroundColor: 'var(--white)', color: 'var(--text-dark)' }}
-                  required
-                />
-                <div className="text-right">
-                  <button
-                    type="button"
-                    onClick={() => navigate('/forgot-password')}
-                    className="text-sm hover:underline"
-                    style={{ color: 'var(--teal-primary)' }}
-                  >
-                    Forgot Password?
-                  </button>
-                </div>
-              </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full btn-primary mt-6" 
-                disabled={loading}
-                size="lg"
-                style={{ 
-                  background: 'linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-medium) 100%)',
-                  color: 'white',
-                  height: '48px',
-                  fontSize: '16px',
-                  boxShadow: '0 4px 12px rgba(0, 217, 255, 0.3)',
-                  fontWeight: '600'
-                }}
-              >
-                {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-        
-        <p className="text-center mt-6" style={{ color: 'var(--text-secondary)' }}>
-          Don't have an account?{' '}
-          <button 
-            onClick={() => navigate('/signup')}
-            className="font-semibold hover:underline"
-            style={{ color: 'var(--teal-primary)' }}
-          >
-            Sign up
-          </button>
-        </p>
-        
-        <p className="text-center mt-8 text-sm" style={{ color: 'var(--text-secondary)' }}>
-          © 2025 AfterCallPro. All rights reserved.
-        </p>
       </div>
-    </div>
-  )
-}
 
-export default Login
+      {/* RIGHT SIDE — Login Form */}
+      <div className="flex items-center justify-center p-6 md:p-16 bg-[#f7f9fc]">
+        <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-10 border border-gray-200">
+          <h2 className="text-3xl font-bold text-center text-[#0b1423] mb-2">
+            Welcome Back
+          </h2>
+          <p className="text-center text-gray-600 mb-6">
+            Sign in to access your dashboard
+          </p>
 
+          {error && (
+            <div className="mb-4 p-3 text-red-600 bg-red-100 border border-red-300 rounded-md text-sm text-center">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-5">
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address
+              </label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full h-12 px-4 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#00A8CC] focus:border-transparent"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
