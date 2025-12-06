@@ -1,54 +1,43 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-/** Main Pages */
-import LandingPage from "./pages/LandingPage";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-
-/** Legal & Compliance Pages */
-import TermsConditions from "./components/TermsConditions";
+// COMPONENTS
+import LandingPage from "./components/LandingPage";
+import PricingSection from "./components/PricingSection";
+import SignupPage from "./pages/Signup";
+import LoginPage from "./components/Login";
+import OnboardingWizard from "./components/OnboardingWizard";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsConditions from "./components/TermsConditions";
 import AcceptableUse from "./components/AcceptableUse";
-import DataProcessing from "./components/DataProcessing";
-
-/** Optional Future Pages (Uncomment if added later) */
-// import PricingSection from "./components/PricingSection";
-// import OnboardingWizard from "./components/OnboardingWizard";
-
-/** Global Styles */
-import "./index.css";
-import "./theme.css";
-import "./App.css";
+import DataProcessing from "./components/DataProcessing"; // <-- NEW
+import Subscription from "./components/Subscription";
 
 export default function App() {
   return (
     <Router>
       <Routes>
-        {/* ===========================
-            Public Marketing Pages
-        ============================ */}
+
+        {/* MAIN MARKETING SITE */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<LandingPage />} />
+        <Route path="/pricing" element={<PricingSection />} />
 
-        {/* ===========================
-            Authentication
-        ============================ */}
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        {/* AUTH */}
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
 
-        {/* ===========================
-            Legal + Compliance (Required)
-        ============================ */}
-        <Route path="/terms" element={<TermsConditions />} />
+        {/* ONBOARDING */}
+        <Route path="/onboarding" element={<OnboardingWizard />} />
+
+        {/* LEGAL DOCUMENTS */}
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsConditions />} />
         <Route path="/acceptable-use" element={<AcceptableUse />} />
-        <Route path="/data-processing" element={<DataProcessing />} />
+        <Route path="/data-processing" element={<DataProcessing />} /> {/* NEW */}
 
-        {/* ===========================
-            Fallback Route (prevents 404 crashes)
-        ============================ */}
-        <Route path="*" element={<LandingPage />} />
+        {/* BILLING */}
+        <Route path="/subscription" element={<Subscription />} />
+
       </Routes>
     </Router>
   );
