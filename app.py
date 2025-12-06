@@ -1,17 +1,24 @@
-# app.py
+# src/app.py
 import os
 from flask import Flask, render_template, send_from_directory, jsonify
 from flask_cors import CORS
 
-# Flask will serve the built frontend from these folders:
-#   templates/index.html
-#   static/assets/*
-app = Flask(__name__, static_folder="static", template_folder="templates")
+# Resolve project paths regardless of where app.py lives
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))          # /.../aftercallpro/src
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))   # /.../aftercallpro
+
+TEMPLATES_DIR = os.path.join(PROJECT_ROOT, "templates")        # /.../aftercallpro/templates
+STATIC_DIR    = os.path.join(PROJECT_ROOT, "static")           # /.../aftercallpro/static
+ASSETS_DIR    = os.path.join(STATIC_DIR, "assets")             # /.../aftercallpro/static/assets
+
+app = Flask(
+    __name__,
+    static_folder=STATIC_DIR,           # absolute path
+    template_folder=TEMPLATES_DIR,      # absolute path
+)
 CORS(app)
 
-# --- OPTIONAL: Register your existing API if present ---
-# These try/except blocks let this file work even if the modules don't exist yet.
-# If you already have a blueprint called `api_bp` in one of these, it will be registered.
+# --- Optional: register your API blueprint if present ---
 for dotted_path, name in [
     ("src.api", "api_bp"),
     ("api", "api_bp"),
@@ -26,21 +33,20 @@ for dotted_path, name in [
     except Exception:
         pass
 
-# --- Simple health endpoint (safe to keep) ---
 @app.get("/api/health")
 def health():
     return jsonify(status="ok")
 
-# --- Serve built asset files: /assets/* maps to static/assets/* ---
+# Serve Vite-built assets at /assets/*
 @app.route("/assets/<path:filename>")
 def assets(filename: str):
-    return send_from_directory(os.path.join(app.static_folder, "assets"), filename)
+    return send_from_directory(ASSETS_DIR, filename)
 
-# --- SPA fallback: any non-API route returns index.html ---
-# Keep ALL of your /api/* routes defined ABOVE this handler.
+# SPA fallback: serve index.html for any non-API route
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def spa(path):
+    # render_template will use TEMPLATES_DIR
     return render_template("index.html")
 
 if __name__ == "__main__":
