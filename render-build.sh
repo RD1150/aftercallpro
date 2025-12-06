@@ -1,28 +1,33 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo ""
-echo "--- Installing frontend dependencies ---"
-cd src/frontend
-# No lockfile in repo, use install
-npm install --legacy-peer-deps
+echo "--- Python deps ---"
+if command -v poetry >/dev/null 2>&1 && [ -f "pyproject.toml" ]; then
+  poetry --version
+  poetry install --no-root --only main
+else
+  if [ -f "requirements.txt" ]; then
+    pip install -r requirements.txt
+  fi
+fi
 
-echo ""
-echo "--- Building frontend with Vite ---"
+echo "--- Frontend build (Vite) ---"
+pushd src/frontend >/dev/null
+# Use clean, lockfile-based install if package-lock.json exists
+if [ -f "package-lock.json" ]; then
+  npm ci
+else
+  npm install
+fi
 npm run build
+popd >/dev/null
 
-echo ""
-echo "--- Moving build output into backend static folder ---"
-cd ..
-mkdir -p static
-rm -rf static/*
-cp -R frontend/dist/* static/
+echo "--- Prepare Flask templates/static ---"
+rm -rf templates static
+mkdir -p templates static/assets
 
-echo ""
-echo "--- Installing backend Python dependencies ---"
-cd ..
-python -m pip install --upgrade pip
-pip install --no-cache-dir -r requirements.txt
+# Copy Vite output: dist/index.html + dist/assets/*
+cp -f src/frontend/dist/index.html templates/
+cp -R src/frontend/dist/assets/* static/assets/ || true
 
-echo ""
 echo "--- Build complete ---"
