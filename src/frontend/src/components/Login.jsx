@@ -1,97 +1,93 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Phone } from "lucide-react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-
+    setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        if (data.business?.id) {
-          localStorage.setItem("businessId", data.business.id);
-        }
-        navigate("/");
-      } else {
-        setError(data.error || "Login failed");
-      }
+      // TODO: replace with your backend URL (env-based if you have it)
+      // const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email, password }),
+      // });
+      // if (!res.ok) throw new Error("Login failed");
+      // await res.json();
+      navigate("/"); // temporary success path
     } catch (err) {
-      console.error("Login error:", err);
-      setError("An unexpected error occurred.");
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen w-full grid grid-cols-1 md:grid-cols-2 bg-[#0b1423]">
-      {/* LEFT SIDE — Minimal Branding */}
-      <div className="hidden md:flex flex-col items-center justify-center px-10 bg-gradient-to-br from-[#0b1423] to-[#0e1a2a] border-r border-white/10">
-        {/* Logo Container */}
-        <div className="flex flex-col items-center gap-4">
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-[#00D9FF] to-[#00A8CC] shadow-xl shadow-cyan-500/30">
-            <Phone className="w-10 h-10 text-white" />
+    <main className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border border-slate-200 p-8 bg-white shadow-sm">
+        <h1 className="text-2xl font-semibold text-slate-900">Log in</h1>
+        <p className="text-sm text-slate-600 mt-1">
+          Welcome back to AfterCallPro.
+        </p>
+
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-slate-900"
+              placeholder="you@business.com"
+            />
           </div>
 
-          <h1 className="text-4xl font-bold tracking-wide text-[#FFB84D] drop-shadow-lg">
-            AfterCallPro
-          </h1>
-
-          <p className="text-white/70 text-lg max-w-xs text-center leading-relaxed">
-            Your always-on AI receptionist — never miss a call again.
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT SIDE — Login Form */}
-      <div className="flex items-center justify-center p-6 md:p-16 bg-[#f7f9fc]">
-        <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-10 border border-gray-200">
-          <h2 className="text-3xl font-bold text-center text-[#0b1423] mb-2">
-            Welcome Back
-          </h2>
-          <p className="text-center text-gray-600 mb-6">
-            Sign in to access your dashboard
-          </p>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-slate-900"
+              placeholder="••••••••"
+            />
+          </div>
 
           {error && (
-            <div className="mb-4 p-3 text-red-600 bg-red-100 border border-red-300 rounded-md text-sm text-center">
+            <div className="text-sm text-red-600" role="alert">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-12 px-4 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-[#00A8CC] focus:border-transparent"
-                placeholder="you@example.com"
-              />
-            </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-md bg-slate-900 text-white py-2 disabled:opacity-60"
+          >
+            {loading ? "Signing in…" : "Continue"}
+          </button>
+        </form>
 
-            {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+        <p className="mt-4 text-sm text-slate-600">
+          New here?{" "}
+          <Link to="/signup" className="text-slate-900 underline">
+            Create an account
+          </Link>
+        </p>
+      </div>
+    </main>
+  );
+}
