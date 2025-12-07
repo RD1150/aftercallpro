@@ -4,10 +4,11 @@ services:
     env: python
     plan: starter
     autoDeploy: true
-    healthCheckPath: /api/health
 
     buildCommand: "bash render-build.sh"
     startCommand: "gunicorn -w 2 -k gthread --threads 8 -b 0.0.0.0:$PORT app:app"
+
+    healthCheckPath: /api/health
 
     envVars:
       - key: PYTHON_VERSION
