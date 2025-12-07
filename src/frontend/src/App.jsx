@@ -1,33 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 
-/** ---------- Minimal, self-contained pages (safe) ---------- */
 function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[linear-gradient(180deg,#0b1423_0%,#0e1a2a_100%)] text-white">
-      <div className="max-w-xl w-full text-center px-6">
-        <h1 className="text-3xl font-semibold mb-3">AfterCallPro</h1>
-        <p className="opacity-80 mb-6">Frontend sanity check ✅</p>
-
-        <div className="flex gap-3 justify-center">
-          <Link
-            to="/login"
-            className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10"
-          >
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="px-4 py-2 rounded-xl bg-white text-slate-900"
-          >
-            Signup
-          </Link>
+    <div style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#0b1423",color:"#fff"}}>
+      <div style={{textAlign:"center"}}>
+        <h1 style={{marginBottom:8}}>AfterCallPro</h1>
+        <p style={{opacity:.8,marginBottom:16}}>Frontend sanity check ✅</p>
+        <div style={{display:"flex",gap:12,justifyContent:"center"}}>
+          <Link to="/login" style={{padding:"8px 12px",border:"1px solid #3b4a64",borderRadius:12,color:"#fff"}}>Login</Link>
+          <Link to="/signup" style={{padding:"8px 12px",background:"#fff",borderRadius:12,color:"#0b1423"}}>Signup</Link>
         </div>
-
-        <p className="mt-6 text-xs opacity-60">
-          If you see this screen, routing and JS are working. You can replace
-          these temporary pages with your real components later.
-        </p>
       </div>
     </div>
   );
@@ -37,108 +20,68 @@ function Login() {
   const [email, setEmail] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Login (temporary)</h2>
-        <div className="grid gap-3">
-          <label className="text-sm">
-            <div className="mb-1 text-slate-600">Email</div>
-            <input
-              type="email"
-              className="w-full rounded-lg border px-3 py-2"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+    <div style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#f8fafc"}}>
+      <div style={{width:380,background:"#fff",border:"1px solid #e5e7eb",borderRadius:16,padding:20}}>
+        <h2 style={{marginBottom:12}}>Login (temporary)</h2>
+        <div style={{display:"grid",gap:10}}>
+          <label>
+            <div style={{fontSize:12,opacity:.8}}>Email</div>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)}
+              style={{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid #e5e7eb"}} />
           </label>
-          <label className="text-sm">
-            <div className="mb-1 text-slate-600">Password</div>
-            <input
-              type="password"
-              className="w-full rounded-lg border px-3 py-2"
-              value={pwd}
-              onChange={(e) => setPwd(e.target.value)}
-            />
+          <label>
+            <div style={{fontSize:12,opacity:.8}}>Password</div>
+            <input type="password" value={pwd} onChange={e=>setPwd(e.target.value)}
+              style={{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid #e5e7eb"}} />
           </label>
-          <button
-            onClick={() => alert(`(temp) would login ${email}`)}
-            className="mt-2 rounded-lg bg-slate-900 text-white px-4 py-2"
-          >
-            Sign in
-          </button>
+          <button onClick={()=>alert(`(temp) login ${email}`)}
+            style={{padding:"10px 14px",borderRadius:8,background:"#0f172a",color:"#fff",cursor:"pointer"}}>Sign in</button>
         </div>
-        <div className="mt-4 text-sm">
-          <Link to="/" className="text-blue-600">← Back home</Link>
-        </div>
+        <div style={{marginTop:12,fontSize:14}}><Link to="/">← Back home</Link></div>
       </div>
     </div>
   );
 }
 
 function Signup() {
-  const [email, setEmail] = React.useState("");
   const [company, setCompany] = React.useState("");
+  const [email, setEmail] = React.useState("");
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Signup (temporary)</h2>
-        <div className="grid gap-3">
-          <label className="text-sm">
-            <div className="mb-1 text-slate-600">Company</div>
-            <input
-              className="w-full rounded-lg border px-3 py-2"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-            />
+    <div style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#f8fafc"}}>
+      <div style={{width:380,background:"#fff",border:"1px solid #e5e7eb",borderRadius:16,padding:20}}>
+        <h2 style={{marginBottom:12}}>Signup (temporary)</h2>
+        <div style={{display:"grid",gap:10}}>
+          <label>
+            <div style={{fontSize:12,opacity:.8}}>Company</div>
+            <input value={company} onChange={e=>setCompany(e.target.value)}
+              style={{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid #e5e7eb"}} />
           </label>
-          <label className="text-sm">
-            <div className="mb-1 text-slate-600">Work Email</div>
-            <input
-              type="email"
-              className="w-full rounded-lg border px-3 py-2"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+          <label>
+            <div style={{fontSize:12,opacity:.8}}>Work Email</div>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)}
+              style={{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid #e5e7eb"}} />
           </label>
-          <button
-            onClick={() => alert(`(temp) would signup ${company} / ${email}`)}
-            className="mt-2 rounded-lg bg-slate-900 text-white px-4 py-2"
-          >
-            Create account
-          </button>
+          <button onClick={()=>alert(`(temp) signup ${company} / ${email}`)}
+            style={{padding:"10px 14px",borderRadius:8,background:"#0f172a",color:"#fff",cursor:"pointer"}}>Create account</button>
         </div>
-        <div className="mt-4 text-sm">
-          <Link to="/" className="text-blue-600">← Back home</Link>
-        </div>
+        <div style={{marginTop:12,fontSize:14}}><Link to="/">← Back home</Link></div>
       </div>
     </div>
   );
 }
 
-/** ---------- Error boundary so runtime errors don’t go blank ---------- */
 class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, msg: "" };
-  }
-  static getDerivedStateFromError(err) {
-    return { hasError: true, msg: err?.message || "Unknown error" };
-  }
-  componentDidCatch(err, info) {
-    console.error("App error:", err, info);
-  }
-  render() {
-    if (this.state.hasError) {
+  constructor(p){ super(p); this.state={hasError:false,msg:""}; }
+  static getDerivedStateFromError(err){ return {hasError:true,msg:err?.message||"Unknown error"};}
+  componentDidCatch(err, info){ console.error("App error:", err, info); }
+  render(){
+    if(this.state.hasError){
       return (
-        <div className="min-h-screen flex items-center justify-center bg-red-50 text-red-900">
-          <div className="bg-white border border-red-200 rounded-2xl p-6 max-w-xl">
-            <h2 className="text-lg font-semibold mb-2">Something went wrong</h2>
-            <p className="text-sm mb-4">{this.state.msg}</p>
-            <a
-              href="/"
-              className="inline-block rounded-lg bg-red-600 text-white px-4 py-2"
-            >
-              Reload app
-            </a>
+        <div style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#fef2f2",color:"#991b1b"}}>
+          <div style={{background:"#fff",border:"1px solid #fecaca",borderRadius:16,padding:20,maxWidth:560}}>
+            <h2 style={{marginTop:0}}>Something went wrong</h2>
+            <p>{this.state.msg}</p>
+            <a href="/" style={{display:"inline-block",padding:"8px 12px",background:"#dc2626",color:"#fff",borderRadius:8}}>Reload app</a>
           </div>
         </div>
       );
@@ -147,17 +90,15 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-/** ---------- App with routes ---------- */
-export default function App() {
+export default function App(){
   return (
     <BrowserRouter>
       <ErrorBoundary>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          {/* Catch-all: go home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="*" element={<Navigate to="/" replace/>} />
         </Routes>
       </ErrorBoundary>
     </BrowserRouter>
