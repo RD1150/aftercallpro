@@ -18,4 +18,10 @@ fi
 npm run build
 popd >/dev/null
 
-echo "--- Build complete (frontend dist is at src/frontend/dist) ---"
+echo "--- Prepare Flask templates/static ---"
+rm -rf templates static
+mkdir -p templates static/assets
+cp -f src/frontend/dist/index.html templates/
+cp -R src/frontend/dist/assets/* static/assets/ || true
+
+echo "--- Build complete ---"
