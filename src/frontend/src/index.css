@@ -1,13 +1,3 @@
-/* Tailwind v4 entry */
-@import "tailwindcss";
-
-/* Optional theme tokens */
-:root {
-  --navy-dark: #071426;
-  --charcoal: #0f1d2e;
-  --teal-primary: #00d9ff;
-  --gold: #ffb84d;
-}
-
-html, body, #root { height: 100%; }
-body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
