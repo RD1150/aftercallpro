@@ -1,15 +1,34 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-echo "🔧 Building frontend…"
+echo "📦 Building React frontend..."
 
+# Navigate to frontend
 cd src/frontend
-pnpm install
-pnpm build
 
-echo "📁 Copying build to /dist…"
-rm -rf ../../dist
-mkdir -p ../../dist
-cp -R dist/* ../../dist/
+# Install dependencies
+pnpm install --frozen-lockfile || npm install
 
-echo "✅ Frontend build complete"
+# Build with Vite
+pnpm build || npm run build
+
+echo "🚚 Copying built files into Flask directories…"
+
+# Back to project root
+cd ../..
+
+# Create required directories
+mkdir -p src/static/dist
+mkdir -p src/templates
+
+# Clean old build files
+rm -rf src/static/dist/*
+rm -f src/templates/index.html
+
+# Copy Vite build output
+cp -R src/frontend/dist/* src/static/dist/
+
+# Move index.html into Flask templates
+cp src/frontend/dist/index.html src/templates/index.html
+
+echo "✅ Frontend build successfully injected into Flask app"
