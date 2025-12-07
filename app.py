@@ -1,24 +1,24 @@
 import os
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder="frontend/dist", template_folder="frontend/dist")
+app = Flask(__name__, static_folder="dist", static_url_path="")
 CORS(app)
 
-# --- Serve the built Vite frontend ---
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def serve(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    return send_from_directory(app.static_folder, "index.html")
+# --- FRONTEND ROUTES ---
+@app.route("/")
+def index():
+    return send_from_directory("dist", "index.html")
 
+@app.errorhandler(404)
+def not_found(e):
+    return send_from_directory("dist", "index.html")
 
-# --- API Routes (your real backend APIs go here) ---
+# --- API ROUTES EXAMPLE ---
 @app.route("/api/health")
 def health():
-    return {"status": "ok"}
+    return jsonify({"status": "ok"})
 
-
+# Run locally
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run(debug=True)
