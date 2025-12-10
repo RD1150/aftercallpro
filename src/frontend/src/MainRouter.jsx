@@ -10,7 +10,6 @@ export default function MainRouter() {
   return (
     <Router>
       <Routes>
-
         {/* MARKETING HOMEPAGE */}
         <Route path="/" element={<App />} />
 
@@ -18,7 +17,6 @@ export default function MainRouter() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/appointments" element={<Appointments />} />
-
       </Routes>
     </Router>
   );
