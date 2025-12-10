@@ -2,91 +2,82 @@ import React, { useState } from "react";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [businessName, setBusinessName] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-
-    // Placeholder until backend is ready
-    console.log("Signup attempt:", { email, password, businessName });
-    alert("Signup submitted (placeholder)");
+    console.log("Signup submitted:", { email, businessName, password });
+    // Placeholder — Connect to your backend auth endpoint later
   };
 
   return (
-    <main className="min-h-screen bg-white text-slate-800 pt-28 pb-24">
-      <div className="max-w-md mx-auto px-6">
-        
-        {/* PAGE HEADER */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-slate-900">Create Your Account</h1>
-          <p className="text-slate-600 mt-2">
-            Start your free trial — no credit card required.
-          </p>
-        </div>
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-20">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-10 border border-gray-200">
 
-        {/* SIGNUP CARD */}
-        <div className="bg-white border border-gray-200 rounded-2xl shadow-md p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <h1 className="text-3xl font-bold text-center mb-6">Create Your Account</h1>
+        <p className="text-center text-slate-600 mb-10">
+          Start your free trial and never miss another lead again.
+        </p>
 
-            {/* Business Name */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
-                Business Name
-              </label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Your Business Name"
-                value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
-                required
-              />
-            </div>
+        <form onSubmit={handleSignup} className="space-y-6">
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
-              <input
-                type="email"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-              <input
-                type="password"
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 text-slate-800 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Create a password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full btn-primary py-3 text-lg"
-            >
-              Create Account
-            </button>
-
-          </form>
-
-          {/* Footer Links */}
-          <div className="text-center mt-6 text-slate-600">
-            <a href="/login" className="text-blue-600 hover:underline">
-              Already have an account? Log in
-            </a>
+          {/* Business Name */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Business Name</label>
+            <input
+              type="text"
+              required
+              placeholder="Your Company"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--navy)] focus:outline-none"
+            />
           </div>
-        </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Email</label>
+            <input
+              type="email"
+              required
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--navy)] focus:outline-none"
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-semibold mb-2">Password</label>
+            <input
+              type="password"
+              required
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--navy)] focus:outline-none"
+            />
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-[var(--navy)] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
+          >
+            Create Account
+          </button>
+        </form>
+
+        {/* Login Link */}
+        <p className="text-center text-slate-600 mt-6">
+          Already have an account?{" "}
+          <a href="/login" className="text-[var(--navy)] font-semibold hover:underline">
+            Log in
+          </a>
+        </p>
+
       </div>
     </main>
   );
