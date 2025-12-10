@@ -1,33 +1,146 @@
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #f7f7f7;
+  font-family: system-ui, Arial, sans-serif;
+  background-color: #f5f6f8;
+  color: #1a1a1a;
 }
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
+/* NAVBAR */
+.navbar {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
-/* SIDEBAR */
-.sidebar {
-  width: 260px;
-  background: #1a2c45;
-  color: white;
-  padding: 24px;
+.nav-container {
+  max-width: 1100px;
+  margin: auto;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0a1a33;
+}
+
+.nav-links a {
+  margin-left: 25px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.nav-links a:hover {
+  color: #0a4b8f;
+}
+
+/* HERO */
+.hero {
   text-align: center;
-  margin-bottom: 32px;
+  padding: 100px 20px;
+  background: #e9ecf2;
 }
 
-.logo img {
-  width: 48px;
-  height: 48px;
+.hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0a1a33;
 }
 
-.menu
+.hero p {
+  font-size: 18px;
+  color: #444;
+  max-width: 600px;
+  margin: 20px auto;
+}
 
+.cta-btn {
+  margin-top: 20px;
+  background: #0a4b8f;
+  color: white;
+  border: none;
+  padding: 14px 34px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background: #083b72;
+}
+
+/* SECTIONS */
+.section {
+  padding: 80px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.section h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #0a1a33;
+}
+
+/* FEATURES */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* PRICING */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.pricing-card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0a4b8f;
+}
+
+.price-btn {
+  background: #0a4b8f;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.price-btn:hover {
+  background: #083b72;
+}
+
+/* CONTACT */
+.contact-section {
+  text-align: center;
+}
