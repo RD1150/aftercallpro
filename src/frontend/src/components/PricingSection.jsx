@@ -2,76 +2,76 @@ import React from "react";
 
 export default function PricingSection() {
   return (
-    <main className="min-h-screen bg-white text-slate-800 pt-28 pb-20">
-      <div className="max-w-screen-xl mx-auto px-6">
-        
-        {/* PAGE HEADER */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-slate-900">Simple, Transparent Pricing</h1>
-          <p className="text-slate-600 mt-4 text-lg">
-            Choose the plan that fits your business. No contracts. Cancel anytime.
-          </p>
+    <main className="max-w-screen-xl mx-auto px-6 py-20">
+      <h1 className="text-4xl font-bold text-center mb-12">
+        Simple, Transparent Pricing
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        {/* PLAN 1 — Starter */}
+        <div className="border border-gray-200 rounded-2xl p-8 shadow-sm bg-white">
+          <h2 className="text-2xl font-semibold mb-4">Starter</h2>
+          <p className="text-slate-600 mb-6">Perfect for solo professionals.</p>
+          <p className="text-4xl font-bold mb-6">$49<span className="text-lg font-normal">/mo</span></p>
+
+          <ul className="space-y-3 text-slate-600">
+            <li>✓ AI Missed Call Texting</li>
+            <li>✓ Instant Lead Capture</li>
+            <li>✓ Automated Follow-Ups</li>
+            <li>✓ Basic CRM Export</li>
+          </ul>
+
+          <a
+            href="/signup"
+            className="mt-8 block text-center bg-black text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
+          >
+            Get Started
+          </a>
         </div>
 
-        {/* PRICING GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* PLAN 2 — Growth */}
+        <div className="border-2 border-[var(--navy)] rounded-2xl p-8 shadow-md bg-white scale-[1.03]">
+          <h2 className="text-2xl font-semibold mb-4">Growth</h2>
+          <p className="text-slate-600 mb-6">Our most popular plan — built for agents & teams.</p>
+          <p className="text-4xl font-bold mb-6">$99<span className="text-lg font-normal">/mo</span></p>
 
-          {/* STARTER PLAN */}
-          <div className="p-8 border border-gray-200 rounded-2xl shadow-sm bg-white text-center">
-            <h3 className="text-xl font-semibold mb-2">Starter</h3>
-            <p className="text-slate-600 mb-6">Perfect for solopreneurs</p>
-            <div className="text-4xl font-bold mb-6">$49<span className="text-lg font-medium">/mo</span></div>
+          <ul className="space-y-3 text-slate-600">
+            <li>✓ Everything in Starter</li>
+            <li>✓ Full CRM Sync (Lofty, FUB, KVCore, GHL)</li>
+            <li>✓ Appointment Booking</li>
+            <li>✓ Script Customization</li>
+            <li>✓ SMS + Email Follow-Ups</li>
+          </ul>
 
-            <ul className="space-y-3 text-slate-600">
-              <li>✓ AI Missed Call Follow-Ups</li>
-              <li>✓ Basic Appointment Booking</li>
-              <li>✓ 1 Phone Number</li>
-              <li>✓ Email Support</li>
-            </ul>
+          <a
+            href="/signup"
+            className="mt-8 block text-center bg-[var(--navy)] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
+          >
+            Start Free Trial
+          </a>
+        </div>
 
-            <a href="/signup" className="block mt-8 btn-primary text-center">
-              Get Started
-            </a>
-          </div>
+        {/* PLAN 3 — Pro */}
+        <div className="border border-gray-200 rounded-2xl p-8 shadow-sm bg-white">
+          <h2 className="text-2xl font-semibold mb-4">Pro</h2>
+          <p className="text-slate-600 mb-6">Full automation for high-volume users.</p>
+          <p className="text-4xl font-bold mb-6">$249<span className="text-lg font-normal">/mo</span></p>
 
-          {/* PRO PLAN */}
-          <div className="p-8 border-2 border-blue-600 rounded-2xl shadow-lg bg-white text-center scale-[1.02]">
-            <h3 className="text-xl font-semibold mb-2 text-blue-600">Pro (Most Popular)</h3>
-            <p className="text-slate-600 mb-6">For growing teams & businesses</p>
-            <div className="text-4xl font-bold mb-6">$99<span className="text-lg font-medium">/mo</span></div>
+          <ul className="space-y-3 text-slate-600">
+            <li>✓ Everything in Growth</li>
+            <li>✓ Multi-Location Support</li>
+            <li>✓ Dedicated AI Call Routing</li>
+            <li>✓ Unlimited Follow-Ups</li>
+            <li>✓ Priority Support</li>
+          </ul>
 
-            <ul className="space-y-3 text-slate-600">
-              <li>✓ Everything in Starter</li>
-              <li>✓ Smart AI Scripts + Custom Training</li>
-              <li>✓ Auto-CRM Sync (Lofty, GHL, FUB)</li>
-              <li>✓ Unlimited Follow-Ups</li>
-              <li>✓ Priority Support</li>
-            </ul>
-
-            <a href="/signup" className="block mt-8 btn-primary text-center">
-              Upgrade Now
-            </a>
-          </div>
-
-          {/* BUSINESS PLAN */}
-          <div className="p-8 border border-gray-200 rounded-2xl shadow-sm bg-white text-center">
-            <h3 className="text-xl font-semibold mb-2">Business</h3>
-            <p className="text-slate-600 mb-6">Best for high-volume operations</p>
-            <div className="text-4xl font-bold mb-6">$249<span className="text-lg font-medium">/mo</span></div>
-
-            <ul className="space-y-3 text-slate-600">
-              <li>✓ Everything in Pro</li>
-              <li>✓ Multi-Agent Support</li>
-              <li>✓ Custom Integrations</li>
-              <li>✓ Live Priority Team Support</li>
-              <li>✓ Dedicated Account Manager</li>
-            </ul>
-
-            <a href="/signup" className="block mt-8 btn-primary text-center">
-              Talk to Sales
-            </a>
-          </div>
-
+          <a
+            href="/signup"
+            className="mt-8 block text-center bg-black text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
+          >
+            Upgrade to Pro
+          </a>
         </div>
       </div>
     </main>
