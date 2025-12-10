@@ -3,15 +3,25 @@ import dashboardImg from "./assets/dashboard-placeholder.png";
 
 import PricingSection from "./components/PricingSection";
 import FAQPage from "./components/FAQPage";
+import Login from "./components/Login";
 
 export default function App() {
+  const route = window.location.hash.replace("#", "");
+
+  // ROUTES
+  if (route === "/login") {
+    return <Login />;
+  }
+
   return (
     <main className="min-h-screen bg-white text-slate-800">
 
       {/* NAVBAR */}
       <header className="navbar sticky top-0 z-40 bg-white border-b border-gray-200">
         <div className="max-w-screen-xl mx-auto flex items-center justify-between p-4">
-          <h1 className="text-2xl font-bold text-[var(--navy)]">AfterCallPro</h1>
+          <h1 className="text-2xl font-bold text-[var(--navy)]">
+            AfterCallPro
+          </h1>
 
           <nav className="hidden md:flex space-x-8">
             <a href="#features" className="nav-link">Features</a>
@@ -20,17 +30,16 @@ export default function App() {
           </nav>
 
           <div className="hidden md:flex space-x-4">
-            <a href="#pricing" className="btn-secondary">Login</a>
+            <a href="#/login" className="btn-secondary">Login</a>
             <a href="#pricing" className="btn-primary">Get Started</a>
           </div>
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="section-gray hero py-20 bg-gray-50">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6">
-          
-          {/* LEFT SIDE */}
+
           <div className="space-y-6 hero-text">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
               Never Miss Another Lead Again.
@@ -48,7 +57,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* RIGHT SIDE IMAGE */}
           <div className="flex justify-center md:justify-end">
             <div className="shadow-xl border border-gray-200 rounded-2xl bg-white p-4 max-w-md w-full">
               <img
@@ -62,7 +70,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* FEATURES SECTION */}
+      {/* FEATURES */}
       <section id="features" className="section-light py-24">
         <div className="max-w-screen-xl mx-auto px-6 text-center space-y-12">
           <h2 className="text-3xl font-bold">Powerful Features Built for Business Owners</h2>
@@ -71,40 +79,33 @@ export default function App() {
 
             <div className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
               <h3 className="text-xl font-semibold mb-2">24/7 Lead Capture</h3>
-              <p className="text-slate-600">
-                Your AI receptionist handles every missed call instantly.
-              </p>
+              <p className="text-slate-600">Your AI receptionist handles every missed call instantly.</p>
             </div>
 
             <div className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
               <h3 className="text-xl font-semibold mb-2">Smart AI Responses</h3>
-              <p className="text-slate-600">
-                Custom scripts, follow-ups, appointment booking, CRM syncing.
-              </p>
+              <p className="text-slate-600">Custom scripts, follow-ups, appointment booking, CRM syncing.</p>
             </div>
 
             <div className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
               <h3 className="text-xl font-semibold mb-2">Works With Your CRM</h3>
-              <p className="text-slate-600">
-                Integrates with Lofty, FUB, GHL, KVCore, and more.
-              </p>
+              <p className="text-slate-600">Integrates with Lofty, FUB, GHL, KVCore, and more.</p>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* PRICING SECTION */}
+      {/* PRICING */}
       <PricingSection />
 
-      {/* FAQ SECTION */}
+      {/* FAQ */}
       <FAQPage />
 
       {/* FOOTER */}
       <footer className="py-12 bg-gray-100 text-center text-slate-600">
         <p>© {new Date().getFullYear()} AfterCallPro. All rights reserved.</p>
       </footer>
-
     </main>
   );
 }
