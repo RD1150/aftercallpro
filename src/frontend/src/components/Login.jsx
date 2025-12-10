@@ -1,93 +1,65 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      // TODO: replace with your backend URL (env-based if you have it)
-      // const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ email, password }),
-      // });
-      // if (!res.ok) throw new Error("Login failed");
-      // await res.json();
-      navigate("/"); // temporary success path
-    } catch (err) {
-      setError(err.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    alert("Login will connect to GHL or your backend.");
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 p-8 bg-white shadow-sm">
-        <h1 className="text-2xl font-semibold text-slate-900">Log in</h1>
-        <p className="text-sm text-slate-600 mt-1">
-          Welcome back to AfterCallPro.
-        </p>
+    <section className="py-24 bg-gray-50 min-h-screen flex justify-center items-center">
+      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-900">
+          Login to AfterCallPro
+        </h2>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
+            <label className="block mb-1 text-gray-700 font-medium">
+              Email Address
             </label>
             <input
               type="email"
-              required
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-600"
+              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-slate-900"
-              placeholder="you@business.com"
+              required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block mb-1 text-gray-700 font-medium">
               Password
             </label>
             <input
               type="password"
-              required
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-600"
+              placeholder="••••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-slate-900"
-              placeholder="••••••••"
+              required
             />
           </div>
 
-          {error && (
-            <div className="text-sm text-red-600" role="alert">
-              {error}
-            </div>
-          )}
-
           <button
             type="submit"
-            disabled={loading}
-            className="w-full rounded-md bg-slate-900 text-white py-2 disabled:opacity-60"
+            className="w-full py-3 bg-[var(--navy)] text-white font-semibold rounded-lg hover:bg-blue-900 transition"
           >
-            {loading ? "Signing in…" : "Continue"}
+            Login
           </button>
         </form>
 
-        <p className="mt-4 text-sm text-slate-600">
-          New here?{" "}
-          <Link to="/signup" className="text-slate-900 underline">
-            Create an account
-          </Link>
+        <p className="text-center text-gray-500 mt-6 text-sm">
+          Don’t have an account?{" "}
+          <a href="#pricing" className="text-blue-600 font-medium">
+            Get Started
+          </a>
         </p>
       </div>
-    </main>
+    </section>
   );
 }
