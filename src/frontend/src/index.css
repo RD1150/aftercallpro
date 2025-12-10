@@ -1,47 +1,63 @@
+/* Tailwind base imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ----------------------------------------
-   GLOBAL BRAND VARIABLES
------------------------------------------*/
-:root {
-  --navy: #0d1b2a;
-  --gold: #d4af37;
+/* GLOBAL RESET */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-/* ----------------------------------------
-   NAV LINKS
------------------------------------------*/
-.nav-link {
-  @apply text-slate-600 hover:text-[var(--navy)] transition font-medium;
+/* CONTAINER WIDTH */
+.max-w-screen-xl {
+  max-width: 1280px;
 }
 
-/* ----------------------------------------
-   BUTTONS
------------------------------------------*/
+/* HERO TEXT */
+.hero-text {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* BUTTONS */
 .btn-primary {
-  @apply bg-[var(--navy)] text-white font-semibold px-5 py-3 rounded-lg shadow hover:bg-black transition;
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition;
 }
 
 .btn-secondary {
-  @apply border border-[var(--navy)] text-[var(--navy)] font-semibold px-5 py-3 rounded-lg hover:bg-[var(--navy)] hover:text-white transition;
+  @apply bg-white hover:bg-gray-100 text-blue-600 px-6 py-3 rounded-lg font-semibold border border-gray-300 transition;
 }
 
-/* ----------------------------------------
-   PRICING
------------------------------------------*/
-.pricing-card {
-  @apply bg-white border border-gray-200 rounded-2xl shadow-sm p-10 space-y-4;
+/* NAV */
+.nav-link {
+  @apply text-slate-700 hover:text-blue-600 transition font-medium;
 }
 
-.pricing-price {
-  @apply text-4xl font-extrabold text-slate-900 mb-4;
-}
-
-/* ----------------------------------------
-   FOOTER
------------------------------------------*/
+/* FOOTER */
 .footer-link {
-  @apply text-slate-600 hover:text-[var(--navy)] transition;
+  @apply text-gray-400 hover:text-white transition;
+}
+
+/* MOBILE NAV CONTAINER */
+.mobile-nav {
+  @apply flex flex-col space-y-4 mt-4;
+}
+
+/* Fade-in animation for mobile dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out;
 }
