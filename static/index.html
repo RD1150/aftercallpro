@@ -1,13 +1,76 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AfterCallPro – AI Call Assistant</title>
-    <script type="module" crossorigin src="/assets/index-DeLUrhAS.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CNVrzPww.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+<!-- HERO LOGO + TEXT (Enhanced Version) -->
+<style>
+    /* Fade-in animation */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in {
+        animation: fadeInUp 1.2s ease-out forwards;
+    }
+
+    /* Gradient glow behind the logo */
+    .logo-glow {
+        position: relative;
+        display: inline-block;
+    }
+
+    .logo-glow::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(
+            circle,
+            rgba(35, 76, 142, 0.25) 0%,
+            rgba(35, 76, 142, 0) 70%
+        );
+        filter: blur(40px);
+        z-index: -1;
+    }
+
+    /* Underline style */
+    .brand-underline {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 6px;
+    }
+
+    .brand-underline::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 60%;
+        height: 3px;
+        background: linear-gradient(90deg, #234c8e, #1a2d4a);
+        transform: translateX(-50%);
+        border-radius: 2px;
+    }
+</style>
+
+<div class="w-full flex flex-col items-center my-12 fade-in">
+
+    <!-- LOGO WITH GLOW -->
+    <div class="logo-glow mb-4">
+        <img src="/assets/logo.png" 
+             alt="AfterCallPro Logo" 
+             class="h-48 w-auto drop-shadow-xl">
+    </div>
+
+    <!-- BRAND NAME WITH UNDERLINE -->
+    <h1 class="text-4xl font-semibold tracking-wide text-gray-900 brand-underline">
+        AfterCallPro
+    </h1>
+
+</div>
