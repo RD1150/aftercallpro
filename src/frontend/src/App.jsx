@@ -1,4 +1,5 @@
 import React from "react";
+import dashboardImg from "./assets/dashboard-placeholder.png";
 
 export default function App() {
   return (
