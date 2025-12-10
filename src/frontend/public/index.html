@@ -1,14 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <title>AfterCallPro – 24/7 AI Call Assistant</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfterCallPro Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+
+  <div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="logo.png" alt="AfterCallPro Logo" />
+        <h2>AfterCallPro</h2>
+      </div>
+
+      <nav class="menu">
+        <a class="active">Dashboard</a>
+        <a>Calls</a>
+        <a>Messages</a>
+        <a>Leads</a>
+        <a>Integrations</a>
+        <a>Billing</a>
+        <a>Support</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="main">
+
+      <header class="topbar">
+        <h1>Dashboard</h1>
+      </header>
+
+      <!-- KPI CARDS -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <h3>Missed Calls Saved</h3>
+          <p class="kpi-value">17</p>
+        </div>
+
+        <div class="kpi-card">
+          <h3>New Leads Captured</h3>
+          <p class="kpi-value">9</p>
+        </div>
+
+        <div class="kpi-card">
+          <h3>Appointments Booked</h3>
+          <p class="kpi-value">4</p>
+        </div>
+
+        <div class="kpi-card">
+          <h3>Avg Response Time</h3>
+          <p class="kpi-value">0.9 sec</p>
+        </div>
+      </section>
+
+      <!-- RECENT CALLS -->
+      <section class="panel">
+        <h2>Recent Calls</h2>
+
+        <div class="call-item">
+          <p class="call-number">(805) 555-1284</p>
+          <p class="call-status">AI Answered</p>
+        </div>
+
+        <div class="call-item">
+          <p class="call-number">(818) 899-2301</p>
+          <p class="call-status">Transcription Ready</p>
+        </div>
+
+        <div class="call-item">
+          <p class="call-number">Unknown</p>
+          <p class="call-status">Voicemail Converted</p>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
