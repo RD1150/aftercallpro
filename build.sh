@@ -1,24 +1,29 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-echo "Installing Python dependencies..."
+export PIP_DISABLE_PIP_VERSION_CHECK=1
+export PYTHONUNBUFFERED=1
+export NPM_CONFIG_FUND=false
+export CI=true
+
+echo "--- Python deps ---"
 pip install -r requirements.txt
 
-echo "Installing Node.js and pnpm..."
-curl -fsSL https://get.pnpm.io/install.sh | sh -
-export PNPM_HOME="/opt/render/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+echo "--- Frontend build (Vite) ---"
+pushd src/frontend >/dev/null
+npm install --no-audit --loglevel=warn
+npm run build
+popd >/dev/null
 
-echo "Building frontend..."
-cd src/frontend
-pnpm install
-pnpm run build
-cd ../..
+echo "--- Prepare Flask templates/static ---"
+rm -rf templates static
+mkdir -p templates static/assets
 
-echo "Copying frontend build to static folder..."
-mkdir -p src/static
-cp -r src/frontend/dist/* src/static/
+# Copy Vite build output
+cp -f src/frontend/dist/index.html templates/
+cp -R src/frontend/dist/assets/* static/assets/
 
-echo "Build complete!"
-ls -la src/static/
+# Rewrite asset paths inside the template
+sed -i 's|/assets/|/static/assets/|g' templates/index.html
 
+echo "--- Build complete ---"
