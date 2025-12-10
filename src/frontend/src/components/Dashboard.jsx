@@ -2,66 +2,89 @@ import React from "react";
 
 export default function Dashboard() {
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-16">
+    <main className="min-h-screen bg-gray-50 flex">
 
-      {/* HEADER */}
-      <div className="max-w-5xl mx-auto mb-12">
-        <h1 className="text-4xl font-bold text-slate-900">Dashboard</h1>
-        <p className="text-slate-600 mt-2">
-          A simple preview dashboard. When you're ready, we’ll integrate real data from your backend.
-        </p>
-      </div>
+      {/* SIDEBAR */}
+      <aside className="w-64 bg-white border-r border-gray-200 p-6 hidden md:flex flex-col">
+        <h2 className="text-2xl font-bold text-[var(--navy)] mb-8">AfterCallPro</h2>
 
-      {/* STATS GRID */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        
-        <div className="bg-white p-8 shadow rounded-2xl border border-gray-200">
-          <h2 className="text-2xl font-bold text-slate-900">128</h2>
-          <p className="text-slate-600 mt-1">Missed Calls Captured</p>
+        <nav className="flex flex-col space-y-4 text-slate-700">
+          <a href="/dashboard" className="hover:text-blue-600 font-medium">
+            Overview
+          </a>
+
+          <a href="/calls" className="hover:text-blue-600">Calls</a>
+          <a href="/messages" className="hover:text-blue-600">Messages</a>
+          <a href="/appointments" className="hover:text-blue-600">Appointments</a>
+          <a href="/settings" className="hover:text-blue-600">Settings</a>
+        </nav>
+
+        <div className="mt-auto">
+          <button className="w-full bg-red-100 text-red-600 hover:bg-red-200 font-semibold py-2 rounded-lg transition">
+            Log Out
+          </button>
+        </div>
+      </aside>
+
+      {/* MAIN CONTENT */}
+      <section className="flex-1 p-6 md:p-10">
+
+        {/* TOP BAR FOR MOBILE */}
+        <div className="md:hidden flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-slate-900">Dashboard</h2>
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">Menu</button>
         </div>
 
-        <div className="bg-white p-8 shadow rounded-2xl border border-gray-200">
-          <h2 className="text-2xl font-bold text-slate-900">92</h2>
-          <p className="text-slate-600 mt-1">Auto Follow-Ups Sent</p>
+        {/* PAGE TITLE */}
+        <h1 className="text-3xl font-bold text-slate-900 mb-6">Welcome back!</h1>
+
+        {/* STAT CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+            <p className="text-sm text-slate-500">Missed Calls Captured</p>
+            <h2 className="text-3xl font-bold text-slate-800 mt-2">184</h2>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+            <p className="text-sm text-slate-500">Appointments Booked</p>
+            <h2 className="text-3xl font-bold text-slate-800 mt-2">62</h2>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl shadow border border-gray-200">
+            <p className="text-sm text-slate-500">AI Follow-Ups Sent</p>
+            <h2 className="text-3xl font-bold text-slate-800 mt-2">431</h2>
+          </div>
         </div>
 
-        <div className="bg-white p-8 shadow rounded-2xl border border-gray-200">
-          <h2 className="text-2xl font-bold text-slate-900">34</h2>
-          <p className="text-slate-600 mt-1">Appointments Booked</p>
+        {/* RECENT ACTIVITY */}
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Recent Activity</h2>
+
+        <div className="space-y-4">
+
+          <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-sm">
+            <p className="font-medium text-slate-800">
+              Missed call from <span className="text-blue-600">Michael P.</span>
+            </p>
+            <p className="text-sm text-slate-500">AI sent SMS follow-up • 2 minutes ago</p>
+          </div>
+
+          <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-sm">
+            <p className="font-medium text-slate-800">
+              New appointment booked with <span className="text-blue-600">Sarah W.</span>
+            </p>
+            <p className="text-sm text-slate-500">Today at 1:00 PM</p>
+          </div>
+
+          <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-sm">
+            <p className="font-medium text-slate-800">
+              AI follow-up sent to <span className="text-blue-600">Leads List</span>
+            </p>
+            <p className="text-sm text-slate-500">Yesterday • 5:45 PM</p>
+          </div>
+
         </div>
 
-      </div>
-
-      {/* RECENT ACTIVITY */}
-      <div className="max-w-5xl mx-auto bg-white shadow rounded-2xl border border-gray-200 p-8">
-
-        <h2 className="text-2xl font-bold text-slate-900 mb-6">Recent Activity</h2>
-
-        <ul className="space-y-4">
-
-          <li className="flex justify-between items-center border-b pb-4">
-            <span className="text-slate-700">New missed call captured from (805) 555-9123</span>
-            <span className="text-slate-500 text-sm">2 min ago</span>
-          </li>
-
-          <li className="flex justify-between items-center border-b pb-4">
-            <span className="text-slate-700">Auto-reply sent to (323) 555-4410</span>
-            <span className="text-slate-500 text-sm">7 min ago</span>
-          </li>
-
-          <li className="flex justify-between items-center border-b pb-4">
-            <span className="text-slate-700">Appointment booked via SMS assistant</span>
-            <span className="text-slate-500 text-sm">22 min ago</span>
-          </li>
-
-          <li className="flex justify-between items-center">
-            <span className="text-slate-700">Lead synced to CRM (Lofty)</span>
-            <span className="text-slate-500 text-sm">1 hour ago</span>
-          </li>
-
-        </ul>
-      </div>
-
+      </section>
     </main>
   );
 }
