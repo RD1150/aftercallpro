@@ -2,78 +2,85 @@ import React from "react";
 
 export default function PricingSection() {
   return (
-    <main className="max-w-screen-xl mx-auto px-6 py-20">
-      <h1 className="text-4xl font-bold text-center mb-12">
-        Simple, Transparent Pricing
-      </h1>
+    <main className="min-h-screen bg-white px-6 py-20">
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {/* HEADER */}
+      <div className="max-w-4xl mx-auto text-center mb-16">
+        <h1 className="text-4xl font-bold text-slate-900">Simple, Transparent Pricing</h1>
+        <p className="text-slate-600 mt-3">
+          Choose a plan that grows with your business. No contracts. Cancel anytime.
+        </p>
+      </div>
 
-        {/* PLAN 1 — Starter */}
-        <div className="border border-gray-200 rounded-2xl p-8 shadow-sm bg-white">
-          <h2 className="text-2xl font-semibold mb-4">Starter</h2>
-          <p className="text-slate-600 mb-6">Perfect for solo professionals.</p>
-          <p className="text-4xl font-bold mb-6">$49<span className="text-lg font-normal">/mo</span></p>
+      {/* PRICING GRID */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
 
-          <ul className="space-y-3 text-slate-600">
-            <li>✓ AI Missed Call Texting</li>
-            <li>✓ Instant Lead Capture</li>
-            <li>✓ Automated Follow-Ups</li>
-            <li>✓ Basic CRM Export</li>
+        {/* STARTER PLAN */}
+        <div className="border border-gray-200 rounded-2xl p-10 shadow-sm bg-white">
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Starter</h2>
+          <p className="text-slate-600 mb-6">Perfect for solo agents & small teams.</p>
+
+          <div className="text-4xl font-bold text-slate-900 mb-6">$49<span className="text-lg text-slate-600">/mo</span></div>
+
+          <ul className="space-y-3 text-slate-700 mb-8">
+            <li>✔ 24/7 Missed Call Text-Back</li>
+            <li>✔ Basic AI Responses</li>
+            <li>✔ Appointment Booking</li>
+            <li>✔ Up to 200 Conversations</li>
           </ul>
 
-          <a
-            href="/signup"
-            className="mt-8 block text-center bg-black text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
-          >
-            Get Started
-          </a>
-        </div>
-
-        {/* PLAN 2 — Growth */}
-        <div className="border-2 border-[var(--navy)] rounded-2xl p-8 shadow-md bg-white scale-[1.03]">
-          <h2 className="text-2xl font-semibold mb-4">Growth</h2>
-          <p className="text-slate-600 mb-6">Our most popular plan — built for agents & teams.</p>
-          <p className="text-4xl font-bold mb-6">$99<span className="text-lg font-normal">/mo</span></p>
-
-          <ul className="space-y-3 text-slate-600">
-            <li>✓ Everything in Starter</li>
-            <li>✓ Full CRM Sync (Lofty, FUB, KVCore, GHL)</li>
-            <li>✓ Appointment Booking</li>
-            <li>✓ Script Customization</li>
-            <li>✓ SMS + Email Follow-Ups</li>
-          </ul>
-
-          <a
-            href="/signup"
-            className="mt-8 block text-center bg-[var(--navy)] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
-          >
+          <a href="/signup" className="block text-center btn-primary py-3 rounded-xl bg-[var(--navy)] text-white font-semibold">
             Start Free Trial
           </a>
         </div>
 
-        {/* PLAN 3 — Pro */}
-        <div className="border border-gray-200 rounded-2xl p-8 shadow-sm bg-white">
-          <h2 className="text-2xl font-semibold mb-4">Pro</h2>
-          <p className="text-slate-600 mb-6">Full automation for high-volume users.</p>
-          <p className="text-4xl font-bold mb-6">$249<span className="text-lg font-normal">/mo</span></p>
+        {/* PRO PLAN */}
+        <div className="border border-gray-200 rounded-2xl p-10 shadow-lg bg-gray-50 scale-[1.03]">
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Pro</h2>
+          <p className="text-slate-600 mb-6">Our most popular plan for growing businesses.</p>
 
-          <ul className="space-y-3 text-slate-600">
-            <li>✓ Everything in Growth</li>
-            <li>✓ Multi-Location Support</li>
-            <li>✓ Dedicated AI Call Routing</li>
-            <li>✓ Unlimited Follow-Ups</li>
-            <li>✓ Priority Support</li>
+          <div className="text-4xl font-bold text-slate-900 mb-6">$149<span className="text-lg text-slate-600">/mo</span></div>
+
+          <ul className="space-y-3 text-slate-700 mb-8">
+            <li>✔ Everything in Starter</li>
+            <li>✔ Smart AI Lead Qualification</li>
+            <li>✔ CRM Sync (Lofty, FUB, GHL)</li>
+            <li>✔ Up to 1,000 Conversations</li>
+            <li>✔ Custom Scripts</li>
           </ul>
 
-          <a
-            href="/signup"
-            className="mt-8 block text-center bg-black text-white py-3 rounded-xl font-semibold hover:bg-gray-800 transition"
-          >
-            Upgrade to Pro
+          <a href="/signup" className="block text-center btn-primary py-3 rounded-xl bg-[var(--navy)] text-white font-semibold">
+            Get Started
           </a>
         </div>
+
+        {/* ELITE PLAN */}
+        <div className="border border-gray-200 rounded-2xl p-10 shadow-sm bg-white">
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Elite</h2>
+          <p className="text-slate-600 mb-6">For high volume teams & agencies.</p>
+
+          <div className="text-4xl font-bold text-slate-900 mb-6">$249<span className="text-lg text-slate-600">/mo</span></div>
+
+          <ul className="space-y-3 text-slate-700 mb-8">
+            <li>✔ Everything in Pro</li>
+            <li>✔ Unlimited Conversations</li>
+            <li>✔ Priority AI Response Speed</li>
+            <li>✔ Dedicated Support</li>
+            <li>✔ Multi-Agent Split Routing</li>
+          </ul>
+
+          <a href="/signup" className="block text-center btn-primary py-3 rounded-xl bg-[var(--navy)] text-white font-semibold">
+            Join Elite
+          </a>
+        </div>
+
       </div>
+
+      {/* FOOTNOTE */}
+      <p className="text-center text-slate-500 mt-16 text-sm">
+        Prices shown are monthly. Annual billing discounts available.
+      </p>
+
     </main>
   );
 }
