@@ -3,6 +3,7 @@ import React from "react";
 export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
+
       {/* NAVBAR */}
       <header className="w-full bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto flex items-center justify-between p-4">
@@ -15,11 +16,28 @@ export default function App() {
         </div>
       </header>
 
-      {/* HERO */}
+      {/* HERO WITH LOGO */}
       <section className="max-w-6xl mx-auto text-center py-24 px-6">
+
+        {/* LOGO */}
+        <div className="flex justify-center mb-6">
+          <img
+            src="/assets/aftercallpro-logo-blue.png"
+            alt="AfterCallPro Logo"
+            className="h-40 w-auto drop-shadow-lg"
+          />
+        </div>
+
+        {/* LOGO TEXT */}
+        <h1 className="text-3xl font-bold text-blue-700 tracking-wide mb-10">
+          AfterCallPro
+        </h1>
+
+        {/* MAIN HERO TEXT */}
         <h2 className="text-4xl font-bold text-gray-900">
           Your AI-Powered After-Hours Call Answering System
         </h2>
+
         <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
           Never miss a client inquiry again. AfterCallPro answers calls, books appointments,
           captures leads, and sends instant notifications — 24/7.
@@ -66,6 +84,7 @@ export default function App() {
         <p className="text-center text-gray-600 mt-2 mb-12">Choose the plan that fits your needs.</p>
 
         <div className="grid md:grid-cols-3 gap-10">
+
           <div className="p-8 bg-white rounded-lg border shadow-sm text-center">
             <h4 className="text-xl font-semibold">Starter</h4>
             <p className="mt-4 text-4xl font-bold">$49<span className="text-lg">/mo</span></p>
@@ -94,7 +113,10 @@ export default function App() {
 
           <div className="p-8 bg-white rounded-lg border shadow-sm text-center">
             <h4 className="text-xl font-semibold">Enterprise</h4>
-            <p className="mt-4 text-4xl font-bold">$149<span className="text-lg">/mo</span></p>
+            <p className="mt-4 text-4xl font-bold">
+              Custom
+              <span className="text-lg text-gray-600 ml-1">(starting at $149)</span>
+            </p>
             <ul className="mt-6 space-y-2 text-gray-600">
               <li>✔ Unlimited AI calls</li>
               <li>✔ Custom workflows</li>
@@ -104,6 +126,7 @@ export default function App() {
               Choose Plan
             </button>
           </div>
+
         </div>
       </section>
 
@@ -113,6 +136,7 @@ export default function App() {
           © {new Date().getFullYear()} AfterCallPro — All Rights Reserved.
         </p>
       </footer>
+
     </div>
   );
 }
