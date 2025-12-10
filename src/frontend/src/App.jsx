@@ -49,11 +49,12 @@ export default function App() {
           {/* RIGHT SIDE — DASHBOARD MOCKUP */}
           <div className="flex justify-center md:justify-end">
             <div className="shadow-xl border border-gray-200 rounded-2xl bg-white p-4 max-w-md w-full">
-              <img
-                src="/dashboard-placeholder.png"
-                alt="Dashboard Mockup"
-                className="rounded-xl w-full object-cover"
-              />
+             <img
+  src={dashboardImg}
+  alt="Dashboard Mockup"
+  className="rounded-xl w-full object-cover"
+/>
+
             </div>
           </div>
 
