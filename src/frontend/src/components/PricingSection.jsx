@@ -38,4 +38,42 @@ export default function PricingSection() {
           <div className="p-8 border-2 border-blue-600 rounded-2xl shadow-lg bg-white text-center scale-[1.02]">
             <h3 className="text-xl font-semibold mb-2 text-blue-600">Pro (Most Popular)</h3>
             <p className="text-slate-600 mb-6">For growing teams & businesses</p>
-            <div className="text-4xl font-bold mb
+            <div className="text-4xl font-bold mb-6">$99<span className="text-lg font-medium">/mo</span></div>
+
+            <ul className="space-y-3 text-slate-600">
+              <li>✓ Everything in Starter</li>
+              <li>✓ Smart AI Scripts + Custom Training</li>
+              <li>✓ Auto-CRM Sync (Lofty, GHL, FUB)</li>
+              <li>✓ Unlimited Follow-Ups</li>
+              <li>✓ Priority Support</li>
+            </ul>
+
+            <a href="/signup" className="block mt-8 btn-primary text-center">
+              Upgrade Now
+            </a>
+          </div>
+
+          {/* BUSINESS PLAN */}
+          <div className="p-8 border border-gray-200 rounded-2xl shadow-sm bg-white text-center">
+            <h3 className="text-xl font-semibold mb-2">Business</h3>
+            <p className="text-slate-600 mb-6">Best for high-volume operations</p>
+            <div className="text-4xl font-bold mb-6">$249<span className="text-lg font-medium">/mo</span></div>
+
+            <ul className="space-y-3 text-slate-600">
+              <li>✓ Everything in Pro</li>
+              <li>✓ Multi-Agent Support</li>
+              <li>✓ Custom Integrations</li>
+              <li>✓ Live Priority Team Support</li>
+              <li>✓ Dedicated Account Manager</li>
+            </ul>
+
+            <a href="/signup" className="block mt-8 btn-primary text-center">
+              Talk to Sales
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  );
+}
