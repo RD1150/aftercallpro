@@ -4,48 +4,38 @@ export default function FAQPage() {
   const faqs = [
     {
       q: "How does AfterCallPro work?",
-      a: "When a call is missed, AfterCallPro instantly answers using AI, captures lead information, sends follow-up messages, and books appointments automatically."
+      a: "When you miss a call, our AI instantly texts the caller, collects details, books appointments, and sends the info to your CRM."
     },
     {
-      q: "Can I keep my current business phone number?",
-      a: "Yes. You can forward your existing business line to AfterCallPro or use the phone numbers included in your plan."
+      q: "Do I need special hardware?",
+      a: "No. AfterCallPro works with your existing phone number and CRM."
     },
     {
-      q: "Does AfterCallPro integrate with CRM systems?",
-      a: "Yes. Our Pro and Elite plans include CRM syncing for platforms like Lofty, FollowUpBoss, KVCore, GHL, and more."
+      q: "Can I customize the responses?",
+      a: "Yes. You can fully customize scripts, tone, branding, and workflows."
     },
     {
-      q: "Is there a long-term contract?",
-      a: "No. All plans are month-to-month, and you can cancel or upgrade anytime."
-    },
-    {
-      q: "Is the AI available 24/7?",
-      a: "Yes — the Elite plan includes a full 24/7 AI receptionist so you never miss another lead."
+      q: "Does it work with GHL, Lofty, or FUB?",
+      a: "Yes! We integrate with most major real estate CRMs and small business CRMs."
     }
   ];
 
   return (
-    <section id="faq" className="py-24 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
-          Frequently Asked Questions
-        </h2>
-        <p className="text-center text-gray-600 mb-12">
-          Everything you need to know about how AfterCallPro works.
-        </p>
+    <div className="py-24 bg-white">
+      <div className="max-w-screen-xl mx-auto px-6">
 
-        <div className="space-y-6 max-w-3xl mx-auto">
-          {faqs.map((item, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
-            >
-              <h4 className="font-semibold text-lg mb-2">{item.q}</h4>
-              <p className="text-gray-600">{item.a}</p>
+        <h1 className="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h1>
+
+        <div className="space-y-8 max-w-3xl mx-auto">
+          {faqs.map((item, index) => (
+            <div key={index} className="border border-gray-200 rounded-xl p-6 bg-gray-50">
+              <h3 className="text-xl font-semibold mb-2">{item.q}</h3>
+              <p className="text-slate-700">{item.a}</p>
             </div>
           ))}
         </div>
+
       </div>
-    </section>
+    </div>
   );
 }
