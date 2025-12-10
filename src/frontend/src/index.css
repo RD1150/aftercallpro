@@ -1,9 +1,66 @@
+/* Tailwind base imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* GLOBAL STYLES */
+html, body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+  padding: 0;
+}
+
+/* Smooth text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Container constraints */
+.max-w-screen-xl {
+  max-width: 1280px;
+}
+
+/* HERO TEXT WIDTH CONTROL */
+.hero-text {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* BUTTON STYLES */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition;
+}
+
+.btn-secondary {
+  @apply bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-lg font-semibold backdrop-blur border border-white/20 transition;
+}
+
+/* NAV */
+.nav-link {
+  @apply text-gray-300 hover:text-white transition;
+}
+
+/* PRICING CARD */
+.pricing-card {
+  @apply bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur;
+}
+
+.pricing-card h3 {
+  @apply text-2xl font-semibold mb-4;
+}
+
+.pricing-price {
+  @apply text-4xl font-bold mb-6;
+}
+
+/* FOOTER */
+.footer-link {
+  @apply text-gray-400 hover:text-white transition;
+}
+
+/* MOBILE MENU */
+.mobile-nav {
+  @apply flex flex-col space-y-4 mt-4;
 }
