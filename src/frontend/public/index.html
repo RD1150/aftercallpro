@@ -1,91 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AfterCallPro Dashboard</title>
+  <title>AfterCallPro – AI Call Answering for Realtors & Small Businesses</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">AfterCallPro</div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-  <div class="dashboard-container">
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Never Miss Another Lead Again.</h1>
+    <p>Smart, reliable AI call answering built for real estate, small businesses, and service professionals.</p>
+    <button class="cta-btn">Start Free Trial</button>
+  </section>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="logo">
-        <img src="logo.png" alt="AfterCallPro Logo" />
-        <h2>AfterCallPro</h2>
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <h2>Powerful Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>24/7 Lead Capture</h3>
+        <p>Your AI receptionist answers and qualifies calls instantly.</p>
       </div>
 
-      <nav class="menu">
-        <a class="active">Dashboard</a>
-        <a>Calls</a>
-        <a>Messages</a>
-        <a>Leads</a>
-        <a>Integrations</a>
-        <a>Billing</a>
-        <a>Support</a>
-      </nav>
-    </aside>
+      <div class="feature-card">
+        <h3>CRM Sync</h3>
+        <p>Works with Follow Up Boss, Lofty, GHL, KVCore, and more.</p>
+      </div>
 
-    <!-- MAIN DASHBOARD -->
-    <main class="main">
+      <div class="feature-card">
+        <h3>Appointment Booking</h3>
+        <p>Automatically books meetings, sends confirmations, and follows up.</p>
+      </div>
+    </div>
+  </section>
 
-      <header class="topbar">
-        <h1>Dashboard</h1>
-      </header>
+  <!-- PRICING -->
+  <section id="pricing" class="section">
+    <h2>Simple, Transparent Pricing</h2>
 
-      <!-- KPI CARDS -->
-      <section class="kpi-grid">
-        <div class="kpi-card">
-          <h3>Missed Calls Saved</h3>
-          <p class="kpi-value">17</p>
-        </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <p class="price">$49/mo</p>
+        <ul>
+          <li>300 calls per month</li>
+          <li>Basic scripts</li>
+          <li>Call summaries</li>
+        </ul>
+        <button class="price-btn">Choose Starter</button>
+      </div>
 
-        <div class="kpi-card">
-          <h3>New Leads Captured</h3>
-          <p class="kpi-value">9</p>
-        </div>
-
-        <div class="kpi-card">
-          <h3>Appointments Booked</h3>
-          <p class="kpi-value">4</p>
-        </div>
-
-        <div class="kpi-card">
-          <h3>Avg Response Time</h3>
-          <p class="kpi-value">0.9 sec</p>
-        </div>
-      </section>
-
-      <!-- RECENT CALLS -->
-      <section class="panel">
-        <h2>Recent Calls</h2>
-
-        <div class="call-item">
-          <p class="call-number">(805) 555-1284</p>
-          <p class="call-status">AI Answered</p>
-        </div>
-
-        <div class="call-item">
-          <p class="call-number">(818) 899-2301</p>
-          <p class="call-status">Transcription Ready</p>
-        </div>
-
-        <div class="call-item">
-          <p class="call-number">Unknown</p>
-          <p class="call-status">Voicemail Converted</p>
-        </div>
-
-      </section>
-
-    </main>
-
-  </div>
-
-  <script src="script.js"></script>
-</body>
-
-</html>
+      <div class="pricing-card">
+        <h3>Pro</h3>
+        <p class="price">$99/mo</p>
+        <ul>
