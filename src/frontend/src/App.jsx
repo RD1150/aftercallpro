@@ -12,25 +12,25 @@ export default function App() {
             AfterCallPro
           </h1>
 
-          <nav className="hidden md:flex space-x-8">
-            <a href="#features" className="nav-link">Features</a>
-            <a href="#pricing" className="nav-link">Pricing</a>
-            <a href="#faq" className="nav-link">FAQ</a>
+          <nav className="hidden md:flex space-x-8 text-slate-700 font-medium">
+            <a href="#features" className="hover:text-blue-600">Features</a>
+            <a href="#pricing" className="hover:text-blue-600">Pricing</a>
+            <a href="#faq" className="hover:text-blue-600">FAQ</a>
           </nav>
 
           <div className="hidden md:flex space-x-4">
-            <a href="#pricing" className="btn-secondary">Login</a>
-            <a href="#pricing" className="btn-primary">Get Started</a>
+            <a className="btn-secondary" href="#pricing">Login</a>
+            <a className="btn-primary" href="#pricing">Get Started</a>
           </div>
         </div>
       </header>
 
       {/* HERO SECTION */}
-      <section className="section-gray hero py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-6">
 
-          {/* LEFT SIDE */}
-          <div className="space-y-6 hero-text">
+          {/* LEFT TEXT */}
+          <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
               Never Miss Another Lead Again.
             </h1>
@@ -47,7 +47,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* RIGHT SIDE IMAGE */}
+          {/* RIGHT IMAGE */}
           <div className="flex justify-center md:justify-end">
             <div className="shadow-xl border border-gray-200 rounded-2xl bg-white p-4 max-w-md w-full">
               <img
@@ -62,7 +62,7 @@ export default function App() {
       </section>
 
       {/* FEATURES SECTION */}
-      <section id="features" className="section-light py-24">
+      <section id="features" className="py-24 bg-white">
         <div className="max-w-screen-xl mx-auto px-6 text-center space-y-12">
           <h2 className="text-3xl font-bold">Powerful Features Built for Business Owners</h2>
 
@@ -74,23 +74,4 @@ export default function App() {
             </div>
 
             <div className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
-              <h3 className="text-xl font-semibold mb-2">Smart AI Responses</h3>
-              <p className="text-slate-600">Custom scripts, follow-ups, appointment booking, CRM syncing.</p>
-            </div>
-
-            <div className="p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
-              <h3 className="text-xl font-semibold mb-2">Works With Your CRM</h3>
-              <p className="text-slate-600">Integrates with Lofty, FUB, GHL, KVCore, and more.</p>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="py-12 bg-gray-100 text-center text-slate-600">
-        <p>© {new Date().getFullYear()} AfterCallPro. All rights reserved.</p>
-      </footer>
-    </main>
-  );
-}
+              <h3 cla
