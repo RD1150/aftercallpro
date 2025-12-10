@@ -2,67 +2,91 @@ import React from "react";
 
 export default function FAQPage() {
   return (
-    <main className="max-w-screen-lg mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold mb-10 text-center">Frequently Asked Questions</h1>
+    <main className="min-h-screen bg-white px-6 py-20">
 
-      <div className="space-y-10">
+      {/* HEADER */}
+      <div className="max-w-4xl mx-auto text-center mb-16">
+        <h1 className="text-4xl font-bold text-slate-900">Frequently Asked Questions</h1>
+        <p className="text-slate-600 mt-3">
+          Answers to the most common questions about AfterCallPro.
+        </p>
+      </div>
 
-        {/* FAQ 1 */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">
-            What does AfterCallPro do?
-          </h2>
-          <p className="text-slate-700">
-            AfterCallPro answers missed calls instantly, follows up with leads,
-            books appointments, and sends updates to your CRM automatically.
+      {/* FAQ LIST */}
+      <div className="max-w-3xl mx-auto space-y-6">
+
+        {/* FAQ ITEM 1 */}
+        <details className="border border-gray-200 rounded-2xl p-6">
+          <summary className="text-xl font-semibold cursor-pointer text-slate-900">
+            What exactly does AfterCallPro do?
+          </summary>
+          <p className="text-slate-600 mt-4">
+            AfterCallPro automatically answers your missed calls, sends instant text responses,
+            qualifies leads, books appointments, and syncs everything to your CRM — all without
+            you having to lift a finger.
           </p>
-        </div>
+        </details>
 
-        {/* FAQ 2 */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">
-            Does AfterCallPro integrate with my CRM?
-          </h2>
-          <p className="text-slate-700">
-            Yes. We integrate with Lofty, Follow Up Boss, KVCore, GHL, and many others.
-            You can also sync data through Zapier.
+        {/* FAQ ITEM 2 */}
+        <details className="border border-gray-200 rounded-2xl p-6">
+          <summary className="text-xl font-semibold cursor-pointer text-slate-900">
+            Do I need any special software or hardware?
+          </summary>
+          <p className="text-slate-600 mt-4">
+            Nope! AfterCallPro works with your existing phone number and connects to your CRM,
+            your calendar, and your workflows. Setup takes just a few minutes.
           </p>
-        </div>
+        </details>
 
-        {/* FAQ 3 */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">
-            Do I need technical skills to set this up?
-          </h2>
-          <p className="text-slate-700">
-            Not at all. AfterCallPro is built for business owners.
-            Setup takes less than 5 minutes, and you can customize messages anytime.
+        {/* FAQ ITEM 3 */}
+        <details className="border border-gray-200 rounded-2xl p-6">
+          <summary className="text-xl font-semibold cursor-pointer text-slate-900">
+            Does AfterCallPro work with my CRM?
+          </summary>
+          <p className="text-slate-600 mt-4">
+            Yes! We integrate with Lofty, Follow Up Boss, kvCORE, GHL, Chime, and many others.
+            If your CRM supports API or Zapier, we can connect.
           </p>
-        </div>
+        </details>
 
-        {/* FAQ 4 */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">
-            Can I customize the responses?
-          </h2>
-          <p className="text-slate-700">
-            Yes — everything can be personalized: scripts, tone, follow-up timing,
-            appointment questions, and more.
+        {/* FAQ ITEM 4 */}
+        <details className="border border-gray-200 rounded-2xl p-6">
+          <summary className="text-xl font-semibold cursor-pointer text-slate-900">
+            How quickly does the AI respond to a missed call?
+          </summary>
+          <p className="text-slate-600 mt-4">
+            Instantly. Our system sends a text reply in under one second and begins the
+            qualification process right away — so you never lose a lead again.
           </p>
-        </div>
+        </details>
 
-        {/* FAQ 5 */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">
-            What if I already have a VA or receptionist?
-          </h2>
-          <p className="text-slate-700">
-            Great — AfterCallPro fills the gaps and works 24/7.
-            Many users keep their team AND use our system to catch missed calls.
+        {/* FAQ ITEM 5 */}
+        <details className="border border-gray-200 rounded-2xl p-6">
+          <summary className="text-xl font-semibold cursor-pointer text-slate-900">
+            Is there a long-term contract?
+          </summary>
+          <p className="text-slate-600 mt-4">
+            No contracts. No hidden fees. All plans are month-to-month and you can cancel anytime.
           </p>
-        </div>
+        </details>
+
+        {/* FAQ ITEM 6 */}
+        <details className="border border-gray-200 rounded-2xl p-6">
+          <summary className="text-xl font-semibold cursor-pointer text-slate-900">
+            Can I customize how the AI responds?
+          </summary>
+          <p className="text-slate-600 mt-4">
+            Yes! Every message, qualification question, and appointment script is fully customizable.
+            You can even train the AI on your brand voice.
+          </p>
+        </details>
 
       </div>
+
+      {/* FOOTER */}
+      <p className="text-center text-slate-500 mt-16 text-sm">
+        Still have questions? Contact our support team anytime.
+      </p>
     </main>
   );
 }
