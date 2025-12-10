@@ -1,121 +1,101 @@
 import React from "react";
 
-const features = {
-  starter: [
-    "1 business number",
-    "Missed-call text back",
-    "Voicemail → text",
-    "Basic AI call handling",
-    "Call routing",
-  ],
-  pro: [
-    "Everything in Starter",
-    "Full AI receptionist",
-    "Lead qualification",
-    "Appointment booking",
-    "Advanced call flows",
-    "CRM integration",
-  ],
-  scale: [
-    "Everything in Pro",
-    "Unlimited numbers",
-    "Multi-location support",
-    "Custom workflows",
-    "White-label options",
-    "Priority support",
-  ],
-};
-
 export default function PricingSection() {
+  const tiers = [
+    {
+      name: "Starter",
+      price: "$49/mo",
+      description: "Perfect for solo agents & small businesses.",
+      features: [
+        "AI Call Answering",
+        "Instant SMS & Email Follow-Up",
+        "Lead Capture & Routing",
+        "Appointment Booking",
+        "1 Phone Number",
+        "Basic Analytics",
+      ],
+      highlight: false,
+    },
+    {
+      name: "Pro",
+      price: "$99/mo",
+      description: "Our most popular plan for growing teams.",
+      features: [
+        "Everything in Starter",
+        "Smart CRM Sync",
+        "Multi-Agent Routing",
+        "Custom Voicemail + Branding",
+        "3 Phone Numbers",
+        "Advanced Analytics",
+        "Priority Support",
+      ],
+      highlight: true,
+    },
+    {
+      name: "Elite",
+      price: "$249/mo",
+      description: "Full power for teams, brokerages & service businesses.",
+      features: [
+        "Everything in Pro",
+        "Full Multi-Location Support",
+        "24/7 AI Receptionist",
+        "AI Booking Engine",
+        "AI Lead Recovery Sequences",
+        "Unlimited Phone Numbers",
+        "White-Label Reporting",
+        "Dedicated Onboarding",
+      ],
+      highlight: false,
+    },
+  ];
+
   return (
-    <section id="pricing" className="mx-auto max-w-screen-xl px-4 pb-20">
-      <div className="text-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-semibold">Simple, transparent pricing</h2>
-        <p className="text-slate-600 mt-2">Choose the plan that fits your business.</p>
-      </div>
+    <section id="pricing" className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
+          Simple Pricing, Built for Growth
+        </h2>
+        <p className="text-center text-gray-600 mb-12">
+          Choose the plan that fits your business and scale effortlessly.
+        </p>
 
-      <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid md:grid-cols-3 gap-8">
+          {tiers.map((tier) => (
+            <div
+              key={tier.name}
+              className={`rounded-2xl border p-8 shadow-sm transition ${
+                tier.highlight
+                  ? "border-blue-600 shadow-lg scale-105"
+                  : "border-gray-200"
+              }`}
+            >
+              <h3 className="text-2xl font-semibold mb-2">{tier.name}</h3>
+              <p className="text-gray-600 mb-4">{tier.description}</p>
 
-        {/* Starter */}
-        <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm flex flex-col">
-          <h3 className="text-xl font-semibold">Starter</h3>
-          <div className="mt-3 flex items-end gap-1">
-            <span className="text-4xl font-bold">$49</span>
-            <span className="text-slate-500">/mo</span>
-          </div>
+              <div className="text-4xl font-bold text-gray-900 mb-6">
+                {tier.price}
+              </div>
 
-          <ul className="mt-6 space-y-2 text-slate-700">
-            {features.starter.map((f) => (
-              <li key={f} className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-slate-800" />
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
+              <ul className="space-y-3 mb-8">
+                {tier.features.map((feat) => (
+                  <li key={feat} className="flex items-center gap-2 text-gray-700">
+                    <span className="text-blue-600 font-bold">✓</span> {feat}
+                  </li>
+                ))}
+              </ul>
 
-          <a
-            href="#get-started"
-            className="mt-8 inline-flex justify-center rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800"
-          >
-            Start Free
-          </a>
+              <button
+                className={`w-full py-3 rounded-xl font-medium ${
+                  tier.highlight
+                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                    : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                }`}
+              >
+                Get Started
+              </button>
+            </div>
+          ))}
         </div>
-
-        {/* Pro */}
-        <div className="rounded-3xl border-2 border-slate-900 bg-white p-8 shadow-md flex flex-col">
-          <div className="text-xs inline-block self-start rounded-full bg-slate-900 px-2 py-1 text-white">
-            Most popular
-          </div>
-
-          <h3 className="mt-3 text-xl font-semibold">Pro</h3>
-          <div className="mt-3 flex items-end gap-1">
-            <span className="text-4xl font-bold">$99</span>
-            <span className="text-slate-500">/mo</span>
-          </div>
-
-          <ul className="mt-6 space-y-2 text-slate-700">
-            {features.pro.map((f) => (
-              <li key={f} className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-slate-800" />
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
-
-          <a
-            href="#get-started"
-            className="mt-8 inline-flex justify-center rounded-lg bg-slate-900 px-4 py-2 text-white hover:bg-slate-800"
-          >
-            Start Free Trial
-          </a>
-        </div>
-
-        {/* Scale */}
-        <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm flex flex-col">
-          <h3 className="text-xl font-semibold">Scale</h3>
-          <p className="mt-1 text-slate-500 text-sm">Starting at</p>
-          <div className="mt-1 flex items-end gap-1">
-            <span className="text-4xl font-bold">$169</span>
-            <span className="text-slate-500">/mo</span>
-          </div>
-
-          <ul className="mt-6 space-y-2 text-slate-700">
-            {features.scale.map((f) => (
-              <li key={f} className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-slate-800" />
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
-
-          <a
-            href="#get-started"
-            className="mt-8 inline-flex justify-center rounded-lg border border-slate-300 px-4 py-2 text-slate-900 hover:bg-slate-50"
-          >
-            Talk to Sales
-          </a>
-        </div>
-
       </div>
     </section>
   );
