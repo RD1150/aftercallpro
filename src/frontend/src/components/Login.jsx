@@ -4,66 +4,72 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    // Placeholder for actual authentication endpoint
-    console.log("Login attempted with:", { email, password });
+    // Placeholder — we will wire this to backend later
+    alert("Login submitted");
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-20">
-      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-10 border border-gray-200">
+    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-20">
+      <div className="w-full max-w-md bg-white border border-gray-200 shadow-lg rounded-2xl p-10">
 
-        <h1 className="text-3xl font-bold text-center mb-6">Welcome Back</h1>
-        <p className="text-center text-slate-600 mb-10">
-          Log in to access your AfterCallPro dashboard.
+        {/* HEADER */}
+        <h1 className="text-3xl font-bold text-center text-slate-900 mb-2">
+          Welcome Back
+        </h1>
+        <p className="text-center text-slate-600 mb-8">
+          Log in to your AfterCallPro dashboard
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-
+        {/* FORM */}
+        <form onSubmit={handleLogin} className="space-y-6">
           {/* Email */}
           <div>
-            <label className="block text-sm font-semibold mb-2">Email</label>
+            <label classname="block text-sm font-medium text-slate-700 mb-1">
+              Email
+            </label>
             <input
               type="email"
               required
-              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--navy)] focus:outline-none"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="you@example.com"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-semibold mb-2">Password</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Password
+            </label>
             <input
               type="password"
               required
-              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--navy)] focus:outline-none"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              placeholder="••••••••"
             />
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-[var(--navy)] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
           >
             Log In
           </button>
         </form>
 
-        {/* Signup Link */}
-        <p className="text-center text-slate-600 mt-6">
+        {/* FOOTER LINK */}
+        <p className="text-center text-slate-600 text-sm mt-6">
           Don’t have an account?{" "}
-          <a href="/signup" className="text-[var(--navy)] font-semibold hover:underline">
-            Sign up
+          <a href="/signup" className="text-blue-600 font-semibold hover:underline">
+            Create one
           </a>
         </p>
-
       </div>
     </main>
   );
