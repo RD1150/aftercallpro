@@ -20,11 +20,14 @@ export default function CallCompliance() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-6 md:px-12 py-16">
-        <h1 className="text-4xl font-bold text-[#0b1524] mb-6">Call Recording & Consent Policy</h1>
+        <h1 className="text-4xl font-bold text-[#0b1524] mb-6">
+          Call Recording & Consent Policy
+        </h1>
         <p className="text-gray-500 mb-12">Last updated: December 2025</p>
 
         <div className="space-y-10 leading-relaxed text-gray-800">
 
+          {/* 1. Overview */}
           <section>
             <h2 className="text-2xl font-semibold text-[#0b1524] mb-3">1. Overview</h2>
             <p>
@@ -33,6 +36,7 @@ export default function CallCompliance() {
             </p>
           </section>
 
+          {/* 2. Consent Laws */}
           <section>
             <h2 className="text-2xl font-semibold text-[#0b1524] mb-3">2. One-Party vs Two-Party Consent</h2>
             <p className="mb-3">Different laws apply depending on caller location:</p>
@@ -48,6 +52,7 @@ export default function CallCompliance() {
             </p>
           </section>
 
+          {/* 3. Disclosure Message */}
           <section>
             <h2 className="text-2xl font-semibold text-[#0b1524] mb-3">3. Required Disclosure Message</h2>
             <p className="mb-3">We recommend using this greeting (FCC-compliant):</p>
@@ -59,6 +64,7 @@ export default function CallCompliance() {
             </blockquote>
           </section>
 
+          {/* 4. AI Processing */}
           <section>
             <h2 className="text-2xl font-semibold text-[#0b1524] mb-3">4. AI Processing Disclosure</h2>
             <p>
@@ -68,6 +74,7 @@ export default function CallCompliance() {
             </p>
           </section>
 
+          {/* 5. Your Responsibilities */}
           <section>
             <h2 className="text-2xl font-semibold text-[#0b1524] mb-3">5. Your Responsibilities</h2>
             <ul className="list-disc pl-6 space-y-2">
@@ -78,7 +85,19 @@ export default function CallCompliance() {
             </ul>
           </section>
 
+          {/* 6. Contact */}
           <section>
             <h2 className="text-2xl font-semibold text-[#0b1524] mb-3">6. Contact</h2>
-            <ul className="space-y-2">
-              <li><strong>Email:</strong> support@after
+            <p>
+              If you have questions about call recording compliance, please contact our support team:
+            </p>
+            <p className="mt-2 font-semibold text-[#0b1524]">
+              support@aftercallpro.com
+            </p>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  );
+}
