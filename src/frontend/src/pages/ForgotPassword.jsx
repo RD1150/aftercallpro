@@ -1,81 +1,55 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const handleReset = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
-
-    // TODO: Connect to GHL workflow or backend route
-    await new Promise((r) => setTimeout(r, 1000));
-
     setSent(true);
-    setLoading(false);
-  };
+  }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-20">
-      <div className="w-full max-w-md bg-white border border-gray-200 shadow-lg rounded-2xl p-10">
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-6">
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-lg p-10">
+
+        <h1 className="text-2xl font-bold text-center mb-4">Reset Password</h1>
 
         {!sent ? (
           <>
-            <h1 className="text-3xl font-bold text-center text-slate-900 mb-2">
-              Forgot Password
-            </h1>
-            <p className="text-center text-slate-600 mb-8">
-              Enter your email and we’ll send reset instructions.
+            <p className="text-gray-600 text-center mb-6">
+              Enter your email and we'll send you reset instructions.
             </p>
 
-            <form onSubmit={handleReset} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="w-full border rounded-lg px-4 py-2"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"
-                disabled={loading}
+                className="w-full bg-[#0b1524] hover:bg-[#142137] text-white font-semibold py-3 rounded-lg transition"
               >
-                {loading ? "Sending..." : "Send Reset Link"}
+                Send Reset Link
               </button>
             </form>
-
-            <p className="text-center text-slate-600 text-sm mt-6">
-              <a href="/login" className="text-blue-600 font-semibold hover:underline">
-                Back to Login
-              </a>
-            </p>
           </>
         ) : (
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">
-              Check Your Email
-            </h2>
-            <p className="text-slate-600 mb-6">
-              If an account exists for <strong>{email}</strong>, a reset link has been sent.
-            </p>
-
-            <a
-              href="/login"
-              className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
-            >
-              Return to Login
-            </a>
-          </div>
+          <p className="text-center text-green-600 font-semibold">
+            If this email exists, a reset link has been sent.
+          </p>
         )}
+
+        <p className="text-center mt-6">
+          <Link to="/login" className="text-blue-600">Back to Login</Link>
+        </p>
+
       </div>
     </main>
   );
