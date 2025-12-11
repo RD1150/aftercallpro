@@ -1,43 +1,75 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+// Create context
 const AuthContext = createContext();
 
+// Export hook
+export const useAuth = () => useContext(AuthContext);
+
+// Provider
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("ghl_token"));
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
+  // Core auth states
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Load auth state on startup
+  useEffect(() => {
+    const savedUser = localStorage.getItem("acp_user");
+    if (savedUser) setUser(JSON.parse(savedUser));
+    setLoading(false);
+  }, []);
+
+  // LOGIN
   const login = async (email, password) => {
-    setLoading(true);
-    try {
-      const response = await fetch("https://services.leadlovers.app/gateway/hosted-api/v1/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+    // CALL YOUR BACKEND OR GHL WEBHOOK HERE
+    // For now, simulate successful login
+    const mockUser = { email };
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Login failed");
+    setUser(mockUser);
+    localStorage.setItem("acp_user", JSON.stringify(mockUser));
 
-      localStorage.setItem("ghl_token", data.token);
-      setToken(data.token);
-      return { success: true };
-    } catch (err) {
-      return { success: false, message: err.message };
-    } finally {
-      setLoading(false);
-    }
+    navigate("/dashboard");
   };
 
+  // SIGNUP
+  const signup = async (email, password) => {
+    // CALL YOUR BACKEND OR GHL WEBHOOK HERE
+    const newUser = { email };
+
+    setUser(newUser);
+    localStorage.setItem("acp_user", JSON.stringify(newUser));
+
+    navigate("/dashboard");
+  };
+
+  // LOGOUT
   const logout = () => {
-    localStorage.removeItem("ghl_token");
-    setToken(null);
+    setUser(null);
+    localStorage.removeItem("acp_user");
+    navigate("/login");
   };
 
-  const value = { token, login, logout, loading, isAuthenticated: !!token };
+  // PROTECTED ROUTE CHECK
+  const requireAuth = (Component) => {
+    return user ? <Component /> : navigate("/login");
+  };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        login,
+        signup,
+        logout,
+        requireAuth,
+        isAuthenticated: !!user,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
