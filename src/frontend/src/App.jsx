@@ -1,61 +1,156 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-/* --- PUBLIC PAGES --- */
+import { AuthProvider, useAuth } from "./AuthProvider";
+
+// PUBLIC PAGES
 import LandingPage from "./pages/LandingPage";
+import PricingSection from "./pages/PricingSection";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 
-/* --- DASHBOARD PAGES (AUTH REQUIRED LATER) --- */
+// PROTECTED PAGES
 import Dashboard from "./pages/Dashboard";
 import Calls from "./pages/Calls";
 import Messages from "./pages/Messages";
 import Leads from "./pages/Leads";
 import Appointments from "./pages/Appointments";
 import Integrations from "./pages/Integrations";
-import Billing from "./pages/Billing";
+import BillingPolicy from "./pages/BillingPolicy";
 import CallCompliance from "./pages/CallCompliance";
-
-/* --- LEGAL PAGES --- */
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
 
-/* ------------------------------------------------------------
-   App Router
------------------------------------------------------------- */
+// --------------------------------------------------
+//  ProtectedRoute wrapper
+// --------------------------------------------------
+function ProtectedRoute({ children }) {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+// --------------------------------------------------
+//  Main App
+// --------------------------------------------------
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        {/* ------------------ PUBLIC MARKETING ROUTES ------------------ */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<LandingPage />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
 
-        {/* ------------------ AUTH ROUTES ------------------ */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* ----------------------------- */}
+          {/* PUBLIC ROUTES (marketing)    */}
+          {/* ----------------------------- */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/pricing" element={<PricingSection />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* ------------------ DASHBOARD ROUTES ------------------
-            These will later be protected by <PrivateRoute> 
-        -------------------------------------------------------- */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/calls" element={<Calls />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/leads" element={<Leads />} />
-        <Route path="/appointments" element={<Appointments />} />
-        <Route path="/integrations" element={<Integrations />} />
-        <Route path="/billing" element={<Billing />} />
-        <Route path="/call-compliance" element={<CallCompliance />} />
+          {/* ----------------------------- */}
+          {/* PROTECTED ROUTES (app)       */}
+          {/* ----------------------------- */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* ------------------ LEGAL ROUTES ------------------ */}
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/terms" element={<TermsConditions />} />
+          <Route
+            path="/calls"
+            element={
+              <ProtectedRoute>
+                <Calls />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* ------------------ CATCH-ALL ------------------ */}
-        <Route path="*" element={<LandingPage />} />
-      </Routes>
-    </Router>
+          <Route
+            path="/messages"
+            element={
+              <ProtectedRoute>
+                <Messages />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/leads"
+            element={
+              <ProtectedRoute>
+                <Leads />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/appointments"
+            element={
+              <ProtectedRoute>
+                <Appointments />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/integrations"
+            element={
+              <ProtectedRoute>
+                <Integrations />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/billing"
+            element={
+              <ProtectedRoute>
+                <BillingPolicy />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/call-compliance"
+            element={
+              <ProtectedRoute>
+                <CallCompliance />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/privacy-policy"
+            element={
+              <ProtectedRoute>
+                <PrivacyPolicy />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/terms"
+            element={
+              <ProtectedRoute>
+                <TermsConditions />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* DEFAULT FALLBACK */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
