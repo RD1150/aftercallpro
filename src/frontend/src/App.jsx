@@ -1,192 +1,157 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import Navbar from "./components/Navbar"; // navbar for public-only pages
+import LandingPage from "./components/LandingPage.jsx";
+import Signup from "./pages/Signup.jsx";
+import Login from "./pages/Login.jsx";
+import ForgotPassword from "./components/ForgotPassword.jsx";
+import ResetPassword from "./components/ResetPassword.jsx";
 
-// Public pages
-import Pricing from "./pages/Pricing";
-import FAQ from "./pages/FAQ";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import TermsOfService from "./pages/TermsOfService";
-import CallCompliance from "./pages/CallCompliance";
-import ContactSupport from "./pages/ContactSupport";
+import Dashboard from "./pages/Dashboard.jsx";
+import Calls from "./pages/Calls.jsx";
+import Messages from "./pages/Messages.jsx";
+import Leads from "./pages/Leads.jsx";
+import LeadInbox from "./pages/LeadInbox.jsx";
+import Appointments from "./pages/Appointments.jsx";
+import BillingPolicy from "./pages/BillingPolicy.jsx";
+import CallCompliance from "./pages/CallCompliance.jsx";
+import ContactSupport from "./pages/ContactSupport.jsx";
+import FAQ from "./pages/FAQ.jsx";
+import Integrations from "./pages/Integrations.jsx";
+import Pricing from "./pages/Pricing.jsx";
+import TermsOfService from "./pages/TermsOfService.jsx";
 
-// Protected (dashboard) pages
-import Dashboard from "./pages/Dashboard";
-import Appointments from "./pages/Appointments";
-import Calls from "./pages/Calls";
-import Messages from "./pages/Messages";
-import Leads from "./pages/Leads";
-import LeadInbox from "./pages/LeadInbox";
-import Integrations from "./pages/Integrations";
-import BillingPolicy from "./pages/BillingPolicy";
-
-// Wrapper to hide Navbar on dashboard pages
-const PublicLayout = ({ children }) => (
-  <>
-    <Navbar />
-    {children}
-  </>
-);
-
-const PrivateLayout = ({ children }) => (
-  <>
-    {children}
-  </>
-);
+// --- Auth Guard ---
+function RequireAuth({ children }) {
+  const token = localStorage.getItem("acp_token");
+  return token ? children : <Navigate to="/" replace />;
+}
 
 export default function App() {
+  const token = localStorage.getItem("acp_token");
+
   return (
     <Router>
       <Routes>
 
-        {/* ---------- PUBLIC ROUTES (WITH NAVBAR) ---------- */}
+        {/* --- Marketing Landing Page (only when NOT logged in) --- */}
         <Route
           path="/"
-          element={
-            <PublicLayout>
-              <Pricing /> {/* If you want a real homepage later, we switch this */}
-            </PublicLayout>
-          }
+          element={!token ? <LandingPage /> : <Navigate to="/dashboard" replace />}
         />
 
-        <Route
-          path="/pricing"
-          element={
-            <PublicLayout>
-              <Pricing />
-            </PublicLayout>
-          }
-        />
+        {/* --- Auth Pages --- */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-        <Route
-          path="/faq"
-          element={
-            <PublicLayout>
-              <FAQ />
-            </PublicLayout>
-          }
-        />
-
-        <Route
-          path="/login"
-          element={
-            <PublicLayout>
-              <Login />
-            </PublicLayout>
-          }
-        />
-
-        <Route
-          path="/signup"
-          element={
-            <PublicLayout>
-              <Signup />
-            </PublicLayout>
-          }
-        />
-
-        <Route
-          path="/terms"
-          element={
-            <PublicLayout>
-              <TermsOfService />
-            </PublicLayout>
-          }
-        />
-
-        <Route
-          path="/compliance"
-          element={
-            <PublicLayout>
-              <CallCompliance />
-            </PublicLayout>
-          }
-        />
-
-        <Route
-          path="/support"
-          element={
-            <PublicLayout>
-              <ContactSupport />
-            </PublicLayout>
-          }
-        />
-
-        {/* ---------- PRIVATE ROUTES (NO NAVBAR) ---------- */}
+        {/* --- Protected App Pages --- */}
         <Route
           path="/dashboard"
           element={
-            <PrivateLayout>
+            <RequireAuth>
               <Dashboard />
-            </PrivateLayout>
-          }
-        />
-
-        <Route
-          path="/appointments"
-          element={
-            <PrivateLayout>
-              <Appointments />
-            </PrivateLayout>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/calls"
           element={
-            <PrivateLayout>
+            <RequireAuth>
               <Calls />
-            </PrivateLayout>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/messages"
           element={
-            <PrivateLayout>
+            <RequireAuth>
               <Messages />
-            </PrivateLayout>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/leads"
           element={
-            <PrivateLayout>
+            <RequireAuth>
               <Leads />
-            </PrivateLayout>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/lead-inbox"
           element={
-            <PrivateLayout>
+            <RequireAuth>
               <LeadInbox />
-            </PrivateLayout>
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/appointments"
+          element={
+            <RequireAuth>
+              <Appointments />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/billing-policy"
+          element={
+            <RequireAuth>
+              <BillingPolicy />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/call-compliance"
+          element={
+            <RequireAuth>
+              <CallCompliance />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/contact-support"
+          element={
+            <RequireAuth>
+              <ContactSupport />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path="/faq"
+          element={
+            <RequireAuth>
+              <FAQ />
+            </RequireAuth>
           }
         />
 
         <Route
           path="/integrations"
           element={
-            <PrivateLayout>
+            <RequireAuth>
               <Integrations />
-            </PrivateLayout>
+            </RequireAuth>
           }
         />
 
-        <Route
-          path="/billing"
-          element={
-            <PrivateLayout>
-              <BillingPolicy />
-            </PrivateLayout>
-          }
-        />
+        {/* Not protected — used before they log in */}
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/terms" element={<TermsOfService />} />
 
+        {/* Catch-all: redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
