@@ -1,61 +1,89 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-// Create context
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
-// Export hook
-export const useAuth = () => useContext(AuthContext);
-
-// Provider
 export function AuthProvider({ children }) {
-  const navigate = useNavigate();
-
-  // Core auth states
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load auth state on startup
+  // ---------------------------------------------
+  // Restore session on refresh
+  // ---------------------------------------------
   useEffect(() => {
-    const savedUser = localStorage.getItem("acp_user");
-    if (savedUser) setUser(JSON.parse(savedUser));
+    const token = localStorage.getItem("acp_token");
+    const userData = localStorage.getItem("acp_user");
+
+    if (token && userData) {
+      setUser(JSON.parse(userData));
+    }
+
     setLoading(false);
   }, []);
 
+  // ---------------------------------------------
   // LOGIN
-  const login = async (email, password) => {
-    // CALL YOUR BACKEND OR GHL WEBHOOK HERE
-    // For now, simulate successful login
-    const mockUser = { email };
+  // ---------------------------------------------
+  async function login(email, password) {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
 
-    setUser(mockUser);
-    localStorage.setItem("acp_user", JSON.stringify(mockUser));
+      if (!response.ok) throw new Error("Invalid login");
 
-    navigate("/dashboard");
-  };
+      const data = await response.json();
 
+      // Save token + user
+      localStorage.setItem("acp_token", data.token);
+      localStorage.setItem("acp_user", JSON.stringify(data.user));
+
+      setUser(data.user);
+
+      return { success: true };
+    } catch (error) {
+      console.error("Login error:", error);
+      return { success: false, message: error.message };
+    }
+  }
+
+  // ---------------------------------------------
   // SIGNUP
-  const signup = async (email, password) => {
-    // CALL YOUR BACKEND OR GHL WEBHOOK HERE
-    const newUser = { email };
+  // ---------------------------------------------
+  async function signup(email, password) {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
 
-    setUser(newUser);
-    localStorage.setItem("acp_user", JSON.stringify(newUser));
+      if (!response.ok) throw new Error("Signup failed");
 
-    navigate("/dashboard");
-  };
+      const data = await response.json();
 
+      // Save token + user
+      localStorage.setItem("acp_token", data.token);
+      localStorage.setItem("acp_user", JSON.stringify(data.user));
+
+      setUser(data.user);
+
+      return { success: true };
+    } catch (error) {
+      console.error("Signup error:", error);
+      return { success: false, message: error.message };
+    }
+  }
+
+  // ---------------------------------------------
   // LOGOUT
-  const logout = () => {
-    setUser(null);
+  // ---------------------------------------------
+  function logout() {
+    localStorage.removeItem("acp_token");
     localStorage.removeItem("acp_user");
-    navigate("/login");
-  };
-
-  // PROTECTED ROUTE CHECK
-  const requireAuth = (Component) => {
-    return user ? <Component /> : navigate("/login");
-  };
+    setUser(null);
+  }
 
   return (
     <AuthContext.Provider
@@ -65,11 +93,15 @@ export function AuthProvider({ children }) {
         login,
         signup,
         logout,
-        requireAuth,
-        isAuthenticated: !!user,
+        isAuthenticated: !!user
       }}
     >
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
+}
+
+// Hook
+export function useAuth() {
+  return useContext(AuthContext);
 }
