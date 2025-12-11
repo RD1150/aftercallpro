@@ -2,30 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------
+   GLOBAL BRAND VARIABLES
+--------------------------------*/
+:root {
+  --navy: #0b1524;
+  --cyan: #22d3ee;
+  --gray-light: #f8fafc;
+  --gray-dark: #1e293b;
+}
+
+/* ------------------------------
+   GLOBAL STYLING
+--------------------------------*/
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a {
+  transition: all 0.2s ease;
+}
+
+/* Remove ugly focus outlines */
+*:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--cyan);
+}
+
+/* ------------------------------
+   UTILITY CLASSES
+--------------------------------*/
+
+/* Centered container max width */
+.container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
+/* Pretty card shadow */
+.card {
+  @apply bg-white rounded-xl shadow-md border border-gray-200;
+}
+
+/* Used for hero sections */
+.hero-title {
+  @apply text-4xl md:text-6xl font-bold text-gray-900 leading-tight;
+}
+
 /* Buttons */
 .btn-primary {
-  @apply bg-[var(--navy)] text-white px-6 py-3 rounded-lg font-semibold shadow hover:opacity-90 transition;
+  @apply bg-[var(--navy)] text-white font-semibold py-3 px-6 rounded-xl;
+}
+
+.btn-primary:hover {
+  @apply bg-gray-900;
 }
 
 .btn-secondary {
-  @apply border border-slate-300 px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition;
+  @apply bg-gray-200 text-gray-900 py-3 px-6 rounded-xl font-semibold;
 }
 
-/* Mobile drawer animation */
-@keyframes slideLeft {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
+.btn-secondary:hover {
+  @apply bg-gray-300;
 }
 
-.animate-slideLeft {
-  animation: slideLeft 0.35s ease-out forwards;
+/* Input fields */
+.input {
+  @apply w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500;
 }
 
-/* Variables */
-:root {
-  --navy: #0b1a3d;
+/* Clean table look */
+.table {
+  @apply w-full border-collapse text-left;
+}
+
+.table th {
+  @apply border-b border-gray-300 py-3 font-semibold text-gray-700;
+}
+
+.table td {
+  @apply py-3 border-b border-gray-200;
 }
