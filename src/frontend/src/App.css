@@ -1,20 +1,2 @@
-/* src/App.css */
-
-/* Base */
-html, body, #root { height: 100%; }
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-* { box-sizing: border-box; }
-
-/* Kill any lingering “background subtitle/mega-headline” overlays */
-h2[aria-hidden], .ghost-headline { display: none !important; }
-
-/* Ensure sections actually paint over anything behind them */
-section { position: relative; }
-
-/* Optional debug grid
-.debug * { outline: 1px dashed rgba(0,255,255,.25); }
-*/
+/* Empty by design — all styling handled by Tailwind + index.css */
+/* Add component-specific overrides here only when necessary */
