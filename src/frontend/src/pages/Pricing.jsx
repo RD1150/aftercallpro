@@ -6,12 +6,12 @@ export default function Pricing() {
       <div style={styles.header}>
         <h1 style={styles.title}>Simple Pricing, Built for Growth</h1>
         <p style={styles.subtitle}>
-          Start free. Capture every call. Upgrade only when your business needs
-          more power.
+          Start free. Capture every call. Upgrade only when your business needs more power.
         </p>
       </div>
 
       <div style={styles.grid}>
+
         {/* FREE */}
         <div style={styles.plan}>
           <h3 style={styles.planTitle}>Free</h3>
@@ -48,7 +48,10 @@ export default function Pricing() {
             <li>Appointment booking</li>
             <li>Lead routing</li>
           </ul>
-          <a href="/upgrade/starter" style={styles.primaryBtn}>
+          <a
+            href="https://clients.aftercallpro.com/checkout/starter"
+            style={styles.primaryBtn}
+          >
             Upgrade to Starter
           </a>
         </div>
@@ -70,7 +73,10 @@ export default function Pricing() {
             <li>Branded voicemail</li>
             <li>Advanced analytics</li>
           </ul>
-          <a href="/upgrade/core" style={styles.primaryBtn}>
+          <a
+            href="https://clients.aftercallpro.com/checkout/core"
+            style={styles.primaryBtn}
+          >
             Upgrade to Core
           </a>
         </div>
@@ -82,4 +88,132 @@ export default function Pricing() {
             $249<span style={styles.mo}>/mo</span>
           </p>
           <p style={styles.desc}>
-            Miss
+            Mission-critical call handling for high-volume businesses.
+          </p>
+          <ul style={styles.list}>
+            <li>Everything in Core</li>
+            <li>24/7 AI receptionist</li>
+            <li>AI booking engine</li>
+            <li>Lead recovery sequences</li>
+            <li>Unlimited phone numbers*</li>
+            <li>Dedicated onboarding & priority support</li>
+          </ul>
+          <a
+            href="https://calendly.com/aftercallpro/elite"
+            style={styles.secondaryBtn}
+          >
+            Talk to Sales
+          </a>
+        </div>
+
+      </div>
+
+      <p style={styles.footerNote}>
+        *Usage limits apply. Upgrade anytime as your call volume grows.
+      </p>
+    </section>
+  );
+}
+
+const styles = {
+  section: {
+    maxWidth: "1200px",
+    margin: "80px auto",
+    padding: "0 24px",
+    fontFamily: "Inter, system-ui, sans-serif",
+  },
+  header: {
+    textAlign: "center",
+    marginBottom: "60px",
+  },
+  title: {
+    fontSize: "42px",
+    marginBottom: "12px",
+  },
+  subtitle: {
+    fontSize: "18px",
+    color: "#64748b",
+  },
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+    gap: "24px",
+  },
+  plan: {
+    border: "1px solid #e5e7eb",
+    borderRadius: "16px",
+    padding: "32px",
+    background: "#ffffff",
+    display: "flex",
+    flexDirection: "column",
+  },
+  featured: {
+    border: "2px solid #2563eb",
+    boxShadow: "0 10px 40px rgba(37,99,235,0.15)",
+  },
+  badge: {
+    alignSelf: "flex-start",
+    background: "#2563eb",
+    color: "#ffffff",
+    fontSize: "12px",
+    padding: "4px 10px",
+    borderRadius: "999px",
+    marginBottom: "12px",
+  },
+  planTitle: {
+    fontSize: "24px",
+    marginBottom: "8px",
+  },
+  price: {
+    fontSize: "36px",
+    fontWeight: "700",
+    margin: "12px 0",
+  },
+  mo: {
+    fontSize: "16px",
+    fontWeight: "500",
+    color: "#64748b",
+    marginLeft: "4px",
+  },
+  desc: {
+    color: "#64748b",
+    marginBottom: "20px",
+  },
+  list: {
+    listStyle: "none",
+    paddingLeft: 0,
+    marginBottom: "24px",
+  },
+  primaryBtn: {
+    marginTop: "auto",
+    padding: "12px 20px",
+    borderRadius: "8px",
+    textAlign: "center",
+    fontWeight: "600",
+    textDecoration: "none",
+    background: "#2563eb",
+    color: "#ffffff",
+  },
+  secondaryBtn: {
+    marginTop: "auto",
+    padding: "12px 20px",
+    borderRadius: "8px",
+    textAlign: "center",
+    fontWeight: "600",
+    textDecoration: "none",
+    border: "1px solid #0f172a",
+    color: "#0f172a",
+  },
+  note: {
+    marginTop: "10px",
+    fontSize: "12px",
+    color: "#64748b",
+    textAlign: "center",
+  },
+  footerNote: {
+    marginTop: "40px",
+    fontSize: "14px",
+    color: "#64748b",
+    textAlign: "center",
+  },
+};
