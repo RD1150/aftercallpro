@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { AuthProvider, useAuth } from "./AuthProvider";
+import { AuthProvider } from "../../AuthProvider";
+
 
 // Public pages
 import LandingPage from "./pages/LandingPage";
