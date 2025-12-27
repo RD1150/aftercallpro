@@ -1,5 +1,17 @@
 import React from "react";
 
+/**
+ * ===============================
+ * 🔗 LIVE CHECKOUT LINKS (LOCKED)
+ * ===============================
+ */
+const LINKS = {
+  freeSignup: "https://clients.aftercallpro.com/signup",
+  starterCheckout: "https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42",
+  coreCheckout: "https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5",
+  eliteCheckout: "https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b",
+};
+
 export default function Pricing() {
   return (
     <section style={styles.section}>
@@ -11,7 +23,6 @@ export default function Pricing() {
       </div>
 
       <div style={styles.grid}>
-
         {/* FREE */}
         <div style={styles.plan}>
           <h3 style={styles.planTitle}>Free</h3>
@@ -26,7 +37,7 @@ export default function Pricing() {
             <li>Basic CRM</li>
             <li>1 phone number</li>
           </ul>
-          <a href="/signup" style={styles.secondaryBtn}>
+          <a href={LINKS.freeSignup} style={styles.secondaryBtn}>
             Start Free
           </a>
           <p style={styles.note}>No credit card required</p>
@@ -48,10 +59,7 @@ export default function Pricing() {
             <li>Appointment booking</li>
             <li>Lead routing</li>
           </ul>
-          <a
-            href="https://clients.aftercallpro.com/checkout/starter"
-            style={styles.primaryBtn}
-          >
+          <a href={LINKS.starterCheckout} style={styles.primaryBtn}>
             Upgrade to Starter
           </a>
         </div>
@@ -73,10 +81,7 @@ export default function Pricing() {
             <li>Branded voicemail</li>
             <li>Advanced analytics</li>
           </ul>
-          <a
-            href="https://clients.aftercallpro.com/checkout/core"
-            style={styles.primaryBtn}
-          >
+          <a href={LINKS.coreCheckout} style={styles.primaryBtn}>
             Upgrade to Core
           </a>
         </div>
@@ -98,14 +103,10 @@ export default function Pricing() {
             <li>Unlimited phone numbers*</li>
             <li>Dedicated onboarding & priority support</li>
           </ul>
-          <a
-            href="https://calendly.com/aftercallpro/elite"
-            style={styles.secondaryBtn}
-          >
-            Talk to Sales
+          <a href={LINKS.eliteCheckout} style={styles.primaryBtn}>
+            Upgrade to Elite
           </a>
         </div>
-
       </div>
 
       <p style={styles.footerNote}>
