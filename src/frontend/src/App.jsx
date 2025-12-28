@@ -18,21 +18,19 @@ export default function App() {
         <div style={styles.ctaRow}>
           {/* STARTER */}
           <a
-  href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
-  style={styles.primaryBtn}
->
-  Get Started — $39/mo
-</a>
-
+            href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
+            style={styles.primaryBtn}
+          >
+            Get Started — $39/mo
+          </a>
 
           {/* PRO CORE */}
-        <a
-  href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
-  style={styles.secondaryBtn}
->
-  Pro Core — $99/mo
-</a>
-
+          <a
+            href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
+            style={styles.secondaryBtn}
+          >
+            Pro Core — $99/mo
+          </a>
         </div>
       </section>
 
@@ -46,7 +44,7 @@ export default function App() {
             <h3>Starter</h3>
             <p style={styles.price}>$39 / month</p>
             <p style={styles.planDesc}>
-              Essential AI call handling and instant follow-up for small teams.
+              Essential AI call handling and instant follow-up for smaller teams.
             </p>
           </div>
 
@@ -64,16 +62,16 @@ export default function App() {
             <h3>Elite</h3>
             <p style={styles.price}>$249 / month</p>
             <p style={styles.planDesc}>
-              Designed for high-volume teams that need customization, onboarding,
+              Built for high-volume teams that need custom setup, onboarding,
               and ongoing optimization.
             </p>
-           <a
-  href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
-  style={styles.eliteBtn}
->
-  Book Elite Setup Call
-</a>
 
+            <a
+              href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
+              style={styles.eliteBtn}
+            >
+              Book Elite Setup Call
+            </a>
           </div>
         </div>
       </section>
