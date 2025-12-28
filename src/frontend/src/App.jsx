@@ -18,21 +18,21 @@ export default function App() {
         <div style={styles.ctaRow}>
           {/* STARTER */}
           <a
-            href=https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5
+  href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
+  style={styles.primaryBtn}
+>
+  Get Started — $39/mo
+</a>
 
-            style={styles.primaryBtn}
-          >
-            Get Started — $39/mo
-          </a>
 
           {/* PRO CORE */}
-          <a
-            href=https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42
+        <a
+  href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
+  style={styles.secondaryBtn}
+>
+  Pro Core — $99/mo
+</a>
 
-            style={styles.secondaryBtn}
-          >
-            Pro Core — $99/mo
-          </a>
         </div>
       </section>
 
@@ -67,13 +67,13 @@ export default function App() {
               Designed for high-volume teams that need customization, onboarding,
               and ongoing optimization.
             </p>
-            <a
-              href=https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b
+           <a
+  href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
+  style={styles.eliteBtn}
+>
+  Book Elite Setup Call
+</a>
 
-              style={styles.eliteBtn}
-            >
-              Book Elite Setup Call
-            </a>
           </div>
         </div>
       </section>
