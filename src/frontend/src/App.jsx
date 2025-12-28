@@ -1,124 +1,157 @@
 import React from "react";
 
-/* =========================
-   PLAN CONFIG (DISPLAY ONLY)
-========================= */
-
-const PLANS = {
-  starter: { name: "Starter", price: "$39 / month" },
-  pro: { name: "Pro Core", price: "$99 / month" },
-  elite: { name: "Elite", price: "$249 / month" },
-};
-
-// TEMP until billing + auth
-const ACTIVE_PLAN = "elite"; // starter | pro | elite
-
-/* =========================
-   SMALL UI COMPONENTS
-========================= */
-
-function Stat({ title, value }) {
-  return (
-    <div
-      style={{
-        border: "1px solid #e5e7eb",
-        borderRadius: "8px",
-        padding: "16px",
-        minWidth: "200px",
-      }}
-    >
-      <div style={{ fontSize: "13px", color: "#666" }}>{title}</div>
-      <div style={{ fontSize: "18px", fontWeight: "600" }}>{value}</div>
-    </div>
-  );
-}
-
-function PlanCard({ name, price }) {
-  return (
-    <div
-      style={{
-        border: "1px solid #d1d5db",
-        borderRadius: "10px",
-        padding: "20px",
-        minWidth: "180px",
-      }}
-    >
-      <h3 style={{ marginBottom: "6px" }}>{name}</h3>
-      <p style={{ fontSize: "16px", fontWeight: "500" }}>{price}</p>
-    </div>
-  );
-}
-
-/* =========================
-   MAIN APP
-========================= */
-
 export default function App() {
   return (
-    <div
-      style={{
-        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-        padding: "48px",
-        maxWidth: "1100px",
-        margin: "0 auto",
-      }}
-    >
+    <div style={styles.page}>
       {/* HEADER */}
-      <header style={{ marginBottom: "40px" }}>
-        <h1 style={{ fontSize: "42px", marginBottom: "8px" }}>
-          AfterCallPro Dashboard
-        </h1>
-        <p style={{ color: "#555", fontSize: "18px" }}>
-          AI-powered call handling for service businesses
-        </p>
+      <header style={styles.header}>
+        <h1 style={styles.logo}>AfterCallPro</h1>
       </header>
 
-      {/* STATS */}
-      <section style={{ marginBottom: "40px" }}>
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          <Stat
-            title="Active Plan"
-            value={`${PLANS[ACTIVE_PLAN].name} (${PLANS[ACTIVE_PLAN].price})`}
-          />
-          <Stat title="Account Status" value="Active" />
-          <Stat title="Deployment" value="CleanDeploy Stable" />
+      {/* HERO */}
+      <section style={styles.hero}>
+        <h2 style={styles.title}>Never Miss Another Call</h2>
+        <p style={styles.subtitle}>
+          AI-powered call handling, instant follow-up, and lead capture for service businesses.
+        </p>
+
+        <div style={styles.ctaRow}>
+          <a
+            href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
+            style={styles.primaryBtn}
+          >
+            Get Started – Starter ($39/mo)
+          </a>
+
+          <a
+            href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
+            style={styles.secondaryBtn}
+          >
+            View Pro Plans
+          </a>
         </div>
       </section>
 
-      {/* PLANS */}
-      <section style={{ marginBottom: "40px" }}>
-        <h2 style={{ marginBottom: "16px" }}>Available Plans</h2>
-        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          {Object.values(PLANS).map((plan) => (
-            <PlanCard
-              key={plan.name}
-              name={plan.name}
-              price={plan.price}
-            />
-          ))}
+      {/* FEATURES */}
+      <section style={styles.features}>
+        <div style={styles.card}>
+          <h3>AI Call Answering</h3>
+          <p>Your calls are answered instantly, 24/7.</p>
+        </div>
+
+        <div style={styles.card}>
+          <h3>Instant Follow-Up</h3>
+          <p>Automatic SMS & email replies after every call.</p>
+        </div>
+
+        <div style={styles.card}>
+          <h3>Lead Capture</h3>
+          <p>Every caller becomes a tracked opportunity.</p>
         </div>
       </section>
 
-      {/* NEXT STEPS */}
-      <section>
-        <h2 style={{ marginBottom: "12px" }}>Next Steps</h2>
-        <ul style={{ lineHeight: "1.8" }}>
-          <li>Wire billing to GHL / Stripe</li>
-          <li>Add authentication</li>
-          <li>Enable onboarding flow</li>
-        </ul>
+      {/* PRICING */}
+      <section style={styles.pricing}>
+        <h2>Plans</h2>
+
+        <div style={styles.pricingGrid}>
+          <div style={styles.priceCard}>
+            <h3>Starter</h3>
+            <p>$39 / month</p>
+          </div>
+
+          <div style={styles.priceCard}>
+            <h3>Pro Core</h3>
+            <p>$99 / month</p>
+          </div>
+
+          <div style={styles.priceCard}>
+            <h3>Elite</h3>
+            <p>$249 / month</p>
+          </div>
+        </div>
       </section>
 
       {/* FOOTER */}
-      <footer
-        style={{
-          marginTop: "60px",
-          fontSize: "14px",
-          color: "#777",
-        }}
-      >
-        © {new Date().getFullYear()} AfterCallPro
+      <footer style={styles.footer}>
+        <p>© {new Date().getFullYear()} AfterCallPro</p>
       </footer>
     </div>
   );
 }
+
+/* ---------------- STYLES ---------------- */
+
+const styles = {
+  page: {
+    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    color: "#111",
+    backgroundColor: "#fff",
+    minHeight: "100vh",
+  },
+  header: {
+    padding: "24px 40px",
+    borderBottom: "1px solid #eee",
+  },
+  logo: {
+    margin: 0,
+    fontSize: "26px",
+    fontWeight: 700,
+  },
+  hero: {
+    padding: "80px 40px",
+    maxWidth: "900px",
+    margin: "0 auto",
+    textAlign: "center",
+  },
+  title: {
+    fontSize: "48px",
+    marginBottom: "16px",
+  },
+  subtitle: {
+    fontSize: "18px",
+    color: "#555",
+    marginBottom: "32px",
+  },
+  ctaRow: {
+    display: "flex",
+    gap: "16px",
+    justifyContent: "center",
+    flexWrap: "wrap",
+  },
+  primaryBtn: {
+    background: "#2563eb",
+    color: "#fff",
+    padding: "14px 24px",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontWeight: 600,
+  },
+  secondaryBtn: {
+    border: "2px solid #2563eb",
+    color: "#2563eb",
+    padding: "12px 22px",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontWeight: 600,
+  },
+  features: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "24px",
+    padding: "40px",
+    maxWidth: "1000px",
+    margin: "0 auto",
+  },
+  card: {
+    border: "1px solid #eee",
+    borderRadius: "12px",
+    padding: "24px",
+    textAlign: "center",
+  },
+  pricing: {
+    padding: "60px 40px",
+    background: "#fafafa",
+    textAlign: "center",
+  },
+  pricingGrid
