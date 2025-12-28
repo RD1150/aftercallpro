@@ -16,17 +16,17 @@ export default function App() {
         </p>
 
         <div style={styles.ctaRow}>
-          {/* STARTER */}
+          {/* STARTER — $39 */}
           <a
-            href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
+            href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
             style={styles.primaryBtn}
           >
             Get Started — $39/mo
           </a>
 
-          {/* PRO CORE */}
+          {/* PRO CORE — $99 */}
           <a
-            href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
+            href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
             style={styles.secondaryBtn}
           >
             Pro Core — $99/mo
