@@ -1,118 +1,124 @@
 import React from "react";
 
+/* =========================
+   PLAN CONFIG (DISPLAY ONLY)
+========================= */
+
+const PLANS = {
+  starter: { name: "Starter", price: "$39 / month" },
+  pro: { name: "Pro Core", price: "$99 / month" },
+  elite: { name: "Elite", price: "$249 / month" },
+};
+
+// TEMP until billing + auth
+const ACTIVE_PLAN = "elite"; // starter | pro | elite
+
+/* =========================
+   SMALL UI COMPONENTS
+========================= */
+
+function Stat({ title, value }) {
+  return (
+    <div
+      style={{
+        border: "1px solid #e5e7eb",
+        borderRadius: "8px",
+        padding: "16px",
+        minWidth: "200px",
+      }}
+    >
+      <div style={{ fontSize: "13px", color: "#666" }}>{title}</div>
+      <div style={{ fontSize: "18px", fontWeight: "600" }}>{value}</div>
+    </div>
+  );
+}
+
+function PlanCard({ name, price }) {
+  return (
+    <div
+      style={{
+        border: "1px solid #d1d5db",
+        borderRadius: "10px",
+        padding: "20px",
+        minWidth: "180px",
+      }}
+    >
+      <h3 style={{ marginBottom: "6px" }}>{name}</h3>
+      <p style={{ fontSize: "16px", fontWeight: "500" }}>{price}</p>
+    </div>
+  );
+}
+
+/* =========================
+   MAIN APP
+========================= */
+
 export default function App() {
   return (
     <div
       style={{
         fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
         padding: "48px",
-        maxWidth: "1000px",
+        maxWidth: "1100px",
         margin: "0 auto",
-        lineHeight: 1.5,
       }}
     >
-      {/* HERO */}
-      <header style={{ marginBottom: "64px" }}>
-        <h1 style={{ fontSize: "44px", marginBottom: "12px" }}>
-          AfterCallPro
+      {/* HEADER */}
+      <header style={{ marginBottom: "40px" }}>
+        <h1 style={{ fontSize: "42px", marginBottom: "8px" }}>
+          AfterCallPro Dashboard
         </h1>
-        <p style={{ fontSize: "20px", color: "#555" }}>
-          AI-powered call handling for service businesses.
+        <p style={{ color: "#555", fontSize: "18px" }}>
+          AI-powered call handling for service businesses
         </p>
       </header>
 
-      {/* STATUS */}
-      <section style={{ marginBottom: "56px" }}>
-        <h2 style={{ fontSize: "24px", marginBottom: "12px" }}>Status</h2>
-        <p>CleanDeploy baseline is live.</p>
-        <p>Frontend build is stable.</p>
-      </section>
-
-      {/* PRICING */}
-      <section style={{ marginBottom: "72px" }}>
-        <h2 style={{ fontSize: "28px", marginBottom: "24px" }}>Pricing</h2>
-
-        <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
-          {/* Starter */}
-          <div style={cardStyle}>
-            <h3 style={planTitle}>Starter</h3>
-            <p style={price}>$39 / month</p>
-            <ul>
-              <li>AI call answering</li>
-              <li>Basic call summaries</li>
-              <li>Email notifications</li>
-            </ul>
-            <button style={primaryButton}>Get Started</button>
-          </div>
-
-          {/* Pro Core */}
-          <div style={cardStyle}>
-            <h3 style={planTitle}>Pro Core</h3>
-            <p style={price}>$99 / month</p>
-            <ul>
-              <li>Everything in Starter</li>
-              <li>SMS + email follow-ups</li>
-              <li>Lead capture & tagging</li>
-            </ul>
-            <button style={primaryButton}>Upgrade</button>
-          </div>
-
-          {/* Scale */}
-          <div style={cardStyle}>
-            <h3 style={planTitle}>Scale</h3>
-            <p style={price}>Custom</p>
-            <ul>
-              <li>Multi-location support</li>
-              <li>CRM integrations</li>
-              <li>Priority onboarding</li>
-            </ul>
-            <button style={secondaryButton}>Contact Sales</button>
-          </div>
+      {/* STATS */}
+      <section style={{ marginBottom: "40px" }}>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          <Stat
+            title="Active Plan"
+            value={`${PLANS[ACTIVE_PLAN].name} (${PLANS[ACTIVE_PLAN].price})`}
+          />
+          <Stat title="Account Status" value="Active" />
+          <Stat title="Deployment" value="CleanDeploy Stable" />
         </div>
       </section>
 
+      {/* PLANS */}
+      <section style={{ marginBottom: "40px" }}>
+        <h2 style={{ marginBottom: "16px" }}>Available Plans</h2>
+        <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+          {Object.values(PLANS).map((plan) => (
+            <PlanCard
+              key={plan.name}
+              name={plan.name}
+              price={plan.price}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* NEXT STEPS */}
+      <section>
+        <h2 style={{ marginBottom: "12px" }}>Next Steps</h2>
+        <ul style={{ lineHeight: "1.8" }}>
+          <li>Wire billing to GHL / Stripe</li>
+          <li>Add authentication</li>
+          <li>Enable onboarding flow</li>
+        </ul>
+      </section>
+
       {/* FOOTER */}
-      <footer style={{ color: "#888", fontSize: "14px" }}>
+      <footer
+        style={{
+          marginTop: "60px",
+          fontSize: "14px",
+          color: "#777",
+        }}
+      >
         © {new Date().getFullYear()} AfterCallPro
       </footer>
     </div>
   );
 }
-
-/* ---- styles ---- */
-
-const cardStyle = {
-  border: "1px solid #ddd",
-  borderRadius: "8px",
-  padding: "24px",
-  width: "280px",
-};
-
-const planTitle = {
-  fontSize: "20px",
-  marginBottom: "8px",
-};
-
-const price = {
-  fontSize: "18px",
-  fontWeight: "600",
-  marginBottom: "12px",
-};
-
-const primaryButton = {
-  marginTop: "16px",
-  padding: "10px 16px",
-  fontSize: "14px",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer",
-  backgroundColor: "#000",
-  color: "#fff",
-};
-
-const secondaryButton = {
-  ...primaryButton,
-  backgroundColor: "#fff",
-  color: "#000",
-  border: "1px solid #000",
-};
