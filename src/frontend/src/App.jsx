@@ -2,48 +2,45 @@ import React from "react";
 
 export default function App() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>AfterCallPro</h1>
+    <div
+      style={{
+        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+        padding: "48px",
+        maxWidth: "900px",
+        margin: "0 auto",
+        lineHeight: 1.5,
+      }}
+    >
+      <h1 style={{ fontSize: "42px", marginBottom: "12px" }}>
+        AfterCallPro
+      </h1>
 
-      <p style={styles.text}>
-        CleanDeploy baseline is live.
+      <p style={{ fontSize: "18px", color: "#555", marginBottom: "32px" }}>
+        AI-powered call handling for service businesses.
       </p>
 
-      <p style={styles.text}>
-        Frontend build is stable.
-      </p>
+      <section style={{ marginBottom: "40px" }}>
+        <h2 style={{ fontSize: "22px", marginBottom: "8px" }}>
+          Status
+        </h2>
+        <p>CleanDeploy baseline is live.</p>
+        <p>Frontend build is stable.</p>
+      </section>
 
-      <p style={styles.muted}>
-        This page confirms the system is running correctly.
-      </p>
+      <section style={{ marginBottom: "40px" }}>
+        <h2 style={{ fontSize: "22px", marginBottom: "8px" }}>
+          Next Steps
+        </h2>
+        <ul>
+          <li>Add authentication</li>
+          <li>Connect billing</li>
+          <li>Launch onboarding</li>
+        </ul>
+      </section>
+
+      <footer style={{ marginTop: "64px", color: "#888", fontSize: "14px" }}>
+        © {new Date().getFullYear()} AfterCallPro
+      </footer>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    padding: "64px",
-    fontFamily:
-      "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    backgroundColor: "#ffffff",
-    color: "#111",
-  },
-  title: {
-    fontSize: "40px",
-    marginBottom: "24px",
-  },
-  text: {
-    fontSize: "18px",
-    marginBottom: "8px",
-  },
-  muted: {
-    fontSize: "14px",
-    color: "#777",
-    marginTop: "24px",
-  },
-};
