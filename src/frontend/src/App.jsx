@@ -3,12 +3,10 @@ import React from "react";
 export default function App() {
   return (
     <div style={styles.page}>
-      {/* HEADER */}
       <header style={styles.header}>
         <h1 style={styles.logo}>AfterCallPro</h1>
       </header>
 
-      {/* HERO */}
       <section style={styles.hero}>
         <h2 style={styles.title}>Never Miss Another Call</h2>
         <p style={styles.subtitle}>
@@ -32,7 +30,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* FEATURES */}
       <section style={styles.features}>
         <div style={styles.card}>
           <h3>AI Call Answering</h3>
@@ -50,7 +47,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* PRICING */}
       <section style={styles.pricing}>
         <h2>Plans</h2>
 
@@ -67,91 +63,3 @@ export default function App() {
 
           <div style={styles.priceCard}>
             <h3>Elite</h3>
-            <p>$249 / month</p>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer style={styles.footer}>
-        <p>© {new Date().getFullYear()} AfterCallPro</p>
-      </footer>
-    </div>
-  );
-}
-
-/* ---------------- STYLES ---------------- */
-
-const styles = {
-  page: {
-    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-    color: "#111",
-    backgroundColor: "#fff",
-    minHeight: "100vh",
-  },
-  header: {
-    padding: "24px 40px",
-    borderBottom: "1px solid #eee",
-  },
-  logo: {
-    margin: 0,
-    fontSize: "26px",
-    fontWeight: 700,
-  },
-  hero: {
-    padding: "80px 40px",
-    maxWidth: "900px",
-    margin: "0 auto",
-    textAlign: "center",
-  },
-  title: {
-    fontSize: "48px",
-    marginBottom: "16px",
-  },
-  subtitle: {
-    fontSize: "18px",
-    color: "#555",
-    marginBottom: "32px",
-  },
-  ctaRow: {
-    display: "flex",
-    gap: "16px",
-    justifyContent: "center",
-    flexWrap: "wrap",
-  },
-  primaryBtn: {
-    background: "#2563eb",
-    color: "#fff",
-    padding: "14px 24px",
-    borderRadius: "8px",
-    textDecoration: "none",
-    fontWeight: 600,
-  },
-  secondaryBtn: {
-    border: "2px solid #2563eb",
-    color: "#2563eb",
-    padding: "12px 22px",
-    borderRadius: "8px",
-    textDecoration: "none",
-    fontWeight: 600,
-  },
-  features: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "24px",
-    padding: "40px",
-    maxWidth: "1000px",
-    margin: "0 auto",
-  },
-  card: {
-    border: "1px solid #eee",
-    borderRadius: "12px",
-    padding: "24px",
-    textAlign: "center",
-  },
-  pricing: {
-    padding: "60px 40px",
-    background: "#fafafa",
-    textAlign: "center",
-  },
-  pricingGrid
