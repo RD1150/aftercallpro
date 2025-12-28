@@ -13,12 +13,8 @@ export default function LandingPage() {
         <h2 style={styles.title}>Never Miss Another Call</h2>
 
         <p style={styles.subtitle}>
-          AI-powered call handling and instant follow-up for service businesses.
-        </p>
-
-        <p style={styles.trustLine}>
-          Built for plumbers, HVAC, roofers, cleaners, and local service pros
-          across the U.S.
+          AI-powered call handling and instant follow-up that turns missed calls
+          into booked opportunities — automatically.
         </p>
 
         <div style={styles.ctaRow}>
@@ -38,32 +34,35 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Plans */}
+      {/* Pricing */}
       <section style={styles.pricing}>
-        <h2>Plans</h2>
+        <h2 style={styles.sectionTitle}>Plans</h2>
 
         <div style={styles.pricingGrid}>
-          <div style={styles.card}>
+          <div style={styles.priceCard}>
             <h3>Starter</h3>
             <p style={styles.price}>$39 / month</p>
-            <p>AI call handling, call summaries, basic CRM, SMS follow-ups</p>
-          </div>
-
-          <div style={styles.card}>
-            <h3>Pro Core</h3>
-            <p style={styles.price}>$99 / month</p>
-            <p>
-              Everything in Starter + advanced automations, call routing,
-              integrations, and priority support
+            <p style={styles.cardText}>
+              AI answers calls, captures intent, and sends instant summaries.
+              Perfect for getting started.
             </p>
           </div>
 
-          <div style={styles.card}>
+          <div style={styles.priceCard}>
+            <h3>Pro Core</h3>
+            <p style={styles.price}>$99 / month</p>
+            <p style={styles.cardText}>
+              Advanced workflows, smarter follow-up, and deeper automation for
+              growing teams.
+            </p>
+          </div>
+
+          <div style={styles.priceCard}>
             <h3>Elite</h3>
             <p style={styles.price}>$249 / month</p>
-            <p>
-              White-glove setup, custom workflows, dedicated onboarding,
-              hands-on optimization, and concierge-level support
+            <p style={styles.cardText}>
+              White-glove setup, priority support, and custom AI tuning for
+              businesses scaling fast.
             </p>
           </div>
         </div>
@@ -71,95 +70,128 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer style={styles.footer}>
-        © {new Date().getFullYear()} AfterCallPro
+        © {new Date().getFullYear()} AfterCallPro. All rights reserved.
       </footer>
     </div>
   );
 }
 
+/* =======================
+   Styles
+======================= */
+
 const styles = {
   page: {
-    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    fontFamily:
+      "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    minHeight: "100vh",
+    backgroundColor: "#ffffff",
     color: "#111",
-    backgroundColor: "#fff"
   },
+
   header: {
     padding: "24px 40px",
-    borderBottom: "1px solid #eee"
+    borderBottom: "1px solid #eee",
   },
+
   logo: {
     margin: 0,
     fontSize: "26px",
-    fontWeight: 700
+    fontWeight: 700,
   },
+
   hero: {
-    padding: "80px 40px",
+    padding: "90px 40px",
     textAlign: "center",
     maxWidth: "900px",
-    margin: "0 auto"
+    margin: "0 auto",
   },
+
   title: {
     fontSize: "46px",
-    marginBottom: "16px"
+    marginBottom: "18px",
+    lineHeight: 1.1,
   },
+
   subtitle: {
     fontSize: "18px",
     color: "#555",
-    marginBottom: "12px"
+    marginBottom: "36px",
+    maxWidth: "700px",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
-  trustLine: {
-    fontSize: "15px",
-    color: "#777",
-    marginBottom: "32px"
-  },
+
   ctaRow: {
     display: "flex",
     gap: "16px",
     justifyContent: "center",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
+
   primaryBtn: {
     backgroundColor: "#2563eb",
     color: "#fff",
-    padding: "14px 24px",
+    padding: "14px 26px",
     borderRadius: "8px",
     textDecoration: "none",
-    fontWeight: 600
+    fontWeight: 600,
+    fontSize: "16px",
   },
+
   secondaryBtn: {
     border: "2px solid #2563eb",
     color: "#2563eb",
-    padding: "12px 22px",
+    padding: "12px 24px",
     borderRadius: "8px",
     textDecoration: "none",
-    fontWeight: 600
+    fontWeight: 600,
+    fontSize: "16px",
   },
+
   pricing: {
-    padding: "60px 40px",
+    padding: "70px 40px",
     backgroundColor: "#fafafa",
-    textAlign: "center"
+    textAlign: "center",
   },
+
+  sectionTitle: {
+    fontSize: "32px",
+    marginBottom: "10px",
+  },
+
   pricingGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
     gap: "24px",
     maxWidth: "900px",
-    margin: "32px auto 0"
+    margin: "40px auto 0",
   },
-  card: {
+
+  priceCard: {
     border: "1px solid #ddd",
-    borderRadius: "12px",
-    padding: "24px",
-    backgroundColor: "#fff"
+    borderRadius: "14px",
+    padding: "28px",
+    backgroundColor: "#fff",
+    textAlign: "center",
   },
+
   price: {
-    fontSize: "20px",
-    fontWeight: 700
+    fontSize: "22px",
+    fontWeight: 700,
+    margin: "12px 0",
   },
+
+  cardText: {
+    fontSize: "15px",
+    color: "#555",
+    lineHeight: 1.5,
+  },
+
   footer: {
-    padding: "32px",
+    padding: "36px",
     textAlign: "center",
     color: "#777",
-    fontSize: "14px"
-  }
+    fontSize: "14px",
+  },
 };
