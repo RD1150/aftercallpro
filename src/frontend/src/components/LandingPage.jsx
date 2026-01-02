@@ -3,29 +3,25 @@ import React from "react";
 export default function LandingPage() {
   return (
     <div style={styles.page}>
-      {/* Header */}
+      {/* HEADER */}
       <header style={styles.header}>
         <h1 style={styles.logo}>AfterCallPro</h1>
       </header>
 
-      {/* Hero */}
+      {/* HERO */}
       <section style={styles.hero}>
-        <h2 style={styles.title}>Never Miss Another Call</h2>
+        <h2 style={styles.title}>Never Miss Another Call. Ever.</h2>
         <p style={styles.subtitle}>
-          AI-powered call answering and instant follow-up so every missed call
-          turns into a real conversation — even after hours.
-        </p>
-
-        <p style={styles.supportLine}>
-          If your phone rings and you can’t answer, AfterCallPro steps in automatically.
+          AfterCallPro answers missed calls, captures intent, and follows up
+          instantly — so every lead gets a response, even after hours.
         </p>
 
         <div style={styles.ctaRow}>
           <a
-            href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
+            href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
             style={styles.primaryBtn}
           >
-            Start Capturing Calls — $39/mo
+            Get Started — $39/mo
           </a>
 
           <a
@@ -35,37 +31,34 @@ export default function LandingPage() {
             Pro Core — $99/mo
           </a>
         </div>
+
+        <p style={styles.microCopy}>
+          No contracts • Cancel anytime • Works with your existing number
+        </p>
       </section>
 
-      {/* Problem / Solution */}
+      {/* WHO IT'S FOR */}
       <section style={styles.altSection}>
-        <h2 style={styles.sectionTitle}>Missed Calls = Lost Revenue</h2>
+        <h2 style={styles.sectionTitle}>Built for Busy Service Businesses</h2>
         <p style={styles.centerText}>
-          Most service businesses miss 30–50% of inbound calls. Those callers don’t
-          leave voicemails — they call the next company.
-        </p>
-        <p style={styles.centerText}>
-          AfterCallPro answers instantly, captures intent, and follows up automatically
-          so you never lose another opportunity.
+          Perfect for real estate, law firms, medical offices, contractors,
+          home services, and any team that can’t afford missed calls.
         </p>
       </section>
 
-      {/* Plans */}
+      {/* PLANS */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>Plans & Pricing</h2>
-        <p style={styles.centerText}>
-          Simple, transparent pricing. Upgrade or cancel anytime.
-        </p>
 
         <div style={styles.grid}>
           <div style={styles.card}>
             <h3>Starter</h3>
             <p style={styles.price}>$39 / month</p>
             <ul style={styles.list}>
-              <li>AI call handling</li>
+              <li>AI call answering for missed calls</li>
               <li>Instant call summaries</li>
-              <li>Basic CRM & logs</li>
               <li>Email notifications</li>
+              <li>Call logs & transcripts</li>
             </ul>
           </div>
 
@@ -75,7 +68,7 @@ export default function LandingPage() {
             <ul style={styles.list}>
               <li>Everything in Starter</li>
               <li>Higher call volume</li>
-              <li>SMS follow-ups</li>
+              <li>SMS follow-ups (opt-in)</li>
               <li>Advanced workflows</li>
             </ul>
           </div>
@@ -87,16 +80,20 @@ export default function LandingPage() {
               <li>Everything in Pro Core</li>
               <li>Priority support</li>
               <li>Dedicated onboarding</li>
-              <li>Custom workflows</li>
+              <li>Custom AI call logic</li>
             </ul>
-            <p style={styles.eliteNote}>
-              White-glove setup for teams that want it done right.
-            </p>
+
+            <a
+              href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
+              style={styles.eliteBtn}
+            >
+              Book Elite Setup Call
+            </a>
           </div>
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* HOW IT WORKS */}
       <section style={styles.altSection}>
         <h2 style={styles.sectionTitle}>How It Works</h2>
 
@@ -111,7 +108,7 @@ export default function LandingPage() {
           </div>
           <div style={styles.step}>
             <span style={styles.stepNumber}>3</span>
-            <p>You receive summaries, follow-ups, and qualified leads instantly</p>
+            <p>You receive call summaries, leads, and follow-ups instantly</p>
           </div>
         </div>
       </section>
@@ -124,8 +121,16 @@ export default function LandingPage() {
           <div>
             <h4>Does this replace my phone system?</h4>
             <p>
-              No. AfterCallPro works alongside your existing phone number to
-              handle missed calls and follow-ups.
+              No. AfterCallPro works alongside your existing number to handle
+              missed calls and follow-ups.
+            </p>
+          </div>
+
+          <div>
+            <h4>Will my customers receive SMS messages?</h4>
+            <p>
+              Only if they opt in. Messages are transactional and service-related.
+              Reply STOP to opt out at any time.
             </p>
           </div>
 
@@ -133,20 +138,16 @@ export default function LandingPage() {
             <h4>Can I cancel anytime?</h4>
             <p>Yes. All plans are month-to-month with no long-term contracts.</p>
           </div>
-
-          <div>
-            <h4>Will my customers receive SMS messages?</h4>
-            <p>
-              Yes, only when they opt in. Messages are transactional and service-related.
-              Reply STOP to opt out at any time.
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer style={styles.footer}>
         © {new Date().getFullYear()} AfterCallPro<br />
+        <a href="/privacy-policy">Privacy Policy</a> ·{" "}
+        <a href="/terms">Terms</a> ·{" "}
+        <a href="/sms-consent">SMS Consent</a>
+        <br />
         AfterCallPro by MindRocket Systems LLC
       </footer>
     </div>
@@ -181,14 +182,14 @@ const styles = {
     marginBottom: "16px",
   },
   subtitle: {
-    fontSize: "19px",
+    fontSize: "18px",
     color: "#555",
-    marginBottom: "20px",
+    marginBottom: "28px",
   },
-  supportLine: {
-    fontSize: "16px",
-    color: "#666",
-    marginBottom: "36px",
+  microCopy: {
+    marginTop: "16px",
+    fontSize: "14px",
+    color: "#777",
   },
   ctaRow: {
     display: "flex",
@@ -220,25 +221,21 @@ const styles = {
   altSection: {
     padding: "70px 40px",
     backgroundColor: "#fafafa",
+    textAlign: "center",
   },
   sectionTitle: {
-    textAlign: "center",
     fontSize: "32px",
-    marginBottom: "32px",
+    marginBottom: "40px",
   },
   centerText: {
     maxWidth: "800px",
-    margin: "0 auto 16px",
-    textAlign: "center",
-    fontSize: "17px",
+    margin: "0 auto",
     color: "#555",
-    lineHeight: "1.6",
   },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
     gap: "24px",
-    marginTop: "40px",
   },
   card: {
     border: "1px solid #ddd",
@@ -261,17 +258,11 @@ const styles = {
     padding: 0,
     lineHeight: "1.8",
   },
-  eliteNote: {
-    marginTop: "12px",
-    fontSize: "14px",
-    color: "#555",
-  },
   steps: {
     display: "flex",
     justifyContent: "center",
     gap: "32px",
     flexWrap: "wrap",
-    textAlign: "center",
   },
   step: {
     maxWidth: "240px",
@@ -291,6 +282,16 @@ const styles = {
     maxWidth: "800px",
     margin: "0 auto",
     lineHeight: "1.7",
+  },
+  eliteBtn: {
+    display: "inline-block",
+    marginTop: "16px",
+    backgroundColor: "#111",
+    color: "#fff",
+    padding: "12px 22px",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontWeight: 600,
   },
   footer: {
     padding: "32px",
