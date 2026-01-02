@@ -19,7 +19,6 @@ echo "--- Prepare Flask static ---"
 rm -rf static
 mkdir -p static
 
-# Copy ALL Vite output directly
 cp -R src/frontend/dist/* static/
 
 echo "--- Build complete ---"
