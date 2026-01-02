@@ -4,24 +4,24 @@ import os
 app = Flask(
     __name__,
     static_folder="static",
-    static_url_path="/static"
+    static_url_path=""
 )
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
     """
-    Serve React SPA for all routes.
+    Serve the React SPA for all routes.
     """
     static_dir = app.static_folder
-    requested_path = os.path.join(static_dir, path)
+    file_path = os.path.join(static_dir, path)
 
-    # Serve actual static files if they exist
-    if path and os.path.exists(requested_path):
+    # Serve static files if they exist
+    if path != "" and os.path.exists(file_path):
         return send_from_directory(static_dir, path)
 
-    # Otherwise serve React index.html
-    return send_from_directory("templates", "index.html")
+    # Otherwise serve index.html (React Router support)
+    return send_from_directory(static_dir, "index.html")
 
 
 @app.route("/health")
