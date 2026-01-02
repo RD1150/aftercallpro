@@ -12,8 +12,12 @@ export default function LandingPage() {
       <section style={styles.hero}>
         <h2 style={styles.title}>Never Miss Another Call</h2>
         <p style={styles.subtitle}>
-          AI-powered call handling and instant follow-up for modern service
-          businesses.
+          AI-powered call answering and instant follow-up so every missed call
+          turns into a real conversation — even after hours.
+        </p>
+
+        <p style={styles.supportLine}>
+          If your phone rings and you can’t answer, AfterCallPro steps in automatically.
         </p>
 
         <div style={styles.ctaRow}>
@@ -21,7 +25,7 @@ export default function LandingPage() {
             href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
             style={styles.primaryBtn}
           >
-            Starter — $39/mo
+            Start Capturing Calls — $39/mo
           </a>
 
           <a
@@ -33,9 +37,25 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Problem / Solution */}
+      <section style={styles.altSection}>
+        <h2 style={styles.sectionTitle}>Missed Calls = Lost Revenue</h2>
+        <p style={styles.centerText}>
+          Most service businesses miss 30–50% of inbound calls. Those callers don’t
+          leave voicemails — they call the next company.
+        </p>
+        <p style={styles.centerText}>
+          AfterCallPro answers instantly, captures intent, and follows up automatically
+          so you never lose another opportunity.
+        </p>
+      </section>
+
       {/* Plans */}
       <section style={styles.section}>
-        <h2 style={styles.sectionTitle}>Plans</h2>
+        <h2 style={styles.sectionTitle}>Plans & Pricing</h2>
+        <p style={styles.centerText}>
+          Simple, transparent pricing. Upgrade or cancel anytime.
+        </p>
 
         <div style={styles.grid}>
           <div style={styles.card}>
@@ -69,6 +89,9 @@ export default function LandingPage() {
               <li>Dedicated onboarding</li>
               <li>Custom workflows</li>
             </ul>
+            <p style={styles.eliteNote}>
+              White-glove setup for teams that want it done right.
+            </p>
           </div>
         </div>
       </section>
@@ -80,7 +103,7 @@ export default function LandingPage() {
         <div style={styles.steps}>
           <div style={styles.step}>
             <span style={styles.stepNumber}>1</span>
-            <p>Connect your business phone number</p>
+            <p>Connect your existing business phone number</p>
           </div>
           <div style={styles.step}>
             <span style={styles.stepNumber}>2</span>
@@ -88,7 +111,7 @@ export default function LandingPage() {
           </div>
           <div style={styles.step}>
             <span style={styles.stepNumber}>3</span>
-            <p>You receive summaries, follow-ups, and leads instantly</p>
+            <p>You receive summaries, follow-ups, and qualified leads instantly</p>
           </div>
         </div>
       </section>
@@ -112,10 +135,10 @@ export default function LandingPage() {
           </div>
 
           <div>
-            <h4>What does dedicated onboarding mean?</h4>
+            <h4>Will my customers receive SMS messages?</h4>
             <p>
-              For Elite users, we personally help configure workflows, scripts,
-              and integrations to match your business.
+              Yes, only when they opt in. Messages are transactional and service-related.
+              Reply STOP to opt out at any time.
             </p>
           </div>
         </div>
@@ -123,7 +146,8 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer style={styles.footer}>
-        © {new Date().getFullYear()} AfterCallPro
+        © {new Date().getFullYear()} AfterCallPro<br />
+        AfterCallPro by MindRocket Systems LLC
       </footer>
     </div>
   );
@@ -157,8 +181,13 @@ const styles = {
     marginBottom: "16px",
   },
   subtitle: {
-    fontSize: "18px",
+    fontSize: "19px",
     color: "#555",
+    marginBottom: "20px",
+  },
+  supportLine: {
+    fontSize: "16px",
+    color: "#666",
     marginBottom: "36px",
   },
   ctaRow: {
@@ -195,12 +224,21 @@ const styles = {
   sectionTitle: {
     textAlign: "center",
     fontSize: "32px",
-    marginBottom: "40px",
+    marginBottom: "32px",
+  },
+  centerText: {
+    maxWidth: "800px",
+    margin: "0 auto 16px",
+    textAlign: "center",
+    fontSize: "17px",
+    color: "#555",
+    lineHeight: "1.6",
   },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
     gap: "24px",
+    marginTop: "40px",
   },
   card: {
     border: "1px solid #ddd",
@@ -222,6 +260,11 @@ const styles = {
     listStyle: "none",
     padding: 0,
     lineHeight: "1.8",
+  },
+  eliteNote: {
+    marginTop: "12px",
+    fontSize: "14px",
+    color: "#555",
   },
   steps: {
     display: "flex",
