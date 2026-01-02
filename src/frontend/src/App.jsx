@@ -1,90 +1,113 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+// Pages
+import LandingPage from "./components/LandingPage";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsConditions from "./components/TermsConditions";
+import SMSConsentPage from "./components/SMSConsentPage";
 
 export default function App() {
   return (
-    <div style={styles.page}>
-      {/* HEADER */}
-      <header style={styles.header}>
-        <h1 style={styles.logo}>AfterCallPro</h1>
-      </header>
+    <Router>
+      <div style={styles.page}>
+        {/* HEADER */}
+        <header style={styles.header}>
+          <h1 style={styles.logo}>AfterCallPro</h1>
+        </header>
 
-      {/* HERO */}
-      <section style={styles.hero}>
-        <h2 style={styles.title}>Never Miss Another Call</h2>
-        <p style={styles.subtitle}>
-          AI-powered call handling and instant follow-up so every lead gets a response.
-        </p>
+        <Routes>
+          {/* MAIN LANDING */}
+          <Route
+            path="/"
+            element={
+              <>
+                {/* HERO */}
+                <section style={styles.hero}>
+                  <h2 style={styles.title}>Never Miss Another Call</h2>
+                  <p style={styles.subtitle}>
+                    AI-powered call handling and instant follow-up so every lead gets a response.
+                  </p>
 
-        <div style={styles.ctaRow}>
-          {/* STARTER — $39 */}
-          <a
-            href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
-            style={styles.primaryBtn}
-          >
-            Get Started — $39/mo
-          </a>
+                  <div style={styles.ctaRow}>
+                    <a
+                      href="https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42"
+                      style={styles.primaryBtn}
+                    >
+                      Get Started — $39/mo
+                    </a>
 
-          {/* PRO CORE — $99 */}
-          <a
-            href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
-            style={styles.secondaryBtn}
-          >
-            Pro Core — $99/mo
-          </a>
-        </div>
-      </section>
+                    <a
+                      href="https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5"
+                      style={styles.secondaryBtn}
+                    >
+                      Pro Core — $99/mo
+                    </a>
+                  </div>
+                </section>
 
-      {/* PRICING */}
-      <section style={styles.pricing}>
-        <h2 style={styles.pricingTitle}>Plans & Pricing</h2>
+                {/* PRICING */}
+                <section style={styles.pricing}>
+                  <h2 style={styles.pricingTitle}>Plans & Pricing</h2>
 
-        <div style={styles.pricingGrid}>
-          {/* STARTER */}
-          <div style={styles.priceCard}>
-            <h3>Starter</h3>
-            <p style={styles.price}>$39 / month</p>
-            <p style={styles.planDesc}>
-              Essential AI call handling and instant follow-up for smaller teams.
-            </p>
+                  <div style={styles.pricingGrid}>
+                    <div style={styles.priceCard}>
+                      <h3>Starter</h3>
+                      <p style={styles.price}>$39 / month</p>
+                      <p style={styles.planDesc}>
+                        Essential AI call handling and instant follow-up for smaller teams.
+                      </p>
+                    </div>
+
+                    <div style={styles.priceCard}>
+                      <h3>Pro Core</h3>
+                      <p style={styles.price}>$99 / month</p>
+                      <p style={styles.planDesc}>
+                        Advanced automations, higher call volume, and priority workflows.
+                      </p>
+                    </div>
+
+                    <div style={{ ...styles.priceCard, ...styles.eliteCard }}>
+                      <h3>Elite</h3>
+                      <p style={styles.price}>$249 / month</p>
+                      <p style={styles.planDesc}>
+                        Built for high-volume teams that need custom setup, onboarding,
+                        and ongoing optimization.
+                      </p>
+
+                      <a
+                        href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
+                        style={styles.eliteBtn}
+                      >
+                        Book Elite Setup Call
+                      </a>
+                    </div>
+                  </div>
+                </section>
+              </>
+            }
+          />
+
+          {/* LEGAL / COMPLIANCE */}
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
+          <Route path="/sms" element={<SMSConsentPage />} />
+        </Routes>
+
+        {/* FOOTER */}
+        <footer style={styles.footer}>
+          <div>© {new Date().getFullYear()} AfterCallPro</div>
+          <div>AfterCallPro by MindRocket Systems LLC</div>
+          <div style={{ marginTop: "10px" }}>
+            <Link to="/privacy">Privacy Policy</Link> ·{" "}
+            <Link to="/terms">Terms</Link> ·{" "}
+            <Link to="/sms">SMS Consent</Link>
           </div>
-
-          {/* PRO CORE */}
-          <div style={styles.priceCard}>
-            <h3>Pro Core</h3>
-            <p style={styles.price}>$99 / month</p>
-            <p style={styles.planDesc}>
-              Advanced automations, higher call volume, and priority workflows.
-            </p>
-          </div>
-
-          {/* ELITE */}
-          <div style={{ ...styles.priceCard, ...styles.eliteCard }}>
-            <h3>Elite</h3>
-            <p style={styles.price}>$249 / month</p>
-            <p style={styles.planDesc}>
-              Built for high-volume teams that need custom setup, onboarding,
-              and ongoing optimization.
-            </p>
-
-            <a
-              href="https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b"
-              style={styles.eliteBtn}
-            >
-              Book Elite Setup Call
-            </a>
-          </div>
-        </div>
-      </section>
-
-         {/* FOOTER */}
-      <footer style={styles.footer}>
-        © {new Date().getFullYear()} AfterCallPro<br />
-        AfterCallPro by MindRocket Systems LLC
-      </footer>
-    </div>
+        </footer>
+      </div>
+    </Router>
   );
 }
-
 
 const styles = {
   page: {
