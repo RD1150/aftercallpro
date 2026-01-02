@@ -76,7 +76,7 @@ export default function App() {
         </div>
       </section>
 
-     {/* FOOTER */}
+    {/* FOOTER */}
 <footer style={styles.footer}>
   © {new Date().getFullYear()} AfterCallPro<br />
   AfterCallPro by MindRocket Systems LLC
