@@ -10,20 +10,23 @@
     <title>AfterCallPro — AI Missed Call Lead Capture</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <link rel="icon" href="/static/assets/favicon.ico" />
 
-    <!-- Prevent FOUC when Tailwind loads -->
+    <!-- Prevent FOUC -->
     <style>
-      body { opacity: 0; transition: opacity 0.2s ease-in; }
+      body {
+        opacity: 0;
+        transition: opacity 0.2s ease-in;
+      }
     </style>
   </head>
 
   <body>
-    <!-- React Root Mount -->
+    <!-- React Root -->
     <div id="root"></div>
 
-    <!-- Load React App -->
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- ✅ VITE BUILD OUTPUT (THIS IS THE IMPORTANT LINE) -->
+    <script type="module" src="/static/assets/index.js"></script>
 
     <script>
       window.addEventListener("DOMContentLoaded", () => {
