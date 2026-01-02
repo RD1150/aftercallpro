@@ -15,15 +15,11 @@ npm install --no-audit --loglevel=warn
 npm run build
 popd >/dev/null
 
-echo "--- Prepare Flask templates/static ---"
-rm -rf templates static
-mkdir -p templates static/assets
+echo "--- Prepare Flask static ---"
+rm -rf static
+mkdir -p static
 
-# Copy built files
-cp -f src/frontend/dist/index.html templates/
-cp -R src/frontend/dist/assets/* static/assets/
-
-# Rewriting index.html to correct static paths
-sed -i 's|/assets/|/static/assets/|g' templates/index.html
+# Copy ALL Vite output directly
+cp -R src/frontend/dist/* static/
 
 echo "--- Build complete ---"
