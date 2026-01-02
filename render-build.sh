@@ -1,24 +1,13 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -e
 
-export PIP_DISABLE_PIP_VERSION_CHECK=1
-export PYTHONUNBUFFERED=1
-export NPM_CONFIG_FUND=false
-export CI=true
-
-echo "--- Python deps ---"
-pip install -r requirements.txt
-
-echo "--- Frontend build (Vite) ---"
-pushd src/frontend >/dev/null
-npm install --no-audit --loglevel=warn
+echo "=== Installing frontend deps ==="
+cd src/frontend
+npm install
 npm run build
-popd >/dev/null
 
-echo "--- Prepare Flask static ---"
-rm -rf static
-mkdir -p static
+echo "=== Moving assets to Flask static ==="
+mkdir -p ../backend/static
+cp -r ../backend/templates/assets ../backend/static/assets
 
-cp -R src/frontend/dist/* static/
-
-echo "--- Build complete ---"
+echo "=== Backend ready ==="
