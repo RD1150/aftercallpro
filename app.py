@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, render_template
+from flask import Flask, render_template, send_from_directory
 import os
 
 app = Flask(
@@ -11,10 +11,12 @@ app = Flask(
 def health():
     return "OK", 200
 
-# Serve static assets
 @app.route("/assets/<path:filename>")
 def serve_assets(filename):
-    return send_from_directory(os.path.join(app.static_folder, "assets"), filename)
+    return send_from_directory(
+        os.path.join(app.static_folder, "assets"),
+        filename
+    )
 
 # React SPA catch-all
 @app.route("/", defaults={"path": ""})
