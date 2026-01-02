@@ -1,34 +1,32 @@
 from flask import Flask, send_from_directory
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# This must point to your Vite build output
-FRONTEND_DIST = os.path.join(BASE_DIR, "src/frontend/dist")
-
 app = Flask(
     __name__,
-    static_folder=FRONTEND_DIST,
-    static_url_path=""
+    static_folder="static",
+    static_url_path="/"
 )
 
-# ---------- API / HEALTH ----------
-@app.route("/health")
-def health():
-    return "OK", 200
-
-
-# ---------- REACT SPA CATCH-ALL ----------
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
-    # If the file exists, serve it (JS, CSS, assets)
-    full_path = os.path.join(app.static_folder, path)
-    if path != "" and os.path.exists(full_path):
-        return send_from_directory(app.static_folder, path)
+    """
+    Serve React SPA for all routes.
+    """
+    static_dir = app.static_folder
+    file_path = os.path.join(static_dir, path)
+
+    # Serve static assets if they exist
+    if path != "" and os.path.exists(file_path):
+        return send_from_directory(static_dir, path)
 
     # Otherwise serve React index.html
-    return send_from_directory(app.static_folder, "index.html")
+    return send_from_directory(static_dir, "index.html")
+
+
+@app.route("/health")
+def health():
+    return "OK", 200
 
 
 if __name__ == "__main__":
