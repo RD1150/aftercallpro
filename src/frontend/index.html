@@ -2,36 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- Mobile Responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Document Title -->
-    <title>AfterCallPro — AI Missed Call Lead Capture</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="/static/assets/favicon.ico" />
-
-    <!-- Prevent FOUC -->
-    <style>
-      body {
-        opacity: 0;
-        transition: opacity 0.2s ease-in;
-      }
-    </style>
+    <title>AfterCallPro</title>
   </head>
-
   <body>
-    <!-- React Root -->
     <div id="root"></div>
 
-    <!-- ✅ VITE BUILD OUTPUT (THIS IS THE IMPORTANT LINE) -->
-    <script type="module" src="/static/assets/index.js"></script>
-
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        document.body.style.opacity = 1;
-      });
-    </script>
+    <!-- IMPORTANT: this must stay EXACT -->
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
