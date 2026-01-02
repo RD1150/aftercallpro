@@ -1,51 +1,57 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/aftercallpro-logo-blue.png";
 
 export default function TermsConditions() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans">
+    <div style={{ padding: "60px", maxWidth: "900px", margin: "0 auto" }}>
+      <h1>Terms & Conditions</h1>
 
-      {/* Header */}
-      <nav className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-6 md:px-12 py-4 md:py-6">
-          <Link to="/home" className="flex items-center space-x-3">
-            <img src={logo} className="h-10 w-10" alt="Logo" />
-            <span className="text-xl md:text-2xl font-bold text-[#0b1524]">
-              AfterCallPro
-            </span>
-          </Link>
-          <div className="flex items-center space-x-6">
-            <Link to="/login" className="text-sm text-gray-700 hover:text-black">Login</Link>
-            <Link
-              to="/signup"
-              className="bg-[#0b1524] text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-black transition-all"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <p>
+        These Terms and Conditions govern your use of AfterCallPro, a service
+        operated by MindRocket Systems LLC.
+      </p>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-[#0b1524]">Terms & Conditions</h1>
-        <p className="text-gray-500 mb-12">Last updated: December 2025</p>
+      <h2>Service Description</h2>
+      <p>
+        AfterCallPro provides AI-powered call handling, voicemail capture,
+        transcription, SMS follow-up, and customer communication tools.
+      </p>
 
-        <div className="space-y-10 leading-relaxed text-gray-800">
+      <ul>
+        <li>AI-powered virtual receptionist call answering</li>
+        <li>Missed-call SMS follow-ups</li>
+        <li>Call recording and transcription</li>
+        <li>Appointment scheduling assistance</li>
+        <li>Customer support automation</li>
+      </ul>
 
-          <section>
-            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">1. Agreement to Terms</h2>
-            <p>
-              By using AfterCallPro (“the Service”), owned and operated by 
-              <strong> MindRocket Systems LLC</strong>, you agree to these Terms and Conditions.  
-              If you do not agree, you must discontinue use of the Service.
-            </p>
-          </section>
+      <h2>Acceptable Use</h2>
+      <p>
+        You agree not to use the service for unlawful, abusive, or fraudulent
+        purposes, including spam or unsolicited messaging.
+      </p>
 
-          <section>
-            <h2 className="text-2xl font-bold text-[#0b1524] mb-3">2. Service Description</h2>
-            <p className="mb-3">AfterCallPro provides:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>AI-powered virtual receptionist call answering</li>
-              <li>Call recording and transcription</li>
+      <h2>SMS & Communication Consent</h2>
+      <p>
+        By providing your phone number, you consent to receive transactional and
+        service-related messages from AfterCallPro. Message frequency varies.
+        Reply STOP to unsubscribe.
+      </p>
+
+      <h2>Limitation of Liability</h2>
+      <p>
+        AfterCallPro is provided “as is.” MindRocket Systems LLC is not liable
+        for indirect or consequential damages arising from use of the service.
+      </p>
+
+      <h2>Changes to Terms</h2>
+      <p>
+        We may update these terms from time to time. Continued use of the
+        service constitutes acceptance of the updated terms.
+      </p>
+
+      <p style={{ marginTop: "40px", fontSize: "14px", color: "#666" }}>
+        © {new Date().getFullYear()} AfterCallPro by MindRocket Systems LLC
+      </p>
+    </div>
+  );
+}
