@@ -76,12 +76,15 @@ export default function App() {
         </div>
       </section>
 
-    {/* FOOTER */}
-<footer style={styles.footer}>
-  © {new Date().getFullYear()} AfterCallPro<br />
-  AfterCallPro by MindRocket Systems LLC
-</footer>
+         {/* FOOTER */}
+      <footer style={styles.footer}>
+        © {new Date().getFullYear()} AfterCallPro<br />
+        AfterCallPro by MindRocket Systems LLC
+      </footer>
+    </div>
+  );
 }
+
 
 const styles = {
   page: {
