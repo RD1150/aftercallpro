@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
+echo "=== Installing Python dependencies ==="
+pip install --upgrade pip
+pip install -r requirements.txt
+
 echo "=== Using Node ==="
-node --version
-npm --version
+node -v
+npm -v
 
 echo "=== Frontend build ==="
 cd src/frontend
 npm install
 npm run build
+
+echo "=== Copy frontend build to backend templates ==="
+mkdir -p ../backend/templates
+cp -r dist/* ../backend/templates/
 
 echo "=== Build complete ==="
