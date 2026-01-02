@@ -14,6 +14,9 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/sms-consent" element={<SMSConsentPage />} />
+
+        {/* Safety fallback */}
+        <Route path="*" element={<LandingPage />} />
       </Routes>
     </Router>
   );
