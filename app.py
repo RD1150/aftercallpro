@@ -1,19 +1,16 @@
-from flask import Flask, render_template
-from flask_cors import CORS
+from flask import Flask, render_template, send_from_directory
 
-app = Flask(
-    __name__,
-    template_folder="src/backend/templates",
-)
-
-CORS(app)
+app = Flask(__name__, template_folder="templates", static_folder="static")
 
 @app.route("/health")
 def health():
-    return "OK", 200
+    return "OK"
 
-# React SPA catch-all
+@app.route("/assets/<path:filename>")
+def assets(filename):
+    return send_from_directory("static/assets", filename)
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-def serve_react(path):
+def spa(path):
     return render_template("index.html")
