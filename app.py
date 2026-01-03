@@ -1,22 +1,18 @@
-from flask import Flask, render_template, send_from_directory
-import os
+from flask import Flask, render_template
+from flask_cors import CORS
 
 app = Flask(
     __name__,
-    template_folder="templates",
-    static_folder="static",
+    template_folder="src/backend/templates",
 )
+
+CORS(app)
 
 @app.route("/health")
 def health():
     return "OK", 200
 
-# Serve static assets built by Vite
-@app.route("/static/<path:filename>")
-def static_files(filename):
-    return send_from_directory(app.static_folder, filename)
-
-# React SPA catch-all (THIS IS CORRECT — DO NOT DELETE)
+# React SPA catch-all
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
