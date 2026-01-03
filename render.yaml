@@ -2,14 +2,5 @@ services:
   - type: web
     name: aftercallpro
     env: python
-    plan: starter
-    autoDeploy: true
-
-    buildCommand: "bash render-build.sh"
-    startCommand: "gunicorn -w 2 -k gthread --threads 8 -b 0.0.0.0:$PORT app:app"
-
-    healthCheckPath: /api/health
-
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.13.4"
+    buildCommand: bash render-build.sh && pip install -r requirements.txt
+    startCommand: gunicorn app:app -b 0.0.0.0:$PORT
