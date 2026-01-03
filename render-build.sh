@@ -10,8 +10,4 @@ cd src/frontend
 npm install
 npm run build
 
-echo "=== Copy frontend build to backend templates ==="
-mkdir -p ../backend/templates
-cp -r dist/* ../backend/templates/
-
 echo "=== Build complete ==="
