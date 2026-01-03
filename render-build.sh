@@ -5,10 +5,6 @@ echo "=== Installing Python dependencies ==="
 pip install --upgrade pip
 pip install -r requirements.txt
 
-echo "=== Using Node ==="
-node -v
-npm -v
-
 echo "=== Frontend build ==="
 cd src/frontend
 npm install
