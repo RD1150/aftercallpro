@@ -5,13 +5,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: path.resolve(__dirname, "../backend/templates"),
+    outDir: "dist",
     emptyOutDir: true,
-    rollupOptions: {
-      output: {
-        assetFileNames: "assets/[name]-[hash][extname]",
-        entryFileNames: "assets/[name]-[hash].js",
-      },
-    },
   },
 });
