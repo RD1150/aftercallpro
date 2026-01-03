@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-import os
 
 app = Flask(
     __name__,
@@ -11,7 +10,7 @@ app = Flask(
 def health():
     return "OK", 200
 
-# Serve React SPA
+# Serve React SPA (all routes)
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
