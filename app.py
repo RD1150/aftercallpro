@@ -3,7 +3,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
-def home():
+def index():
     return render_template("index.html")
 
 @app.route("/privacy")
@@ -14,10 +14,5 @@ def privacy():
 def terms():
     return render_template("terms.html")
 
-@app.route("/sms-consent")
-def sms():
-    return render_template("sms-consent.html")
-
-@app.route("/health")
-def health():
-    return "OK", 200
+if __name__ == "__main__":
+    app.run(debug=True)
