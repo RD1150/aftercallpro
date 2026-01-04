@@ -15,7 +15,7 @@ def terms():
     return render_template("terms.html")
 
 @app.route("/sms-consent")
-def sms_consent():
+def sms():
     return render_template("sms-consent.html")
 
 @app.route("/health")
