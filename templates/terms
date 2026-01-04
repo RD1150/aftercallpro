@@ -1,28 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Terms</h1>
-<footer style="
-  margin-top: 80px;
-  padding: 24px 16px;
-  border-top: 1px solid #e5e7eb;
-  text-align: center;
-  font-size: 14px;
-  color: #6b7280;
-">
-  <div style="margin-bottom: 8px;">
-    <strong>AfterCallPro</strong> · MindRocket Systems LLC
-  </div>
-
-  <div style="margin-bottom: 8px;">
-    <a href="/privacy" style="margin-right: 12px;">Privacy</a>
-    <a href="/terms">Terms</a>
-  </div>
-
-  <div>
-    © 2026 AfterCallPro. All rights reserved.
-  </div>
-</footer>
-
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Terms of Service – AfterCallPro</title>
+</head>
+<body>
+<h1>Terms of Service</h1>
+<p>By using AfterCallPro, you agree to use the service lawfully.</p>
+<p>No guarantees are made regarding lead conversion.</p>
+<a href="/">← Back to Home</a>
+</body>
 </html>
