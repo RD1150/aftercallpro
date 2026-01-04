@@ -51,6 +51,27 @@ You may request access, correction, or deletion of your data by contacting us.
 MindRocket Systems LLC<br />
 Email: support@aftercallpro.com
 </p>
+<footer style="
+  margin-top: 80px;
+  padding: 24px 16px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+">
+  <div style="margin-bottom: 8px;">
+    <strong>AfterCallPro</strong> · MindRocket Systems LLC
+  </div>
+
+  <div style="margin-bottom: 8px;">
+    <a href="/privacy" style="margin-right: 12px;">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+
+  <div>
+    © 2026 AfterCallPro. All rights reserved.
+  </div>
+</footer>
 
 </body>
 </html>
