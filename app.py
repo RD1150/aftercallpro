@@ -8,7 +8,7 @@ app = Flask(
 )
 
 @app.route("/")
-def serve_index():
+def home():
     return render_template("index.html")
 
 @app.route("/privacy")
@@ -22,13 +22,6 @@ def terms():
 @app.route("/sms-consent")
 def sms_consent():
     return render_template("sms-consent.html")
-
-@app.route("/assets/<path:filename>")
-def serve_assets(filename):
-    return send_from_directory(
-        os.path.join(app.root_path, "static", "assets"),
-        filename
-    )
 
 @app.route("/health")
 def health():
