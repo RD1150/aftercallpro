@@ -14,5 +14,9 @@ def privacy():
 def terms():
     return render_template("terms.html")
 
+@app.route("/sms-consent")
+def sms_consent():
+    return render_template("sms-consent.html")
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5050, debug=True)
