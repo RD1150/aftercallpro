@@ -31,63 +31,75 @@
 <section class="hero">
   <h1>Never Miss Another Lead Again.</h1>
   <p>Smart, reliable AI call answering for real estate and service businesses.</p>
-  <button class="cta-btn">Start Free Trial</button>
+  <button class="cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+    Start Free Trial
+  </button>
 </section>
-<section style="max-width:600px;margin:60px auto;padding:24px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;">
+
+<!-- ========================= -->
+<!-- SIGNUP SECTION -->
+<!-- ========================= -->
+<section id="signup" style="max-width:600px;margin:60px auto;padding:24px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;">
   <h2 style="margin-top:0;">Get Started with AfterCallPro</h2>
 
-  <form method="post" action="#">
-    
-    <label style="display:block;margin-bottom:10px;">
-      <strong>Your Name</strong><br>
-      <input type="text" name="name" required
-             style="width:100%;padding:10px;margin-top:4px;border:1px solid #ccc;border-radius:6px;">
-    </label>
+  <!-- GHL EMBEDDED FORM -->
+  <iframe
+      src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
+      style="width:100%;height:657px;border:none;border-radius:6px"
+      id="inline-0FeuXY1J2p6v2x2nMYIK"
+      data-layout="{'id':'INLINE'}"
+      data-trigger-type="alwaysShow"
+      data-trigger-value=""
+      data-activation-type="alwaysActivated"
+      data-activation-value=""
+      data-deactivation-type="leadCollected"
+      data-deactivation-value=""
+      data-form-name="Form 1"
+      data-height="657"
+      data-layout-iframe-id="inline-0FeuXY1J2p6v2x2nMYIK"
+      data-form-id="0FeuXY1J2p6v2x2nMYIK"
+      title="Get Started with AfterCallPro">
+  </iframe>
 
-    <label style="display:block;margin-bottom:14px;">
-      <strong>Your Phone Number</strong><br>
-      <input type="tel" name="phone" placeholder="(555) 123-4567" required
-             style="width:100%;padding:10px;margin-top:4px;border:1px solid #ccc;border-radius:6px;">
-    </label>
-
-    <!-- SMS CONSENT CHECKBOX -->
-    <label style="display:block;margin-bottom:16px;font-size:14px;line-height:1.4;">
-      <input type="checkbox" name="sms_consent" required>
-      I agree to receive SMS messages from <strong>AfterCallPro</strong>.
-      Message frequency varies. Message & data rates may apply.
-      Reply <strong>STOP</strong> to opt out.
-      <br>
-      <a href="/sms-consent" target="_blank">View SMS Consent Details</a>
-    </label>
-
-    <button type="submit"
-            style="background:#0b5ed7;color:#fff;border:none;padding:12px 18px;border-radius:6px;font-size:16px;cursor:pointer;">
-      Start Free Trial
-    </button>
-
-  </form>
 </section>
 
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+<!-- ========================= -->
+<!-- FEATURES -->
+<!-- ========================= -->
 <section id="features" class="section">
   <h2>Features</h2>
   <ul>
     <li>24/7 AI Call Answering</li>
     <li>Lead Qualification</li>
+    <li>Appointment Booking</li>
     <li>CRM Sync</li>
+    <li>Missed Call Text-Back</li>
   </ul>
 </section>
 
+<!-- ========================= -->
+<!-- PRICING -->
+<!-- ========================= -->
 <section id="pricing" class="section">
   <h2>Pricing</h2>
   <p><strong>Starter:</strong> $49/mo</p>
   <p><strong>Pro:</strong> $99/mo</p>
+  <p><strong>Elite:</strong> $249/mo</p>
 </section>
 
+<!-- ========================= -->
+<!-- CONTACT -->
+<!-- ========================= -->
 <section id="contact" class="section">
   <h2>Contact</h2>
   <p>Email: support@aftercallpro.com</p>
 </section>
 
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
 <footer style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid #ddd;">
   <div><strong>AfterCallPro</strong> · MindRocket Systems LLC</div>
 
@@ -99,24 +111,6 @@
 
   <div>© 2026 AfterCallPro. All rights reserved.</div>
 </footer>
-<iframe
-    src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
-    style="display:none;width:100%;height:100%;border:none;border-radius:3px"
-    id="inline-0FeuXY1J2p6v2x2nMYIK" 
-    data-layout="{'id':'INLINE'}"
-    data-trigger-type="alwaysShow"
-    data-trigger-value=""
-    data-activation-type="alwaysActivated"
-    data-activation-value=""
-    data-deactivation-type="leadCollected"
-    data-deactivation-value=""
-    data-form-name="Form 1"
-    data-height="657"
-    data-layout-iframe-id="inline-0FeuXY1J2p6v2x2nMYIK"
-    data-form-id="0FeuXY1J2p6v2x2nMYIK"
-    title="Form 1"
-        >
-</iframe>
-<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
 </body>
 </html>
