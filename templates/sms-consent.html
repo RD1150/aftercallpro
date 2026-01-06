@@ -4,62 +4,89 @@
   <meta charset="UTF-8" />
   <title>SMS Consent – AfterCallPro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Match your site’s simple clean look -->
   <style>
+    :root {
+      --brand: #0b5ed7;
+      --text: #222;
+      --muted: #555;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --border: #e5e7eb;
+    }
     body {
-      font-family: Arial, sans-serif;
-      max-width: 720px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
-      color: #222;
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
     }
     h1 {
-      margin-bottom: 20px;
+      margin-top: 0;
+      margin-bottom: 18px;
+      font-size: 28px;
     }
-    p {
-      margin-bottom: 16px;
-    }
-    .links a {
-      color: #0b5ed7;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .links a:hover {
-      text-decoration: underline;
+    p { margin: 14px 0; }
+    .fine { color: var(--muted); font-size: 14px; }
+    a { color: var(--brand); text-decoration: none; font-weight: 500; }
+    a:hover { text-decoration: underline; }
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 22px 0;
     }
   </style>
 </head>
 <body>
 
-  <h1>SMS Consent</h1>
+  <div class="wrap">
+    <div class="card">
+      <h1>SMS Consent</h1>
 
-  <p>
-    By providing your phone number and opting in, you agree to receive SMS messages
-    from <strong>AfterCallPro</strong>, including service updates, appointment reminders,
-    account notifications, and customer support messages.
-  </p>
+      <p>
+        By providing your phone number and opting in, you agree to receive SMS messages
+        from <strong>AfterCallPro</strong>, including service updates, appointment reminders,
+        account notifications, and customer support messages.
+      </p>
 
-  <p>
-    <strong>Message frequency may vary.</strong><br>
-    <strong>Message and data rates may apply.</strong>
-  </p>
+      <p>
+        <strong>Message frequency may vary.</strong><br>
+        <strong>Message and data rates may apply.</strong>
+      </p>
 
-  <p>
-    You can opt out at any time by replying <strong>STOP</strong>.<br>
-    For help, reply <strong>HELP</strong> or contact us at
-    <a href="mailto:support@aftercallpro.com">support@aftercallpro.com</a>.
-  </p>
+      <div class="divider"></div>
 
-  <p>
-    We respect your privacy. Your information will never be sold or shared with
-    third parties for marketing purposes.
-  </p>
+      <p>
+        You can opt out at any time by replying <strong>STOP</strong>.<br>
+        For help, reply <strong>HELP</strong> or contact us at
+        <a href="mailto:support@aftercallpro.com">support@aftercallpro.com</a>.
+      </p>
 
-  <p class="links">
-    For more details, review our
-    <a href="/privacy">Privacy Policy</a> and
-    <a href="/terms">Terms of Service</a>.
-  </p>
+      <p class="fine">
+        We respect your privacy. Your information will never be sold or shared with
+        third parties for marketing purposes.
+      </p>
+
+      <p class="fine">
+        For more details, review our
+        <a href="/privacy">Privacy Policy</a> and
+        <a href="/terms">Terms of Service</a>.
+      </p>
+    </div>
+  </div>
 
 </body>
 </html>
