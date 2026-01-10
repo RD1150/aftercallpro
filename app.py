@@ -340,7 +340,10 @@ def get_properties():
         for prop in properties:
             result.append(dict(zip(columns, prop)))
         
-        return jsonify(result)
+        return jsonify({
+            "success": True,
+            "properties": result
+        })
         
     except Exception as e:
         logger.error(f"Error fetching properties: {str(e)}")
