@@ -373,6 +373,7 @@ def chat():
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/analytics')
+@app.route('/api/market-analytics')
 def get_analytics():
     """Get market analytics and insights"""
     try:
@@ -404,7 +405,7 @@ def get_analytics():
         cities = cursor.fetchall()
         conn.close()
         
-        return jsonify({
+        analytics_data = {
             "market_overview": {
                 "average_price": round(stats[0], 2) if stats[0] else 0,
                 "total_properties": stats[1],
@@ -425,6 +426,11 @@ def get_analytics():
                 }
                 for city in cities
             ]
+        }
+        
+        return jsonify({
+            "success": True,
+            "analytics": analytics_data
         })
         
     except Exception as e:
