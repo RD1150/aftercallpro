@@ -5,94 +5,79 @@
   <title>AfterCallPro – Never Miss Another Lead</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Main stylesheet -->
+  <!-- CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
 </head>
 <body>
 
-  <!-- ========================= -->
-  <!-- HERO SECTION -->
-  <!-- ========================= -->
+  <!-- HEADER / HERO -->
   <header class="hero">
-    <h1>Never Miss Another Lead Again.</h1>
-    <p>
-      Smart, reliable AI call answering for real estate and service businesses.
-    </p>
-    <button
-      class="cta-btn"
-      onclick="document.getElementById('signup').scrollIntoView({ behavior: 'smooth' })"
-    >
-      Start Free Trial
-    </button>
+    <div class="hero-inner">
+      <h1>Never Miss Another Lead Again.</h1>
+      <p>Smart, reliable AI call answering for real estate and service businesses.</p>
+      <button class="cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+        Start Free Trial
+      </button>
+    </div>
   </header>
 
-  <!-- ========================= -->
-  <!-- SIGNUP SECTION -->
-  <!-- ========================= -->
+  <!-- SIGNUP -->
   <section id="signup" class="signup-section">
 
-    <!-- Logo -->
-    <div class="logo-wrap">
-      <img
-        src="{{ url_for('static', filename='logo.png') }}"
-        alt="AfterCallPro Logo"
-        class="logo"
-      />
-    </div>
+    <!-- LOGO -->
+    <img
+      src="{{ url_for('static', filename='logo.png') }}"
+      alt="AfterCallPro Logo"
+      class="signup-logo"
+    />
 
     <h2>Get Started with AfterCallPro</h2>
 
-    <!-- SMS CONSENT TEXT (A2P REQUIRED) -->
-    <p class="sms-consent-text">
+    <!-- SMS CONSENT (VISIBLE FOR A2P) -->
+    <p class="sms-consent">
       By submitting this form, you agree to receive <strong>transactional SMS messages</strong>
       from <strong>AfterCallPro</strong>, including appointment reminders, service updates,
-      and account notifications. Message frequency may vary.
-      Msg &amp; data rates may apply. Reply <strong>STOP</strong> to opt out.
+      and account notifications. Message frequency may vary. Msg & data rates may apply.
+      Reply <strong>STOP</strong> to opt out.
     </p>
 
-    <!-- Embedded Signup Form -->
+    <!-- EMBEDDED GHL FORM -->
     <iframe
       src="https://api.leadconnectorhq.com/widget/form/0FeuXYJ2p6v2x2nMYIK"
-      title="Get Started with AfterCallPro"
+      title="AfterCallPro Signup"
       class="signup-iframe"
     ></iframe>
 
-    <!-- Legal Links -->
+    <!-- LEGAL LINKS -->
     <div class="legal-links">
-      <a href="/privacy">Privacy Policy</a>
-      <span>|</span>
+      <a href="/privacy">Privacy Policy</a> |
       <a href="/terms">Terms of Service</a>
     </div>
 
   </section>
 
-  <!-- ========================= -->
-  <!-- FEATURES SECTION -->
-  <!-- ========================= -->
-  <section id="features" class="features-section">
+  <!-- FEATURES -->
+  <section class="features">
     <h2>What AfterCallPro Does</h2>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>24/7 AI Call Answering</h3>
-        <p>Every call answered instantly, even after hours.</p>
-      </div>
+    <div class="feature">
+      <h3>24/7 AI Call Answering</h3>
+      <p>Every call answered instantly, even after hours.</p>
+    </div>
 
-      <div class="feature-card">
-        <h3>Lead Qualification</h3>
-        <p>We capture caller details and intent automatically.</p>
-      </div>
+    <div class="feature">
+      <h3>Lead Qualification</h3>
+      <p>We capture caller details and intent automatically.</p>
+    </div>
 
-      <div class="feature-card">
-        <h3>Appointment Booking</h3>
-        <p>Book calls and appointments without lifting a finger.</p>
-      </div>
+    <div class="feature">
+      <h3>Appointment Booking</h3>
+      <p>Book calls and appointments without lifting a finger.</p>
+    </div>
 
-      <div class="feature-card">
-        <h3>Instant Notifications</h3>
-        <p>Get alerts by SMS or email when new leads come in.</p>
-      </div>
+    <div class="feature">
+      <h3>Instant Notifications</h3>
+      <p>Get alerts by SMS or email when new leads come in.</p>
     </div>
   </section>
 
