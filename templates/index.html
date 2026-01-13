@@ -25,47 +25,23 @@
 
 <section class="hero">
   <h1>Never Miss Another Lead Again.</h1>
-  <p>
-    Smart, reliable AI call answering that captures leads, books appointments,
-    and follows up — automatically.
-  </p>
-
-  <button class="cta-btn"
-    onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+  <p>Smart, reliable AI call answering for real estate and service businesses.</p>
+  <button class="cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
     Start Free Trial
   </button>
-
-  <div class="trust-line" style="margin-top:12px;font-size:14px;color:#555;">
-    🔒 <strong>Your leads are yours — always.</strong>
-    We never sell, share, or use your client data. Ever.
-  </div>
 </section>
 
 <!-- ========================= -->
 <!-- SIGNUP SECTION -->
 <!-- ========================= -->
-<section id="signup" style="max-width:600px;margin:60px auto;padding:24px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;">
-  <h2 style="margin-top:0;">Get Started with AfterCallPro</h2>
+<section id="signup" class="signup-box">
+  <h2>Get Started with AfterCallPro</h2>
 
-  <!-- GHL EMBEDDED FORM -->
   <iframe
       src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
       style="width:100%;height:657px;border:none;border-radius:6px"
-      id="inline-0FeuXY1J2p6v2x2nMYIK"
-      data-layout="{'id':'INLINE'}"
-      data-trigger-type="alwaysShow"
-      data-trigger-value=""
-      data-activation-type="alwaysActivated"
-      data-activation-value=""
-      data-deactivation-type="leadCollected"
-      data-deactivation-value=""
-      data-form-name="Form 1"
-      data-height="657"
-      data-layout-iframe-id="inline-0FeuXY1J2p6v2x2nMYIK"
-      data-form-id="0FeuXY1J2p6v2x2nMYIK"
       title="Get Started with AfterCallPro">
   </iframe>
-
 </section>
 
 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
@@ -73,25 +49,81 @@
 <!-- ========================= -->
 <!-- FEATURES -->
 <!-- ========================= -->
-<section id="features" class="section">
-  <h2>Features</h2>
-  <ul>
-    <li>24/7 AI Call Answering</li>
-    <li>Lead Qualification</li>
-    <li>Appointment Booking</li>
-    <li>CRM Sync</li>
-    <li>Missed Call Text-Back</li>
-  </ul>
+<section id="features" class="section features-section">
+  <h2 class="section-title">What AfterCallPro Does</h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <h3>24/7 AI Call Answering</h3>
+      <p>Every call answered instantly, even after hours.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Lead Qualification</h3>
+      <p>Filters serious prospects from time-wasters.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Appointment Booking</h3>
+      <p>Books directly into your calendar.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>CRM Sync</h3>
+      <p>Every call and lead logged automatically.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Missed-Call Text Back</h3>
+      <p>If a call slips through, we follow up instantly.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ========================= -->
 <!-- PRICING -->
 <!-- ========================= -->
-<section id="pricing" class="section">
-  <h2>Pricing</h2>
-  <p><strong>Starter:</strong> $49/mo</p>
-  <p><strong>Pro:</strong> $99/mo</p>
-  <p><strong>Elite:</strong> $249/mo</p>
+<section id="pricing" class="section pricing-section">
+  <h2 class="section-title">Simple, Transparent Pricing</h2>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <h3>Starter</h3>
+      <div class="price">$49<span>/mo</span></div>
+      <ul>
+        <li>AI Call Answering</li>
+        <li>Missed-Call Text Back</li>
+        <li>Email Notifications</li>
+      </ul>
+      <button class="price-btn">Start Starter</button>
+    </div>
+
+    <div class="pricing-card featured">
+      <h3>Pro</h3>
+      <div class="price">$99<span>/mo</span></div>
+      <ul>
+        <li>Everything in Starter</li>
+        <li>Lead Qualification</li>
+        <li>Appointment Booking</li>
+        <li>CRM Sync</li>
+      </ul>
+      <button class="price-btn primary">Start Pro</button>
+    </div>
+
+    <div class="pricing-card">
+      <h3>Elite</h3>
+      <div class="price">$249<span>/mo</span></div>
+      <ul>
+        <li>Everything in Pro</li>
+        <li>Multi-Line Support</li>
+        <li>Custom Voice & Scripts</li>
+        <li>Priority Support</li>
+      </ul>
+      <button class="price-btn">Start Elite</button>
+    </div>
+
+  </div>
 </section>
 
 <!-- ========================= -->
@@ -105,10 +137,10 @@
 <!-- ========================= -->
 <!-- FOOTER -->
 <!-- ========================= -->
-<footer style="margin-top:60px;padding:20px;text-align:center;border-top:1px solid #ddd;">
+<footer class="footer">
   <div><strong>AfterCallPro</strong> · MindRocket Systems LLC</div>
 
-  <div style="margin:8px 0;">
+  <div class="footer-links">
     <a href="/privacy">Privacy</a> ·
     <a href="/terms">Terms</a> ·
     <a href="/sms-consent">SMS Consent</a>
