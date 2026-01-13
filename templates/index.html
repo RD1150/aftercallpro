@@ -2,178 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>AfterCallPro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>AfterCallPro | AI Call Answering for Small Businesses</title>
-  <meta name="description" content="AfterCallPro is an AI-powered virtual receptionist that answers calls, books appointments, and never misses a lead." />
-
-  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-
 <body>
 
-<header class="navbar">
-  <div class="nav-container">
+  <!-- SIGNUP SECTION -->
+  <section id="signup" class="signup-box">
 
-    <div class="brand">
-      <img src="/static/logo.png" alt="AfterCallPro Logo" class="brand-logo" />
-      <span class="brand-text">AfterCallPro</span>
+    <!-- LOGO -->
+    <div class="logo-wrap">
+      <img
+        src="{{ url_for('static', filename='logo.png') }}"
+        alt="AfterCallPro Logo"
+        class="site-logo"
+      />
     </div>
 
-    <nav class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <!-- HEADLINE -->
+    <h2>Get Started with AfterCallPro</h2>
 
-  </div>
-</header>
+    <!-- TRUST LINE -->
+    <p class="trust-line">
+      Trusted by real estate & service businesses to never miss another call.
+    </p>
 
+    <!-- SMS CONSENT (VISIBLE FOR A2P) -->
+    <p class="sms-consent">
+      By submitting this form, you agree to receive <strong>transactional SMS messages</strong>
+      from <strong>AfterCallPro</strong>, including appointment reminders, service updates,
+      and account notifications. Message frequency may vary. Msg & data rates may apply.
+      Reply <strong>STOP</strong> to opt out.
+    </p>
 
-<section class="hero">
-  <h1>Never Miss Another Lead Again.</h1>
-  <p>Smart, reliable AI call answering for real estate and service businesses.</p>
-  <button class="cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
-    Start Free Trial
-  </button>
-</section>
-
-<!-- ========================= -->
-<!-- SIGNUP SECTION -->
-<!-- ========================= -->
-<section id="signup" class="signup-box">
-
-  <div style="text-align:center; margin-bottom: 24px;">
-    <img
-      src="{{ url_for('static', filename='logo.png') }}"
-      alt="AfterCallPro Logo"
-      style="max-width: 220px; height: auto;"
-    />
-  </div>
-
-  <h2>Get Started with AfterCallPro</h2>
-
-  <!-- SMS CONSENT BLOCK (REQUIRED FOR A2P) -->
-  <p style="font-size:14px;color:#555;max-width:640px;margin:0 auto 16px; text-align:center;">
-    By submitting this form, you agree to receive transactional SMS messages from
-    <strong>AfterCallPro</strong>, including appointment reminders, service updates,
-    and account notifications. Msg & data rates may apply. Message frequency may vary.
-    Reply STOP to opt out.
-  </p>
-
-  <iframe
-    src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
-    style="width:100%;height:657px;border:none;border-radius:6px"
-    title="Get Started with AfterCallPro">
-  </iframe>
-
-</section>
-
-
-<script src="https://link.msgsndr.com/js/form_embed.js"></script>
-
-<!-- ========================= -->
-<!-- FEATURES -->
-<!-- ========================= -->
-<section id="features" class="section features-section">
-  <h2 class="section-title">What AfterCallPro Does</h2>
-
-  <div class="features-grid">
-    <div class="feature-card">
-      <h3>24/7 AI Call Answering</h3>
-      <p>Every call answered instantly, even after hours.</p>
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
+        title="Get Started with AfterCallPro">
+      </iframe>
     </div>
 
-    <div class="feature-card">
-      <h3>Lead Qualification</h3>
-      <p>Filters serious prospects from time-wasters.</p>
-    </div>
-
-    <div class="feature-card">
-      <h3>Appointment Booking</h3>
-      <p>Books directly into your calendar.</p>
-    </div>
-
-    <div class="feature-card">
-      <h3>CRM Sync</h3>
-      <p>Every call and lead logged automatically.</p>
-    </div>
-
-    <div class="feature-card">
-      <h3>Missed-Call Text Back</h3>
-      <p>If a call slips through, we follow up instantly.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ========================= -->
-<!-- PRICING -->
-<!-- ========================= -->
-<section id="pricing" class="section pricing-section">
-  <h2 class="section-title">Simple, Transparent Pricing</h2>
-
-  <div class="pricing-grid">
-
-    <div class="pricing-card">
-      <h3>Starter</h3>
-      <div class="price">$49<span>/mo</span></div>
-      <ul>
-        <li>AI Call Answering</li>
-        <li>Missed-Call Text Back</li>
-        <li>Email Notifications</li>
-      </ul>
-      <button class="price-btn">Start Starter</button>
-    </div>
-
-    <div class="pricing-card featured">
-      <h3>Pro</h3>
-      <div class="price">$99<span>/mo</span></div>
-      <ul>
-        <li>Everything in Starter</li>
-        <li>Lead Qualification</li>
-        <li>Appointment Booking</li>
-        <li>CRM Sync</li>
-      </ul>
-      <button class="price-btn primary">Start Pro</button>
-    </div>
-
-    <div class="pricing-card">
-      <h3>Elite</h3>
-      <div class="price">$249<span>/mo</span></div>
-      <ul>
-        <li>Everything in Pro</li>
-        <li>Multi-Line Support</li>
-        <li>Custom Voice & Scripts</li>
-        <li>Priority Support</li>
-      </ul>
-      <button class="price-btn">Start Elite</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- ========================= -->
-<!-- CONTACT -->
-<!-- ========================= -->
-<section id="contact" class="section">
-  <h2>Contact</h2>
-  <p>Email: support@aftercallpro.com</p>
-</section>
-
-<!-- ========================= -->
-<!-- FOOTER -->
-<!-- ========================= -->
-<footer class="footer">
-  <div><strong>AfterCallPro</strong> · MindRocket Systems LLC</div>
-
-  <div class="footer-links">
-    <a href="/privacy">Privacy</a> ·
-    <a href="/terms">Terms</a> ·
-    <a href="/sms-consent">SMS Consent</a>
-  </div>
-
-  <div>© 2026 AfterCallPro. All rights reserved.</div>
-</footer>
+  </section>
 
 </body>
 </html>
