@@ -42,21 +42,33 @@
 <!-- SIGNUP SECTION -->
 <!-- ========================= -->
 <section id="signup" class="signup-box">
-<div style="text-align:center; margin-bottom: 24px;">
-  <img
-    src="{{ url_for('static', filename='logo.png') }}"
-    alt="AfterCallPro Logo"
-    style="max-width: 220px; height: auto;"
-  />
-</div>
+
+  <div style="text-align:center; margin-bottom: 24px;">
+    <img
+      src="{{ url_for('static', filename='logo.png') }}"
+      alt="AfterCallPro Logo"
+      style="max-width: 220px; height: auto;"
+    />
+  </div>
 
   <h2>Get Started with AfterCallPro</h2>
+
+  <!-- SMS CONSENT BLOCK (REQUIRED FOR A2P) -->
+  <p style="font-size:14px;color:#555;max-width:640px;margin:0 auto 16px; text-align:center;">
+    By submitting this form, you agree to receive transactional SMS messages from
+    <strong>AfterCallPro</strong>, including appointment reminders, service updates,
+    and account notifications. Msg & data rates may apply. Message frequency may vary.
+    Reply STOP to opt out.
+  </p>
+
   <iframe
-      src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
-      style="width:100%;height:657px;border:none;border-radius:6px"
-      title="Get Started with AfterCallPro">
+    src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
+    style="width:100%;height:657px;border:none;border-radius:6px"
+    title="Get Started with AfterCallPro">
   </iframe>
+
 </section>
+
 
 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
