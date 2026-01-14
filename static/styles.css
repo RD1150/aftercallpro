@@ -174,4 +174,46 @@ body {
   .feature-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+   /* -------------------------
+   TRUST STRIP
+------------------------- */
+.trust {
+  background: #ffffff;
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.trust h2 {
+  font-size: 28px;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.trust-item {
+  padding: 20px;
+}
+
+.trust-item h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.trust-item p {
+  font-size: 14px;
+  color: #475569;
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+  .trust-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
