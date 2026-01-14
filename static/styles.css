@@ -301,5 +301,13 @@ body {
     font-size: 18px;
   }
 }
+.trust-grid {
+  gap: 22px;
+   .feature-item p,
+.trust-item p {
+  color: #334155;
+}
+
+}
 
 }
