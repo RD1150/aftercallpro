@@ -216,4 +216,18 @@ body {
   .trust-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+   /* -------------------------
+   TRUST STRIP – POLISH
+------------------------- */
+
+/* Tighter vertical spacing */
+.trust {
+  padding: 60px 20px;
+}
+
+/* Stronger headline presence */
+.trust h2 {
+  font-weight: 800;
+}
+
 }
