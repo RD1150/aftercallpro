@@ -102,3 +102,24 @@ body {
   margin-top: 20px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
+/* -------------------------
+   DESKTOP POLISH
+------------------------- */
+@media (min-width: 900px) {
+
+  .hero {
+    padding: 100px 20px 70px;
+  }
+
+  .hero h1 {
+    font-size: 52px;
+  }
+
+  .hero p {
+    font-size: 20px;
+  }
+
+  .signup {
+    margin-top: 80px;
+  }
+}d
