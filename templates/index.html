@@ -4,82 +4,92 @@
   <meta charset="UTF-8" />
   <title>AfterCallPro – Never Miss Another Lead</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AfterCallPro is an AI-powered virtual receptionist that answers calls, books appointments, and never misses a lead." />
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-  <!-- HEADER / HERO -->
-  <header class="hero">
-    <div class="hero-inner">
-      <h1>Never Miss Another Lead Again.</h1>
-      <p>Smart, reliable AI call answering for real estate and service businesses.</p>
-      <button class="cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
-        Start Free Trial
-      </button>
-    </div>
-  </header>
+<!-- ================= HEADER / HERO ================= -->
+<header class="hero">
+  <div class="hero-inner">
+    <h1>Never Miss Another Lead Again.</h1>
+    <p>Smart, reliable AI call answering for real estate and service businesses.</p>
+    <button class="cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+      Start Free Trial
+    </button>
+  </div>
+</header>
 
-  <!-- SIGNUP -->
-  <section id="signup" class="signup-section">
+<!-- ================= SIGNUP ================= -->
+<section id="signup" class="signup-section">
 
-    <!-- LOGO -->
-    <img
-      src="{{ url_for('static', filename='logo.png') }}"
-      alt="AfterCallPro Logo"
-      class="signup-logo"
-    />
+  <!-- LOGO -->
+  <img
+    src="{{ url_for('static', filename='assets/logo.png') }}"
+    alt="AfterCallPro Logo"
+    class="signup-logo"
+  />
 
-    <h2>Get Started with AfterCallPro</h2>
+  <h2>Get Started with AfterCallPro</h2>
 
-    <!-- SMS CONSENT (VISIBLE FOR A2P) -->
-    <p class="sms-consent">
-      By submitting this form, you agree to receive <strong>transactional SMS messages</strong>
-      from <strong>AfterCallPro</strong>, including appointment reminders, service updates,
-      and account notifications. Message frequency may vary. Msg & data rates may apply.
-      Reply <strong>STOP</strong> to opt out.
-    </p>
+  <!-- SMS CONSENT -->
+  <p class="sms-consent">
+    By submitting this form, you agree to receive <strong>transactional SMS messages</strong>
+    from <strong>AfterCallPro</strong>, including appointment reminders, service updates,
+    and account notifications. Message frequency may vary. Msg & data rates may apply.
+    Reply <strong>STOP</strong> to opt out.
+  </p>
 
-    <!-- EMBEDDED GHL FORM -->
-    <iframe
-      src="https://api.leadconnectorhq.com/widget/form/0FeuXYJ2p6v2x2nMYIK"
-      title="AfterCallPro Signup"
-      class="signup-iframe"
-    ></iframe>
+  <!-- EMBEDDED GHL FORM -->
+  <iframe
+    src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
+    title="AfterCallPro Signup"
+    class="signup-iframe"
+    style="width:100%;height:657px;border:none;border-radius:6px;">
+  </iframe>
 
-    <!-- LEGAL LINKS -->
-    <div class="legal-links">
-      <a href="/privacy">Privacy Policy</a> |
-      <a href="/terms">Terms of Service</a>
-    </div>
+  <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
-  </section>
+  <!-- LEGAL LINKS -->
+  <div class="legal-links">
+    <a href="/privacy">Privacy Policy</a> |
+    <a href="/terms">Terms of Service</a>
+  </div>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <h2>What AfterCallPro Does</h2>
+</section>
 
-    <div class="feature">
-      <h3>24/7 AI Call Answering</h3>
-      <p>Every call answered instantly, even after hours.</p>
-    </div>
+<!-- ================= FEATURES ================= -->
+<section class="features">
+  <h2>What AfterCallPro Does</h2>
 
-    <div class="feature">
-      <h3>Lead Qualification</h3>
-      <p>We capture caller details and intent automatically.</p>
-    </div>
+  <div class="feature">
+    <h3>24/7 AI Call Answering</h3>
+    <p>Every call answered instantly, even after hours.</p>
+  </div>
 
-    <div class="feature">
-      <h3>Appointment Booking</h3>
-      <p>Book calls and appointments without lifting a finger.</p>
-    </div>
+  <div class="feature">
+    <h3>Lead Qualification</h3>
+    <p>We capture caller details and intent automatically.</p>
+  </div>
 
-    <div class="feature">
-      <h3>Instant Notifications</h3>
-      <p>Get alerts by SMS or email when new leads come in.</p>
-    </div>
-  </section>
+  <div class="feature">
+    <h3>Appointment Booking</h3>
+    <p>Book calls and appointments without lifting a finger.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Instant Notifications</h3>
+    <p>Get alerts by SMS or email when new leads come in.</p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div><strong>AfterCallPro</strong> · MindRocket Systems LLC</div>
+  <div>© 2026 AfterCallPro. All rights reserved.</div>
+</footer>
 
 </body>
 </html>
