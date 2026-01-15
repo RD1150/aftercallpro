@@ -2,108 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AfterCallPro — Never Miss Another Lead</title>
+  <title>AfterCallPro – Get Started</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- CSS -->
+  <!-- Main CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="navbar">
-  <div class="nav-inner">
-    <img src="/logo.png" class="logo" alt="AfterCallPro Logo">
-  </div>
-</header>
+  <!-- SIGNUP SECTION -->
+  <section id="signup" class="signup-box">
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <div class="hero-inner">
-    <h1>Never Miss Another Lead Again.</h1>
-    <p>Smart, reliable AI call answering for real estate and service businesses.</p>
-
-  </div
-</section><button onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
-  Start Free Trial
-</button>
-<!-- ================= FEATURES ================= -->
-<section class="features">
-  <h2>How AfterCallPro Works</h2>
-
-  <div class="feature-grid">
-    <div class="feature-item">
-      <div class="feature-icon">📞</div>
-      <h3>AI Answers Every Call</h3>
-      <p>No more missed leads — your business is always available.</p>
+    <!-- LOGO -->
+    <div class="logo-wrap">
+      <img
+        src="{{ url_for('static', filename='logo.png') }}"
+        alt="AfterCallPro Logo"
+        class="site-logo"
+      />
     </div>
 
-    <div class="feature-item">
-      <div class="feature-icon">🧠</div>
-      <h3>Captures Lead Details</h3>
-      <p>Names, intent, urgency, and callback requests — automatically.</p>
+    <!-- HEADLINE -->
+    <h2>Get Started with AfterCallPro</h2>
+
+    <!-- SMS CONSENT (A2P REQUIRED) -->
+    <p class="sms-consent">
+      By submitting this form, you agree to receive <strong>transactional SMS messages</strong>
+      from <strong>AfterCallPro</strong>, including appointment reminders, service updates,
+      and account notifications. Message frequency may vary.
+      Msg &amp; data rates may apply. Reply <strong>STOP</strong> to opt out.
+    </p>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
+        title="AfterCallPro Signup"
+        style="width:100%;height:657px;border:none;border-radius:8px;"
+      ></iframe>
     </div>
 
-    <div class="feature-item">
-      <div class="feature-icon">🔗</div>
-      <h3>Updates Your CRM</h3>
-      <p>Every call is logged so nothing slips through the cracks.</p>
+    <!-- LEGAL LINKS -->
+    <div class="legal-links">
+      <a href="/privacy">Privacy Policy</a> |
+      <a href="/terms">Terms of Service</a>
     </div>
 
-    <div class="feature-item">
-      <div class="feature-icon">⚡</div>
-      <h3>Triggers Follow-Up</h3>
-      <p>Instant SMS, email, or task reminders for your team.</p>
-    </div>
-  </div>
-</section>
-<!-- ================= TRUST ================= -->
-<section class="trust">
-  <h2>Built for Real Businesses That Can’t Miss a Call</h2>
+  </section>
 
-  <div class="trust-grid">
-    <div class="trust-item">
-      <h3>⚡ Fast Setup</h3>
-      <p>Get live in minutes — no complex installs or IT headaches.</p>
-    </div>
+  <!-- REQUIRED GHL SCRIPT -->
+  <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
-    <div class="trust-item">
-      <h3>🔗 CRM Connected</h3>
-      <p>Every call flows straight into your system for instant follow-up.</p>
-    </div>
-
-    <div class="trust-item">
-      <h3>🛡 Reliable & Secure</h3>
-      <p>Built with business-grade reliability you can trust.</p>
-    </div>
-  </div>
-</section>
-
-  <!-- ================= SIGNUP ================= -->
-<section id="signup" class="signup">
-
-  <!-- Signup Logo -->
-  <div class="signup-logo-wrap">
-    <img src="/logo.png" class="signup-logo" alt="AfterCallPro Logo">
-  </div>
-
-  <h2>Get Started with AfterCallPro</h2>
-  <p class="signup-sub">
-    By submitting this form, you agree to receive transactional SMS messages from AfterCallPro,
-    including appointment reminders, service updates, and account notifications.
-    Message frequency may vary. Msg & data rates may apply. Reply STOP to opt out.
-  </p>
-
-  <!-- ================= GHL FORM ================= -->
-  <iframe
-    src="https://api.leadconnectorhq.com/widget/form/0FeuXY1J2p6v2x2nMYIK"
-    style="width:100%;height:700px;border:none;border-radius:8px"
-    id="ghl-form"
-    title="AfterCallPro Signup">
-  </iframe>
-
-</section>
-
-<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 </body>
 </html>
