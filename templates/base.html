@@ -5,11 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AfterCallPro{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body { margin:0; font-family: Arial, Helvetica, sans-serif; }
+        header { background:#000; color:#fff; padding:20px; }
+        nav a {
+            color:white;
+            margin-right:20px;
+            text-decoration:none;
+            font-weight:500;
+        }
+        nav a:hover { text-decoration:underline; }
+        main { padding:40px; }
+        footer {
+            background:#f4f4f4;
+            padding:20px;
+            text-align:center;
+            font-size:14px;
+        }
+    </style>
 </head>
 
-<body style="margin:0;font-family:Arial, Helvetica, sans-serif;">
+<body>
 
-<header style="background:#000;color:#fff;padding:20px;">
+<header>
     <div style="font-size:22px;font-weight:bold;">
         MindRocket Systems LLC DBA AfterCallPro
     </div>
@@ -23,22 +41,22 @@
     </div>
 
     <nav style="margin-top:15px;">
-        <a href="/" style="color:white;margin-right:20px;">Home</a>
-        <a href="/features" style="color:white;margin-right:20px;">Features</a>
-        <a href="/pricing" style="color:white;margin-right:20px;">Pricing</a>
-        <a href="/about" style="color:white;margin-right:20px;">About</a>
-        <a href="/contact" style="color:white;margin-right:20px;">Contact</a>
-        <a href="/privacy" style="color:white;margin-right:20px;">Privacy</a>
-        <a href="/terms" style="color:white;">Terms</a>
+        <a href="/">Home</a>
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
     </nav>
 </header>
 
-<main style="padding:40px;">
+<main>
     {% block content %}{% endblock %}
 </main>
 
-<footer style="background:#f4f4f4;padding:20px;text-align:center;">
-    <p>MindRocket Systems LLC DBA AfterCallPro</p>
+<footer>
+    <p>© 2026 MindRocket Systems LLC DBA AfterCallPro</p>
     <p>support@aftercallpro.com</p>
 </footer>
 
