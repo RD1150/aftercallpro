@@ -1,32 +1,46 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AfterCallPro{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 
-{% block title %}AfterCallPro | AI Call Answering for Agencies{% endblock %}
+<body style="margin:0;font-family:Arial, Helvetica, sans-serif;">
 
-{% block content %}
+<header style="background:#000;color:#fff;padding:20px;">
+    <div style="font-size:22px;font-weight:bold;">
+        MindRocket Systems LLC DBA AfterCallPro
+    </div>
 
-<h1>AI Call Answering Built for Agencies</h1>
+    <div style="font-size:14px;margin-top:6px;">
+        Reena Dutta |
+        3645 Thousand Oaks Blvd Unit #2007 |
+        Thousand Oaks, CA 91362 |
+        support@aftercallpro.com |
+        © 2026
+    </div>
 
-<p>
-AfterCallPro is an AI-powered call answering and SMS automation system
-built specifically for marketing agencies and service businesses.
-</p>
+    <nav style="margin-top:15px;">
+        <a href="/" style="color:white;margin-right:20px;">Home</a>
+        <a href="/features" style="color:white;margin-right:20px;">Features</a>
+        <a href="/pricing" style="color:white;margin-right:20px;">Pricing</a>
+        <a href="/about" style="color:white;margin-right:20px;">About</a>
+        <a href="/contact" style="color:white;margin-right:20px;">Contact</a>
+        <a href="/privacy" style="color:white;margin-right:20px;">Privacy</a>
+        <a href="/terms" style="color:white;">Terms</a>
+    </nav>
+</header>
 
-<h2>Get Started</h2>
+<main style="padding:40px;">
+    {% block content %}{% endblock %}
+</main>
 
-<p>
-By submitting this form, you agree to receive transactional SMS messages
-including appointment reminders and service updates.
-Message frequency varies. Msg & data rates may apply.
-Reply STOP to opt out.
-</p>
+<footer style="background:#f4f4f4;padding:20px;text-align:center;">
+    <p>MindRocket Systems LLC DBA AfterCallPro</p>
+    <p>support@aftercallpro.com</p>
+</footer>
 
-<div>
-    <iframe
-        src="YOUR_GHL_FORM_URL_HERE"
-        width="100%"
-        height="600"
-        style="border:none;border-radius:8px;">
-    </iframe>
-</div>
-
-{% endblock %}
+</body>
+</html>
