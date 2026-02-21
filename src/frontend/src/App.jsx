@@ -1,199 +1,132 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import React from "react";
 
-function Footer() {
+function App() {
   return (
-    <footer style={{
-      marginTop: "80px",
-      padding: "40px 20px",
-      textAlign: "center",
-      fontSize: "14px",
-      borderTop: "1px solid #ddd"
-    }}>
-      <p>© 2026 MindRocket Systems LLC. All rights reserved.</p>
-      <p>AfterCallPro is owned and operated by MindRocket Systems LLC.</p>
-      <div style={{ marginTop: "10px" }}>
-        <Link to="/privacy">Privacy Policy</Link> |{" "}
-        <Link to="/terms">Terms of Service</Link> |{" "}
-        <Link to="/sms-disclosure">SMS Disclosure</Link>
-      </div>
-    </footer>
-  );
-}
-
-function Home() {
-  return (
-    <>
-      <section style={{ padding: "60px 20px", textAlign: "center" }}>
-        <h1>Never Let a Service Call Go Unanswered.</h1>
-        <p>
-          AfterCallPro captures missed and overflow calls 24/7, books appointments
-          automatically, and ensures every inbound lead receives a response.
-        </p>
-
-        <Link to="/book-demo">
-          <button style={{ padding: "12px 24px", marginTop: "20px" }}>
-            Book a 15-Minute Demo
-          </button>
-        </Link>
-
-        <p style={{ marginTop: "10px" }}>
-          Cancel anytime. No long-term contract.
+    <div style={styles.container}>
+      
+      {/* Hero Section */}
+      <section style={styles.hero}>
+        <h1 style={styles.title}>AfterCallPro</h1>
+        <p style={styles.subtitle}>
+          Never Miss Another Call. Turn Every Missed Opportunity Into Revenue.
         </p>
       </section>
 
-      <section style={{ padding: "40px 20px", textAlign: "center" }}>
-        <h2>Launch Member Pricing</h2>
-        <h3>$297 per month</h3>
-        <p>Cancel anytime. Your rate is guaranteed for 12 months.</p>
+      {/* Pricing Section */}
+      <section style={styles.pricingSection}>
+        <div style={styles.pricingCard}>
+          
+          <h2 style={styles.planName}>Pro Plan</h2>
+          
+          <p style={styles.price}>
+            $297<span style={styles.month}> / month</span>
+          </p>
 
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          <li>✔ 24/7 AI call capture</li>
-          <li>✔ Intelligent appointment booking</li>
-          <li>✔ Automated SMS backup</li>
-          <li>✔ Revenue impact tracking</li>
-          <li>✔ Dedicated onboarding support</li>
-        </ul>
+          <p style={styles.annual}>
+            Or $2,970 annually (2 months free)
+          </p>
+
+          <ul style={styles.features}>
+            <li>✔ AI Call Capture</li>
+            <li>✔ Instant SMS Follow-Up</li>
+            <li>✔ Missed Call Text Back</li>
+            <li>✔ CRM Sync</li>
+            <li>✔ Automated Lead Routing</li>
+            <li>✔ Custom Workflows</li>
+            <li>✔ Snapshot Installation</li>
+            <li>✔ Priority Support</li>
+          </ul>
+
+          <a
+            href="YOUR_SAAS_LINK_HERE"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.button}
+          >
+            Get Started
+          </a>
+
+        </div>
       </section>
 
-      <Footer />
-    </>
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <p>© {new Date().getFullYear()} AfterCallPro. All rights reserved.</p>
+      </footer>
+
+    </div>
   );
 }
 
-function BookDemo() {
-  const [agreeTerms, setAgreeTerms] = useState(false);
+const styles = {
+  container: {
+    fontFamily: "Arial, sans-serif",
+    textAlign: "center",
+    backgroundColor: "#0f172a",
+    color: "white",
+    minHeight: "100vh",
+  },
+  hero: {
+    padding: "80px 20px",
+  },
+  title: {
+    fontSize: "48px",
+    marginBottom: "20px",
+  },
+  subtitle: {
+    fontSize: "20px",
+    opacity: 0.8,
+  },
+  pricingSection: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "40px 20px",
+  },
+  pricingCard: {
+    backgroundColor: "#1e293b",
+    padding: "40px",
+    borderRadius: "12px",
+    width: "400px",
+    boxShadow: "0 0 20px rgba(0,0,0,0.3)",
+  },
+  planName: {
+    fontSize: "28px",
+    marginBottom: "20px",
+  },
+  price: {
+    fontSize: "42px",
+    margin: "10px 0",
+  },
+  month: {
+    fontSize: "18px",
+  },
+  annual: {
+    fontSize: "14px",
+    marginBottom: "20px",
+    opacity: 0.7,
+  },
+  features: {
+    listStyle: "none",
+    padding: 0,
+    textAlign: "left",
+    marginBottom: "30px",
+    lineHeight: "1.8",
+  },
+  button: {
+    display: "inline-block",
+    padding: "15px 30px",
+    backgroundColor: "#3b82f6",
+    color: "white",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontWeight: "bold",
+  },
+  footer: {
+    marginTop: "60px",
+    padding: "20px",
+    fontSize: "14px",
+    opacity: 0.6,
+  },
+};
 
-  const handleSubmit = (e) => {
-    if (!agreeTerms) {
-      e.preventDefault();
-      alert("You must agree to the Privacy Policy and Terms of Service.");
-    }
-  };
-
-  return (
-    <>
-      <div style={{ padding: "60px 20px", maxWidth: "600px", margin: "0 auto" }}>
-        <h1>See How Many Calls You’re Missing.</h1>
-        <p>
-          In 15 minutes, we’ll show you how AfterCallPro captures missed calls
-          and turns them into booked jobs.
-        </p>
-
-        <form onSubmit={handleSubmit} style={{ marginTop: "30px" }}>
-          <input type="text" placeholder="First Name" required /><br /><br />
-          <input type="text" placeholder="Last Name" required /><br /><br />
-          <input type="text" placeholder="Company Name" required /><br /><br />
-          <input type="email" placeholder="Email" required /><br /><br />
-          <input type="tel" placeholder="Phone" required /><br /><br />
-
-          <select required>
-            <option value="">Monthly Call Volume</option>
-            <option>0–50</option>
-            <option>50–150</option>
-            <option>150+</option>
-          </select>
-
-          <br /><br />
-
-          <label>
-            <input
-              type="checkbox"
-              required
-              checked={agreeTerms}
-              onChange={(e) => setAgreeTerms(e.target.checked)}
-            />
-            {" "}I agree to the Privacy Policy and Terms of Service.
-          </label>
-
-          <br /><br />
-
-          <label>
-            <input type="checkbox" />
-            {" "}I agree to receive service-related SMS messages from AfterCallPro.
-            Message frequency varies. Message & data rates may apply.
-            Reply STOP to unsubscribe or HELP for assistance.
-            Consent is not required to submit this form.
-          </label>
-
-          <br /><br />
-
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-
-      <Footer />
-    </>
-  );
-}
-
-function Privacy() {
-  return (
-    <>
-      <div style={{ padding: "60px 20px", maxWidth: "800px", margin: "0 auto" }}>
-        <h1>Privacy Policy</h1>
-        <p>AfterCallPro is owned and operated by MindRocket Systems LLC.</p>
-        <p>
-          We collect personal information voluntarily provided through forms,
-          onboarding, and service interaction. We do not sell or share mobile
-          information for marketing purposes.
-        </p>
-      </div>
-      <Footer />
-    </>
-  );
-}
-
-function Terms() {
-  return (
-    <>
-      <div style={{ padding: "60px 20px", maxWidth: "800px", margin: "0 auto" }}>
-        <h1>Terms of Service</h1>
-        <p>AfterCallPro is owned and operated by MindRocket Systems LLC.</p>
-
-        <h2>Billing and Refund Policy</h2>
-        <p>
-          Subscription fees are billed monthly in advance. All payments are
-          non-refundable once the billing period has begun. You may cancel
-          your subscription at any time before the next billing cycle to
-          avoid future charges.
-        </p>
-      </div>
-      <Footer />
-    </>
-  );
-}
-
-function SmsDisclosure() {
-  return (
-    <>
-      <div style={{ padding: "60px 20px", maxWidth: "800px", margin: "0 auto" }}>
-        <h1>SMS Consent & Messaging Disclosure</h1>
-        <p>
-          AfterCallPro sends transactional SMS messages in response to
-          user-initiated actions. Message frequency varies.
-          Message & data rates may apply.
-        </p>
-        <p>
-          Reply STOP to unsubscribe. Reply HELP for assistance.
-          Wireless carriers are not liable for delayed or undelivered messages.
-        </p>
-      </div>
-      <Footer />
-    </>
-  );
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/book-demo" element={<BookDemo />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/sms-disclosure" element={<SmsDisclosure />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+export default App;
