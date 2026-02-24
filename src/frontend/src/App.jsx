@@ -12,7 +12,7 @@ import Terms from "@/pages/Terms";
 import SmsPolicy from "@/pages/SmsPolicy";
 
 // keep your existing login page/component import:
-import Login from @/"components/Login";
+import Login from "@/components/Login";
 
 export default function App() {
   return (
