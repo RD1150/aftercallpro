@@ -24,7 +24,7 @@ app = Flask(
     static_folder=os.path.join(os.path.dirname(__file__), "frontend", "dist"),
     static_url_path="/"
 )
-
+print("STATIC FOLDER PATH:", os.path.join(os.path.dirname(__file__), "frontend", "dist"))
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-me-in-production")
 app.config["SESSION_COOKIE_SECURE"] = False  # Set True after HTTPS works
 app.config["SESSION_COOKIE_HTTPONLY"] = True
