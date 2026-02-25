@@ -1,7 +1,7 @@
 import os
 import sys
 
-# Ensure src is on Python path
+# Ensure project root is on Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory
@@ -18,13 +18,21 @@ from src.routes.payments import payments_bp
 # Load environment variables
 load_dotenv()
 
+# -----------------------------
 # Initialize Flask app
+# -----------------------------
+
+BASE_DIR = os.path.dirname(__file__)
+FRONTEND_DIST = os.path.abspath(os.path.join(BASE_DIR, "frontend", "dist"))
+
+print("📦 Serving frontend from:", FRONTEND_DIST)
+
 app = Flask(
     __name__,
-    static_folder=os.path.join(os.path.dirname(__file__), "frontend", "dist"),
+    static_folder=FRONTEND_DIST,
     static_url_path="/"
 )
-print("STATIC FOLDER PATH:", os.path.join(os.path.dirname(__file__), "frontend", "dist"))
+
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-me-in-production")
 app.config["SESSION_COOKIE_SECURE"] = False  # Set True after HTTPS works
 app.config["SESSION_COOKIE_HTTPONLY"] = True
@@ -36,6 +44,7 @@ CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
 # -----------------------------
 # DATABASE CONFIG (PRODUCTION SAFE)
 # -----------------------------
+
 database_url = os.getenv("DATABASE_URL")
 
 if not database_url:
@@ -54,7 +63,6 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-    # Create demo business if none exists
     if Business.query.count() == 0:
         demo_business = Business(
             name="Demo Business",
@@ -66,11 +74,12 @@ with app.app_context():
         )
         db.session.add(demo_business)
         db.session.commit()
-        print("Demo business created successfully!")
+        print("✅ Demo business created successfully!")
 
 # -----------------------------
 # REGISTER BLUEPRINTS
 # -----------------------------
+
 app.register_blueprint(user_bp, url_prefix="/api")
 app.register_blueprint(voice_bp, url_prefix="/api/voice")
 app.register_blueprint(business_bp, url_prefix="/api")
@@ -80,24 +89,14 @@ app.register_blueprint(payments_bp, url_prefix="/api/payments")
 # -----------------------------
 # SERVE FRONTEND (React Build)
 # -----------------------------
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve(path):
-    static_folder_path = app.static_folder
-
-    if static_folder_path is None:
-        return "Static folder not configured", 404
-
-    file_path = os.path.join(static_folder_path, path)
-
-    if path != "" and os.path.exists(file_path):
-        return send_from_directory(static_folder_path, path)
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
     else:
-        index_path = os.path.join(static_folder_path, "index.html")
-        if os.path.exists(index_path):
-            return send_from_directory(static_folder_path, "index.html")
-        else:
-            return "index.html not found", 404
+        return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == "__main__":
