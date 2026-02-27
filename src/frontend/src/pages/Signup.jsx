@@ -15,7 +15,7 @@ export default function Signup() {
 
     const result = await signup(email, password);
 
-    if (!result.success) {
+    if (!result || !result.success) {
       setError("Signup failed. Try again.");
       return;
     }
@@ -79,3 +79,5 @@ export default function Signup() {
     </main>
   );
 }
+
+
