@@ -743,7 +743,12 @@ const styles = {
  * Mobile grid fallback
  * If you want, we can move this to CSS, but this keeps it simple.
  */
-const media = window?.matchMedia?.("(max-width: 900px)");
+if (typeof window !== "undefined") {
+  const media = window.matchMedia("(max-width: 900px)");
+  if (media.matches) {
+    styles.grid3 = { ...styles.grid3, gridTemplateColumns: "1fr" };
+  }
+}
 if (media?.matches) {
   styles.grid3 = { ...styles.grid3, gridTemplateColumns: "1fr" };
 }
