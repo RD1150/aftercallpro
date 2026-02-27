@@ -7,7 +7,7 @@ import Signup from "./pages/Signup.jsx"
 import Dashboard from "./pages/Dashboard.jsx";
 import Subscription from "./components/Subscription.jsx";
 import BusinessSettings from "./components/BusinessSettings.jsx";
-import CallHistory from "./components/CallHistory.jsx";
+import CallHistory from "./components/Calls.jsx";
 import OnboardingWizard from "./components/OnboardingWizard.jsx";
 
 // Your marketing page (you currently have Pages/Home.jsx)
