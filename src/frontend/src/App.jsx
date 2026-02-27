@@ -14,16 +14,8 @@ import OnboardingWizard from "./components/OnboardingWizard.jsx";
 import Home from "./Pages/Home.jsx";
 
 // If these exist, great. If not, the fallback header/footer below handle it.
-let SiteHeader = null;
-let SiteFooter = null;
-try {
-  // eslint-disable-next-line import/no-unresolved
-  SiteHeader = (await import("./components/SiteHeader.jsx")).default;
-  // eslint-disable-next-line import/no-unresolved
-  SiteFooter = (await import("./components/SiteFooter.jsx")).default;
-} catch (e) {
-  // Fallback header/footer will be used.
-}
+import SiteHeader from "./components/SiteHeader.jsx";
+import SiteFooter from "./components/SiteFooter.jsx";
 
 /**
  * SETTINGS YOU CAN EDIT
