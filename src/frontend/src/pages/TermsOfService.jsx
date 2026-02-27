@@ -90,4 +90,13 @@ export default function TermsOfService() {
           <h2 className="text-2xl font-semibold text-slate-800 mb-3">
             7. Privacy & Data Collection
           </h2>
-          <p cla
+          <p className="text-slate-600 leading-relaxed">
+            We collect and process data in accordance with our Privacy Policy.
+            By using the platform, you consent to such collection and use.
+          </p>
+        </section>
+
+      </div>
+    </main>
+  );
+}
