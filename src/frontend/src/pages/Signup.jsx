@@ -20,17 +20,26 @@ export default function Signup() {
       return;
     }
 
-    navigate("/login"); 
+    navigate("/login");
   }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-md p-10 bg-white border border-gray-200 rounded-2xl shadow-lg">
 
-        <h1 className="text-3xl font-bold text-center mb-2">Create Account</h1>
-        <p className="text-center text-gray-600 mb-6">Start using AfterCallPro</p>
+        <h1 className="text-3xl font-bold text-center mb-2">
+          Create Account
+        </h1>
 
-        {error && <p className="text-red-600 text-center mb-3">{error}</p>}
+        <p className="text-center text-gray-600 mb-6">
+          Start using AfterCallPro
+        </p>
+
+        {error && (
+          <p className="text-red-600 text-center mb-3">
+            {error}
+          </p>
+        )}
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <input
