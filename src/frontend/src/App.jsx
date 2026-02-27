@@ -23,8 +23,6 @@ import TermsOfService from "./pages/TermsOfService";
 import Subscription from "./components/Subscription";
 import BusinessSettings from "./components/BusinessSettings";
 import OnboardingWizard from "./components/OnboardingWizard";
-import SiteHeader from "./components/SiteHeader";
-import SiteFooter from "./components/SiteFooter";
 
 /* =======================
    APP
@@ -33,10 +31,8 @@ import SiteFooter from "./components/SiteFooter";
 function App() {
   return (
     <Router>
-      <SiteHeader />
-
       <Routes>
-        {/* Default Route */}
+        {/* Default */}
         <Route path="/" element={<Login />} />
 
         {/* Auth */}
@@ -44,7 +40,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Dashboard & Core */}
+        {/* Dashboard */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/calls" element={<Calls />} />
         <Route path="/leads" element={<Leads />} />
@@ -67,8 +63,6 @@ function App() {
         {/* Catch All */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-
-      <SiteFooter />
     </Router>
   );
 }
