@@ -1,32 +1,25 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 
-function App() {
-  const isAuthenticated = localStorage.getItem("acp_token");
+export default function App() {
+  const token = localStorage.getItem("token");
 
   return (
     <Router>
       <Routes>
-        {/* Public Routes */}
+        {/* Root = Signup */}
         <Route path="/" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Route */}
+        {/* Protected route */}
         <Route
           path="/dashboard"
-          element={
-            isAuthenticated ? (
-              <Dashboard />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
+          element={token ? <Dashboard /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
   );
 }
-
-export default App;
