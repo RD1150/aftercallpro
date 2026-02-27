@@ -7,11 +7,11 @@ import Signup from "./pages/Signup.jsx"
 import Dashboard from "./pages/Dashboard.jsx";
 import Subscription from "./components/Subscription.jsx";
 import BusinessSettings from "./components/BusinessSettings.jsx";
-import CallHistory from "./pages/Calls.jsx";
+import Calls from "./pages/Calls.jsx";
 import OnboardingWizard from "./components/OnboardingWizard.jsx";
 
 // Your marketing page (you currently have Pages/Home.jsx)
-import Home from "./Pages/Home.jsx";
+import Home from "./pages/Home.jsx";
 
 // If these exist, great. If not, the fallback header/footer below handle it.
 import SiteHeader from "./components/SiteHeader.jsx";
