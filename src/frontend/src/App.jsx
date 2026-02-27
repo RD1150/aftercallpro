@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 
 // Existing app components (based on your repo screenshots)
 import Login from "./pages/Login.jsx"
-import Signup from "./components/Signup.jsx";
+import Signup from "./pages/Signup.jsx"
 import Dashboard from "./components/Dashboard.jsx";
 import Subscription from "./components/Subscription.jsx";
 import BusinessSettings from "./components/BusinessSettings.jsx";
