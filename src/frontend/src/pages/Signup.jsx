@@ -30,34 +30,36 @@ export default function Signup() {
         <p>24/7 AI Call Capture for Service Businesses</p>
       </div>
 
-      <div className="auth-card">
-        <h2>Create Your Account</h2>
+      <div className="auth-right">
+        <div className="auth-card">
+          <h2>Create Your Account</h2>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-          <input
-            type="password"
-            placeholder="Create password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <input
+              type="password"
+              placeholder="Create password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating..." : "Create Account"}
-          </button>
-        </form>
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating..." : "Create Account"}
+            </button>
+          </form>
 
-        <p className="auth-link">
-          Already have an account? <Link to="/login">Log in</Link>
-        </p>
+          <p className="auth-link">
+            Already have an account? <Link to="/login">Log in</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
