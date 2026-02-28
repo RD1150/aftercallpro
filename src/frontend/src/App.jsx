@@ -1,27 +1,35 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
+
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import { useAuth } from "./AuthProvider";
 
 export default function App() {
   const { user } = useAuth();
 
   return (
-    <Routes>
-      {/* Landing page */}
-      <Route path="/" element={<Home />} />
+    <>
+      {/* Global Header */}
+      <Header />
 
-      {/* Auth pages */}
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
+      {/* Routes */}
+      <Routes>
+        {/* Landing Page */}
+        <Route path="/" element={<Home />} />
 
-      {/* Protected dashboard */}
-      <Route
-        path="/dashboard"
-        element={user ? <Dashboard /> : <Navigate to="/login" />}
-      />
-    </Routes>
+        {/* Auth Pages */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected Dashboard */}
+        <Route
+          path="/dashboard"
+          element={user ? <Dashboard /> : <Navigate to="/login" replace />}
+        />
+      </Routes>
+    </>
   );
 }
