@@ -1,88 +1,81 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* ------------------------------
-   GLOBAL BRAND VARIABLES
---------------------------------*/
-:root {
-  --navy: #0b1524;
-  --cyan: #22d3ee;
-  --gray-light: #f8fafc;
-  --gray-dark: #1e293b;
+/* FULL PAGE WRAPPER */
+.auth-wrapper {
+  display: flex;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ------------------------------
-   GLOBAL STYLING
---------------------------------*/
-body {
-  @apply bg-gray-50 text-gray-900 antialiased;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* LEFT BRAND PANEL */
+.auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
 }
 
-/* Smooth transitions for interactive elements */
-button,
-a {
-  transition: all 0.2s ease;
+.auth-left h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-/* Remove ugly focus outlines */
-*:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 2px var(--cyan);
+.auth-left p {
+  font-size: 1.1rem;
+  opacity: 0.8;
 }
 
-/* ------------------------------
-   UTILITY CLASSES
---------------------------------*/
-
-/* Centered container max width */
-.container {
-  @apply max-w-7xl mx-auto px-4;
+/* RIGHT CARD */
+.auth-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  max-width: 500px;
+  margin: auto;
 }
 
-/* Pretty card shadow */
-.card {
-  @apply bg-white rounded-xl shadow-md border border-gray-200;
+.auth-card h2 {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
 }
 
-/* Used for hero sections */
-.hero-title {
-  @apply text-4xl md:text-6xl font-bold text-gray-900 leading-tight;
+.auth-card form {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Buttons */
-.btn-primary {
-  @apply bg-[var(--navy)] text-white font-semibold py-3 px-6 rounded-xl;
+.auth-card input {
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
 }
 
-.btn-primary:hover {
-  @apply bg-gray-900;
+.auth-card input:focus {
+  outline: none;
+  border-color: #2563eb;
 }
 
-.btn-secondary {
-  @apply bg-gray-200 text-gray-900 py-3 px-6 rounded-xl font-semibold;
+.auth-card button {
+  padding: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.btn-secondary:hover {
-  @apply bg-gray-300;
+.auth-card button:hover {
+  background: #1d4ed8;
 }
 
-/* Input fields */
-.input {
-  @apply w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500;
-}
-
-/* Clean table look */
-.table {
-  @apply w-full border-collapse text-left;
-}
-
-.table th {
-  @apply border-b border-gray-300 py-3 font-semibold text-gray-700;
-}
-
-.table td {
-  @apply py-3 border-b border-gray-200;
+.auth-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
 }
