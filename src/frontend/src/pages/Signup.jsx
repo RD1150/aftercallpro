@@ -1,66 +1,60 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 
 export default function Signup() {
   const { signup } = useAuth();
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    const result = await signup(email, password);
-
-    if (result.success) {
-      navigate("/dashboard");
-    }
-
-    setLoading(false);
-  }
+    await signup(email, password);
+  };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-left">
-        <h1>AfterCallPro</h1>
-        <p>24/7 AI Call Capture for Service Businesses</p>
+    <section className="hero">
+      <div className="hero-content" style={{ maxWidth: "500px" }}>
+        <h1>Create Your Account</h1>
+        <p>Start capturing missed calls instantly.</p>
+
+        <form onSubmit={handleSubmit} style={{ marginTop: "2rem" }}>
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={inputStyle}
+          />
+
+          <input
+            type="password"
+            placeholder="Create password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={inputStyle}
+          />
+
+          <button type="submit" className="primary-btn" style={{ width: "100%" }}>
+            Create Account
+          </button>
+        </form>
+
+        <p style={{ marginTop: "1.5rem" }}>
+          Already have an account? <Link to="/login">Log in</Link>
+        </p>
       </div>
-
-      <div className="auth-right">
-        <div className="auth-card">
-          <h2>Create Your Account</h2>
-
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-
-            <input
-              type="password"
-              placeholder="Create password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-
-            <button type="submit" disabled={loading}>
-              {loading ? "Creating..." : "Create Account"}
-            </button>
-          </form>
-
-          <p className="auth-link">
-            Already have an account? <Link to="/login">Log in</Link>
-          </p>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  padding: "1rem",
+  marginBottom: "1rem",
+  borderRadius: "8px",
+  border: "1px solid #e5e7eb",
+  fontSize: "1rem",
+};
