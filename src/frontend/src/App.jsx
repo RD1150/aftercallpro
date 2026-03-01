@@ -12,23 +12,22 @@ export default function App() {
 
   return (
     <>
-      {/* Global Header */}
       <Header />
 
-      {/* Routes */}
       <Routes>
-        {/* Landing Page */}
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
-
-        {/* Auth Pages */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Dashboard */}
+        {/* Protected Route */}
         <Route
           path="/dashboard"
           element={user ? <Dashboard /> : <Navigate to="/login" replace />}
         />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );
