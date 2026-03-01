@@ -7,6 +7,11 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
+// Optional if you already have these pages
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import BillingPolicy from "./pages/BillingPolicy";
+
 export default function App() {
   const { user } = useAuth();
 
@@ -15,12 +20,17 @@ export default function App() {
       <Header />
 
       <Routes>
-        {/* Public Routes */}
+        {/* Public */}
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Route */}
+        {/* Compliance pages (A2P-friendly) */}
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/billing" element={<BillingPolicy />} />
+
+        {/* Protected */}
         <Route
           path="/dashboard"
           element={user ? <Dashboard /> : <Navigate to="/login" replace />}
