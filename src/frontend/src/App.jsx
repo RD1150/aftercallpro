@@ -1,10 +1,13 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div style={{ padding: "40px", fontSize: "24px" }}>
-      AFTERCALLPRO TEST SCREEN
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<div>HOME WORKS</div>} />
+      </Routes>
+    </Router>
   );
 }
 
