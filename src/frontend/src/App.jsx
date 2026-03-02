@@ -8,8 +8,8 @@ import { AuthProvider, useAuth } from "./AuthProvider";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import Billing from "./pages/Billing";
 import BusinessSettings from "./pages/BusinessSettings";
+import BillingPolicy from "./pages/BillingPolicy";
 import NotFound from "./pages/NotFound";
 
 function ProtectedRoute({ children }) {
@@ -74,10 +74,10 @@ export default function App() {
           />
 
           <Route
-            path="/billing"
+            path="/billing-policy"
             element={
               <ProtectedRoute>
-                <Billing />
+                <BillingPolicy />
               </ProtectedRoute>
             }
           />
