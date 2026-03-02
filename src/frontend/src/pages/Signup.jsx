@@ -1,10 +1,11 @@
 // src/pages/Signup.jsx
-
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../AuthProvider";
 
-function Signup() {
+export default function Signup() {
   const navigate = useNavigate();
+  const { signup } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,10 +17,7 @@ function Signup() {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData((p) => ({ ...p, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
@@ -27,54 +25,37 @@ function Signup() {
     setLoading(true);
     setError("");
 
-    try {
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const res = await signup(formData.email, formData.password);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Signup failed");
-      }
-
-      // Redirect to login after successful signup
-      navigate("/login");
-    } catch (err) {
-      setError(err.message);
-    } finally {
+    if (!res?.success) {
+      setError("Signup failed. Please try again.");
       setLoading(false);
+      return;
     }
+
+    // go to dashboard (or login if you prefer)
+    navigate("/dashboard");
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "60px auto" }}>
+    <div style={{ maxWidth: 400, margin: "60px auto" }}>
       <h2>Create Account</h2>
 
-      {error && (
-        <div style={{ color: "red", marginBottom: "10px" }}>
-          {error}
-        </div>
-      )}
+      {error && <div style={{ color: "red", marginBottom: 10 }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: 15 }}>
           <label>Name</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            required
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: 8 }}
           />
         </div>
 
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: 15 }}>
           <label>Email</label>
           <input
             type="email"
@@ -82,11 +63,11 @@ function Signup() {
             value={formData.email}
             onChange={handleChange}
             required
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: 8 }}
           />
         </div>
 
-        <div style={{ marginBottom: "15px" }}>
+        <div style={{ marginBottom: 15 }}>
           <label>Password</label>
           <input
             type="password"
@@ -94,7 +75,7 @@ function Signup() {
             value={formData.password}
             onChange={handleChange}
             required
-            style={{ width: "100%", padding: "8px" }}
+            style={{ width: "100%", padding: 8 }}
           />
         </div>
 
@@ -103,7 +84,7 @@ function Signup() {
           disabled={loading}
           style={{
             width: "100%",
-            padding: "10px",
+            padding: 10,
             backgroundColor: "#111",
             color: "#fff",
             border: "none",
@@ -113,8 +94,10 @@ function Signup() {
           {loading ? "Creating..." : "Sign Up"}
         </button>
       </form>
+
+      <div style={{ marginTop: 12 }}>
+        Already have an account? <Link to="/login">Log in</Link>
+      </div>
     </div>
   );
 }
-
-export default Signup;
