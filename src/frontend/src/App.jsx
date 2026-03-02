@@ -2,8 +2,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import { AuthProvider } from "./context/AuthContext";
-import { useAuth } from "./context/AuthContext";
+// ✅ Correct import (matches your actual file: src/AuthProvider.jsx)
+import { AuthProvider, useAuth } from "./AuthProvider";
 
 // Pages
 import Login from "./pages/Login";
@@ -14,19 +14,19 @@ import Billing from "./pages/Billing";
 import NotFound from "./pages/NotFound";
 
 // ----------------------------------------------------
-// Protected Route (uses AuthContext instead of localStorage directly)
+// Protected Route
 // ----------------------------------------------------
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
-  if (loading) return null; // or spinner
+  if (loading) return null;
   if (!user) return <Navigate to="/login" replace />;
 
   return children;
 }
 
 // ----------------------------------------------------
-// Public Route (redirect if already logged in)
+// Public Route (redirect logged-in users)
 // ----------------------------------------------------
 function PublicRoute({ children }) {
   const { user, loading } = useAuth();
