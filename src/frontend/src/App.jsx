@@ -1,44 +1,102 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthProvider";
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
+import { AuthProvider } from "./context/AuthContext";
+
+// Pages
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
+import Billing from "./pages/Billing";
+import NotFound from "./pages/NotFound";
 
-// Optional if you already have these pages
-import TermsOfService from "./pages/TermsOfService";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import BillingPolicy from "./pages/BillingPolicy";
+// ----------------------------------------------------
+// Simple protected route wrapper
+// ----------------------------------------------------
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("acp_token");
+  if (!token) return <Navigate to="/login" replace />;
+  return children;
+}
+
+// ----------------------------------------------------
+// Logged-in redirect helper
+// ----------------------------------------------------
+function PublicRoute({ children }) {
+  const token = localStorage.getItem("acp_token");
+  if (token) return <Navigate to="/dashboard" replace />;
+  return children;
+}
 
 export default function App() {
-  const { user } = useAuth();
-
   return (
-    <>
-      <Header />
+    <Router>
+      <AuthProvider>
+        <Routes>
+          {/* Public */}
+          <Route
+            path="/"
+            element={
+              localStorage.getItem("acp_token") ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
 
-      <Routes>
-        {/* Public */}
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
 
-        {/* Compliance pages (A2P-friendly) */}
-        <Route path="/terms" element={<TermsOfService />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/billing" element={<BillingPolicy />} />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
 
-        {/* Protected */}
-        <Route
-          path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/login" replace />}
-        />
+          {/* Protected */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </>
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/billing"
+            element={
+              <ProtectedRoute>
+                <Billing />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Catch-all */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
