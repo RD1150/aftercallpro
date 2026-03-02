@@ -81,7 +81,7 @@ export default function App() {
             }
           />
 
-          <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
     </Router>
