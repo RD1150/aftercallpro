@@ -1,9 +1,7 @@
-// src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./AuthProvider";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
 
-// Pages
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
@@ -12,47 +10,32 @@ import TermsOfService from "./pages/TermsOfService";
 import ContactSupport from "./pages/ContactSupport";
 import Home from "./pages/Home";
 
-// -----------------------------
-// Protected Route
-// -----------------------------
 function ProtectedRoute({ children }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
   return children;
 }
 
-// -----------------------------
-// App
-// -----------------------------
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/billing-policy" element={<BillingPolicy />} />
+      <Route path="/terms" element={<TermsOfService />} />
+      <Route path="/support" element={<ContactSupport />} />
 
-          {/* Public */}
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/billing-policy" element={<BillingPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/support" element={<ContactSupport />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
 
-          {/* Protected */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-
-        </Routes>
-      </Router>
-    </AuthProvider>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
