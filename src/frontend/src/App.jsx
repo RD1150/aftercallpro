@@ -3,16 +3,14 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./AuthProvider";
 
-// Pages (these exist in /pages)
+// Pages
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import BillingPolicy from "./pages/BillingPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import ContactSupport from "./pages/ContactSupport";
-
-// Components (these exist in /components)
-import BusinessSettings from "./components/BusinessSettings";
+import Home from "./pages/Home";
 
 // -----------------------------
 // Protected Route
@@ -31,7 +29,9 @@ export default function App() {
     <AuthProvider>
       <Router>
         <Routes>
+
           {/* Public */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/billing-policy" element={<BillingPolicy />} />
@@ -40,24 +40,17 @@ export default function App() {
 
           {/* Protected */}
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/business-settings"
-            element={
-              <ProtectedRoute>
-                <BusinessSettings />
-              </ProtectedRoute>
-            }
-          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
+
         </Routes>
       </Router>
     </AuthProvider>
