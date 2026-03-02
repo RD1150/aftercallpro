@@ -10,7 +10,6 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import BusinessSettings from "./components/BusinessSettings";
 import BillingPolicy from "./pages/BillingPolicy";
-import NotFound from "./pages/NotFound";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
