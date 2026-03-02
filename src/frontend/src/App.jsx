@@ -2,20 +2,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-// ✅ Correct import (matches your actual file: src/AuthProvider.jsx)
 import { AuthProvider, useAuth } from "./AuthProvider";
 
 // Pages
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
 import Billing from "./pages/Billing";
+import BusinessSettings from "./pages/BusinessSettings";
 import NotFound from "./pages/NotFound";
 
-// ----------------------------------------------------
-// Protected Route
-// ----------------------------------------------------
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
@@ -25,9 +21,6 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
-// ----------------------------------------------------
-// Public Route (redirect logged-in users)
-// ----------------------------------------------------
 function PublicRoute({ children }) {
   const { user, loading } = useAuth();
 
@@ -42,10 +35,8 @@ export default function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Root Redirect */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-          {/* Public */}
           <Route
             path="/login"
             element={
@@ -64,7 +55,6 @@ export default function App() {
             }
           />
 
-          {/* Protected */}
           <Route
             path="/dashboard"
             element={
@@ -78,7 +68,7 @@ export default function App() {
             path="/settings"
             element={
               <ProtectedRoute>
-                <Settings />
+                <BusinessSettings />
               </ProtectedRoute>
             }
           />
@@ -92,7 +82,6 @@ export default function App() {
             }
           />
 
-          {/* Catch All */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
