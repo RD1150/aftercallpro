@@ -8,7 +8,7 @@ import { AuthProvider, useAuth } from "./AuthProvider";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import BusinessSettings from "./pages/BusinessSettings";
+import BusinessSettings from "./components/BusinessSettings";
 import BillingPolicy from "./pages/BillingPolicy";
 import NotFound from "./pages/NotFound";
 
