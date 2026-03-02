@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 
 // Pages
 import Login from "./pages/Login";
@@ -13,20 +14,26 @@ import Billing from "./pages/Billing";
 import NotFound from "./pages/NotFound";
 
 // ----------------------------------------------------
-// Simple protected route wrapper
+// Protected Route (uses AuthContext instead of localStorage directly)
 // ----------------------------------------------------
 function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("acp_token");
-  if (!token) return <Navigate to="/login" replace />;
+  const { user, loading } = useAuth();
+
+  if (loading) return null; // or spinner
+  if (!user) return <Navigate to="/login" replace />;
+
   return children;
 }
 
 // ----------------------------------------------------
-// Logged-in redirect helper
+// Public Route (redirect if already logged in)
 // ----------------------------------------------------
 function PublicRoute({ children }) {
-  const token = localStorage.getItem("acp_token");
-  if (token) return <Navigate to="/dashboard" replace />;
+  const { user, loading } = useAuth();
+
+  if (loading) return null;
+  if (user) return <Navigate to="/dashboard" replace />;
+
   return children;
 }
 
@@ -35,18 +42,10 @@ export default function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          {/* Public */}
-          <Route
-            path="/"
-            element={
-              localStorage.getItem("acp_token") ? (
-                <Navigate to="/dashboard" replace />
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            }
-          />
+          {/* Root Redirect */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
+          {/* Public */}
           <Route
             path="/login"
             element={
@@ -93,7 +92,7 @@ export default function App() {
             }
           />
 
-          {/* Catch-all */}
+          {/* Catch All */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
