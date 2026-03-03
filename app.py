@@ -7,10 +7,26 @@ import os
 # -------------------------
 app = Flask(__name__)
 
-# REQUIRED for sessions
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-this")
 
-# Allow frontend cookies (VERY IMPORTANT for session login)
+# -------------------------
+# DATABASE CONFIG
+# -------------------------
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# -------------------------
+# INIT EXTENSIONS
+# -------------------------
+from src.models.user import db
+
+db.init_app(app)
+
+# Create tables automatically (safe for early-stage app)
+with app.app_context():
+    db.create_all()
+
+# Allow frontend cookies (for session login)
 CORS(app, supports_credentials=True)
 
 # -------------------------
@@ -18,10 +34,6 @@ CORS(app, supports_credentials=True)
 # -------------------------
 from src.routes.auth import auth_bp
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
-
-# If you later create more route files:
-# from src.routes.business import business_bp
-# app.register_blueprint(business_bp, url_prefix="/api/business")
 
 # -------------------------
 # HEALTH CHECK
