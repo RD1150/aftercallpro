@@ -210,4 +210,25 @@ def verify_reset_token():
     is_valid = user.verify_reset_token(data['token'])
     
     return jsonify({'valid': is_valid}), 200
+@auth_bp.route('/business/settings', methods=['POST'])
+@login_required
+def update_business_settings():
+    data = request.get_json()
 
+    business = Business.query.get(session.get('business_id'))
+
+    if not business:
+        return jsonify({'error': 'Business not found'}), 404
+
+    # Update fields if provided
+    business.name = data.get('businessName', business.name)
+    business.phone_number = data.get('phoneNumber', business.phone_number)
+    business.timezone = data.get('timezone', business.timezone)
+    business.greeting_message = data.get('autoReply', business.greeting_message)
+
+    db.session.commit()
+
+    return jsonify({
+        'message': 'Business settings updated successfully',
+        'business': business.to_dict()
+    }), 200
