@@ -62,6 +62,14 @@ def register():
     
     db.session.add(business)
     db.session.commit()
+
+    # Trigger new contact automation (replaces GHL Contact Changed / Form Submitted workflow)
+    try:
+        from src.services.automations import trigger_new_contact
+        trigger_new_contact(business)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error('New contact automation failed: %s', e)
     
     # Log the user in
     session['user_id'] = user.id

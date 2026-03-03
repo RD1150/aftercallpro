@@ -183,7 +183,21 @@ def update_appointment(appointment_id):
     if 'notes' in data:
         appointment.notes = data['notes']
     if 'status' in data:
+        old_status = appointment.status
         appointment.status = data['status']
+        # Trigger no-show recovery if status changed to no_show
+        if data['status'] == 'no_show' and old_status != 'no_show':
+            try:
+                from src.services.automations import trigger_no_show_recovery
+                trigger_no_show_recovery(
+                    business=business,
+                    appointment=appointment,
+                    customer_email=appointment.customer_email or "",
+                    customer_phone=appointment.customer_phone or ""
+                )
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).error('No-show recovery automation failed: %s', e)
     
     # Update in Google Calendar if enabled
     calendar_service = CalendarService(business.id)

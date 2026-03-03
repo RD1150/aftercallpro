@@ -1,6 +1,6 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthProvider";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./AuthProvider";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -9,19 +9,22 @@ import BillingPolicy from "./pages/BillingPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import ContactSupport from "./pages/ContactSupport";
 import Home from "./pages/Home";
+import Pricing from "./pages/Pricing";
 
 function ProtectedRoute({ children }) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  if (loading) return null;
   if (!user) return <Navigate to="/login" replace />;
   return children;
 }
 
-export default function App() {
+function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/pricing" element={<Pricing />} />
       <Route path="/billing-policy" element={<BillingPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="/support" element={<ContactSupport />} />
@@ -37,5 +40,15 @@ export default function App() {
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

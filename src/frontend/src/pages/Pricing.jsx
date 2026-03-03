@@ -1,18 +1,128 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthProvider";
 
-/**
- * ===============================
- * 🔗 LIVE CHECKOUT LINKS (LOCKED)
- * ===============================
- */
-const LINKS = {
-  freeSignup: "https://clients.aftercallpro.com/signup",
-  starterCheckout: "https://link.fastpaydirect.com/payment-link/694f1ae2d545d844228dee42",
-  coreCheckout: "https://link.fastpaydirect.com/payment-link/694f2f2cdf9e923b90f7d5b5",
-  eliteCheckout: "https://link.fastpaydirect.com/payment-link/694f32bddf9e92683df7d90b",
-};
+const API_BASE = "";  // Same-origin — Flask serves both frontend and API
+
+const PLANS = [
+  {
+    id: "free",
+    name: "Free",
+    price: "$0",
+    desc: "AI call handling for individuals getting started.",
+    features: [
+      "AI call answering (limited)",
+      "Call summaries & transcripts",
+      "Lead capture",
+      "Basic CRM",
+      "1 phone number",
+    ],
+    cta: "Start Free",
+    ctaStyle: "secondary",
+    href: "/signup",
+  },
+  {
+    id: "starter",
+    name: "Starter",
+    price: "$39",
+    period: "/mo",
+    desc: "For solo operators and small businesses.",
+    features: [
+      "Everything in Free",
+      "Higher call volume",
+      "SMS & email follow-up",
+      "Appointment booking",
+      "Lead routing",
+    ],
+    cta: "Upgrade to Starter",
+    ctaStyle: "primary",
+  },
+  {
+    id: "core",
+    name: "Core",
+    price: "$99",
+    period: "/mo",
+    desc: "For growing teams that depend on inbound calls.",
+    features: [
+      "Everything in Starter",
+      "Smart CRM sync",
+      "Multi-agent routing",
+      "Branded voicemail",
+      "Advanced analytics",
+    ],
+    cta: "Upgrade to Core",
+    ctaStyle: "primary",
+    featured: true,
+  },
+  {
+    id: "elite",
+    name: "Elite",
+    price: "$249",
+    period: "/mo",
+    desc: "Mission-critical call handling for high-volume businesses.",
+    features: [
+      "Everything in Core",
+      "24/7 AI receptionist",
+      "AI booking engine",
+      "Lead recovery sequences",
+      "Unlimited phone numbers*",
+      "Dedicated onboarding & priority support",
+    ],
+    cta: "Upgrade to Elite",
+    ctaStyle: "primary",
+  },
+];
 
 export default function Pricing() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(null);
+  const [error, setError] = useState("");
+
+  const handleSubscribe = async (planId) => {
+    if (planId === "free") {
+      navigate("/signup");
+      return;
+    }
+
+    if (!user) {
+      // Not logged in — send them to signup first
+      navigate(`/signup?plan=${planId}`);
+      return;
+    }
+
+    setLoading(planId);
+    setError("");
+
+    try {
+      const res = await fetch(`${API_BASE}/api/payments/create-checkout-session`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: planId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Something went wrong. Please try again.");
+        setLoading(null);
+        return;
+      }
+
+      // Redirect to Stripe Checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError("Could not start checkout. Please try again.");
+        setLoading(null);
+      }
+    } catch (err) {
+      setError("Network error. Please check your connection and try again.");
+      setLoading(null);
+    }
+  };
+
   return (
     <section style={styles.section}>
       <div style={styles.header}>
@@ -22,95 +132,58 @@ export default function Pricing() {
         </p>
       </div>
 
+      {error && (
+        <div style={styles.errorBanner}>
+          {error}
+        </div>
+      )}
+
       <div style={styles.grid}>
-        {/* FREE */}
-        <div style={styles.plan}>
-          <h3 style={styles.planTitle}>Free</h3>
-          <p style={styles.price}>$0</p>
-          <p style={styles.desc}>
-            AI call handling for individuals getting started.
-          </p>
-          <ul style={styles.list}>
-            <li>AI call answering (limited)</li>
-            <li>Call summaries & transcripts</li>
-            <li>Lead capture</li>
-            <li>Basic CRM</li>
-            <li>1 phone number</li>
-          </ul>
-          <a href={LINKS.freeSignup} style={styles.secondaryBtn}>
-            Start Free
-          </a>
-          <p style={styles.note}>No credit card required</p>
-        </div>
+        {PLANS.map((plan) => (
+          <div
+            key={plan.id}
+            style={{
+              ...styles.plan,
+              ...(plan.featured ? styles.featured : {}),
+            }}
+          >
+            {plan.featured && <span style={styles.badge}>Most Popular</span>}
+            <h3 style={styles.planTitle}>{plan.name}</h3>
+            <p style={styles.price}>
+              {plan.price}
+              {plan.period && <span style={styles.mo}>{plan.period}</span>}
+            </p>
+            <p style={styles.desc}>{plan.desc}</p>
+            <ul style={styles.list}>
+              {plan.features.map((f) => (
+                <li key={f} style={styles.listItem}>
+                  <span style={styles.check}>✓</span> {f}
+                </li>
+              ))}
+            </ul>
 
-        {/* STARTER */}
-        <div style={styles.plan}>
-          <h3 style={styles.planTitle}>Starter</h3>
-          <p style={styles.price}>
-            $39<span style={styles.mo}>/mo</span>
-          </p>
-          <p style={styles.desc}>
-            For solo operators and small businesses.
-          </p>
-          <ul style={styles.list}>
-            <li>Everything in Free</li>
-            <li>Higher call volume</li>
-            <li>SMS & email follow-up</li>
-            <li>Appointment booking</li>
-            <li>Lead routing</li>
-          </ul>
-          <a href={LINKS.starterCheckout} style={styles.primaryBtn}>
-            Upgrade to Starter
-          </a>
-        </div>
+            <button
+              onClick={() => handleSubscribe(plan.id)}
+              disabled={loading === plan.id}
+              style={{
+                ...styles.btn,
+                ...(plan.ctaStyle === "primary" ? styles.primaryBtn : styles.secondaryBtn),
+                ...(loading === plan.id ? styles.loadingBtn : {}),
+              }}
+            >
+              {loading === plan.id ? "Loading…" : plan.cta}
+            </button>
 
-        {/* CORE */}
-        <div style={{ ...styles.plan, ...styles.featured }}>
-          <span style={styles.badge}>Most Popular</span>
-          <h3 style={styles.planTitle}>Core</h3>
-          <p style={styles.price}>
-            $99<span style={styles.mo}>/mo</span>
-          </p>
-          <p style={styles.desc}>
-            For growing teams that depend on inbound calls.
-          </p>
-          <ul style={styles.list}>
-            <li>Everything in Starter</li>
-            <li>Smart CRM sync</li>
-            <li>Multi-agent routing</li>
-            <li>Branded voicemail</li>
-            <li>Advanced analytics</li>
-          </ul>
-          <a href={LINKS.coreCheckout} style={styles.primaryBtn}>
-            Upgrade to Core
-          </a>
-        </div>
-
-        {/* ELITE */}
-        <div style={styles.plan}>
-          <h3 style={styles.planTitle}>Elite</h3>
-          <p style={styles.price}>
-            $249<span style={styles.mo}>/mo</span>
-          </p>
-          <p style={styles.desc}>
-            Mission-critical call handling for high-volume businesses.
-          </p>
-          <ul style={styles.list}>
-            <li>Everything in Core</li>
-            <li>24/7 AI receptionist</li>
-            <li>AI booking engine</li>
-            <li>Lead recovery sequences</li>
-            <li>Unlimited phone numbers*</li>
-            <li>Dedicated onboarding & priority support</li>
-          </ul>
-          <a href={LINKS.eliteCheckout} style={styles.primaryBtn}>
-            Upgrade to Elite
-          </a>
-        </div>
+            {plan.id === "free" && (
+              <p style={styles.note}>No credit card required</p>
+            )}
+          </div>
+        ))}
       </div>
 
       <p style={styles.footerNote}>
         *Usage limits apply. Upgrade anytime as your call volume grows.
+        Subscriptions are billed monthly and can be cancelled at any time.
       </p>
     </section>
   );
@@ -130,10 +203,20 @@ const styles = {
   title: {
     fontSize: "42px",
     marginBottom: "12px",
+    color: "#0f172a",
   },
   subtitle: {
     fontSize: "18px",
     color: "#64748b",
+  },
+  errorBanner: {
+    background: "#fef2f2",
+    border: "1px solid #fca5a5",
+    color: "#b91c1c",
+    borderRadius: "8px",
+    padding: "12px 16px",
+    marginBottom: "24px",
+    textAlign: "center",
   },
   grid: {
     display: "grid",
@@ -164,11 +247,13 @@ const styles = {
   planTitle: {
     fontSize: "24px",
     marginBottom: "8px",
+    color: "#0f172a",
   },
   price: {
     fontSize: "36px",
     fontWeight: "700",
     margin: "12px 0",
+    color: "#0f172a",
   },
   mo: {
     fontSize: "16px",
@@ -179,31 +264,47 @@ const styles = {
   desc: {
     color: "#64748b",
     marginBottom: "20px",
+    fontSize: "14px",
   },
   list: {
     listStyle: "none",
     paddingLeft: 0,
     marginBottom: "24px",
+    flexGrow: 1,
   },
-  primaryBtn: {
+  listItem: {
+    padding: "4px 0",
+    fontSize: "14px",
+    color: "#374151",
+  },
+  check: {
+    color: "#2563eb",
+    fontWeight: "700",
+    marginRight: "6px",
+  },
+  btn: {
     marginTop: "auto",
     padding: "12px 20px",
     borderRadius: "8px",
     textAlign: "center",
     fontWeight: "600",
-    textDecoration: "none",
+    fontSize: "15px",
+    cursor: "pointer",
+    border: "none",
+    transition: "opacity 0.2s",
+  },
+  primaryBtn: {
     background: "#2563eb",
     color: "#ffffff",
   },
   secondaryBtn: {
-    marginTop: "auto",
-    padding: "12px 20px",
-    borderRadius: "8px",
-    textAlign: "center",
-    fontWeight: "600",
-    textDecoration: "none",
+    background: "transparent",
     border: "1px solid #0f172a",
     color: "#0f172a",
+  },
+  loadingBtn: {
+    opacity: 0.6,
+    cursor: "not-allowed",
   },
   note: {
     marginTop: "10px",

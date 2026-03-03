@@ -178,6 +178,20 @@ def call_status():
                 email_service.send_new_call_notification(business, call)
             except Exception as e:
                 print(f"Failed to send email notification: {e}")
+
+            # Trigger missed call recovery automation if call was short (likely missed/unanswered)
+            # A call under 30 seconds with a transcript suggests the AI answered but caller hung up quickly
+            if int(call_duration) < 30:
+                try:
+                    from src.services.automations import trigger_missed_call_recovery
+                    trigger_missed_call_recovery(
+                        business=business,
+                        caller_number=call.from_number,
+                        transcript=call.transcript or "",
+                        call_summary=call.summary or ""
+                    )
+                except Exception as e:
+                    print(f"Missed call recovery automation failed: {e}")
         
         db.session.commit()
     
