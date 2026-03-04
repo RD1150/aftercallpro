@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Building frontend..."
+echo "=== Installing Python dependencies ==="
+pip install -r requirements.txt
+
+echo "=== Installing Node.js frontend dependencies ==="
 cd src/frontend
 npm install
-npm run build
-cd ../..
 
-echo "Build complete"
+echo "=== Building React frontend ==="
+npm run build
+
+echo "=== Verifying build output ==="
+ls -la dist/
+
+cd ../..
+echo "=== Build complete ==="

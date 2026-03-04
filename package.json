@@ -1,0 +1,11 @@
+{
+  "name": "aftercallpro",
+  "version": "1.0.0",
+  "description": "AfterCallPro - AI Call Answering SaaS",
+  "scripts": {
+    "build": "cd src/frontend && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

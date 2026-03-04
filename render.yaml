@@ -3,8 +3,8 @@ services:
     name: aftercallpro
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt && bash render-build.sh
-    startCommand: gunicorn app:app
+    buildCommand: bash render-build.sh
+    startCommand: gunicorn app:app --timeout 120 --workers 2
     runtime: python
     envVars:
       - key: SECRET_KEY
@@ -16,14 +16,6 @@ services:
       - key: STRIPE_SECRET_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET
-        sync: false
-      - key: STRIPE_STARTER_PRICE_ID
-        sync: false
-      - key: STRIPE_PRO_PRICE_ID
-        sync: false
-      - key: STRIPE_BUSINESS_PRICE_ID
-        sync: false
-      - key: STRIPE_ELITE_PRICE_ID
         sync: false
 
 databases:
