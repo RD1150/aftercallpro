@@ -10,24 +10,23 @@ payments_bp = Blueprint('payments', __name__)
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 # Subscription tier pricing — matches Pricing.jsx plans
+# Two paid plans: Core ($99/mo or $990/yr) and Elite ($297/mo or $2,970/yr)
 SUBSCRIPTION_PLANS = {
-    'starter': {
-        'name': 'Starter',
-        'price': 3900,   # $39.00/mo
-        'minutes': 500,
-        'stripe_price_id': os.getenv('STRIPE_STARTER_PRICE_ID')
-    },
     'core': {
         'name': 'Core',
-        'price': 9900,   # $99.00/mo
-        'minutes': 2000,
-        'stripe_price_id': os.getenv('STRIPE_CORE_PRICE_ID') or os.getenv('STRIPE_PRO_PRICE_ID')
+        'price_monthly': 9900,    # $99.00/mo
+        'price_yearly': 99000,    # $990.00/yr
+        'minutes': 1500,
+        'stripe_price_id_monthly': 'price_1SdJ4iFdaiPvq2Of6qx8oK7G',
+        'stripe_price_id_yearly':  'price_1SdJ4iFdaiPvq2OfQQbvUxyV',
     },
     'elite': {
         'name': 'Elite',
-        'price': 24900,  # $249.00/mo
-        'minutes': 6000,
-        'stripe_price_id': os.getenv('STRIPE_ELITE_PRICE_ID') or os.getenv('STRIPE_BUSINESS_PRICE_ID')
+        'price_monthly': 29700,   # $297.00/mo
+        'price_yearly': 297000,   # $2,970.00/yr
+        'minutes': 5000,
+        'stripe_price_id_monthly': 'price_1T3AYpFdaiPvq2OfEVuJYK2P',
+        'stripe_price_id_yearly':  'price_1T3AYpFdaiPvq2OfZZoxetL8',
     }
 }
 
@@ -37,7 +36,10 @@ SUBSCRIPTION_PLANS = {
 def create_checkout_session():
     """Create a Stripe Checkout session for a subscription plan."""
     data = request.get_json()
-    plan = data.get('plan', 'starter')
+    plan = data.get('plan', 'core')
+    billing = data.get('billing', 'monthly')  # 'monthly' or 'yearly'
+    # Frontend can pass the price_id directly (preferred) or we look it up
+    price_id = data.get('price_id')
 
     if plan not in SUBSCRIPTION_PLANS:
         return jsonify({'error': 'Invalid subscription plan'}), 400
@@ -48,9 +50,13 @@ def create_checkout_session():
     if not business:
         return jsonify({'error': 'Business not found'}), 404
 
-    price_id = SUBSCRIPTION_PLANS[plan]['stripe_price_id']
+    # Use price_id from frontend if provided, otherwise look up from plan config
     if not price_id:
-        return jsonify({'error': f'Stripe price ID for plan "{plan}" is not configured. Please set the environment variable.'}), 500
+        key = 'stripe_price_id_yearly' if billing == 'yearly' else 'stripe_price_id_monthly'
+        price_id = SUBSCRIPTION_PLANS[plan].get(key)
+
+    if not price_id:
+        return jsonify({'error': f'Stripe price ID for plan "{plan}" ({billing}) is not configured.'}), 500
 
     try:
         # Build success and cancel URLs relative to the request host
