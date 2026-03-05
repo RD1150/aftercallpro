@@ -10,6 +10,9 @@ import TermsOfService from "./pages/TermsOfService";
 import ContactSupport from "./pages/ContactSupport";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import SmsPolicy from "./pages/SmsPolicy";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -26,7 +29,10 @@ function AppRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/billing-policy" element={<BillingPolicy />} />
-      <Route path="/terms" element={<TermsOfService />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/terms-of-service" element={<TermsOfService />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/sms-policy" element={<SmsPolicy />} />
       <Route path="/support" element={<ContactSupport />} />
 
       <Route
