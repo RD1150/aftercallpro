@@ -9,6 +9,7 @@ const NAVY_DEEP = "#0b1220";
 const NAVY_MID = "#0f1c34";
 const TEXT_PRIMARY = "#E6EDF3";
 const TEXT_SECONDARY = "#9BA8B8";
+const TEXT_DIM = "#6B7A90";
 const FONT = "'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
 
 export default function Home() {
@@ -27,7 +28,7 @@ export default function Home() {
         <div style={{ color: TEXT_PRIMARY, fontWeight: 700, fontSize: "1.25rem", letterSpacing: "-0.5px" }}>
           AfterCall<span style={{ color: GOLD }}>Pro</span>
         </div>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           <Link to="/login" style={{ color: TEXT_SECONDARY, textDecoration: "none", fontSize: "0.9rem" }}>Log in</Link>
           <Link to="/signup" style={{
             background: GOLD,
@@ -48,10 +49,11 @@ export default function Home() {
       <section style={{
         background: `radial-gradient(circle at 50% 40%, rgba(247,201,72,0.08), transparent 60%), linear-gradient(135deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 100%)`,
         color: TEXT_PRIMARY,
-        padding: "5rem 1.5rem",
+        padding: "5.5rem 1.5rem 5rem",
         textAlign: "center"
       }}>
-        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "740px", margin: "0 auto" }}>
+
           {/* Badge */}
           <div style={{
             display: "inline-block",
@@ -62,36 +64,41 @@ export default function Home() {
             padding: "0.35rem 1rem",
             fontSize: "0.8rem",
             fontWeight: 600,
-            marginBottom: "1.5rem",
+            marginBottom: "1.75rem",
             letterSpacing: "0.01em"
           }}>
             AI-powered call answering for service businesses
           </div>
 
-          {/* Headline */}
+          {/* Headline — first line dimmed, product name dominant */}
           <h1 style={{
             fontSize: "clamp(2rem, 5vw, 3.5rem)",
             fontWeight: 700,
-            lineHeight: 1.15,
-            margin: "0 0 1.25rem",
-            color: TEXT_PRIMARY
+            lineHeight: 1.18,
+            margin: "0 0 1.25rem"
           }}>
-            Stop losing customers<br />
-            to missed calls.<br />
-            <span style={{ color: GOLD }}>AfterCallPro</span> answers automatically.
+            <span style={{ color: TEXT_DIM }}>Stop losing customers<br />to missed calls.</span>
+            <br />
+            <span style={{
+              color: GOLD,
+              fontSize: "1.08em",
+              fontWeight: 800,
+              textShadow: `0 0 40px rgba(247,201,72,0.35)`
+            }}>AfterCallPro</span>
+            <span style={{ color: TEXT_PRIMARY }}> answers automatically.</span>
           </h1>
 
           {/* Subtext */}
-          <p style={{ fontSize: "1.15rem", color: TEXT_SECONDARY, lineHeight: 1.7, marginBottom: "2.5rem" }}>
-            Capture every lead, respond instantly, and turn missed calls into booked customers.
+          <p style={{ fontSize: "1.15rem", color: TEXT_SECONDARY, lineHeight: 1.7, marginBottom: "2rem" }}>
+            Capture every lead, respond instantly, and turn missed calls into paying customers.
           </p>
 
           {/* CTAs */}
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "1.25rem", justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
             <Link to="/signup" style={{
               background: GOLD,
               color: NAVY_DEEP,
-              padding: "0.9rem 2rem",
+              padding: "1rem 1.75rem",
               borderRadius: "0.75rem",
               fontWeight: 700,
               textDecoration: "none",
@@ -101,24 +108,27 @@ export default function Home() {
               Start free trial
             </Link>
             <a href="#pricing" style={{
-              background: "rgba(255,255,255,0.06)",
-              color: TEXT_PRIMARY,
-              border: "1px solid rgba(255,255,255,0.12)",
-              padding: "0.9rem 2rem",
-              borderRadius: "0.75rem",
-              fontWeight: 600,
+              color: TEXT_SECONDARY,
               textDecoration: "none",
-              fontSize: "1rem"
+              fontSize: "0.95rem",
+              fontWeight: 500,
+              borderBottom: `1px solid rgba(155,168,184,0.35)`,
+              paddingBottom: "1px"
             }}>
-              See pricing
+              See pricing →
             </a>
           </div>
 
-          {/* Trust badges */}
-          <div style={{ marginTop: "2rem", display: "flex", gap: "2rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.85rem", color: TEXT_SECONDARY }}>
-            <span>⚡ Setup in minutes</span>
-            <span>📩 Instant transcripts</span>
-            <span>🔒 Secure & compliant</span>
+          {/* Trust line */}
+          <p style={{ marginTop: "1rem", fontSize: "0.82rem", color: TEXT_DIM }}>
+            No credit card required &nbsp;•&nbsp; Setup in under 5 minutes
+          </p>
+
+          {/* Micro icons */}
+          <div style={{ marginTop: "2rem", display: "flex", gap: "2rem", justifyContent: "center", flexWrap: "wrap", fontSize: "0.85rem", color: TEXT_DIM }}>
+            <span>⚡ Setup in 2 minutes</span>
+            <span>📨 Instant call transcripts</span>
+            <span>🔒 Enterprise-grade security</span>
           </div>
         </div>
       </section>
@@ -126,9 +136,9 @@ export default function Home() {
       {/* SOCIAL PROOF */}
       <section style={{ background: NAVY_DEEP, borderTop: "1px solid rgba(255,255,255,0.06)", padding: "2rem 1.5rem", textAlign: "center" }}>
         <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-          <p style={{ color: "#475569", fontSize: "0.85rem", marginBottom: "1.5rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Trusted by service businesses</p>
+          <p style={{ color: "#475569", fontSize: "0.85rem", marginBottom: "1.5rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Trusted by service businesses nationwide</p>
           <div style={{ display: "flex", gap: "2rem", justifyContent: "center", flexWrap: "wrap" }}>
-            {["HVAC", "Plumbing", "Dental", "Roofing", "Auto Repair"].map(b => (
+            {["HVAC", "Plumbing", "Dental", "Med Spa", "Salon", "Roofing", "Auto Repair"].map(b => (
               <span key={b} style={{ color: "#64748b", fontWeight: 600, fontSize: "0.9rem" }}>{b}</span>
             ))}
           </div>
@@ -144,12 +154,12 @@ export default function Home() {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem" }}>
             {[
-              { step: "01", title: "Call comes in", desc: "A customer calls your business number. You're busy — AfterCallPro picks up instantly." },
-              { step: "02", title: "AI captures the lead", desc: "Our AI answers naturally, collects the caller's name, number, and reason for calling." },
-              { step: "03", title: "You get notified", desc: "You receive a full transcript, SMS alert, and the lead is saved in your dashboard." },
+              { step: "1️⃣", title: "A customer calls", desc: "A customer calls your business number. You're busy — AfterCallPro picks up instantly." },
+              { step: "2️⃣", title: "AfterCallPro answers instantly", desc: "Our AI answers naturally, collects the caller's name, number, and reason for calling." },
+              { step: "3️⃣", title: "You receive the lead + transcript", desc: "You get a full transcript, SMS alert, and the lead is saved in your dashboard." },
             ].map(s => (
               <div key={s.step} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "1rem", padding: "2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
-                <div style={{ color: GOLD, fontWeight: 700, fontSize: "2rem", marginBottom: "1rem" }}>{s.step}</div>
+                <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>{s.step}</div>
                 <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#0b1524", marginBottom: "0.5rem" }}>{s.title}</div>
                 <div style={{ color: "#475569", lineHeight: 1.6 }}>{s.desc}</div>
               </div>
@@ -279,6 +289,9 @@ export default function Home() {
           }}>
             Start your free trial
           </Link>
+          <p style={{ marginTop: "1rem", fontSize: "0.82rem", color: TEXT_DIM }}>
+            No credit card required &nbsp;•&nbsp; Setup in under 5 minutes
+          </p>
         </div>
       </section>
 
