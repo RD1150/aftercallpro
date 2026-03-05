@@ -24,11 +24,11 @@ export default function Home() {
             AI-powered call answering for service businesses
           </div>
           <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 900, lineHeight: 1.1, margin: "0 0 1.25rem" }}>
-            Your business is missing calls.<br />
-            <span style={{ color: "#c9a227" }}>AfterCallPro</span> answers them.
+            Stop losing customers to missed calls.<br />
+            <span style={{ color: "#c9a227" }}>AfterCallPro</span> answers them automatically.
           </h1>
           <p style={{ fontSize: "1.15rem", color: "#94a3b8", lineHeight: 1.7, marginBottom: "2.5rem" }}>
-            AfterCallPro answers missed calls 24/7, captures the lead, and triggers follow-up — so you stop losing revenue when you're busy.
+            Capture every lead, respond instantly, and turn missed calls into booked appointments.
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link to="/signup" style={{ background: "#c9a227", color: "#0b1524", padding: "0.9rem 2rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none", fontSize: "1rem" }}>
