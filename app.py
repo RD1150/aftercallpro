@@ -55,6 +55,8 @@ CORS(app, supports_credentials=True, origins=[
     "http://localhost:5173",
     "http://localhost:3000",
     "https://aftercallpro.onrender.com",
+    "https://aftercallpro.com",
+    "https://www.aftercallpro.com",
 ])
 
 # -------------------------
