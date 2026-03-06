@@ -123,6 +123,15 @@ export default function Signup() {
           >
             {loading ? "Creating account…" : "Create Free Account"}
           </button>
+          <p style={styles.consent}>
+            By creating an account, you agree to our{" "}
+            <Link to="/terms" style={styles.link}>Terms of Service</Link> and{" "}
+            <Link to="/privacy" style={styles.link}>Privacy Policy</Link>. Your customers
+            may receive automated SMS follow-ups related to their calls through
+            AfterCallPro. See our{" "}
+            <Link to="/sms-policy" style={styles.link}>SMS Policy</Link>. Reply STOP to
+            opt out. Msg &amp; data rates may apply.
+          </p>
         </form>
 
         <p style={styles.footer}>
@@ -217,5 +226,12 @@ const styles = {
     color: "#2563eb",
     textDecoration: "none",
     fontWeight: "500",
+  },
+  consent: {
+    marginTop: "14px",
+    fontSize: "11px",
+    color: "#94a3b8",
+    lineHeight: "1.6",
+    textAlign: "center",
   },
 };
