@@ -13,6 +13,7 @@ import Pricing from "./pages/Pricing";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import SmsPolicy from "./pages/SmsPolicy";
+import SmsConsent from "./pages/SmsConsent";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -33,6 +34,7 @@ function AppRoutes() {
       <Route path="/terms-of-service" element={<TermsOfService />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sms-policy" element={<SmsPolicy />} />
+      <Route path="/sms-consent" element={<SmsConsent />} />
       <Route path="/support" element={<ContactSupport />} />
 
       <Route
