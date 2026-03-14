@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 // Design tokens
 const GOLD = "#f7c948";
@@ -13,6 +14,13 @@ const TEXT_DIM = "#6B7A90";
 const FONT = "'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
 
 export default function Home() {
+  const [annual, setAnnual] = useState(false);
+
+  const corePrice = annual ? 79 : 99;
+  const elitePrice = annual ? 237 : 297;
+  const coreSub = annual ? "billed $948/year — save $240" : "billed monthly";
+  const eliteSub = annual ? "billed $2,844/year — save $720" : "billed monthly";
+
   return (
     <main style={{ fontFamily: FONT, background: "#f8fafc", color: "#0f172a" }}>
 
@@ -70,7 +78,7 @@ export default function Home() {
             AI-powered call answering for service businesses
           </div>
 
-          {/* Headline — first line dimmed, product name dominant */}
+          {/* Headline */}
           <h1 style={{
             fontSize: "clamp(2rem, 5vw, 3.5rem)",
             fontWeight: 700,
@@ -197,20 +205,69 @@ export default function Home() {
       {/* PRICING */}
       <section id="pricing" style={{ padding: "5rem 1.5rem", background: "#f8fafc" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
             <h2 style={{ fontSize: "2rem", fontWeight: 700, color: "#0b1524" }}>Simple, transparent pricing</h2>
             <p style={{ color: "#475569", marginTop: "0.5rem" }}>No contracts. Cancel anytime.</p>
           </div>
+
+          {/* Billing toggle */}
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "0.75rem", marginBottom: "2.5rem" }}>
+            <span style={{ fontSize: "0.9rem", color: annual ? "#94a3b8" : "#0b1524", fontWeight: annual ? 400 : 600 }}>Monthly</span>
+            <button
+              onClick={() => setAnnual(!annual)}
+              style={{
+                width: "48px",
+                height: "26px",
+                borderRadius: "999px",
+                border: "none",
+                cursor: "pointer",
+                background: annual ? GOLD : "#cbd5e1",
+                position: "relative",
+                transition: "background 0.2s",
+                padding: 0
+              }}
+            >
+              <span style={{
+                display: "block",
+                width: "20px",
+                height: "20px",
+                borderRadius: "50%",
+                background: "white",
+                position: "absolute",
+                top: "3px",
+                left: annual ? "25px" : "3px",
+                transition: "left 0.2s",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.2)"
+              }} />
+            </button>
+            <span style={{ fontSize: "0.9rem", color: annual ? "#0b1524" : "#94a3b8", fontWeight: annual ? 600 : 400 }}>
+              Annual
+              <span style={{
+                marginLeft: "0.4rem",
+                background: annual ? GOLD_SUBTLE : "transparent",
+                color: annual ? GOLD : "#94a3b8",
+                border: annual ? `1px solid ${GOLD_BORDER}` : "1px solid transparent",
+                borderRadius: "999px",
+                padding: "0.1rem 0.5rem",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                transition: "all 0.2s"
+              }}>
+                Save 20%
+              </span>
+            </span>
+          </div>
+
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
 
             {/* Core Plan */}
             <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "1.25rem", padding: "2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}>
               <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#0b1524" }}>Core</div>
-              <div style={{ marginTop: "1rem" }}>
-                <span style={{ fontSize: "3rem", fontWeight: 700, color: "#0b1524" }}>$99</span>
-                <span style={{ color: "#475569", fontSize: "0.9rem" }}>/month</span>
+              <div style={{ marginTop: "1rem", display: "flex", alignItems: "flex-end", gap: "0.25rem" }}>
+                <span style={{ fontSize: "3rem", fontWeight: 700, color: "#0b1524", lineHeight: 1 }}>${corePrice}</span>
+                <span style={{ color: "#475569", fontSize: "0.9rem", marginBottom: "0.4rem" }}>/mo</span>
               </div>
-              <div style={{ color: "#475569", fontSize: "0.85rem", marginTop: "0.25rem" }}>or $990/year (save $198)</div>
+              <div style={{ color: "#64748b", fontSize: "0.82rem", marginTop: "0.25rem" }}>{coreSub}</div>
               <ul style={{ marginTop: "1.5rem", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
                 {["1,500 AI minutes/month", "24/7 AI call answering", "Call transcripts & summaries", "SMS follow-up automation", "Appointment booking", "Lead tracking & inbox", "Missed call recovery"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#334155", fontSize: "0.9rem" }}>
@@ -219,7 +276,7 @@ export default function Home() {
                 ))}
               </ul>
               <Link to="/signup" style={{ display: "block", marginTop: "2rem", background: "#0b1524", color: "white", textAlign: "center", padding: "0.85rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none" }}>
-                Get started
+                Start free trial
               </Link>
             </div>
 
@@ -229,11 +286,11 @@ export default function Home() {
                 MOST POPULAR
               </div>
               <div style={{ fontWeight: 700, fontSize: "1.1rem", color: TEXT_PRIMARY }}>Elite</div>
-              <div style={{ marginTop: "1rem" }}>
-                <span style={{ fontSize: "3rem", fontWeight: 700, color: TEXT_PRIMARY }}>$297</span>
-                <span style={{ color: TEXT_SECONDARY, fontSize: "0.9rem" }}>/month</span>
+              <div style={{ marginTop: "1rem", display: "flex", alignItems: "flex-end", gap: "0.25rem" }}>
+                <span style={{ fontSize: "3rem", fontWeight: 700, color: TEXT_PRIMARY, lineHeight: 1 }}>${elitePrice}</span>
+                <span style={{ color: TEXT_SECONDARY, fontSize: "0.9rem", marginBottom: "0.4rem" }}>/mo</span>
               </div>
-              <div style={{ color: TEXT_SECONDARY, fontSize: "0.85rem", marginTop: "0.25rem" }}>or $2,970/year (save $594)</div>
+              <div style={{ color: TEXT_SECONDARY, fontSize: "0.82rem", marginTop: "0.25rem" }}>{eliteSub}</div>
               <ul style={{ marginTop: "1.5rem", listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
                 {["5,000 AI minutes/month", "Everything in Core", "Priority support", "Advanced analytics", "No-show recovery", "Onboarding assistance", "Custom AI greeting"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#cbd5e1", fontSize: "0.9rem" }}>
@@ -242,25 +299,14 @@ export default function Home() {
                 ))}
               </ul>
               <Link to="/signup" style={{ display: "block", marginTop: "2rem", background: GOLD, color: NAVY_DEEP, textAlign: "center", padding: "0.85rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none", boxShadow: `0 8px 25px ${GOLD_GLOW}` }}>
-                Get started
+                Start free trial
               </Link>
             </div>
 
           </div>
           <p style={{ textAlign: "center", color: "#64748b", fontSize: "0.85rem", marginTop: "1.5rem" }}>
-            14-day money-back guarantee · No setup fees · Cancel anytime
+            14-day free trial · No credit card required · Cancel anytime
           </p>
-        </div>
-      </section>
-
-      {/* TESTIMONIAL */}
-      <section style={{ padding: "5rem 1.5rem", background: "white" }}>
-        <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>⭐⭐⭐⭐⭐</div>
-          <blockquote style={{ fontSize: "1.25rem", fontWeight: 600, color: "#0b1524", lineHeight: 1.6, fontStyle: "italic" }}>
-            "We booked 3 appointments from missed calls in the first week. AfterCallPro pays for itself."
-          </blockquote>
-          <div style={{ marginTop: "1rem", color: "#475569", fontSize: "0.9rem" }}>— HVAC business owner, Texas</div>
         </div>
       </section>
 
