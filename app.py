@@ -12,11 +12,10 @@ DIST_DIR = ROOT_DIR / "src" / "frontend" / "dist"
 # -------------------------
 # CREATE APP
 # -------------------------
-app = Flask(
-    __name__,
-    static_folder=str(DIST_DIR) if DIST_DIR.exists() else str(ROOT_DIR / "static"),
-    static_url_path="/"
-)
+# Do NOT set static_folder or static_url_path — Flask's built-in static handler
+# with static_url_path="/" intercepts all routes and returns 404 for React paths.
+# Our serve_react catch-all below handles all static file serving instead.
+app = Flask(__name__)
 
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-this-in-production")
 
@@ -92,7 +91,8 @@ except Exception as e:
 def health():
     return jsonify({
         "status": "ok",
-        "frontend_built": DIST_DIR.exists()
+        "service": "AfterCallPro",
+        "frontend_built": DIST_DIR.exists() and (DIST_DIR / "index.html").exists()
     })
 
 # -------------------------
@@ -101,26 +101,28 @@ def health():
 @app.route("/assets/<path:filename>")
 def serve_assets(filename):
     if DIST_DIR.exists():
-        return send_from_directory(DIST_DIR / "assets", filename)
+        return send_from_directory(str(DIST_DIR / "assets"), filename)
     return "Not found", 404
 
 # -------------------------
-# REACT ROUTING (CRITICAL - MUST BE LAST)
+# REACT SPA CATCH-ALL (MUST BE LAST)
+# Returns index.html for all React Router paths. Flask's built-in static
+# handler is disabled above so this is the sole handler for every non-API URL.
 # -------------------------
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
-    if DIST_DIR.exists():
+    if not DIST_DIR.exists():
+        return "<h1>App is starting...</h1><p>Please refresh in 1-2 minutes.</p>", 503
+
+    # Serve actual static files that exist in dist/ (favicon.ico, robots.txt, etc.)
+    if path:
         file_path = DIST_DIR / path
+        if file_path.exists() and file_path.is_file():
+            return send_from_directory(str(DIST_DIR), path)
 
-        # Serve actual files (JS, CSS, images)
-        if path != "" and file_path.exists() and file_path.is_file():
-            return send_from_directory(DIST_DIR, path)
-
-        # Fallback to React app
-        return send_from_directory(DIST_DIR, "index.html")
-
-    return "<h1>App is starting...</h1>", 503
+    # For all React Router paths, return index.html
+    return send_from_directory(str(DIST_DIR), "index.html")
 
 # -------------------------
 # START SERVER
