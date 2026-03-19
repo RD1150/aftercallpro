@@ -105,7 +105,7 @@ def serve_assets(filename):
     return "Not found", 404
 
 # -------------------------
-# MAIN REACT ROUTING (THIS IS THE KEY)
+# REACT ROUTING (CRITICAL - MUST BE LAST)
 # -------------------------
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
@@ -113,14 +113,14 @@ def serve_react(path):
     if DIST_DIR.exists():
         file_path = DIST_DIR / path
 
-        # If file exists, serve it (JS, CSS, images)
+        # Serve actual files (JS, CSS, images)
         if path != "" and file_path.exists() and file_path.is_file():
             return send_from_directory(DIST_DIR, path)
 
-        # Otherwise serve React app
+        # Fallback to React app
         return send_from_directory(DIST_DIR, "index.html")
 
-    return "<h1>App is starting up...</h1>", 503
+    return "<h1>App is starting...</h1>", 503
 
 # -------------------------
 # START SERVER
