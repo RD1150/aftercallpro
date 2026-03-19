@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_from_directory, send_file
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 from pathlib import Path
@@ -30,7 +30,6 @@ app.config["SESSION_COOKIE_HTTPONLY"] = True
 # -------------------------
 database_url = os.environ.get("DATABASE_URL", "")
 
-# Fix Render's postgres:// prefix to postgresql+psycopg2://
 if database_url.startswith("postgres://"):
     database_url = "postgresql+psycopg2://" + database_url[len("postgres://"):]
 elif database_url.startswith("postgresql://"):
@@ -43,14 +42,14 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # INIT EXTENSIONS
 # -------------------------
 from src.models.user import db
-
 db.init_app(app)
 
-# Create tables automatically
 with app.app_context():
     db.create_all()
 
-# Allow frontend cookies
+# -------------------------
+# CORS
+# -------------------------
 CORS(app, supports_credentials=True, origins=[
     "http://localhost:5173",
     "http://localhost:3000",
@@ -68,39 +67,36 @@ from src.routes.payments import payments_bp
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(payments_bp, url_prefix="/api/payments")
 
-# Try to register optional blueprints
 try:
     from src.routes.voice import voice_bp
     app.register_blueprint(voice_bp, url_prefix="/api/voice")
 except Exception as e:
-    print(f"Warning: could not load voice blueprint: {e}")
+    print(f"Voice blueprint not loaded: {e}")
 
 try:
     from src.routes.appointments import appointments_bp
     app.register_blueprint(appointments_bp, url_prefix="/api/appointments")
 except Exception as e:
-    print(f"Warning: could not load appointments blueprint: {e}")
+    print(f"Appointments blueprint not loaded: {e}")
 
 try:
     from src.routes.business import business_bp
     app.register_blueprint(business_bp, url_prefix="/api/business")
 except Exception as e:
-    print(f"Warning: could not load business blueprint: {e}")
+    print(f"Business blueprint not loaded: {e}")
 
 # -------------------------
 # HEALTH CHECK
 # -------------------------
 @app.route("/health")
 def health():
-    dist_built = DIST_DIR.exists() and (DIST_DIR / "index.html").exists()
     return jsonify({
         "status": "ok",
-        "service": "AfterCallPro",
-        "frontend_built": dist_built
-    }), 200
+        "frontend_built": DIST_DIR.exists()
+    })
 
 # -------------------------
-# SERVE REACT FRONTEND
+# SERVE STATIC ASSETS
 # -------------------------
 @app.route("/assets/<path:filename>")
 def serve_assets(filename):
@@ -108,21 +104,23 @@ def serve_assets(filename):
         return send_from_directory(DIST_DIR / "assets", filename)
     return "Not found", 404
 
-@app.route("/<path:filename>")
-def serve_dist_file(filename):
+# -------------------------
+# MAIN REACT ROUTING (THIS IS THE KEY)
+# -------------------------
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_react(path):
     if DIST_DIR.exists():
-        file_path = DIST_DIR / filename
-        if file_path.exists() and file_path.is_file():
-            return send_from_directory(DIST_DIR, filename)
-        # SPA fallback — let React Router handle the route
-        return send_from_directory(DIST_DIR, "index.html")
-    return "App is starting up, please wait...", 503
+        file_path = DIST_DIR / path
 
-@app.route("/")
-def index():
-    if DIST_DIR.exists() and (DIST_DIR / "index.html").exists():
+        # If file exists, serve it (JS, CSS, images)
+        if path != "" and file_path.exists() and file_path.is_file():
+            return send_from_directory(DIST_DIR, path)
+
+        # Otherwise serve React app
         return send_from_directory(DIST_DIR, "index.html")
-    return "<h1>AfterCallPro is starting up...</h1><p>The frontend is being built. Please refresh in 1-2 minutes.</p>", 503
+
+    return "<h1>App is starting up...</h1>", 503
 
 # -------------------------
 # START SERVER
@@ -130,15 +128,3 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-from flask import send_from_directory
-import os
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def serve_react(path):
-    build_dir = os.path.join(os.getcwd(), 'src/frontend/dist')
-
-    if path != "" and os.path.exists(os.path.join(build_dir, path)):
-        return send_from_directory(build_dir, path)
-
-    return send_from_directory(build_dir, 'index.html')
