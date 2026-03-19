@@ -15,6 +15,7 @@ export default function Signup() {
     password: "",
   });
 
+  const [smsConsent, setSmsConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -24,6 +25,12 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!smsConsent) {
+      setError("Please check the SMS consent box to continue.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -41,7 +48,6 @@ export default function Signup() {
         return;
       }
 
-      // If user came from pricing page with a plan, redirect to pricing to complete checkout
       const plan = searchParams.get("plan");
       if (plan) {
         navigate(`/pricing`);
@@ -116,6 +122,35 @@ export default function Signup() {
             />
           </div>
 
+          {/* SMS CONSENT CHECKBOX */}
+          <div
+            style={{
+              ...styles.consentBox,
+              borderColor: smsConsent ? "#16a34a" : "#d1d5db",
+              background: smsConsent ? "#f0fdf4" : "#f9fafb",
+            }}
+          >
+            <label style={styles.consentLabel}>
+              <input
+                type="checkbox"
+                checked={smsConsent}
+                onChange={(e) => setSmsConsent(e.target.checked)}
+                style={styles.checkbox}
+              />
+              <span style={styles.consentText}>
+                I agree to receive automated SMS text messages from AfterCallPro
+                at the phone number above, including account alerts and service
+                notifications. Message frequency varies. Msg &amp; data rates may
+                apply. Reply <strong>STOP</strong> to opt out at any time. Reply{" "}
+                <strong>HELP</strong> for help. View our{" "}
+                <Link to="/sms-policy" style={styles.link}>
+                  SMS Policy
+                </Link>
+                .
+              </span>
+            </label>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
@@ -123,19 +158,25 @@ export default function Signup() {
           >
             {loading ? "Creating account…" : "Create Free Account"}
           </button>
-          <p style={styles.consent}>
+
+          <p style={styles.legalText}>
             By creating an account, you agree to our{" "}
-            <Link to="/terms" style={styles.link}>Terms of Service</Link> and{" "}
-            <Link to="/privacy" style={styles.link}>Privacy Policy</Link>. Your customers
-            may receive automated SMS follow-ups related to their calls through
-            AfterCallPro. See our{" "}
-            <Link to="/sms-policy" style={styles.link}>SMS Policy</Link>. Reply STOP to
-            opt out. Msg &amp; data rates may apply.
+            <Link to="/terms" style={styles.link}>
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link to="/privacy" style={styles.link}>
+              Privacy Policy
+            </Link>
+            .
           </p>
         </form>
 
         <p style={styles.footer}>
-          Already have an account? <Link to="/login" style={styles.link}>Log in</Link>
+          Already have an account?{" "}
+          <Link to="/login" style={styles.link}>
+            Log in
+          </Link>
         </p>
       </div>
     </div>
@@ -158,7 +199,7 @@ const styles = {
     borderRadius: "16px",
     padding: "40px",
     width: "100%",
-    maxWidth: "420px",
+    maxWidth: "440px",
     boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
   },
   title: {
@@ -200,6 +241,33 @@ const styles = {
     outline: "none",
     boxSizing: "border-box",
   },
+  consentBox: {
+    border: "1.5px solid",
+    borderRadius: "10px",
+    padding: "12px 14px",
+    marginBottom: "16px",
+    marginTop: "4px",
+    transition: "border-color 0.2s, background 0.2s",
+  },
+  consentLabel: {
+    display: "flex",
+    gap: "10px",
+    alignItems: "flex-start",
+    cursor: "pointer",
+  },
+  checkbox: {
+    marginTop: "2px",
+    width: "16px",
+    height: "16px",
+    flexShrink: 0,
+    cursor: "pointer",
+    accentColor: "#0f172a",
+  },
+  consentText: {
+    fontSize: "12px",
+    color: "#374151",
+    lineHeight: "1.65",
+  },
   btn: {
     width: "100%",
     padding: "12px",
@@ -210,11 +278,18 @@ const styles = {
     fontSize: "15px",
     fontWeight: "600",
     cursor: "pointer",
-    marginTop: "8px",
+    marginTop: "4px",
   },
   btnDisabled: {
     opacity: 0.6,
     cursor: "not-allowed",
+  },
+  legalText: {
+    marginTop: "12px",
+    fontSize: "11px",
+    color: "#94a3b8",
+    lineHeight: "1.6",
+    textAlign: "center",
   },
   footer: {
     marginTop: "20px",
@@ -226,12 +301,5 @@ const styles = {
     color: "#2563eb",
     textDecoration: "none",
     fontWeight: "500",
-  },
-  consent: {
-    marginTop: "14px",
-    fontSize: "11px",
-    color: "#94a3b8",
-    lineHeight: "1.6",
-    textAlign: "center",
   },
 };
