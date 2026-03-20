@@ -201,7 +201,9 @@ export default function SmsConsent() {
             <Link to="/privacy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Privacy</Link>
             <Link to="/sms-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>SMS Policy</Link>
           </div>
-          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} MindRocket Systems LLC</div>
+          <div style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
+            &copy; {new Date().getFullYear()} Mind Rocket Systems LLC. AfterCallPro is a trademark of Mind Rocket Systems LLC.
+          </div>
         </div>
       </footer>
     </main>
