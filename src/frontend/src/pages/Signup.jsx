@@ -138,11 +138,13 @@ export default function Signup() {
                 style={styles.checkbox}
               />
               <span style={styles.consentText}>
-                I agree to receive automated SMS text messages from AfterCallPro
-                at the phone number above, including account alerts and service
-                notifications. Message frequency varies. Msg &amp; data rates may
-                apply. Reply <strong>STOP</strong> to opt out at any time. Reply{" "}
-                <strong>HELP</strong> for help. View our{" "}
+                Yes! I agree to receive texts from AfterCallPro to my mobile
+                telephone number provided above. I understand that I am{" "}
+                <strong>not required</strong> to agree to the receipt of texts
+                as a condition of purchasing any good or service from
+                AfterCallPro and that I may opt-out at any time. Standard Msg
+                &amp; Data Rates apply. Text <strong>HELP</strong> for help and{" "}
+                <strong>STOP</strong> to opt-out. View our{" "}
                 <Link to="/sms-policy" style={styles.link}>
                   SMS Policy
                 </Link>
