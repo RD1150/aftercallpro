@@ -21,11 +21,12 @@ export default function SmsConsent() {
       {/* PAGE HEADER */}
       <div style={{ background: NAVY, padding: "3rem 1.5rem", textAlign: "center", borderBottom: `3px solid ${GOLD}` }}>
         <h1 style={{ color: "#E6EDF3", fontSize: "2rem", fontWeight: 700, marginBottom: "0.75rem" }}>
-          SMS Opt-In Workflow
+          SMS Opt-In Workflow Documentation
         </h1>
         <p style={{ color: "#94a3b8", fontSize: "1rem", maxWidth: "680px", margin: "0 auto" }}>
-          This page documents how AfterCallPro collects and manages SMS consent
-          from both its business subscribers and their end customers.
+          This page documents how AfterCallPro collects written web/online opt-in consent
+          from business subscribers, and how end consumers provide implied consent
+          by initiating an inbound call to the business.
         </p>
       </div>
 
@@ -34,10 +35,10 @@ export default function SmsConsent() {
         {/* ── TIER 1 ── */}
         <div style={{ marginBottom: "1rem" }}>
           <div style={{ display: "inline-block", background: GOLD, color: NAVY, fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.08em", padding: "0.3rem 0.75rem", borderRadius: "2rem", marginBottom: "0.75rem", textTransform: "uppercase" }}>
-            Tier 1 — Business Owner Opt-In
+            Tier 1 — Business Owner Web/Online Opt-In
           </div>
           <h2 style={{ fontSize: "1.35rem", fontWeight: 700, color: "#0b1524", marginBottom: "0.5rem" }}>
-            Business owners explicitly consent when creating their AfterCallPro account
+            Business owners provide written web opt-in consent when creating their AfterCallPro account
           </h2>
           <p style={{ color: "#475569", lineHeight: 1.8, marginBottom: "1.5rem" }}>
             When a business owner signs up at{" "}
@@ -61,8 +62,24 @@ export default function SmsConsent() {
             </div>
           ))}
 
-          {/* Consent checkbox — highlighted */}
-          <div style={{ border: "2px solid #16a34a", borderRadius: "0.75rem", padding: "0.85rem 1rem", background: "#f0fdf4", marginBottom: "1rem", marginTop: "0.5rem" }}>
+          {/* Consent checkbox — show both unchecked and checked states */}
+          <div style={{ marginBottom: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 600, marginBottom: "0.4rem" }}>Default state (unchecked — user must actively check this):</div>
+            <div style={{ border: "1px solid #e2e8f0", borderRadius: "0.75rem", padding: "0.75rem 1rem", background: "#f9fafb", marginBottom: "0.75rem" }}>
+              <div style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
+                <div style={{ width: "16px", height: "16px", border: "2px solid #9ca3af", borderRadius: "3px", background: "#fff", flexShrink: 0, marginTop: "1px" }} />
+                <p style={{ fontSize: "11px", color: "#6b7280", lineHeight: 1.65, margin: 0 }}>
+                  Yes! I agree to receive texts from AfterCallPro to my mobile telephone number
+                  provided above. I understand that I am <strong>not required</strong> to agree
+                  to the receipt of texts as a condition of purchasing any good or service from
+                  AfterCallPro and that I may opt-out at any time. Standard Msg &amp; Data Rates
+                  apply. Text <strong>HELP</strong> for help and <strong>STOP</strong> to opt-out.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div style={{ fontSize: "0.75rem", color: "#64748b", fontWeight: 600, marginBottom: "0.4rem" }}>After user checks the box (required to submit form):</div>
+          <div style={{ border: "2px solid #16a34a", borderRadius: "0.75rem", padding: "0.85rem 1rem", background: "#f0fdf4", marginBottom: "1rem" }}>
             <div style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
               <div style={{ width: "16px", height: "16px", border: "2px solid #16a34a", borderRadius: "3px", background: "#16a34a", flexShrink: 0, marginTop: "1px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span style={{ color: "#fff", fontSize: "10px", fontWeight: 900 }}>✓</span>
