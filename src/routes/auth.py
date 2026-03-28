@@ -18,7 +18,17 @@ def login_required(f):
 @auth_bp.route('/register', methods=['POST'])
 def register():
     """Register a new user and create their business"""
+    import traceback
     data = request.get_json()
+    try:
+        return _do_register(data)
+    except Exception as e:
+        db.session.rollback()
+        import logging
+        logging.getLogger(__name__).error('Register error: %s\n%s', e, traceback.format_exc())
+        return jsonify({'error': str(e), 'detail': traceback.format_exc()[-1000:]}), 500
+
+def _do_register(data):
     
     # Validate required fields
     required_fields = ['email', 'password', 'name', 'phone_number']
