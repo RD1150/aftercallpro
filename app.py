@@ -40,10 +40,20 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # -------------------------
 # INIT EXTENSIONS
 # -------------------------
-from src.models.user import db
+from src.models.user import db, User
 db.init_app(app)
 
+# Import ALL models before create_all so SQLAlchemy knows about every table
 with app.app_context():
+    from src.models.call import Business, Call
+    try:
+        from src.models.appointment import Appointment
+    except Exception:
+        pass
+    try:
+        from src.models.audit import AuditLog
+    except Exception:
+        pass
     db.create_all()
 
 # -------------------------
@@ -153,3 +163,37 @@ def serve_react(path):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
+# TEMP DEBUG: expose register error detail
+@app.route("/api/debug/register-test", methods=["POST"])
+def debug_register():
+    import traceback
+    from flask import request, jsonify
+    data = request.get_json()
+    try:
+        from src.models.user import db, User
+        from src.models.call import Business
+        existing_user = User.query.filter_by(email=data.get('email','')).first()
+        if existing_user:
+            return jsonify({'error': 'Email already registered'}), 400
+        existing_business = Business.query.filter_by(phone_number=data.get('phone_number','')).first()
+        if existing_business:
+            return jsonify({'error': 'Phone number already registered'}), 400
+        user = User(username=data['email'], email=data['email'])
+        user.set_password(data['password'])
+        db.session.add(user)
+        db.session.flush()
+        business = Business(
+            name=data['name'],
+            phone_number=data['phone_number'],
+            email=data['email'],
+        )
+        db.session.add(business)
+        db.session.commit()
+        db.session.delete(business)
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'success': True, 'message': 'Test registration succeeded and was rolled back'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e), 'traceback': traceback.format_exc()}), 500
