@@ -26,7 +26,7 @@ def register():
         db.session.rollback()
         import logging
         logging.getLogger(__name__).error('Register error: %s\n%s', e, traceback.format_exc())
-        return jsonify({'error': str(e), 'detail': traceback.format_exc()[-1000:]}), 500
+        return jsonify({'error': 'Registration failed. Please try again.'}), 500
 
 def _do_register(data):
     
