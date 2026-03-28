@@ -172,6 +172,7 @@ def run_migrations():
     """Safely add missing columns to existing tables."""
     migrations = [
         # User table columns added after initial deployment
+        ('ALTER TABLE "user" ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW()', 'user.created_at'),
         ('ALTER TABLE "user" ADD COLUMN IF NOT EXISTS reset_token VARCHAR(100)', 'user.reset_token'),
         ('ALTER TABLE "user" ADD COLUMN IF NOT EXISTS reset_token_expiry TIMESTAMP', 'user.reset_token_expiry'),
         ('ALTER TABLE "user" ADD COLUMN IF NOT EXISTS role VARCHAR(20) DEFAULT \'user\'', 'user.role'),
