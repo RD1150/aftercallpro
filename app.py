@@ -89,10 +89,33 @@ except Exception as e:
 # -------------------------
 @app.route("/health")
 def health():
+    # Check DB connectivity
+    db_status = "unknown"
+    db_error = None
+    try:
+        from sqlalchemy import text
+        db.session.execute(text('SELECT 1'))
+        db_status = "connected"
+    except Exception as e:
+        db_status = "error"
+        db_error = str(e)[:200]
+
+    # Check if tables exist
+    tables_exist = False
+    try:
+        from sqlalchemy import inspect
+        inspector = inspect(db.engine)
+        tables_exist = 'businesses' in inspector.get_table_names()
+    except Exception:
+        pass
+
     return jsonify({
         "status": "ok",
         "service": "AfterCallPro",
-        "frontend_built": DIST_DIR.exists() and (DIST_DIR / "index.html").exists()
+        "frontend_built": DIST_DIR.exists() and (DIST_DIR / "index.html").exists(),
+        "db_status": db_status,
+        "db_error": db_error,
+        "tables_exist": tables_exist
     })
 
 # -------------------------
