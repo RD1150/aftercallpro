@@ -10,8 +10,9 @@ export default function SmsConsent() {
 
       {/* NAV */}
       <nav style={{ background: NAVY, padding: "1rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <Link to="/" style={{ color: "#E6EDF3", fontWeight: 700, fontSize: "1.25rem", textDecoration: "none" }}>
-          AfterCall<span style={{ color: GOLD }}>Pro</span>
+        <Link to="/" style={{ textDecoration: "none", display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+          <span style={{ color: "#E6EDF3", fontWeight: 700, fontSize: "1.25rem" }}>AfterCall<span style={{ color: GOLD }}>Pro</span></span>
+          <span style={{ color: "#6B7A90", fontSize: "0.65rem", fontWeight: 400 }}>by Mind Rocket Systems LLC</span>
         </Link>
         <Link to="/signup" style={{ background: GOLD, color: NAVY, padding: "0.5rem 1.1rem", borderRadius: "0.5rem", fontWeight: 700, textDecoration: "none", fontSize: "0.9rem" }}>
           Start free
@@ -20,13 +21,14 @@ export default function SmsConsent() {
 
       {/* PAGE HEADER */}
       <div style={{ background: NAVY, padding: "3rem 1.5rem", textAlign: "center", borderBottom: `3px solid ${GOLD}` }}>
+        <div style={{ color: GOLD, fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", marginBottom: "0.75rem", textTransform: "uppercase" }}>Mind Rocket Systems LLC — AfterCallPro</div>
         <h1 style={{ color: "#E6EDF3", fontSize: "2rem", fontWeight: 700, marginBottom: "0.75rem" }}>
           SMS Opt-In Workflow Documentation
         </h1>
         <p style={{ color: "#94a3b8", fontSize: "1rem", maxWidth: "680px", margin: "0 auto" }}>
-          This page documents how AfterCallPro collects written web/online opt-in consent
-          from business subscribers, and how end consumers provide implied consent
-          by initiating an inbound call to the business.
+          This page documents how AfterCallPro (a product of Mind Rocket Systems LLC) collects
+          written web/online opt-in consent from business subscribers, and how end consumers
+          provide implied consent by initiating an inbound call to the business.
         </p>
       </div>
 

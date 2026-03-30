@@ -33,8 +33,11 @@ export default function Home() {
         alignItems: "center",
         borderBottom: "1px solid rgba(255,255,255,0.05)"
       }}>
-        <div style={{ color: TEXT_PRIMARY, fontWeight: 700, fontSize: "1.25rem", letterSpacing: "-0.5px" }}>
-          AfterCall<span style={{ color: GOLD }}>Pro</span>
+        <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+          <div style={{ color: TEXT_PRIMARY, fontWeight: 700, fontSize: "1.25rem", letterSpacing: "-0.5px" }}>
+            AfterCall<span style={{ color: GOLD }}>Pro</span>
+          </div>
+          <div style={{ color: TEXT_DIM, fontSize: "0.65rem", fontWeight: 400, letterSpacing: "0.02em" }}>by Mind Rocket Systems LLC</div>
         </div>
         <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           <Link to="/login" style={{ color: TEXT_SECONDARY, textDecoration: "none", fontSize: "0.9rem" }}>Log in</Link>
@@ -350,7 +353,7 @@ export default function Home() {
             <a href="/privacy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Privacy</a>
             <Link to="/pricing" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Pricing</Link>
           </div>
-          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} AfterCallPro</div>
+          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} Mind Rocket Systems LLC. AfterCallPro is a product of Mind Rocket Systems LLC.</div>
         </div>
       </footer>
 
