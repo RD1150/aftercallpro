@@ -129,6 +129,15 @@ def health():
     })
 
 # -------------------------
+# SMS CONSENT PAGE (Static HTML - readable by Twilio's crawler without JS)
+# -------------------------
+STATIC_DIR = ROOT_DIR / "src" / "static"
+
+@app.route("/sms-consent")
+def sms_consent():
+    return send_from_directory(str(STATIC_DIR), "sms-consent.html")
+
+# -------------------------
 # SERVE STATIC ASSETS
 # -------------------------
 @app.route("/assets/<path:filename>")
