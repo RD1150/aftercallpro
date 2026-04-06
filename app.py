@@ -137,6 +137,10 @@ STATIC_DIR = ROOT_DIR / "src" / "static"
 def sms_consent():
     return send_from_directory(str(STATIC_DIR), "sms-consent.html")
 
+@app.route("/sms-optin")
+def sms_optin():
+    return send_from_directory(str(STATIC_DIR), "sms-optin.html")
+
 # -------------------------
 # SERVE STATIC ASSETS
 # -------------------------

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up & SMS Opt-In | AfterCallPro by Mind Rocket Systems LLC</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f3f4f6; color: #111827; }
+    .site-header { background: #0f172a; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .brand { color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; }
+    .site-header .brand span { display: block; font-size: 11px; font-weight: 400; color: #94a3b8; letter-spacing: 0.05em; }
+    .site-header nav a { color: #94a3b8; text-decoration: none; margin-left: 20px; font-size: 14px; }
+    .page { max-width: 480px; margin: 48px auto; padding: 0 16px 64px; }
+    .card { background: #fff; border-radius: 12px; padding: 40px 36px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    h1 { font-size: 26px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .subtitle { color: #6b7280; font-size: 14px; margin-bottom: 28px; }
+    .field { margin-bottom: 18px; }
+    label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="password"] {
+      width: 100%; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 8px;
+      font-size: 15px; color: #111827; background: #fff;
+    }
+    input::placeholder { color: #9ca3af; }
+    .consent-section {
+      border: 2px solid #d1d5db;
+      border-radius: 10px;
+      padding: 16px;
+      background: #f9fafb;
+      margin: 20px 0;
+    }
+    .consent-section.active {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+    .consent-row { display: flex; align-items: flex-start; gap: 12px; }
+    .checkbox-wrap { padding-top: 2px; }
+    /* Unchecked state - default */
+    .checkbox-unchecked {
+      width: 20px; height: 20px;
+      border: 2px solid #6b7280;
+      border-radius: 4px;
+      background: #fff;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    /* Checked state */
+    .checkbox-checked {
+      width: 20px; height: 20px;
+      border: 2px solid #16a34a;
+      border-radius: 4px;
+      background: #16a34a;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .consent-label { font-size: 13px; color: #374151; line-height: 1.6; }
+    .consent-label strong { color: #111827; }
+    .consent-label a { color: #2563eb; }
+    .state-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .badge-unchecked { background: #fee2e2; color: #991b1b; }
+    .badge-checked { background: #dcfce7; color: #166534; }
+    .btn-submit {
+      width: 100%; padding: 13px;
+      background: #0f172a; color: #fff;
+      border: none; border-radius: 8px;
+      font-size: 16px; font-weight: 600;
+      cursor: pointer; margin-top: 8px;
+    }
+    .btn-submit.disabled { background: #9ca3af; cursor: not-allowed; }
+    .fine-print { font-size: 12px; color: #6b7280; text-align: center; margin-top: 16px; line-height: 1.5; }
+    .fine-print a { color: #2563eb; }
+    .section-divider { border: none; border-top: 1px solid #e5e7eb; margin: 36px 0; }
+    h2 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+    .step { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .step-num { width: 28px; height: 28px; background: #0f172a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .step-text { font-size: 14px; color: #374151; line-height: 1.5; padding-top: 4px; }
+    .compliance-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+    .compliance-table th { background: #f1f5f9; text-align: left; padding: 8px 12px; font-weight: 600; color: #374151; border: 1px solid #e2e8f0; }
+    .compliance-table td { padding: 8px 12px; border: 1px solid #e2e8f0; color: #374151; vertical-align: top; }
+    .compliance-table tr:nth-child(even) td { background: #f8fafc; }
+    .check-green { color: #16a34a; font-weight: 700; }
+    footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 20px; font-size: 12px; margin-top: 48px; }
+    footer a { color: #60a5fa; }
+    .notice-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; font-size: 13px; color: #1e40af; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="https://aftercallpro.com" class="brand">
+    AfterCallPro
+    <span>by Mind Rocket Systems LLC</span>
+  </a>
+  <nav>
+    <a href="https://aftercallpro.com/pricing">Pricing</a>
+    <a href="https://aftercallpro.com/login">Log In</a>
+  </nav>
+</header>
+
+<div class="page">
+  <div class="card">
+    <h1>Create Your Account</h1>
+    <p class="subtitle">Start capturing every missed call for free.</p>
+
+    <div class="notice-box">
+      <strong>SMS Opt-In Documentation Page</strong><br>
+      This page demonstrates the AfterCallPro signup form and SMS opt-in workflow for compliance review purposes. The live signup form is available at <a href="https://aftercallpro.com/signup">aftercallpro.com/signup</a>.
+    </div>
+
+    <!-- SIGNUP FORM MOCKUP -->
+    <div class="field">
+      <label>Business Name</label>
+      <input type="text" placeholder="Acme Plumbing" />
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="you@example.com" />
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+15551234567" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" placeholder="Min. 6 characters" />
+    </div>
+
+    <!-- ============================================================
+         SMS CONSENT CHECKBOX — DEFAULT STATE (UNCHECKED)
+         This is what the user sees when they first load the form.
+         The checkbox is NOT pre-selected. The user must actively
+         check it before the form can be submitted.
+    ============================================================ -->
+    <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Step 1 — Default State (Unchecked)</p>
+    <div class="consent-section">
+      <span class="state-badge badge-unchecked">&#9744; UNCHECKED — Form cannot be submitted</span>
+      <div class="consent-row">
+        <div class="checkbox-wrap">
+          <span class="checkbox-unchecked"></span>
+        </div>
+        <p class="consent-label">
+          Yes! I agree to receive texts from AfterCallPro to my mobile telephone number provided above.
+          I understand that I am <strong>not required</strong> to agree to the receipt of texts as a condition of
+          purchasing any good or service from AfterCallPro and that I may opt-out at any time.
+          Standard Msg &amp; Data Rates apply. Text <strong>HELP</strong> for help and <strong>STOP</strong> to opt-out.
+          View our <a href="https://aftercallpro.com/sms-policy">SMS Policy</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SMS CONSENT CHECKBOX — CHECKED STATE
+         After the user checks the box, the form becomes submittable.
+    ============================================================ -->
+    <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Step 2 — After User Checks the Box</p>
+    <div class="consent-section active">
+      <span class="state-badge badge-checked">&#10003; CHECKED — Form can now be submitted</span>
+      <div class="consent-row">
+        <div class="checkbox-wrap">
+          <span class="checkbox-checked">&#10003;</span>
+        </div>
+        <p class="consent-label">
+          Yes! I agree to receive texts from AfterCallPro to my mobile telephone number provided above.
+          I understand that I am <strong>not required</strong> to agree to the receipt of texts as a condition of
+          purchasing any good or service from AfterCallPro and that I may opt-out at any time.
+          Standard Msg &amp; Data Rates apply. Text <strong>HELP</strong> for help and <strong>STOP</strong> to opt-out.
+          View our <a href="https://aftercallpro.com/sms-policy">SMS Policy</a>.
+        </p>
+      </div>
+    </div>
+
+    <button class="btn-submit">Create Free Account</button>
+
+    <p class="fine-print">
+      By creating an account, you agree to our
+      <a href="https://aftercallpro.com/terms">Terms of Service</a> and
+      <a href="https://aftercallpro.com/privacy">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- OPT-IN WORKFLOW EXPLANATION -->
+  <div class="card">
+    <h2>How SMS Opt-In Works</h2>
+    <p style="font-size:14px;color:#6b7280;margin-bottom:20px;">AfterCallPro collects SMS consent via a web form (Web Form opt-in type) during account registration. Below is the complete opt-in workflow.</p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Business owner visits aftercallpro.com/signup</strong> and fills in their business name, email, phone number, and password.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>The SMS consent checkbox is displayed unchecked</strong> with the full consent language. The user must actively check the box — it is never pre-selected.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>The user checks the box</strong>, confirming they agree to receive SMS notifications from AfterCallPro. The "Create Free Account" button becomes active only after the box is checked.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text"><strong>A confirmation SMS is sent</strong> to the phone number provided: "You have been opted in to receive SMS notifications from AfterCallPro. Reply STOP to opt out. Msg &amp; data rates may apply."</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-text"><strong>The user can opt out at any time</strong> by replying STOP to any message. They will receive a confirmation: "You have been unsubscribed from AfterCallPro SMS. No further messages will be sent."</div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <h2>Compliance Summary</h2>
+    <table class="compliance-table">
+      <tr><th>Requirement</th><th>Status</th></tr>
+      <tr><td>Opt-in type</td><td>Web Form — checkbox on signup page</td></tr>
+      <tr><td>Checkbox pre-selected</td><td><span class="check-green">No</span> — unchecked by default, user must actively check</td></tr>
+      <tr><td>Not a condition of purchase</td><td><span class="check-green">Explicitly stated</span> in consent language</td></tr>
+      <tr><td>STOP opt-out instructions</td><td><span class="check-green">Included</span> in consent language and every message</td></tr>
+      <tr><td>HELP instructions</td><td><span class="check-green">Included</span> in consent language</td></tr>
+      <tr><td>Msg &amp; data rates disclosure</td><td><span class="check-green">Included</span> in consent language</td></tr>
+      <tr><td>SMS Policy link</td><td><a href="https://aftercallpro.com/sms-policy">aftercallpro.com/sms-policy</a></td></tr>
+      <tr><td>Privacy Policy</td><td><a href="https://aftercallpro.com/privacy">aftercallpro.com/privacy</a></td></tr>
+      <tr><td>Terms of Service</td><td><a href="https://aftercallpro.com/terms">aftercallpro.com/terms</a></td></tr>
+      <tr><td>Legal entity</td><td>Mind Rocket Systems LLC (AfterCallPro is a DBA)</td></tr>
+      <tr><td>Messages are promotional</td><td><span style="color:#dc2626;font-weight:700;">No</span> — transactional only (missed call follow-up)</td></tr>
+      <tr><td>Messages are bulk/marketing</td><td><span style="color:#dc2626;font-weight:700;">No</span> — one message per missed call, direct response only</td></tr>
+    </table>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 Mind Rocket Systems LLC. AfterCallPro is a product of Mind Rocket Systems LLC.<br>
+  <a href="https://aftercallpro.com/privacy">Privacy Policy</a> &nbsp;|&nbsp;
+  <a href="https://aftercallpro.com/terms">Terms of Service</a> &nbsp;|&nbsp;
+  <a href="https://aftercallpro.com/sms-policy">SMS Policy</a>
+</footer>
+
+</body>
+</html>
