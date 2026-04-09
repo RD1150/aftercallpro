@@ -14,6 +14,10 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import SmsPolicy from "./pages/SmsPolicy";
 import SmsConsent from "./pages/SmsConsent";
+import Appointments from "./pages/Appointments";
+import Analytics from "./pages/Analytics";
+import AIGreeting from "./pages/AIGreeting";
+import Onboarding from "./pages/Onboarding";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -42,6 +46,38 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/appointments"
+        element={
+          <ProtectedRoute>
+            <Appointments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/analytics"
+        element={
+          <ProtectedRoute>
+            <Analytics />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai-greeting"
+        element={
+          <ProtectedRoute>
+            <AIGreeting />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/onboarding"
+        element={
+          <ProtectedRoute>
+            <Onboarding />
           </ProtectedRoute>
         }
       />

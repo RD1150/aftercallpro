@@ -238,9 +238,14 @@ export default function Dashboard() {
             <button style={styles.quickBtn} onClick={() => navigate("/appointments")}>View Appointments</button>
           </div>
           <div style={styles.quickCard}>
-            <h3 style={styles.quickTitle}>⚙️ Settings</h3>
-            <p style={styles.quickDesc}>Update your business info, greeting, and AI voice.</p>
-            <button style={styles.quickBtn} onClick={() => navigate("/settings")}>Open Settings</button>
+            <h3 style={styles.quickTitle}>📊 Analytics</h3>
+            <p style={styles.quickDesc}>View call volume, sentiment, and performance metrics.</p>
+            <button style={styles.quickBtn} onClick={() => navigate("/analytics")}>View Analytics</button>
+          </div>
+          <div style={styles.quickCard}>
+            <h3 style={styles.quickTitle}>🎙️ AI Greeting</h3>
+            <p style={styles.quickDesc}>Customize your AI voice, greeting message, and SMS template.</p>
+            <button style={styles.quickBtn} onClick={() => navigate("/ai-greeting")}>Configure</button>
           </div>
         </div>
       </div>

@@ -15,6 +15,8 @@ from src.routes.business import business_bp
 from src.routes.auth import auth_bp
 from src.routes.payments import payments_bp
 from src.routes.appointments import appointments_bp
+from src.routes.analytics import analytics_bp
+from src.routes.settings import settings_bp
 
 # Load environment variables
 load_dotenv()
@@ -118,6 +120,8 @@ app.register_blueprint(business_bp, url_prefix='/api')
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(payments_bp, url_prefix='/api/payments')
 app.register_blueprint(appointments_bp, url_prefix='/api/appointments')
+app.register_blueprint(analytics_bp, url_prefix='/api')
+app.register_blueprint(settings_bp, url_prefix='/api')
 
 # Initialize database
 db.init_app(app)
