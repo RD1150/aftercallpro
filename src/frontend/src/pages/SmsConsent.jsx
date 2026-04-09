@@ -12,7 +12,7 @@ export default function SmsConsent() {
       <nav style={{ background: NAVY, padding: "1rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <Link to="/" style={{ textDecoration: "none", display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
           <span style={{ color: "#E6EDF3", fontWeight: 700, fontSize: "1.25rem" }}>AfterCall<span style={{ color: GOLD }}>Pro</span></span>
-          <span style={{ color: "#6B7A90", fontSize: "0.65rem", fontWeight: 400 }}>by Mind Rocket Systems LLC</span>
+          <span style={{ color: "#6B7A90", fontSize: "0.65rem", fontWeight: 400 }}>by MindRocket Systems LLC</span>
         </Link>
         <Link to="/signup" style={{ background: GOLD, color: NAVY, padding: "0.5rem 1.1rem", borderRadius: "0.5rem", fontWeight: 700, textDecoration: "none", fontSize: "0.9rem" }}>
           Start free
@@ -21,12 +21,12 @@ export default function SmsConsent() {
 
       {/* PAGE HEADER */}
       <div style={{ background: NAVY, padding: "3rem 1.5rem", textAlign: "center", borderBottom: `3px solid ${GOLD}` }}>
-        <div style={{ color: GOLD, fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", marginBottom: "0.75rem", textTransform: "uppercase" }}>Mind Rocket Systems LLC — AfterCallPro</div>
+        <div style={{ color: GOLD, fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", marginBottom: "0.75rem", textTransform: "uppercase" }}>MindRocket Systems LLC — AfterCallPro</div>
         <h1 style={{ color: "#E6EDF3", fontSize: "2rem", fontWeight: 700, marginBottom: "0.75rem" }}>
           SMS Opt-In Workflow Documentation
         </h1>
         <p style={{ color: "#94a3b8", fontSize: "1rem", maxWidth: "680px", margin: "0 auto" }}>
-          This page documents how AfterCallPro (a product of Mind Rocket Systems LLC) collects
+          This page documents how AfterCallPro (a product of MindRocket Systems LLC) collects
           written web/online opt-in consent from business subscribers, and how end consumers
           provide implied consent by initiating an inbound call to the business.
         </p>
@@ -213,7 +213,7 @@ export default function SmsConsent() {
                 ["Opt-out confirmation", "Single confirmation SMS sent immediately on STOP"],
                 ["Rates disclosure", '"Msg & data rates may apply" included in every SMS'],
                 ["Sending number", "(844) 745-3471 — toll-free, registered for A2P messaging"],
-                ["Legal entity", "Mind Rocket Systems LLC (aftercallpro.com)"],
+                ["Legal entity", "MindRocket Systems LLC (aftercallpro.com)"],
               ].map(([key, val], i) => (
                 <tr key={key} style={{ borderBottom: "1px solid #f1f5f9", background: i % 2 === 0 ? "#f8fafc" : "#fff" }}>
                   <td style={{ padding: "0.7rem 1rem", fontWeight: 600, color: "#374151", width: "42%", verticalAlign: "top" }}>{key}</td>
@@ -248,7 +248,7 @@ export default function SmsConsent() {
             <Link to="/sms-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>SMS Policy</Link>
           </div>
           <div style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
-            &copy; {new Date().getFullYear()} Mind Rocket Systems LLC. AfterCallPro is a trademark of Mind Rocket Systems LLC.
+            &copy; {new Date().getFullYear()} MindRocket Systems LLC. AfterCallPro is a trademark of MindRocket Systems LLC.
           </div>
         </div>
       </footer>

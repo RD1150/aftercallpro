@@ -12,10 +12,10 @@ export default function Footer() {
       lineHeight: "1.8"
     }}>
       <p style={{ marginBottom: "4px" }}>
-        &copy; {new Date().getFullYear()} Mind Rocket Systems LLC. All rights reserved.
+        &copy; {new Date().getFullYear()} MindRocket Systems LLC. All rights reserved.
       </p>
       <p style={{ marginBottom: "12px" }}>
-        AfterCallPro is a trademark of Mind Rocket Systems LLC.
+        AfterCallPro is a trademark of MindRocket Systems LLC.
       </p>
       <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap" }}>
         <Link to="/privacy" style={{ color: "#2563eb", textDecoration: "none" }}>Privacy Policy</Link>
