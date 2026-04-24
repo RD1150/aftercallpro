@@ -18,6 +18,7 @@ import Appointments from "./pages/Appointments";
 import Analytics from "./pages/Analytics";
 import AIGreeting from "./pages/AIGreeting";
 import Onboarding from "./pages/Onboarding";
+import Billing from "./pages/Billing";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -78,6 +79,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Onboarding />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/billing"
+        element={
+          <ProtectedRoute>
+            <Billing />
           </ProtectedRoute>
         }
       />

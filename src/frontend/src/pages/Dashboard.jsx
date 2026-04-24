@@ -5,17 +5,17 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 const API_BASE = "";
 
 const PLAN_LABELS = {
-  free: { label: "Free", color: "#64748b" },
-  starter: { label: "Starter — $39/mo", color: "#0891b2" },
-  core: { label: "Core — $99/mo", color: "#2563eb" },
-  elite: { label: "Elite — $249/mo", color: "#7c3aed" },
+  free:    { label: "No Active Plan",    color: "#64748b" },
+  starter: { label: "Starter",           color: "#0891b2" },
+  core:    { label: "Core — $99/mo",     color: "#2563eb" },
+  elite:   { label: "Elite — $297/mo",   color: "#7c3aed" },
 };
 
 const STATUS_LABELS = {
-  active: { label: "Active", color: "#16a34a", bg: "#dcfce7" },
+  active:    { label: "Active",    color: "#16a34a", bg: "#dcfce7" },
   cancelled: { label: "Cancelled", color: "#b91c1c", bg: "#fef2f2" },
-  past_due: { label: "Past Due", color: "#b45309", bg: "#fef9c3" },
-  trialing: { label: "Trial", color: "#0891b2", bg: "#e0f2fe" },
+  past_due:  { label: "Past Due",  color: "#b45309", bg: "#fef9c3" },
+  trialing:  { label: "Trial",     color: "#0891b2", bg: "#e0f2fe" },
 };
 
 export default function Dashboard() {
@@ -23,15 +23,14 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const [subInfo, setSubInfo] = useState(null);
-  const [subLoading, setSubLoading] = useState(true);
+  const [subInfo, setSubInfo]           = useState(null);
+  const [subLoading, setSubLoading]     = useState(true);
   const [portalLoading, setPortalLoading] = useState(false);
   const [upgradeLoading, setUpgradeLoading] = useState(null);
-  const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  const [error, setError]               = useState("");
+  const [successMsg, setSuccessMsg]     = useState("");
 
   useEffect(() => {
-    // Show success message if coming back from Stripe checkout
     if (searchParams.get("subscription") === "success") {
       setSuccessMsg("🎉 Subscription activated! Welcome aboard.");
     }
@@ -108,8 +107,13 @@ export default function Dashboard() {
     ? Math.min(100, Math.round((subInfo.minutes_used / (subInfo.minutes_limit || 1)) * 100))
     : 0;
 
-  const planInfo = subInfo ? PLAN_LABELS[subInfo.plan] || PLAN_LABELS.free : null;
+  const planInfo   = subInfo ? PLAN_LABELS[subInfo.plan]   || PLAN_LABELS.free   : null;
   const statusInfo = subInfo ? STATUS_LABELS[subInfo.status] || STATUS_LABELS.active : null;
+
+  const needsSubscription =
+    !subInfo?.has_active_subscription ||
+    subInfo?.plan === "free" ||
+    subInfo?.status === "cancelled";
 
   return (
     <div style={styles.page}>
@@ -117,28 +121,23 @@ export default function Dashboard() {
       <nav style={styles.nav}>
         <span style={styles.navBrand}>AfterCallPro</span>
         <div style={styles.navRight}>
+          <button onClick={() => navigate("/billing")} style={styles.navLink}>Billing</button>
           <span style={styles.navEmail}>{user?.email}</span>
-          <button onClick={handleLogout} style={styles.logoutBtn}>
-            Log out
-          </button>
+          <button onClick={handleLogout} style={styles.logoutBtn}>Log out</button>
         </div>
       </nav>
 
       <div style={styles.container}>
         <h1 style={styles.heading}>Dashboard</h1>
 
-        {successMsg && (
-          <div style={styles.successBanner}>{successMsg}</div>
-        )}
-        {error && (
-          <div style={styles.errorBanner}>{error}</div>
-        )}
+        {successMsg && <div style={styles.successBanner}>{successMsg}</div>}
+        {error      && <div style={styles.errorBanner}>{error}</div>}
 
         {/* Subscription card */}
         <div style={styles.card}>
           <div style={styles.cardHeader}>
             <h2 style={styles.cardTitle}>Your Subscription</h2>
-            {!subLoading && subInfo?.has_active_subscription && (
+            {!subLoading && subInfo?.has_active_subscription && !needsSubscription && (
               <button
                 onClick={handleManageBilling}
                 disabled={portalLoading}
@@ -162,13 +161,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <p style={styles.label}>Status</p>
-                  <span
-                    style={{
-                      ...styles.statusBadge,
-                      color: statusInfo?.color,
-                      background: statusInfo?.bg,
-                    }}
-                  >
+                  <span style={{ ...styles.statusBadge, color: statusInfo?.color, background: statusInfo?.bg }}>
                     {statusInfo?.label || subInfo.status}
                   </span>
                 </div>
@@ -195,23 +188,40 @@ export default function Dashboard() {
                 </div>
               )}
 
-              {subInfo.plan === "free" && (
+              {needsSubscription && (
                 <div style={styles.upgradePrompt}>
                   <p style={styles.upgradeText}>
-                    You're on the Free plan. Upgrade to unlock more minutes, SMS follow-up, and advanced features.
+                    Choose a plan to activate your AI receptionist and start capturing every missed call.
                   </p>
                   <div style={styles.upgradeButtons}>
-                    {["starter", "core", "elite"].map((p) => (
+                    {[
+                      { id: "core",  label: "Core — $99/mo",   desc: "1,500 AI minutes" },
+                      { id: "elite", label: "Elite — $297/mo",  desc: "5,000 AI minutes" },
+                    ].map((p) => (
                       <button
-                        key={p}
-                        onClick={() => handleUpgrade(p)}
-                        disabled={upgradeLoading === p}
-                        style={styles.upgradeBtn}
+                        key={p.id}
+                        onClick={() => handleUpgrade(p.id)}
+                        disabled={upgradeLoading === p.id}
+                        style={p.id === "elite" ? styles.upgradeBtnPrimary : styles.upgradeBtn}
                       >
-                        {upgradeLoading === p ? "Loading…" : `Upgrade to ${p.charAt(0).toUpperCase() + p.slice(1)}`}
+                        {upgradeLoading === p.id ? "Loading…" : (
+                          <>
+                            <span style={{ display: "block", fontWeight: "700" }}>{p.label}</span>
+                            <span style={{ fontSize: "11px", opacity: 0.85 }}>{p.desc}</span>
+                          </>
+                        )}
                       </button>
                     ))}
                   </div>
+                  <p style={styles.upgradeFootnote}>
+                    Annual billing available — save 2 months.{" "}
+                    <span
+                      onClick={() => navigate("/pricing")}
+                      style={{ color: "#2563eb", cursor: "pointer", textDecoration: "underline" }}
+                    >
+                      View full pricing
+                    </span>
+                  </p>
                 </div>
               )}
             </div>
@@ -247,6 +257,11 @@ export default function Dashboard() {
             <p style={styles.quickDesc}>Customize your AI voice, greeting message, and SMS template.</p>
             <button style={styles.quickBtn} onClick={() => navigate("/ai-greeting")}>Configure</button>
           </div>
+          <div style={styles.quickCard}>
+            <h3 style={styles.quickTitle}>💳 Billing</h3>
+            <p style={styles.quickDesc}>Manage your subscription, upgrade your plan, or update payment info.</p>
+            <button style={styles.quickBtn} onClick={() => navigate("/billing")}>Manage Billing</button>
+          </div>
         </div>
       </div>
     </div>
@@ -276,6 +291,14 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "16px",
+  },
+  navLink: {
+    background: "transparent",
+    border: "none",
+    color: "#94a3b8",
+    cursor: "pointer",
+    fontSize: "14px",
+    padding: "0",
   },
   navEmail: {
     color: "#94a3b8",
@@ -417,16 +440,34 @@ const styles = {
     display: "flex",
     gap: "10px",
     flexWrap: "wrap",
+    marginBottom: "12px",
   },
   upgradeBtn: {
-    background: "#2563eb",
-    color: "#ffffff",
-    border: "none",
+    background: "#ffffff",
+    color: "#2563eb",
+    border: "2px solid #2563eb",
     borderRadius: "8px",
-    padding: "8px 16px",
+    padding: "10px 20px",
     cursor: "pointer",
     fontSize: "13px",
-    fontWeight: "600",
+    textAlign: "center",
+    minWidth: "160px",
+  },
+  upgradeBtnPrimary: {
+    background: "#2563eb",
+    color: "#ffffff",
+    border: "2px solid #2563eb",
+    borderRadius: "8px",
+    padding: "10px 20px",
+    cursor: "pointer",
+    fontSize: "13px",
+    textAlign: "center",
+    minWidth: "160px",
+  },
+  upgradeFootnote: {
+    fontSize: "12px",
+    color: "#64748b",
+    marginTop: "4px",
   },
   muted: {
     color: "#94a3b8",
@@ -460,7 +501,7 @@ const styles = {
     background: "#f1f5f9",
     border: "none",
     borderRadius: "6px",
-    padding: "7px 14px",
+    padding: "8px 14px",
     cursor: "pointer",
     fontSize: "13px",
     fontWeight: "500",
