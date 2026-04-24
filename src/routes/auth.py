@@ -73,6 +73,36 @@ def _do_register(data):
     db.session.add(business)
     db.session.commit()
 
+    # Provision a dedicated Twilio phone number for this business (ISV compliance)
+    # Each client gets their own number so SMS appears from the business, not AfterCallPro.
+    try:
+        from src.services.twilio_provisioning import provision_number_for_business
+        # Try to match area code to the business's own phone number
+        biz_phone = data.get('phone_number', '')
+        area_code = biz_phone.lstrip('+').lstrip('1')[:3] if biz_phone else None
+        result = provision_number_for_business(business, area_code=area_code)
+        if result.get('success'):
+            business.twilio_number = result['phone_number']
+            business.twilio_number_sid = result['sid']
+            db.session.commit()
+            import logging
+            logging.getLogger(__name__).info(
+                'Provisioned Twilio number %s (SID: %s) for business %s',
+                result['phone_number'], result['sid'], business.id
+            )
+        else:
+            import logging
+            logging.getLogger(__name__).warning(
+                'Twilio number provisioning skipped for business %s: %s',
+                business.id, result.get('error')
+            )
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(
+            'Twilio provisioning error for business %s: %s', business.id, e
+        )
+        # Non-fatal: registration succeeds even if provisioning fails
+
     # Trigger new contact automation (replaces GHL Contact Changed / Form Submitted workflow)
     try:
         from src.services.automations import trigger_new_contact

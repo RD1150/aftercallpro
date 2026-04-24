@@ -203,6 +203,9 @@ def run_migrations():
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS subscription_status VARCHAR(50) DEFAULT \'active\'', 'businesses.subscription_status'),
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS forward_urgent_calls BOOLEAN DEFAULT FALSE', 'businesses.forward_urgent_calls'),
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS forward_phone_number VARCHAR(20)', 'businesses.forward_phone_number'),
+        # ISV compliance: per-client Twilio number provisioning (added 2026-04-24)
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number VARCHAR(20)', 'businesses.twilio_number'),
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number_sid VARCHAR(50)', 'businesses.twilio_number_sid'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)
