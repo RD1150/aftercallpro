@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up & SMS Opt-In | AfterCallPro by MindRocket Systems LLC</title>
+  <title>Sign Up &amp; SMS Opt-In | AfterCallPro by MindRocket Systems LLC</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f3f4f6; color: #111827; }
@@ -116,7 +116,10 @@
 
     <div class="notice-box">
       <strong>SMS Opt-In Documentation Page</strong><br>
-      This page demonstrates the AfterCallPro signup form and SMS opt-in workflow for compliance review purposes. The live signup form is available at <a href="https://aftercallpro.com/signup">aftercallpro.com/signup</a>.
+      This page demonstrates the AfterCallPro signup form and SMS opt-in workflow for compliance review purposes.
+      AfterCallPro is an ISV (Independent Software Vendor) that provisions a dedicated phone number for each subscribing business.
+      SMS messages are sent <strong>from that business's dedicated number</strong> to their own customers — not from AfterCallPro.
+      The live signup form is available at <a href="https://aftercallpro.com/signup">aftercallpro.com/signup</a>.
     </div>
 
     <!-- SIGNUP FORM MOCKUP -->
@@ -151,9 +154,11 @@
           <span class="checkbox-unchecked"></span>
         </div>
         <p class="consent-label">
-          Yes! I agree to receive texts from AfterCallPro to my mobile telephone number provided above.
+          Yes! I agree to receive automated SMS notifications from the business I am registering
+          (powered by AfterCallPro) to my mobile telephone number provided above.
+          These messages are sent by my business to my own customers as missed-call follow-ups.
           I understand that I am <strong>not required</strong> to agree to the receipt of texts as a condition of
-          purchasing any good or service from AfterCallPro and that I may opt-out at any time.
+          purchasing any good or service, and that I may opt-out at any time.
           Standard Msg &amp; Data Rates apply. Text <strong>HELP</strong> for help and <strong>STOP</strong> to opt-out.
           View our <a href="https://aftercallpro.com/sms-policy">SMS Policy</a>.
         </p>
@@ -172,9 +177,11 @@
           <span class="checkbox-checked">&#10003;</span>
         </div>
         <p class="consent-label">
-          Yes! I agree to receive texts from AfterCallPro to my mobile telephone number provided above.
+          Yes! I agree to receive automated SMS notifications from the business I am registering
+          (powered by AfterCallPro) to my mobile telephone number provided above.
+          These messages are sent by my business to my own customers as missed-call follow-ups.
           I understand that I am <strong>not required</strong> to agree to the receipt of texts as a condition of
-          purchasing any good or service from AfterCallPro and that I may opt-out at any time.
+          purchasing any good or service, and that I may opt-out at any time.
           Standard Msg &amp; Data Rates apply. Text <strong>HELP</strong> for help and <strong>STOP</strong> to opt-out.
           View our <a href="https://aftercallpro.com/sms-policy">SMS Policy</a>.
         </p>
@@ -195,7 +202,7 @@
   <!-- OPT-IN WORKFLOW EXPLANATION -->
   <div class="card">
     <h2>How SMS Opt-In Works</h2>
-    <p style="font-size:14px;color:#6b7280;margin-bottom:20px;">AfterCallPro collects SMS consent via a web form (Web Form opt-in type) during account registration. Below is the complete opt-in workflow.</p>
+    <p style="font-size:14px;color:#6b7280;margin-bottom:20px;">AfterCallPro is an ISV that provisions a dedicated Twilio phone number for each subscribing business. Each business's customers receive SMS from that business's dedicated number. AfterCallPro collects consent from the business owner (subscriber) during account registration via a web form. Below is the complete opt-in workflow.</p>
 
     <div class="step">
       <div class="step-num">1</div>
@@ -207,15 +214,15 @@
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-text"><strong>The user checks the box</strong>, confirming they agree to receive SMS notifications from AfterCallPro. The "Create Free Account" button becomes active only after the box is checked.</div>
+      <div class="step-text"><strong>The user checks the box</strong>, confirming they agree to receive SMS notifications from their own business's dedicated number (powered by AfterCallPro). The "Create Free Account" button becomes active only after the box is checked.</div>
     </div>
     <div class="step">
       <div class="step-num">4</div>
-      <div class="step-text"><strong>A confirmation SMS is sent</strong> to the phone number provided: "You have been opted in to receive SMS notifications from AfterCallPro. Reply STOP to opt out. Msg &amp; data rates may apply."</div>
+      <div class="step-text"><strong>A confirmation SMS is sent</strong> to the business owner's phone number from their newly provisioned dedicated number: "You have been opted in to receive SMS notifications from [Business Name]. Reply STOP to opt out. Msg &amp; data rates may apply."</div>
     </div>
     <div class="step">
       <div class="step-num">5</div>
-      <div class="step-text"><strong>The user can opt out at any time</strong> by replying STOP to any message. They will receive a confirmation: "You have been unsubscribed from AfterCallPro SMS. No further messages will be sent."</div>
+      <div class="step-text"><strong>The user can opt out at any time</strong> by replying STOP to any message. They will receive a confirmation: "You have been unsubscribed from [Business Name] SMS. No further messages will be sent."</div>
     </div>
 
     <hr class="section-divider" />
@@ -233,6 +240,8 @@
       <tr><td>Privacy Policy</td><td><a href="https://aftercallpro.com/privacy">aftercallpro.com/privacy</a></td></tr>
       <tr><td>Terms of Service</td><td><a href="https://aftercallpro.com/terms">aftercallpro.com/terms</a></td></tr>
       <tr><td>Legal entity</td><td>MindRocket Systems LLC (AfterCallPro is a DBA)</td></tr>
+      <tr><td>Sender of SMS</td><td>Each business's own dedicated Twilio number — not a shared AfterCallPro number</td></tr>
+      <tr><td>ISV / Aggregator model</td><td><span class="check-green">Yes</span> — AfterCallPro provisions one dedicated number per business per Twilio ISV requirements</td></tr>
       <tr><td>Messages are promotional</td><td><span style="color:#dc2626;font-weight:700;">No</span> — transactional only (missed call follow-up)</td></tr>
       <tr><td>Messages are bulk/marketing</td><td><span style="color:#dc2626;font-weight:700;">No</span> — one message per missed call, direct response only</td></tr>
     </table>

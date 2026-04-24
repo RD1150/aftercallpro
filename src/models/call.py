@@ -31,14 +31,35 @@ class Business(db.Model):
     # Stripe
     stripe_customer_id = db.Column(db.String(100), nullable=True)
     stripe_subscription_id = db.Column(db.String(100), nullable=True)
-    
+
+    # Twilio — dedicated number assigned to this business (ISV compliance)
+    # Each business must have their own unique number per Twilio ISV requirements.
+    twilio_number = db.Column(db.String(20), nullable=True, unique=True)
+    twilio_number_sid = db.Column(db.String(100), nullable=True)
+    twilio_number_provisioned = db.Column(db.Boolean, default=False)
+
+    # SMS template — customizable per business
+    sms_template = db.Column(
+        db.Text,
+        default="Hi, this is {business_name} — sorry we missed your call. How can we help?"
+    )
+
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     # Relationships
     calls = db.relationship('Call', backref='business', lazy=True, cascade='all, delete-orphan')
-    
+
+    def get_sms_from_number(self):
+        """Return the business's dedicated Twilio number, or None if not yet provisioned."""
+        return self.twilio_number if self.twilio_number_provisioned else None
+
+    def format_sms_body(self, template: str = None) -> str:
+        """Format the SMS body using the business's template or a provided override."""
+        t = template or self.sms_template or "Hi, this is {business_name} — sorry we missed your call. How can we help?"
+        return t.replace("{business_name}", self.name)
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -50,6 +71,9 @@ class Business(db.Model):
             'timezone': self.timezone,
             'greeting_message': self.greeting_message,
             'ai_voice': self.ai_voice,
+            'twilio_number': self.twilio_number,
+            'twilio_number_provisioned': self.twilio_number_provisioned,
+            'sms_template': self.sms_template,
             'subscription_tier': self.subscription_tier,
             'monthly_minutes_limit': self.monthly_minutes_limit,
             'minutes_used': self.minutes_used,

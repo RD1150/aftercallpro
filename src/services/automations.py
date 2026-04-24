@@ -42,25 +42,33 @@ logger = logging.getLogger(__name__)
 # Helpers
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _send_sms(to_number: str, body: str):
-    """Send an SMS via Twilio. Silently logs if credentials are missing."""
+def _send_sms(to_number: str, body: str, from_number: str = None):
+    """
+    Send an SMS via Twilio.
+
+    Args:
+        to_number:   Recipient phone number (E.164 format)
+        body:        SMS message body
+        from_number: Sender number. Pass the business's dedicated twilio_number
+                     for ISV compliance. Falls back to TWILIO_PHONE_NUMBER env var.
+    """
     try:
         from twilio.rest import Client
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
-        from_number = os.getenv("TWILIO_PHONE_NUMBER")
+        sender = from_number or os.getenv("TWILIO_PHONE_NUMBER")
 
-        if not all([account_sid, auth_token, from_number]):
+        if not all([account_sid, auth_token, sender]):
             logger.warning("Twilio credentials not configured — SMS not sent to %s", to_number)
             return False
 
         client = Client(account_sid, auth_token)
         message = client.messages.create(
             body=body,
-            from_=from_number,
+            from_=sender,
             to=to_number
         )
-        logger.info("SMS sent to %s — SID: %s", to_number, message.sid)
+        logger.info("SMS sent to %s from %s — SID: %s", to_number, sender, message.sid)
         return True
     except Exception as e:
         logger.error("SMS send failed to %s: %s", to_number, e)
@@ -103,11 +111,20 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
     business_email = business.email
     business_id = business.id
 
-    sms_body = (
-        f"Hi! You just missed a call from {business_name}. "
-        f"We captured your message and someone will follow up shortly. "
-        f"Reply STOP to opt out."
-    )
+    # Use the business's dedicated Twilio number for ISV compliance.
+    # SMS must appear to come from the business, not from AfterCallPro.
+    business_twilio_number = None
+    if hasattr(business, 'get_sms_from_number'):
+        business_twilio_number = business.get_sms_from_number()
+
+    # Use the business's custom SMS template if set, otherwise use a sensible default.
+    if hasattr(business, 'format_sms_body'):
+        sms_body = business.format_sms_body() + " Reply STOP to opt out."
+    else:
+        sms_body = (
+            f"Hi, this is {business_name} \u2014 sorry we missed your call. "
+            f"How can we help? Reply STOP to opt out."
+        )
 
     email_subject = f"📞 Missed Call Follow-Up — {business_name}"
     email_html = f"""
@@ -134,8 +151,8 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
     </div>
     """
 
-    # Step 1: Wait 2 minutes, then send SMS to caller
-    _run_after(120, _send_sms, caller_number, sms_body)
+    # Step 1: Wait 2 minutes, then send SMS to caller from the business's dedicated number
+    _run_after(120, _send_sms, caller_number, sms_body, business_twilio_number)
 
     # Step 2: Wait 3 minutes, then send follow-up email to caller
     # (We use caller_number as a proxy — in production, look up email from CRM)
