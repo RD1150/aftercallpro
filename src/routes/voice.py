@@ -81,18 +81,17 @@ def handle_incoming_call():
     # Create TwiML response
     response = VoiceResponse()
 
-    # Greet the caller (ElevenLabs if configured, falls back to Twilio Say).
-    # The greeting itself ends with a question, so the gather is silent —
-    # otherwise we'd talk over the caller as they answer.
-    speak(response, business.greeting_message, business)
-
+    # Put the greeting INSIDE the gather so Twilio listens during playback
+    # (barge-in) and the post-greeting silence window is generous. Otherwise
+    # a thoughtful caller's pause times out before they speak.
     gather = Gather(
         input='speech',
         action=f'/api/voice/process?call_id={call.id}',
         method='POST',
-        timeout=5,
+        timeout=10,
         speech_timeout='auto'
     )
+    speak(gather, business.greeting_message, business)
     response.append(gather)
     
     # If no input, redirect
@@ -154,22 +153,23 @@ def process_speech():
         
         # Create TwiML response
         response = VoiceResponse()
-        speak(response, ai_response, business)
 
         # Check if we should continue the conversation
         if "goodbye" in ai_response.lower() or "thank you for calling" in ai_response.lower():
+            speak(response, ai_response, business)
             response.hangup()
         else:
-            # Silent gather — let the AI's own response stand. The model decides
-            # when to wrap up with "Is there anything else..." per the system
-            # prompt, instead of us appending it after every turn.
+            # Same pattern as the initial gather: put the AI's reply INSIDE
+            # the gather so Twilio listens during playback (barge-in) and the
+            # post-reply pause window is generous.
             gather = Gather(
                 input='speech',
                 action=f'/api/voice/process?call_id={call.id}',
                 method='POST',
-                timeout=5,
+                timeout=10,
                 speech_timeout='auto'
             )
+            speak(gather, ai_response, business)
             response.append(gather)
             response.redirect('/api/voice/no-input')
         
