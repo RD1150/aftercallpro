@@ -25,18 +25,19 @@ def main():
         print("FAIL: ELEVENLABS_API_KEY env var is empty")
         return
 
-    print("\n--- testing /v1/user (auth check) ---")
+    print("\n--- testing /v1/user (skip if 401, key may not have user_read) ---")
     r = requests.get(
         "https://api.elevenlabs.io/v1/user",
         headers={"xi-api-key": api_key},
         timeout=10,
     )
     print(f"status: {r.status_code}")
-    if not r.ok:
-        print(f"body: {r.text[:500]}")
-        return
-    print(f"subscription tier: {r.json().get('subscription', {}).get('tier')}")
-    print(f"chars used / limit: {r.json().get('subscription', {}).get('character_count')} / {r.json().get('subscription', {}).get('character_limit')}")
+    if r.ok:
+        sub = r.json().get('subscription', {})
+        print(f"subscription tier: {sub.get('tier')}")
+        print(f"chars used / limit: {sub.get('character_count')} / {sub.get('character_limit')}")
+    else:
+        print(f"(skipping — key lacks user_read; not required for TTS)")
 
     print("\n--- testing TTS synthesis ---")
     r = requests.post(
