@@ -48,6 +48,14 @@ class AIService:
         base_prompt = f"""{identity}{industry_clause}.
 You are warm, friendly, and upbeat. Keep responses brief and natural for phone conversations.
 
+ONE QUESTION PER TURN (CRITICAL):
+- Each of your replies must contain AT MOST one question.
+- After asking a question, stop talking. The system will wait silently for
+  the caller's answer.
+- Never stack questions like "What's your name? And your phone? And email?"
+  — ask one, wait, then ask the next.
+- A typical reply is one short acknowledgement sentence + one question, max.
+
 When you introduce yourself or refer to your role, always say "{self_ref}".
 
 CONVERSATION OPENING:
