@@ -21,6 +21,8 @@ class Business(db.Model):
     greeting_message = db.Column(db.Text, default="Thank you for calling. How may I help you today?")
     ai_voice = db.Column(db.String(50), default="alloy")
     industry = db.Column(db.String(100), nullable=True)  # e.g. "real estate", "plumbing", "law firm"
+    principal_name = db.Column(db.String(100), nullable=True)  # the human the AI works for (e.g. "Reena")
+    assistant_name = db.Column(db.String(100), nullable=True)  # the AI's name (e.g. "Sarah")
     forward_urgent_calls = db.Column(db.Boolean, default=False)
     forward_phone_number = db.Column(db.String(20), nullable=True)
     
@@ -74,6 +76,8 @@ class Business(db.Model):
             'greeting_message': self.greeting_message,
             'ai_voice': self.ai_voice,
             'industry': self.industry,
+            'principal_name': self.principal_name,
+            'assistant_name': self.assistant_name,
             'twilio_number': self.twilio_number,
             'twilio_number_provisioned': self.twilio_number_provisioned,
             'sms_template': self.sms_template,

@@ -247,6 +247,9 @@ def run_migrations():
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS sms_template TEXT', 'businesses.sms_template'),
         # Industry-agnostic AI prompt (added 2026-05-04)
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS industry VARCHAR(100)', 'businesses.industry'),
+        # AI identity fields (added 2026-05-04)
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS principal_name VARCHAR(100)', 'businesses.principal_name'),
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS assistant_name VARCHAR(100)', 'businesses.assistant_name'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)

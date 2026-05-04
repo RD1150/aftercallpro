@@ -24,10 +24,31 @@ class AIService:
         )
         
         industry = (getattr(self.business, "industry", None) or "").strip()
-        industry_clause = f", a {industry} business" if industry else ""
+        principal = (getattr(self.business, "principal_name", None) or "").strip()
+        assistant = (getattr(self.business, "assistant_name", None) or "").strip()
 
-        base_prompt = f"""You are an AI receptionist for {self.business.name}{industry_clause}.
+        # Identity sentence — favor the principal's name when set, fall back to the business.
+        if principal and assistant:
+            identity = f"You are {assistant}, {principal}'s AI assistant"
+            self_ref = f"{principal}'s AI assistant"
+        elif principal:
+            identity = f"You are {principal}'s AI assistant"
+            self_ref = f"{principal}'s AI assistant"
+        elif assistant:
+            identity = f"You are {assistant}, the AI assistant for {self.business.name}"
+            self_ref = f"the AI assistant for {self.business.name}"
+        else:
+            identity = f"You are an AI receptionist for {self.business.name}"
+            self_ref = f"the AI assistant for {self.business.name}"
+
+        industry_clause = f", a {industry} professional" if (industry and principal) else (
+            f", a {industry} business" if industry else ""
+        )
+
+        base_prompt = f"""{identity}{industry_clause}.
 You are professional, friendly, and helpful. Keep responses brief and natural for phone conversations.
+
+When you introduce yourself or refer to your role, always say "{self_ref}".
 
 Your capabilities:
 1. Answer questions about the business
