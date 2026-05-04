@@ -1,12 +1,45 @@
-from flask import Blueprint, request, Response, jsonify
+from flask import Blueprint, request, Response, jsonify, send_file
 from twilio.twiml.voice_response import VoiceResponse, Gather
 from src.models.call import db, Call, Business
 from src.services.email_service import email_service
+from src.services.elevenlabs_service import synthesize_to_file, AUDIO_DIR
 from src.utils.twilio_security import twilio_webhook
 from datetime import datetime
 import os
 
 voice_bp = Blueprint('voice', __name__)
+
+
+def _public_audio_url(filename: str) -> str:
+    base = os.environ.get("APP_BASE_URL", "https://aftercallpro.onrender.com").rstrip("/")
+    return f"{base}/api/voice/audio/{filename}"
+
+
+def speak(twiml_node, text: str, business):
+    """Render `text` as audio onto a TwiML VoiceResponse or Gather node.
+
+    Tries ElevenLabs first for natural voice; falls back to Twilio's <Say> if
+    ElevenLabs isn't configured or the API call fails.
+    """
+    if not text:
+        return
+    filename = synthesize_to_file(text)
+    if filename:
+        twiml_node.play(_public_audio_url(filename))
+    else:
+        twiml_node.say(text, voice=(business.ai_voice if business else None) or "alloy")
+
+
+@voice_bp.route('/audio/<filename>', methods=['GET'])
+def serve_audio(filename):
+    """Serve generated TTS files for Twilio's <Play>. Filenames are random
+    UUIDs so they're unguessable; we still validate to prevent path traversal."""
+    if "/" in filename or ".." in filename or not filename.endswith(".mp3"):
+        return "bad filename", 400
+    path = AUDIO_DIR / filename
+    if not path.exists():
+        return "not found", 404
+    return send_file(str(path), mimetype="audio/mpeg")
 
 @voice_bp.route('/incoming', methods=['POST'])
 @twilio_webhook
@@ -47,10 +80,10 @@ def handle_incoming_call():
     
     # Create TwiML response
     response = VoiceResponse()
-    
-    # Greet the caller
-    response.say(business.greeting_message, voice=business.ai_voice)
-    
+
+    # Greet the caller (ElevenLabs if configured, falls back to Twilio Say).
+    speak(response, business.greeting_message, business)
+
     # Gather user input
     gather = Gather(
         input='speech',
@@ -59,7 +92,7 @@ def handle_incoming_call():
         timeout=5,
         speech_timeout='auto'
     )
-    gather.say("Please tell me how I can help you today.", voice=business.ai_voice)
+    speak(gather, "Please tell me how I can help you today.", business)
     response.append(gather)
     
     # If no input, redirect
@@ -121,8 +154,8 @@ def process_speech():
         
         # Create TwiML response
         response = VoiceResponse()
-        response.say(ai_response, voice=business.ai_voice)
-        
+        speak(response, ai_response, business)
+
         # Check if we should continue the conversation
         if "goodbye" in ai_response.lower() or "thank you for calling" in ai_response.lower():
             response.hangup()
@@ -135,7 +168,7 @@ def process_speech():
                 timeout=5,
                 speech_timeout='auto'
             )
-            gather.say("Is there anything else I can help you with?", voice=business.ai_voice)
+            speak(gather, "Is there anything else I can help you with?", business)
             response.append(gather)
             response.redirect('/api/voice/no-input')
         
