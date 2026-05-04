@@ -24,7 +24,7 @@ AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 # Sensible defaults — Rachel (warm professional female), Turbo v2.5 model
 # (~250ms latency, decent quality, cheaper than the multilingual flagship).
 DEFAULT_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "21m00Tcm4TlvDq8ikWAM")
-DEFAULT_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_turbo_v2_5")
+DEFAULT_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_flash_v2_5")
 ELEVENLABS_API = "https://api.elevenlabs.io/v1"
 
 

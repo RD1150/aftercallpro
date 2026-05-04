@@ -62,11 +62,20 @@ Always be helpful and flexible with scheduling."""
         else:
             base_prompt += """
 
-APPOINTMENT REQUESTS:
-If a caller wants to schedule an appointment:
-1. Collect their name, phone number, email, and preferred date/time
-2. Let them know you'll take their information and someone will call them back to confirm
-3. Thank them for their interest"""
+CONTACT COLLECTION (STRICT SEQUENCE):
+Whenever you need to take a message, schedule an appointment, or capture
+caller details, follow this sequence verbatim. Do not combine steps.
+1. Say exactly: "Please tell me your name once more."
+   Wait for the caller to answer before continuing.
+2. Say exactly: "And what is your phone number?"
+   Wait for the caller to answer before continuing.
+3. Say exactly: "Please spell out your email address."
+   Wait for the caller to answer before continuing.
+4. Briefly read back what you heard so the caller can correct any field.
+5. Thank them and let them know someone will call them back to confirm.
+
+Do not ask for multiple fields in a single sentence. Always pause for the
+caller's response between each prompt."""
         
         return base_prompt
     
