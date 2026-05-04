@@ -62,7 +62,12 @@ def provision_number_for_business(business, area_code: str = None) -> dict:
 
         chosen = available[0]
 
-        # Purchase the number and configure webhooks
+        # Purchase the number and configure webhooks. friendly_name goes into
+        # an HTTP header which is latin-1 only, so strip any non-ASCII from
+        # business names (em dashes, smart quotes, accented characters, etc.).
+        safe_name = (business.name or "").encode("ascii", errors="replace").decode("ascii")
+        friendly = f"AfterCallPro - {safe_name}"[:64]
+
         purchased = client.incoming_phone_numbers.create(
             phone_number=chosen.phone_number,
             voice_url=f"{base_url}/api/voice/incoming",
@@ -71,7 +76,7 @@ def provision_number_for_business(business, area_code: str = None) -> dict:
             sms_method="POST",
             status_callback=f"{base_url}/api/voice/status",
             status_callback_method="POST",
-            friendly_name=f"AfterCallPro — {business.name}",
+            friendly_name=friendly,
         )
 
         logger.info(
