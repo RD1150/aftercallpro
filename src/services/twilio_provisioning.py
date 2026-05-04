@@ -36,18 +36,29 @@ def provision_number_for_business(business, area_code: str = None) -> dict:
 
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+        api_key_sid = os.getenv("TWILIO_API_KEY_SID")
+        api_key_secret = os.getenv("TWILIO_API_KEY_SECRET")
         base_url = os.getenv("APP_BASE_URL", "https://aftercallpro.onrender.com")
 
-        if not all([account_sid, auth_token]):
+        # Prefer API Key auth when both halves are present — modern Twilio
+        # accounts may not expose the master Auth Token directly. Fall back to
+        # Account SID + Auth Token for older setups.
+        if api_key_sid and api_key_secret:
+            auth = (api_key_sid, api_key_secret)
+        elif account_sid and auth_token:
+            auth = (account_sid, auth_token)
+        else:
             logger.warning("Twilio credentials not configured — skipping number provisioning")
             return {"success": False, "error": "Twilio credentials not configured"}
+
+        if not account_sid:
+            return {"success": False, "error": "TWILIO_ACCOUNT_SID is required even when using API Keys"}
 
         # Use requests directly instead of the Twilio SDK — the SDK's internal
         # serialization triggers a `'latin-1' codec can't encode character` error
         # in some environments, possibly tied to billing/locale data on the
         # account. The plain REST API works fine with UTF-8.
         api_root = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}"
-        auth = (account_sid, auth_token)
 
         # 1) Search for an available local number.
         search_params = {"VoiceEnabled": "true", "SmsEnabled": "true", "PageSize": 1}
