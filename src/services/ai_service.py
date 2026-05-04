@@ -23,13 +23,16 @@ class AIService:
             self.calendar_service.settings.google_calendar_enabled
         )
         
-        base_prompt = f"""You are an AI receptionist for {self.business.name}, a real estate business.
+        industry = (getattr(self.business, "industry", None) or "").strip()
+        industry_clause = f", a {industry} business" if industry else ""
+
+        base_prompt = f"""You are an AI receptionist for {self.business.name}{industry_clause}.
 You are professional, friendly, and helpful. Keep responses brief and natural for phone conversations.
 
 Your capabilities:
 1. Answer questions about the business
 2. Take detailed messages
-3. Schedule appointments (property showings, consultations)
+3. Schedule appointments and consultations
 4. Route urgent matters to a human
 
 Current date and time: {datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')}
@@ -38,7 +41,7 @@ Current date and time: {datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')}
         if calendar_enabled:
             # Add appointment booking instructions
             appointment_types = self.calendar_service.settings.appointment_types or [
-                {'name': 'Property Showing', 'duration': 60},
+                {'name': 'Appointment', 'duration': 60},
                 {'name': 'Consultation', 'duration': 30}
             ]
             
@@ -135,7 +138,7 @@ If a caller wants to schedule an appointment:
                             },
                             "appointment_type": {
                                 "type": "string",
-                                "description": "Type of appointment (e.g., Property Showing, Consultation)"
+                                "description": "Type of appointment (e.g., Consultation, Service Appointment)"
                             },
                             "duration_minutes": {
                                 "type": "integer",

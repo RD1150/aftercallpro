@@ -42,37 +42,17 @@ logger = logging.getLogger(__name__)
 # Helpers
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _send_sms(to_number: str, body: str, from_number: str = None):
-    """
-    Send an SMS via Twilio.
-
-    Args:
-        to_number:   Recipient phone number (E.164 format)
-        body:        SMS message body
-        from_number: Sender number. Pass the business's dedicated twilio_number
-                     for ISV compliance. Falls back to TWILIO_PHONE_NUMBER env var.
-    """
-    try:
-        from twilio.rest import Client
-        account_sid = os.getenv("TWILIO_ACCOUNT_SID")
-        auth_token = os.getenv("TWILIO_AUTH_TOKEN")
-        sender = from_number or os.getenv("TWILIO_PHONE_NUMBER")
-
-        if not all([account_sid, auth_token, sender]):
-            logger.warning("Twilio credentials not configured — SMS not sent to %s", to_number)
-            return False
-
-        client = Client(account_sid, auth_token)
-        message = client.messages.create(
-            body=body,
-            from_=sender,
-            to=to_number
-        )
-        logger.info("SMS sent to %s from %s — SID: %s", to_number, sender, message.sid)
-        return True
-    except Exception as e:
-        logger.error("SMS send failed to %s: %s", to_number, e)
-        return False
+def _send_sms(to_number: str, body: str, from_number: str = None, business=None, idempotency_key: str = None):
+    """Send an SMS through SmsService (opt-out gated, rate-limited, idempotent)."""
+    from src.services.sms_service import SmsService
+    result = SmsService.send(
+        to=to_number,
+        body=body,
+        business=business,
+        idempotency_key=idempotency_key,
+        from_number=from_number,
+    )
+    return result.sent
 
 
 def _send_email(to_email: str, subject: str, html_body: str, text_body: str = ""):
@@ -86,13 +66,30 @@ def _send_email(to_email: str, subject: str, html_body: str, text_body: str = ""
 
 
 def _run_after(delay_seconds: int, fn, *args, **kwargs):
-    """Run a function in a background thread after a delay."""
+    """Run a function in a background thread after a delay.
+
+    Captures the current Flask app at scheduling time so the deferred work has
+    a fresh app context — needed because SmsService and email_service touch
+    `db.session`, which is bound to an app context.
+    """
+    from flask import current_app
+
+    try:
+        app = current_app._get_current_object()
+    except RuntimeError:
+        app = None
+
     def _worker():
         time.sleep(delay_seconds)
         try:
-            fn(*args, **kwargs)
+            if app is not None:
+                with app.app_context():
+                    fn(*args, **kwargs)
+            else:
+                fn(*args, **kwargs)
         except Exception as e:
             logger.error("Background automation error: %s", e)
+
     t = threading.Thread(target=_worker, daemon=True)
     t.start()
 
@@ -152,7 +149,15 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
     """
 
     # Step 1: Wait 2 minutes, then send SMS to caller from the business's dedicated number
-    _run_after(120, _send_sms, caller_number, sms_body, business_twilio_number)
+    _run_after(
+        120,
+        _send_sms,
+        caller_number,
+        sms_body,
+        from_number=business_twilio_number,
+        business=business,
+        idempotency_key=f"missed_call_recovery:{business_id}:{caller_number}",
+    )
 
     # Step 2: Wait 3 minutes, then send follow-up email to caller
     # (We use caller_number as a proxy — in production, look up email from CRM)
@@ -215,7 +220,14 @@ def trigger_no_show_recovery(business, appointment, customer_email: str = "", cu
 
     if customer_phone:
         # 1 hour → SMS
-        _run_after(3600, _send_sms, customer_phone, sms_body)
+        _run_after(
+            3600,
+            _send_sms,
+            customer_phone,
+            sms_body,
+            business=business,
+            idempotency_key=f"no_show_sms:{business.id}:{getattr(appointment, 'id', '?')}",
+        )
 
     logger.info("No-show recovery triggered for business %s", business.id)
 
@@ -269,7 +281,14 @@ def trigger_payment_onboarding(business):
         f"Log in at aftercallpro.onrender.com to set up your AI receptionist. "
         f"Reply STOP to opt out."
     )
-    _run_after(3600, _send_sms, business_phone, sms_body)
+    _run_after(
+        3600,
+        _send_sms,
+        business_phone,
+        sms_body,
+        business=business,
+        idempotency_key=f"payment_onboarding_sms:{business.id}",
+    )
 
     # Step 3: Wait 24 hours → Onboarding tips email
     tips_subject = f"Getting the most out of AfterCallPro — Tips for {business_name}"
@@ -316,7 +335,14 @@ def trigger_new_contact(business):
         f"Your account is ready. Log in at aftercallpro.onrender.com "
         f"Reply STOP to opt out."
     )
-    _run_after(30, _send_sms, business_phone, sms_body)
+    _run_after(
+        30,
+        _send_sms,
+        business_phone,
+        sms_body,
+        business=business,
+        idempotency_key=f"new_contact_sms:{business.id}",
+    )
 
     # Welcome email
     email_subject = "Welcome to AfterCallPro — Your account is ready"

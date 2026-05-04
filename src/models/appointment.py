@@ -1,5 +1,6 @@
 from datetime import datetime
 from src.models.user import db
+from src.utils.encryption import EncryptedText
 
 class Appointment(db.Model):
     __tablename__ = 'appointments'
@@ -70,10 +71,10 @@ class CalendarSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     business_id = db.Column(db.Integer, db.ForeignKey('businesses.id'), nullable=False, unique=True)
     
-    # Google Calendar OAuth
+    # Google Calendar OAuth — tokens are bearer credentials; encrypt at rest.
     google_calendar_enabled = db.Column(db.Boolean, default=False)
-    google_access_token = db.Column(db.Text, nullable=True)
-    google_refresh_token = db.Column(db.Text, nullable=True)
+    google_access_token = db.Column(EncryptedText, nullable=True)
+    google_refresh_token = db.Column(EncryptedText, nullable=True)
     google_token_expiry = db.Column(db.DateTime, nullable=True)
     google_calendar_id = db.Column(db.String(200), nullable=True)  # primary calendar ID
     

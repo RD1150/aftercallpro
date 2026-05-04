@@ -2,12 +2,14 @@ from flask import Blueprint, request, Response, jsonify
 from twilio.twiml.voice_response import VoiceResponse, Gather
 from src.models.call import db, Call, Business
 from src.services.email_service import email_service
+from src.utils.twilio_security import twilio_webhook
 from datetime import datetime
 import os
 
 voice_bp = Blueprint('voice', __name__)
 
 @voice_bp.route('/incoming', methods=['POST'])
+@twilio_webhook
 def handle_incoming_call():
     """Handle incoming calls from Twilio"""
     
@@ -62,6 +64,7 @@ def handle_incoming_call():
 
 
 @voice_bp.route('/process', methods=['POST'])
+@twilio_webhook
 def process_speech():
     """Process the caller's speech input"""
     
@@ -142,6 +145,7 @@ def process_speech():
 
 
 @voice_bp.route('/no-input', methods=['POST', 'GET'])
+@twilio_webhook
 def no_input():
     """Handle when caller doesn't provide input"""
     response = VoiceResponse()
@@ -151,6 +155,7 @@ def no_input():
 
 
 @voice_bp.route('/status', methods=['POST'])
+@twilio_webhook
 def call_status():
     """Handle call status callbacks from Twilio"""
     

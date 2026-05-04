@@ -4,10 +4,24 @@ import { Link } from "react-router-dom";
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setSubmitting(true);
+    try {
+      await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+    } catch (err) {
+      console.error("forgot-password failed", err);
+    }
+    // Always show the same generic confirmation — the backend never confirms
+    // whether an account exists, to prevent email enumeration.
     setSent(true);
+    setSubmitting(false);
   }
 
   return (
@@ -34,15 +48,16 @@ export default function ForgotPassword() {
 
               <button
                 type="submit"
-                className="w-full bg-[#0b1524] hover:bg-[#142137] text-white font-semibold py-3 rounded-lg transition"
+                disabled={submitting}
+                className="w-full bg-[#0b1524] hover:bg-[#142137] text-white font-semibold py-3 rounded-lg transition disabled:opacity-60"
               >
-                Send Reset Link
+                {submitting ? "Sending…" : "Send Reset Link"}
               </button>
             </form>
           </>
         ) : (
           <p className="text-center text-green-600 font-semibold">
-            If this email exists, a reset link has been sent.
+            If an account exists with that email, a reset link has been sent. Check your inbox.
           </p>
         )}
 

@@ -10,3 +10,5 @@ twilio>=8.0.0
 google-auth
 google-auth-oauthlib
 google-api-python-client
+cryptography>=42.0.0
+flask-migrate>=4.0.5

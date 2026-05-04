@@ -48,6 +48,29 @@ export default function Signup() {
         return;
       }
 
+      // Record SMS consent linked to the new business so STOP/UNSUBSCRIBE works
+      // and we have an audit trail for carrier compliance.
+      if (smsConsent && res.business?.id) {
+        try {
+          await fetch("/api/sms/opt-in", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              phone: formData.phone_number,
+              business_id: res.business.id,
+              source: "signup_form",
+              consent_text:
+                "I agree to receive texts from AfterCallPro at the mobile number provided. " +
+                "I am not required to consent as a condition of purchase. Reply STOP to opt out. " +
+                "Msg & data rates may apply.",
+            }),
+          });
+        } catch (err) {
+          console.error("SMS opt-in record failed:", err);
+        }
+      }
+
       const plan = searchParams.get("plan");
       if (plan) {
         navigate(`/pricing`);

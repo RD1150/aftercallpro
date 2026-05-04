@@ -1,74 +1,98 @@
+"""Encryption utilities for sensitive data at rest.
+
+In production, `ENCRYPTION_KEY` MUST be set to a 32-byte url-safe base64 Fernet
+key (generate with `Fernet.generate_key()`). In dev we fall back to deriving a
+key from `SECRET_KEY` so local work doesn't break — but we log loudly.
+
+The `EncryptedText` TypeDecorator transparently encrypts on write and decrypts
+on read. Existing plaintext rows (from before this column was encrypted) are
+detected via the Fernet `gAAAAA` prefix and passed through unchanged on read,
+so we don't have to backfill before deploying.
 """
-Encryption utilities for sensitive data
-"""
+
+import base64
+import logging
 import os
-from cryptography.fernet import Fernet
+
+from cryptography.fernet import Fernet, InvalidToken
+from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2
-from cryptography.hazmat.backends import default_backend
-import base64
+from sqlalchemy.types import Text, TypeDecorator
+
+logger = logging.getLogger(__name__)
+
+# Fernet ciphertext is url-safe base64 of a token starting with version byte 0x80.
+# Encoded, that always begins with "gAAAAA" — useful as a "this is encrypted" sentinel.
+_FERNET_PREFIX = "gAAAAA"
 
 
 class EncryptionManager:
-    """Manages encryption and decryption of sensitive data"""
-    
+    """Wraps Fernet symmetric encryption."""
+
     def __init__(self):
-        # Get encryption key from environment or generate one
-        self.encryption_key = os.getenv('ENCRYPTION_KEY')
-        if not self.encryption_key:
-            # Generate a key from a password (in production, set ENCRYPTION_KEY env var)
-            password = os.getenv('SECRET_KEY', 'default-secret-key').encode()
-            salt = b'aftercallpro-salt-2024'  # In production, use a random salt stored securely
+        key = os.environ.get("ENCRYPTION_KEY")
+
+        if not key:
+            if os.environ.get("FLASK_ENV") == "production":
+                raise RuntimeError("ENCRYPTION_KEY environment variable is required in production")
+            logger.warning("ENCRYPTION_KEY not set — deriving from SECRET_KEY (dev only)")
+            password = (os.environ.get("SECRET_KEY") or "default-secret-key").encode()
             kdf = PBKDF2(
                 algorithm=hashes.SHA256(),
                 length=32,
-                salt=salt,
+                salt=b"aftercallpro-salt-2024",
                 iterations=100000,
-                backend=default_backend()
+                backend=default_backend(),
             )
             key = base64.urlsafe_b64encode(kdf.derive(password))
-            self.encryption_key = key
-        
-        if isinstance(self.encryption_key, str):
-            self.encryption_key = self.encryption_key.encode()
-            
-        self.cipher = Fernet(self.encryption_key)
-    
+
+        if isinstance(key, str):
+            key = key.encode()
+        self.cipher = Fernet(key)
+
     def encrypt(self, plaintext: str) -> str:
-        """Encrypt a string and return base64 encoded ciphertext"""
-        if not plaintext:
+        if plaintext is None or plaintext == "":
             return plaintext
-        
-        try:
-            encrypted = self.cipher.encrypt(plaintext.encode())
-            return encrypted.decode()
-        except Exception as e:
-            print(f"Encryption error: {e}")
-            return plaintext  # Fallback to plaintext if encryption fails
-    
+        return self.cipher.encrypt(plaintext.encode()).decode()
+
     def decrypt(self, ciphertext: str) -> str:
-        """Decrypt a base64 encoded ciphertext and return plaintext"""
-        if not ciphertext:
+        """Decrypt; if the value is legacy plaintext, return it as-is."""
+        if ciphertext is None or ciphertext == "":
             return ciphertext
-        
+        if not ciphertext.startswith(_FERNET_PREFIX):
+            return ciphertext
         try:
-            decrypted = self.cipher.decrypt(ciphertext.encode())
-            return decrypted.decode()
-        except Exception as e:
-            print(f"Decryption error: {e}")
-            return ciphertext  # Fallback to returning as-is if decryption fails
+            return self.cipher.decrypt(ciphertext.encode()).decode()
+        except InvalidToken:
+            logger.error("Failed to decrypt field — wrong ENCRYPTION_KEY or corrupted ciphertext")
+            return ciphertext
 
 
-# Global encryption manager instance
 encryption_manager = EncryptionManager()
 
 
 def encrypt_field(value: str) -> str:
-    """Convenience function to encrypt a field"""
     return encryption_manager.encrypt(value)
 
 
 def decrypt_field(value: str) -> str:
-    """Convenience function to decrypt a field"""
     return encryption_manager.decrypt(value)
+
+
+class EncryptedText(TypeDecorator):
+    """SQLAlchemy column type that transparently encrypts on write, decrypts on read."""
+
+    impl = Text
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
+        return encryption_manager.encrypt(value)
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return None
+        return encryption_manager.decrypt(value)
 

@@ -19,6 +19,8 @@ import Analytics from "./pages/Analytics";
 import AIGreeting from "./pages/AIGreeting";
 import Onboarding from "./pages/Onboarding";
 import Billing from "./pages/Billing";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -40,6 +42,8 @@ function AppRoutes() {
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sms-policy" element={<SmsPolicy />} />
       <Route path="/sms-consent" element={<SmsConsent />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/support" element={<ContactSupport />} />
 
       <Route

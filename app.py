@@ -17,7 +17,12 @@ DIST_DIR = ROOT_DIR / "src" / "frontend" / "dist"
 # Our serve_react catch-all below handles all static file serving instead.
 app = Flask(__name__)
 
-app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-this-in-production")
+_secret_key = os.environ.get("SECRET_KEY")
+if not _secret_key:
+    if os.environ.get("FLASK_ENV") == "production":
+        raise RuntimeError("SECRET_KEY environment variable is required in production")
+    _secret_key = "dev-secret-change-this-in-production"
+app.secret_key = _secret_key
 
 # Session cookie settings
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
@@ -43,6 +48,21 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 from src.models.user import db, User
 db.init_app(app)
 
+# Alembic / Flask-Migrate is installed but not yet the source of truth for
+# migrations on this app. Cutover steps (run once when ready):
+#   1. `flask db init` — generate migrations/ skeleton
+#   2. `flask db migrate -m "baseline"` — autogenerate from current models
+#   3. Edit the baseline migration to be a no-op (or matching CREATE TABLE IF
+#      NOT EXISTS) since prod already has every table.
+#   4. Against prod: `flask db stamp head` to mark current state as applied.
+#   5. Add `flask db upgrade` to render.yaml startCommand before gunicorn.
+#   6. Delete `run_migrations()` below.
+try:
+    from flask_migrate import Migrate
+    migrate = Migrate(app, db)
+except ImportError:
+    pass
+
 # Import ALL models before create_all so SQLAlchemy knows about every table
 with app.app_context():
     from src.models.call import Business, Call
@@ -54,18 +74,23 @@ with app.app_context():
         from src.models.audit import AuditLog
     except Exception:
         pass
+    try:
+        from src.models.sms import SmsConsent, SmsSendLog
+    except Exception:
+        pass
     db.create_all()
 
 # -------------------------
 # CORS
 # -------------------------
-CORS(app, supports_credentials=True, origins=[
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://aftercallpro.onrender.com",
-    "https://aftercallpro.com",
-    "https://www.aftercallpro.com",
-])
+_default_cors = (
+    "http://localhost:5173,http://localhost:3000,"
+    "https://aftercallpro.onrender.com,https://aftercallpro.com,https://www.aftercallpro.com"
+)
+_cors_origins = [
+    o.strip() for o in os.environ.get("CORS_ORIGINS", _default_cors).split(",") if o.strip()
+]
+CORS(app, supports_credentials=True, origins=_cors_origins)
 
 # -------------------------
 # REGISTER BLUEPRINTS
@@ -93,6 +118,12 @@ try:
     app.register_blueprint(business_bp, url_prefix="/api/business")
 except Exception as e:
     print(f"Business blueprint not loaded: {e}")
+
+try:
+    from src.routes.sms import sms_bp
+    app.register_blueprint(sms_bp, url_prefix="/api/sms")
+except Exception as e:
+    print(f"SMS blueprint not loaded: {e}")
 
 # -------------------------
 # HEALTH CHECK
@@ -206,6 +237,8 @@ def run_migrations():
         # ISV compliance: per-client Twilio number provisioning (added 2026-04-24)
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number VARCHAR(20)', 'businesses.twilio_number'),
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number_sid VARCHAR(50)', 'businesses.twilio_number_sid'),
+        # Industry-agnostic AI prompt (added 2026-05-04)
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS industry VARCHAR(100)', 'businesses.industry'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)

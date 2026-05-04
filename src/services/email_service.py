@@ -188,6 +188,39 @@ class EmailService:
         
         return self.send_email(business.email, subject, html_body, text_body)
     
+    def send_password_reset(self, user, reset_url):
+        """Send password reset email with a one-time link."""
+        subject = "Reset your AfterCallPro password"
+
+        html_body = f"""
+        <!DOCTYPE html>
+        <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 24px;">
+                <h2>Reset your password</h2>
+                <p>We received a request to reset the password for {user.email}.</p>
+                <p>This link expires in 1 hour. If you didn't request this, you can ignore this email.</p>
+                <p>
+                    <a href="{reset_url}" style="display:inline-block; padding:12px 24px; background:#667eea; color:#fff; text-decoration:none; border-radius:6px;">
+                        Reset password
+                    </a>
+                </p>
+                <p style="color:#666; font-size:12px;">Or paste this link into your browser:<br>{reset_url}</p>
+            </div>
+        </body>
+        </html>
+        """
+
+        text_body = (
+            f"Reset your AfterCallPro password\n\n"
+            f"We received a request to reset the password for {user.email}.\n"
+            f"This link expires in 1 hour.\n\n"
+            f"{reset_url}\n\n"
+            f"If you didn't request this, you can ignore this email."
+        )
+
+        return self.send_email(user.email, subject, html_body, text_body)
+
     def send_daily_summary(self, business, calls):
         """Send daily summary of calls"""
         subject = f"Daily Call Summary - {datetime.now().strftime('%B %d, %Y')}"

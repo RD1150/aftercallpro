@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from src.models.user import db
+from src.utils.encryption import EncryptedText
 
 class Business(db.Model):
     """Business model for multi-tenancy support"""
@@ -19,6 +20,7 @@ class Business(db.Model):
     # AI Configuration
     greeting_message = db.Column(db.Text, default="Thank you for calling. How may I help you today?")
     ai_voice = db.Column(db.String(50), default="alloy")
+    industry = db.Column(db.String(100), nullable=True)  # e.g. "real estate", "plumbing", "law firm"
     forward_urgent_calls = db.Column(db.Boolean, default=False)
     forward_phone_number = db.Column(db.String(20), nullable=True)
     
@@ -71,6 +73,7 @@ class Business(db.Model):
             'timezone': self.timezone,
             'greeting_message': self.greeting_message,
             'ai_voice': self.ai_voice,
+            'industry': self.industry,
             'twilio_number': self.twilio_number,
             'twilio_number_provisioned': self.twilio_number_provisioned,
             'sms_template': self.sms_template,
@@ -97,8 +100,8 @@ class Call(db.Model):
     status = db.Column(db.String(50), default="initiated")  # initiated, in-progress, completed, failed
     duration = db.Column(db.Integer, default=0)  # in seconds
     
-    # Conversation data
-    transcript = db.Column(db.Text, nullable=True)
+    # Conversation data — transcript holds caller speech and may contain PII.
+    transcript = db.Column(EncryptedText, nullable=True)
     summary = db.Column(db.Text, nullable=True)
     sentiment = db.Column(db.String(50), nullable=True)  # positive, neutral, negative
     

@@ -66,6 +66,7 @@ def _do_register(data):
         timezone=data.get('timezone', 'America/New_York'),
         greeting_message=data.get('greeting_message', f'Thank you for calling {data["name"]}. Our AI assistant is here to help you 24/7.'),
         ai_voice=data.get('ai_voice', 'alloy'),
+        industry=(data.get('industry') or '').strip() or None,
         subscription_tier=data.get('subscription_tier', 'starter'),
         monthly_minutes_limit=data.get('monthly_minutes_limit', 500)
     )
@@ -182,35 +183,37 @@ def check_auth():
 
 @auth_bp.route('/forgot-password', methods=['POST'])
 def forgot_password():
-    """Request password reset - generates token"""
-    data = request.get_json()
-    
+    """Request password reset — emails a one-time link, never returns the token."""
+    import os
+    import logging
+    from urllib.parse import urlencode
+    from src.services.email_service import email_service
+
+    data = request.get_json() or {}
+
     if not data.get('email'):
         return jsonify({'error': 'Email is required'}), 400
-    
+
+    generic_response = jsonify({
+        'message': 'If an account exists with this email, a reset link has been sent.'
+    }), 200
+
     user = User.query.filter_by(email=data['email']).first()
-    
-    # Always return success to prevent email enumeration
     if not user:
-        return jsonify({
-            'message': 'If an account exists with this email, a reset link will be provided',
-            'token': None
-        }), 200
-    
-    # Generate reset token
+        return generic_response
+
     reset_token = user.generate_reset_token()
     db.session.commit()
-    
-    # In production, you would send this via email
-    # For now, we'll return it in the response
-    # TODO: Integrate email service (SendGrid, AWS SES, etc.)
-    
-    return jsonify({
-        'message': 'Password reset token generated',
-        'token': reset_token,
-        'email': user.email,
-        'expires_in': '1 hour'
-    }), 200
+
+    base_url = os.environ.get('APP_BASE_URL', '').rstrip('/') or request.host_url.rstrip('/')
+    reset_url = f"{base_url}/reset-password?{urlencode({'token': reset_token, 'email': user.email})}"
+
+    try:
+        email_service.send_password_reset(user, reset_url)
+    except Exception as e:
+        logging.getLogger(__name__).error('Password reset email send failed for %s: %s', user.email, e)
+
+    return generic_response
 
 @auth_bp.route('/reset-password', methods=['POST'])
 def reset_password():
