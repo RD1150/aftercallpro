@@ -41,6 +41,12 @@ elif database_url.startswith("postgresql://"):
 
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url or "sqlite:///aftercallpro.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# Render's PG closes idle connections; verify each connection before use and
+# recycle every 280s (under most cloud PG idle timeouts).
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    "pool_pre_ping": True,
+    "pool_recycle": 280,
+}
 
 # -------------------------
 # INIT EXTENSIONS
