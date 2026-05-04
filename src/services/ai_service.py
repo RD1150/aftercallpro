@@ -321,12 +321,15 @@ caller's response between each prompt."""
         tools = self.get_available_functions()
         
         try:
-            # First API call
+            # First API call. max_tokens caps response length so phone replies
+            # come back faster and stay concise.
             response = self.client.chat.completions.create(
                 model="gpt-4.1-mini",
                 messages=messages,
                 tools=tools if tools else None,
-                tool_choice="auto" if tools else None
+                tool_choice="auto" if tools else None,
+                max_tokens=120,
+                temperature=0.7,
             )
             
             response_message = response.choices[0].message
@@ -364,7 +367,9 @@ caller's response between each prompt."""
             # Second API call to get final response
             second_response = self.client.chat.completions.create(
                 model="gpt-4.1-mini",
-                messages=messages
+                messages=messages,
+                max_tokens=120,
+                temperature=0.7,
             )
             
             return second_response.choices[0].message.content
