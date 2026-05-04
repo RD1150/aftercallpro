@@ -160,7 +160,9 @@ def process_speech():
         if "goodbye" in ai_response.lower() or "thank you for calling" in ai_response.lower():
             response.hangup()
         else:
-            # Continue gathering input
+            # Silent gather — let the AI's own response stand. The model decides
+            # when to wrap up with "Is there anything else..." per the system
+            # prompt, instead of us appending it after every turn.
             gather = Gather(
                 input='speech',
                 action=f'/api/voice/process?call_id={call.id}',
@@ -168,7 +170,6 @@ def process_speech():
                 timeout=5,
                 speech_timeout='auto'
             )
-            speak(gather, "Is there anything else I can help you with?", business)
             response.append(gather)
             response.redirect('/api/voice/no-input')
         
