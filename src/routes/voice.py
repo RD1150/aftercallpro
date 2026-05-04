@@ -82,14 +82,17 @@ def handle_incoming_call():
     response = VoiceResponse()
 
     # Put the greeting INSIDE the gather so Twilio listens during playback
-    # (barge-in) and the post-greeting silence window is generous. Otherwise
-    # a thoughtful caller's pause times out before they speak.
+    # (barge-in). actionOnEmptyResult=True ensures we always reach
+    # process_speech even when Twilio doesn't catch the speech, so the AI
+    # can ask "sorry, didn't catch that — could you say your name again?"
+    # instead of Twilio's harsh "I didn't hear anything, goodbye" bailout.
     gather = Gather(
         input='speech',
         action=f'/api/voice/process?call_id={call.id}',
         method='POST',
         timeout=10,
-        speech_timeout='auto'
+        speech_timeout=2,
+        action_on_empty_result=True,
     )
     speak(gather, business.greeting_message, business)
     response.append(gather)
@@ -104,23 +107,41 @@ def handle_incoming_call():
 @twilio_webhook
 def process_speech():
     """Process the caller's speech input"""
-    
+
     call_id = request.args.get('call_id')
-    speech_result = request.form.get('SpeechResult', '')
-    
+    speech_result = (request.form.get('SpeechResult') or '').strip()
+
     if not call_id:
         response = VoiceResponse()
         response.say("An error occurred. Please try again.")
         response.hangup()
         return str(response)
-    
+
     call = Call.query.get(call_id)
     if not call:
         response = VoiceResponse()
         response.say("An error occurred. Please try again.")
         response.hangup()
         return str(response)
-    
+
+    # Empty speech: Twilio didn't catch the caller. Reprompt instead of
+    # bailing to /no-input so the conversation survives a missed word.
+    if not speech_result:
+        business = call.business
+        response = VoiceResponse()
+        gather = Gather(
+            input='speech',
+            action=f'/api/voice/process?call_id={call.id}',
+            method='POST',
+            timeout=10,
+            speech_timeout=2,
+            action_on_empty_result=True,
+        )
+        speak(gather, "Sorry, I didn't catch that. Could you say it again?", business)
+        response.append(gather)
+        response.redirect('/api/voice/no-input')
+        return str(response)
+
     # Update call transcript
     if call.transcript:
         call.transcript += f"\nCaller: {speech_result}"
@@ -167,7 +188,8 @@ def process_speech():
                 action=f'/api/voice/process?call_id={call.id}',
                 method='POST',
                 timeout=10,
-                speech_timeout='auto'
+                speech_timeout=2,
+                action_on_empty_result=True,
             )
             speak(gather, ai_response, business)
             response.append(gather)
