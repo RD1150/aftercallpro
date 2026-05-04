@@ -6,7 +6,13 @@ Looks up the user by email and rewrites their password hash. Used when the
 forgot-password flow is broken or you don't want to wait on email delivery.
 """
 
+import os
 import sys
+
+# Allow running as `python3 scripts/reset_password.py ...` — Python adds the
+# script's own dir to sys.path, not the project root, so the `app` import would
+# otherwise fail.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app import app
 from src.models.user import db, User
