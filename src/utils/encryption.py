@@ -17,7 +17,7 @@ import os
 from cryptography.fernet import Fernet, InvalidToken
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from sqlalchemy.types import Text, TypeDecorator
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class EncryptionManager:
                 raise RuntimeError("ENCRYPTION_KEY environment variable is required in production")
             logger.warning("ENCRYPTION_KEY not set — deriving from SECRET_KEY (dev only)")
             password = (os.environ.get("SECRET_KEY") or "default-secret-key").encode()
-            kdf = PBKDF2(
+            kdf = PBKDF2HMAC(
                 algorithm=hashes.SHA256(),
                 length=32,
                 salt=b"aftercallpro-salt-2024",
