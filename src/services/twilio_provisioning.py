@@ -32,7 +32,7 @@ def provision_number_for_business(business, area_code: str = None) -> dict:
         dict with keys: success (bool), phone_number (str), sid (str), error (str)
     """
     try:
-        from twilio.rest import Client
+        import requests
 
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
@@ -42,54 +42,78 @@ def provision_number_for_business(business, area_code: str = None) -> dict:
             logger.warning("Twilio credentials not configured — skipping number provisioning")
             return {"success": False, "error": "Twilio credentials not configured"}
 
-        client = Client(account_sid, auth_token)
+        # Use requests directly instead of the Twilio SDK — the SDK's internal
+        # serialization triggers a `'latin-1' codec can't encode character` error
+        # in some environments, possibly tied to billing/locale data on the
+        # account. The plain REST API works fine with UTF-8.
+        api_root = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}"
+        auth = (account_sid, auth_token)
 
-        # Search for available local numbers
-        search_kwargs = {"voice_enabled": True, "sms_enabled": True, "limit": 1}
+        # 1) Search for an available local number.
+        search_params = {"VoiceEnabled": "true", "SmsEnabled": "true", "PageSize": 1}
         if area_code:
-            search_kwargs["area_code"] = area_code
+            search_params["AreaCode"] = area_code
 
-        available = client.available_phone_numbers("US").local.list(**search_kwargs)
+        search_resp = requests.get(
+            f"{api_root}/AvailablePhoneNumbers/US/Local.json",
+            auth=auth,
+            params=search_params,
+            timeout=15,
+        )
+        search_resp.raise_for_status()
+        candidates = search_resp.json().get("available_phone_numbers", [])
 
-        if not available:
-            # Fallback: search without area code constraint
-            available = client.available_phone_numbers("US").local.list(
-                voice_enabled=True, sms_enabled=True, limit=1
+        if not candidates and area_code:
+            # Retry without the area-code filter.
+            search_resp = requests.get(
+                f"{api_root}/AvailablePhoneNumbers/US/Local.json",
+                auth=auth,
+                params={"VoiceEnabled": "true", "SmsEnabled": "true", "PageSize": 1},
+                timeout=15,
             )
+            search_resp.raise_for_status()
+            candidates = search_resp.json().get("available_phone_numbers", [])
 
-        if not available:
+        if not candidates:
             return {"success": False, "error": "No available phone numbers found"}
 
-        chosen = available[0]
+        chosen_number = candidates[0]["phone_number"]
 
-        # Purchase the number and configure webhooks. friendly_name goes into
-        # an HTTP header which is latin-1 only, so strip any non-ASCII from
-        # business names (em dashes, smart quotes, accented characters, etc.).
+        # 2) Purchase + configure webhooks. friendly_name goes into a header
+        # somewhere in Twilio's pipeline — keep it pure ASCII to be safe.
         safe_name = (business.name or "").encode("ascii", errors="replace").decode("ascii")
         friendly = f"AfterCallPro - {safe_name}"[:64]
 
-        purchased = client.incoming_phone_numbers.create(
-            phone_number=chosen.phone_number,
-            voice_url=f"{base_url}/api/voice/incoming",
-            voice_method="POST",
-            sms_url=f"{base_url}/api/voice/sms-incoming",
-            sms_method="POST",
-            status_callback=f"{base_url}/api/voice/status",
-            status_callback_method="POST",
-            friendly_name=friendly,
+        buy_resp = requests.post(
+            f"{api_root}/IncomingPhoneNumbers.json",
+            auth=auth,
+            data={
+                "PhoneNumber": chosen_number,
+                "VoiceUrl": f"{base_url}/api/voice/incoming",
+                "VoiceMethod": "POST",
+                "SmsUrl": f"{base_url}/api/voice/sms-incoming",
+                "SmsMethod": "POST",
+                "StatusCallback": f"{base_url}/api/voice/status",
+                "StatusCallbackMethod": "POST",
+                "FriendlyName": friendly,
+            },
+            timeout=30,
         )
+        if not buy_resp.ok:
+            return {"success": False, "error": f"Twilio purchase failed: {buy_resp.status_code} {buy_resp.text[:200]}"}
 
+        purchased = buy_resp.json()
         logger.info(
             "Provisioned number %s (SID: %s) for business %s",
-            purchased.phone_number,
-            purchased.sid,
+            purchased.get("phone_number"),
+            purchased.get("sid"),
             business.id,
         )
 
         return {
             "success": True,
-            "phone_number": purchased.phone_number,
-            "sid": purchased.sid,
+            "phone_number": purchased.get("phone_number"),
+            "sid": purchased.get("sid"),
         }
 
     except Exception as e:
