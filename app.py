@@ -237,6 +237,8 @@ def run_migrations():
         # ISV compliance: per-client Twilio number provisioning (added 2026-04-24)
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number VARCHAR(20)', 'businesses.twilio_number'),
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number_sid VARCHAR(50)', 'businesses.twilio_number_sid'),
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS twilio_number_provisioned BOOLEAN DEFAULT FALSE', 'businesses.twilio_number_provisioned'),
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS sms_template TEXT', 'businesses.sms_template'),
         # Industry-agnostic AI prompt (added 2026-05-04)
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS industry VARCHAR(100)', 'businesses.industry'),
     ]
