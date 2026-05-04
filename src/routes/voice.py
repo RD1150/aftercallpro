@@ -17,9 +17,14 @@ def handle_incoming_call():
     from_number = request.form.get('From')
     to_number = request.form.get('To')
     call_sid = request.form.get('CallSid')
-    
-    # Find the business by phone number
-    business = Business.query.filter_by(phone_number=to_number).first()
+
+    # Match the dialed number to its owning business. Twilio numbers are stored
+    # in business.twilio_number; we fall back to the legacy phone_number column
+    # for older records that pre-date per-client provisioning.
+    business = (
+        Business.query.filter_by(twilio_number=to_number).first()
+        or Business.query.filter_by(phone_number=to_number).first()
+    )
     
     if not business:
         # No business found for this number
