@@ -232,7 +232,8 @@ def get_subscription_info():
         'plans': {
             plan_id: {
                 'name': plan['name'],
-                'price': plan['price'],
+                'price_monthly': plan['price_monthly'],
+                'price_yearly': plan['price_yearly'],
                 'minutes': plan['minutes']
             }
             for plan_id, plan in SUBSCRIPTION_PLANS.items()
@@ -246,7 +247,8 @@ def get_plans():
     return jsonify({
         plan_id: {
             'name': plan['name'],
-            'price': plan['price'],
+            'price_monthly': plan['price_monthly'],
+            'price_yearly': plan['price_yearly'],
             'minutes': plan['minutes']
         }
         for plan_id, plan in SUBSCRIPTION_PLANS.items()
