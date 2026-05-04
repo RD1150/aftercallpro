@@ -82,9 +82,10 @@ def handle_incoming_call():
     response = VoiceResponse()
 
     # Greet the caller (ElevenLabs if configured, falls back to Twilio Say).
+    # The greeting itself ends with a question, so the gather is silent —
+    # otherwise we'd talk over the caller as they answer.
     speak(response, business.greeting_message, business)
 
-    # Gather user input
     gather = Gather(
         input='speech',
         action=f'/api/voice/process?call_id={call.id}',
@@ -92,7 +93,6 @@ def handle_incoming_call():
         timeout=5,
         speech_timeout='auto'
     )
-    speak(gather, "Please tell me how I can help you today.", business)
     response.append(gather)
     
     # If no input, redirect

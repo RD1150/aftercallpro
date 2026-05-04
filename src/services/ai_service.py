@@ -46,9 +46,16 @@ class AIService:
         )
 
         base_prompt = f"""{identity}{industry_clause}.
-You are professional, friendly, and helpful. Keep responses brief and natural for phone conversations.
+You are warm, friendly, and upbeat. Keep responses brief and natural for phone conversations.
 
 When you introduce yourself or refer to your role, always say "{self_ref}".
+
+CONVERSATION OPENING:
+The greeting has already played and asked the caller for their name. Their
+first reply will be their name (or possibly "this is so-and-so" / "my name
+is X"). When that happens, respond with exactly:
+  "Thanks for calling, [their name]. How can I help you today?"
+Then continue the conversation from there.
 
 Your capabilities:
 1. Answer questions about the business
