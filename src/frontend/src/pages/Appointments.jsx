@@ -184,8 +184,12 @@ export default function Appointments() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete this appointment?")) return;
-    await fetch(`${API_BASE}/api/appointments/${id}`, { method: "DELETE", credentials: "include" });
+    if (!window.confirm("Delete this appointment? This also removes it from Google Calendar.")) return;
+    const res = await fetch(`${API_BASE}/api/appointments/${id}`, { method: "DELETE", credentials: "include" });
+    if (!res.ok) {
+      setError("Failed to delete appointment.");
+      return;
+    }
     setAppointments(prev => prev.filter(a => a.id !== id));
   };
 
@@ -326,7 +330,7 @@ export default function Appointments() {
                         disabled={sendingReminder === a.id || a.status === "cancelled"} style={s.remindBtn}>
                         {sendingReminder === a.id ? "…" : "Remind"}
                       </button>
-                      <button onClick={() => handleDelete(a.id)} style={s.deleteBtn}>✕</button>
+                      <button onClick={() => handleDelete(a.id)} style={s.deleteBtn}>Delete</button>
                     </div>
                   </td>
                 </tr>
@@ -367,7 +371,7 @@ const s = {
   td: { padding: "14px 16px", fontSize: "14px", color: "#374151", verticalAlign: "middle" },
   editBtn: { padding: "4px 10px", borderRadius: "6px", border: "1px solid #2563eb", background: "#fff", color: "#2563eb", cursor: "pointer", fontSize: "12px" },
   remindBtn: { padding: "4px 10px", borderRadius: "6px", border: "1px solid #16a34a", background: "#fff", color: "#16a34a", cursor: "pointer", fontSize: "12px" },
-  deleteBtn: { padding: "4px 8px", borderRadius: "6px", border: "1px solid #fca5a5", background: "#fff", color: "#b91c1c", cursor: "pointer", fontSize: "12px" },
+  deleteBtn: { padding: "4px 10px", borderRadius: "6px", border: "1px solid #fca5a5", background: "#fff", color: "#b91c1c", cursor: "pointer", fontSize: "12px" },
   empty: { textAlign: "center", padding: "60px 20px", color: "#94a3b8", fontSize: "15px" },
 };
 
