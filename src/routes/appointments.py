@@ -374,17 +374,14 @@ def connect_google_calendar():
     )
     
     flow.redirect_uri = REDIRECT_URI
-    
-    authorization_url, state = flow.authorization_url(
+
+    authorization_url, _state = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true',
-        prompt='consent'
+        prompt='consent',
+        state=str(business.id),
     )
-    
-    # Store state in session or database for verification
-    # For now, we'll include business_id in the state
-    authorization_url += f'&state={business.id}'
-    
+
     return jsonify({'authorization_url': authorization_url}), 200
 
 
