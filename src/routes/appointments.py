@@ -220,9 +220,9 @@ def update_appointment(appointment_id):
 
 @appointments_bp.route('/<int:appointment_id>', methods=['DELETE'])
 def delete_appointment(appointment_id):
-    """Delete an appointment. Removes the Google Calendar event (if any)
-    and the database row. To merely cancel without deleting, edit the
-    appointment and set status='cancelled'."""
+    """Cancel an appointment. Marks the row status='cancelled' so the
+    history is preserved, and removes the corresponding Google Calendar
+    event so it no longer occupies that slot."""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
     business = Business.query.get(session.get('business_id'))
@@ -242,10 +242,10 @@ def delete_appointment(appointment_id):
     if appointment.google_calendar_event_id and calendar_service.settings and calendar_service.settings.google_calendar_enabled:
         calendar_service.cancel_appointment(appointment.google_calendar_event_id)
 
-    db.session.delete(appointment)
+    appointment.status = 'cancelled'
     db.session.commit()
 
-    return jsonify({'message': 'Appointment deleted successfully'}), 200
+    return jsonify({'message': 'Appointment cancelled successfully', 'appointment': appointment.to_dict()}), 200
 
 
 @appointments_bp.route('/available-slots', methods=['GET'])

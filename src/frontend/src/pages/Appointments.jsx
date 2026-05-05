@@ -183,14 +183,14 @@ export default function Appointments() {
     setShowModal(false); setEditAppt(null);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this appointment? This also removes it from Google Calendar.")) return;
+  const handleCancel = async (id) => {
+    if (!window.confirm("Cancel this appointment? It stays on the list as Cancelled and is removed from Google Calendar.")) return;
     const res = await fetch(`${API_BASE}/api/appointments/${id}`, { method: "DELETE", credentials: "include" });
     if (!res.ok) {
-      setError("Failed to delete appointment.");
+      setError("Failed to cancel appointment.");
       return;
     }
-    setAppointments(prev => prev.filter(a => a.id !== id));
+    setAppointments(prev => prev.map(a => a.id === id ? { ...a, status: "cancelled" } : a));
   };
 
   const handleSendReminder = async (appt) => {
@@ -330,7 +330,13 @@ export default function Appointments() {
                         disabled={sendingReminder === a.id || a.status === "cancelled"} style={s.remindBtn}>
                         {sendingReminder === a.id ? "…" : "Remind"}
                       </button>
-                      <button onClick={() => handleDelete(a.id)} style={s.deleteBtn}>Delete</button>
+                      <button
+                        onClick={() => handleCancel(a.id)}
+                        disabled={a.status === "cancelled"}
+                        style={{ ...s.deleteBtn, opacity: a.status === "cancelled" ? 0.4 : 1, cursor: a.status === "cancelled" ? "not-allowed" : "pointer" }}
+                      >
+                        Cancel
+                      </button>
                     </div>
                   </td>
                 </tr>
