@@ -69,11 +69,13 @@ class CalendarService:
         try:
             calendar_id = self.settings.google_calendar_id or 'primary'
             
-            # Check for conflicts in Google Calendar
+            # Check for conflicts in Google Calendar. Datetimes are passed
+            # in as timezone-aware so isoformat() emits a proper RFC 3339
+            # offset; appending 'Z' here would lie about the timezone.
             events_result = service.events().list(
                 calendarId=calendar_id,
-                timeMin=start_datetime.isoformat() + 'Z',
-                timeMax=end_datetime.isoformat() + 'Z',
+                timeMin=start_datetime.isoformat(),
+                timeMax=end_datetime.isoformat(),
                 singleEvents=True,
                 orderBy='startTime'
             ).execute()

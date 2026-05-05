@@ -205,9 +205,10 @@ Taking a message — strict one-field-per-turn sequence:
     def check_availability(self, date, time, duration_minutes=60):
         """Check if a time slot is available"""
         try:
+            tz = ZoneInfo(self.business.timezone or 'America/Los_Angeles')
             date_obj = datetime.strptime(date, '%Y-%m-%d').date()
             time_obj = datetime.strptime(time, '%H:%M').time()
-            appointment_datetime = datetime.combine(date_obj, time_obj)
+            appointment_datetime = datetime.combine(date_obj, time_obj, tzinfo=tz)
             end_datetime = appointment_datetime + timedelta(minutes=duration_minutes)
 
             is_available = self.calendar_service.check_availability(
@@ -252,9 +253,11 @@ Taking a message — strict one-field-per-turn sequence:
                         duration_minutes=60, notes=None):
         """Book an appointment"""
         try:
+            business_tz = self.business.timezone or 'America/Los_Angeles'
+            tz = ZoneInfo(business_tz)
             date_obj = datetime.strptime(date, '%Y-%m-%d').date()
             time_obj = datetime.strptime(time, '%H:%M').time()
-            appointment_datetime = datetime.combine(date_obj, time_obj)
+            appointment_datetime = datetime.combine(date_obj, time_obj, tzinfo=tz)
             end_datetime = appointment_datetime + timedelta(minutes=duration_minutes)
 
             is_available = self.calendar_service.check_availability(
@@ -285,7 +288,6 @@ Taking a message — strict one-field-per-turn sequence:
             db.session.add(appointment)
             db.session.flush()
             
-            business_tz = self.business.timezone or 'America/Los_Angeles'
             appointment.timezone = business_tz
 
             appointment_data = {
