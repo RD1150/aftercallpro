@@ -1,6 +1,7 @@
 import os
 import json
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from openai import OpenAI
 from src.models.appointment import Appointment, CalendarSettings
 from src.services.calendar_service import CalendarService
@@ -57,7 +58,7 @@ First turn: the greeting already asked for the caller's name. Their first reply 
 
 Capabilities: answer questions, take messages, schedule appointments, route urgent matters.
 
-Now: {datetime.now().strftime('%a %b %d %Y, %I:%M %p')}
+Now: {datetime.now(ZoneInfo(self.business.timezone or 'America/Los_Angeles')).strftime('%a %b %d %Y, %I:%M %p %Z')}
 """
         
         if calendar_enabled:
@@ -284,13 +285,15 @@ Taking a message — strict one-field-per-turn sequence:
             db.session.add(appointment)
             db.session.flush()
             
-            # Create in Google Calendar
+            business_tz = self.business.timezone or 'America/Los_Angeles'
+            appointment.timezone = business_tz
+
             appointment_data = {
                 'customer_name': customer_name,
                 'customer_email': customer_email,
                 'start_datetime': appointment_datetime,
                 'end_datetime': end_datetime,
-                'timezone': 'America/New_York',
+                'timezone': business_tz,
                 'notes': notes
             }
             
