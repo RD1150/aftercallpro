@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import BillingPolicy from "./pages/BillingPolicy";
-import TermsOfService from "./pages/TermsOfService";
 import ContactSupport from "./pages/ContactSupport";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
@@ -40,7 +39,7 @@ function AppRoutes() {
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/billing-policy" element={<BillingPolicy />} />
       <Route path="/terms" element={<Terms />} />
-      <Route path="/terms-of-service" element={<TermsOfService />} />
+      <Route path="/terms-of-service" element={<Navigate to="/terms" replace />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/sms-policy" element={<SmsPolicy />} />
       <Route path="/sms-consent" element={<SmsConsent />} />
