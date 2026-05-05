@@ -22,6 +22,7 @@ import Billing from "./pages/Billing";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Integrations from "./pages/Integrations";
+import BusinessSettings from "./components/BusinessSettings";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -100,6 +101,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Integrations />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <BusinessSettings />
           </ProtectedRoute>
         }
       />

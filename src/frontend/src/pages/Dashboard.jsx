@@ -121,6 +121,8 @@ export default function Dashboard() {
       <nav style={styles.nav}>
         <span style={styles.navBrand}>AfterCallPro</span>
         <div style={styles.navRight}>
+          <button onClick={() => navigate("/settings")} style={styles.navLink}>Settings</button>
+          <button onClick={() => navigate("/integrations")} style={styles.navLink}>Integrations</button>
           <button onClick={() => navigate("/billing")} style={styles.navLink}>Billing</button>
           <span style={styles.navEmail}>{user?.email}</span>
           <button onClick={handleLogout} style={styles.logoutBtn}>Log out</button>

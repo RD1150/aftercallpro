@@ -21,6 +21,7 @@ def get_business_settings():
         'business_name': business.name,
         'phone_number': business.phone_number,
         'email': business.email,
+        'timezone': getattr(business, 'timezone', None),
         'ai_greeting': getattr(business, 'greeting_message', None) or getattr(business, 'ai_greeting', None),
         'ai_voice': getattr(business, 'ai_voice', 'nova'),
         'after_hours_greeting': getattr(business, 'after_hours_greeting', None),
@@ -57,6 +58,7 @@ def update_business_settings():
         'name': 'name',
         'business_name': 'name',
         'phone_number': 'phone_number',
+        'timezone': 'timezone',
     }
 
     for frontend_key, model_key in field_map.items():

@@ -131,6 +131,12 @@ try:
 except Exception as e:
     print(f"SMS blueprint not loaded: {e}")
 
+try:
+    from src.routes.settings import settings_bp
+    app.register_blueprint(settings_bp, url_prefix="/api")
+except Exception as e:
+    print(f"Settings blueprint not loaded: {e}")
+
 # -------------------------
 # HEALTH CHECK
 # -------------------------
