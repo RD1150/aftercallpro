@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import SaleBanner from "../components/SaleBanner";
 
 // Design tokens
 const GOLD = "#f7c948";
@@ -26,6 +27,9 @@ export default function Home() {
 
   return (
     <main style={{ fontFamily: FONT, background: "#f8fafc", color: "#0f172a" }}>
+
+      {/* PUBLIC SALE RIBBON (env-controlled, hidden by default) */}
+      <SaleBanner />
 
       {/* FOUNDING MEMBER RIBBON */}
       <a href="mailto:mindrocketsystems@gmail.com?subject=Founding%20Member%20code%20request&body=Hi%20%E2%80%94%20I'd%20like%20to%20request%20a%20Founding%20Member%20code%20for%20AfterCallPro." style={{
