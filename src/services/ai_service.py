@@ -201,24 +201,22 @@ Taking a message — strict one-field-per-turn sequence:
             }
         ]
     
-    def check_availability(self, date_str, time_str, duration_minutes=60):
+    def check_availability(self, date, time, duration_minutes=60):
         """Check if a time slot is available"""
         try:
-            # Parse date and time
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            time_obj = datetime.strptime(time_str, '%H:%M').time()
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+            time_obj = datetime.strptime(time, '%H:%M').time()
             appointment_datetime = datetime.combine(date_obj, time_obj)
             end_datetime = appointment_datetime + timedelta(minutes=duration_minutes)
-            
-            # Check availability
+
             is_available = self.calendar_service.check_availability(
                 appointment_datetime,
                 end_datetime
             )
-            
+
             return {
                 "available": is_available,
-                "message": f"{'Available' if is_available else 'Not available'} on {date_str} at {time_str}"
+                "message": f"{'Available' if is_available else 'Not available'} on {date} at {time}"
             }
         except Exception as e:
             return {
@@ -226,21 +224,21 @@ Taking a message — strict one-field-per-turn sequence:
                 "message": f"Error checking availability: {str(e)}"
             }
     
-    def get_available_slots(self, date_str, duration_minutes=60):
+    def get_available_slots(self, date, duration_minutes=60):
         """Get available slots for a date"""
         try:
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
             slots = self.calendar_service.get_available_slots(date_obj, duration_minutes)
-            
+
             if not slots:
                 return {
                     "slots": [],
-                    "message": f"No available slots on {date_str}"
+                    "message": f"No available slots on {date}"
                 }
-            
+
             return {
                 "slots": slots,
-                "message": f"Found {len(slots)} available slots on {date_str}"
+                "message": f"Found {len(slots)} available slots on {date}"
             }
         except Exception as e:
             return {
@@ -248,27 +246,25 @@ Taking a message — strict one-field-per-turn sequence:
                 "message": f"Error getting available slots: {str(e)}"
             }
     
-    def book_appointment(self, customer_name, customer_phone, date_str, time_str, 
-                        customer_email=None, appointment_type=None, 
+    def book_appointment(self, customer_name, customer_phone, date, time,
+                        customer_email=None, appointment_type=None,
                         duration_minutes=60, notes=None):
         """Book an appointment"""
         try:
-            # Parse date and time
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d').date()
-            time_obj = datetime.strptime(time_str, '%H:%M').time()
+            date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+            time_obj = datetime.strptime(time, '%H:%M').time()
             appointment_datetime = datetime.combine(date_obj, time_obj)
             end_datetime = appointment_datetime + timedelta(minutes=duration_minutes)
-            
-            # Check availability first
+
             is_available = self.calendar_service.check_availability(
                 appointment_datetime,
                 end_datetime
             )
-            
+
             if not is_available:
                 return {
                     "success": False,
-                    "message": f"Sorry, {date_str} at {time_str} is not available. Please choose another time."
+                    "message": f"Sorry, {date} at {time} is not available. Please choose another time."
                 }
             
             # Create appointment
@@ -311,7 +307,7 @@ Taking a message — strict one-field-per-turn sequence:
             return {
                 "success": True,
                 "appointment_id": appointment.id,
-                "message": f"Great! I've scheduled your {appointment_type or 'appointment'} for {date_str} at {time_str}. You'll receive a confirmation shortly."
+                "message": f"Great! I've scheduled your {appointment_type or 'appointment'} for {date} at {time}. You'll receive a confirmation shortly."
             }
             
         except Exception as e:
