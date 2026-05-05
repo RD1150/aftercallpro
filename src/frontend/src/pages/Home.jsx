@@ -21,8 +21,29 @@ export default function Home() {
   const coreSub = annual ? "billed $948/year — save $240" : "billed monthly";
   const eliteSub = annual ? "billed $2,844/year — save $720" : "billed monthly";
 
+  const foundingCorePrice = annual ? 40 : 50;
+  const foundingElitePrice = annual ? 119 : 149;
+
   return (
     <main style={{ fontFamily: FONT, background: "#f8fafc", color: "#0f172a" }}>
+
+      {/* FOUNDING MEMBER RIBBON */}
+      <Link to="/signup?plan=founding" style={{
+        display: "block",
+        background: `linear-gradient(90deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 50%, ${NAVY_DEEP} 100%)`,
+        borderBottom: `1px solid ${GOLD_BORDER}`,
+        padding: "0.6rem 1rem",
+        textAlign: "center",
+        textDecoration: "none",
+        color: TEXT_PRIMARY,
+        fontSize: "0.85rem",
+        fontWeight: 500,
+        letterSpacing: "0.01em",
+      }}>
+        <span style={{ color: GOLD, fontWeight: 700, marginRight: "0.5rem" }}>★ Founding Member offer</span>
+        <span style={{ color: TEXT_SECONDARY }}>2 months free + 50% off for life — limited to first 25 sign-ups.</span>
+        <span style={{ color: GOLD, marginLeft: "0.5rem", fontWeight: 600 }}>Claim →</span>
+      </Link>
 
       {/* NAV */}
       <nav style={{
@@ -310,6 +331,60 @@ export default function Home() {
           <p style={{ textAlign: "center", color: "#64748b", fontSize: "0.85rem", marginTop: "1.5rem" }}>
             14-day free trial · No credit card required · Cancel anytime
           </p>
+
+          {/* Founding member callout */}
+          <div style={{
+            marginTop: "3rem",
+            background: `linear-gradient(135deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 100%)`,
+            borderRadius: "1.25rem",
+            border: `1px solid ${GOLD_BORDER}`,
+            padding: "2rem",
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            gap: "1.5rem",
+            alignItems: "center",
+            boxShadow: `0 8px 40px ${GOLD_GLOW}`,
+          }}>
+            <div>
+              <div style={{
+                display: "inline-block",
+                background: GOLD_SUBTLE,
+                color: GOLD,
+                border: `1px solid ${GOLD_BORDER}`,
+                borderRadius: "2rem",
+                padding: "0.25rem 0.85rem",
+                fontSize: "0.72rem",
+                fontWeight: 700,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                marginBottom: "0.75rem",
+              }}>
+                ★ Founding Member
+              </div>
+              <h3 style={{ color: TEXT_PRIMARY, fontSize: "1.4rem", fontWeight: 700, margin: "0 0 0.5rem" }}>
+                First 25 customers — 2 months free, then 50% off forever.
+              </h3>
+              <p style={{ color: TEXT_SECONDARY, fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 1rem" }}>
+                Lock in <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. In exchange, share a short testimonial once you're set up.
+              </p>
+              <div style={{ color: TEXT_DIM, fontSize: "0.8rem" }}>
+                No contract · Cancel anytime · Your founding price never changes
+              </div>
+            </div>
+            <Link to="/signup?plan=founding" style={{
+              background: GOLD,
+              color: NAVY_DEEP,
+              padding: "1rem 1.75rem",
+              borderRadius: "0.75rem",
+              fontWeight: 700,
+              textDecoration: "none",
+              fontSize: "1rem",
+              boxShadow: `0 8px 25px ${GOLD_GLOW}`,
+              whiteSpace: "nowrap",
+            }}>
+              Claim my spot
+            </Link>
+          </div>
         </div>
       </section>
 
