@@ -359,7 +359,10 @@ def connect_google_calendar():
     if not business:
         return jsonify({'error': 'Business not found'}), 404
     
-    # Create OAuth flow
+    # Create OAuth flow. autogenerate_code_verifier=False because we run two
+    # separate Flow instances (this request + the oauth2callback request) and
+    # can't share the PKCE verifier between them; the client_secret is enough
+    # for a confidential web client.
     flow = Flow.from_client_config(
         {
             "web": {
@@ -370,9 +373,10 @@ def connect_google_calendar():
                 "redirect_uris": [REDIRECT_URI]
             }
         },
-        scopes=SCOPES
+        scopes=SCOPES,
+        autogenerate_code_verifier=False,
     )
-    
+
     flow.redirect_uri = REDIRECT_URI
 
     authorization_url, _state = flow.authorization_url(
@@ -403,7 +407,7 @@ def oauth2callback():
     if not business:
         return jsonify({'error': 'Business not found'}), 404
     
-    # Exchange code for tokens
+    # Exchange code for tokens. Must match the connect flow (no PKCE).
     flow = Flow.from_client_config(
         {
             "web": {
@@ -414,9 +418,10 @@ def oauth2callback():
                 "redirect_uris": [REDIRECT_URI]
             }
         },
-        scopes=SCOPES
+        scopes=SCOPES,
+        autogenerate_code_verifier=False,
     )
-    
+
     flow.redirect_uri = REDIRECT_URI
     flow.fetch_token(code=code)
     
