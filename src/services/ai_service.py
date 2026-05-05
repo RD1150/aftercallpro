@@ -342,7 +342,7 @@ Taking a message — strict one-field-per-turn sequence:
                 messages=messages,
                 tools=tools if tools else None,
                 tool_choice="auto" if tools else None,
-                max_tokens=120,
+                max_tokens=80,
                 temperature=0.7,
             )
             
