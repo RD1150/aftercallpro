@@ -21,6 +21,7 @@ import Onboarding from "./pages/Onboarding";
 import Billing from "./pages/Billing";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Integrations from "./pages/Integrations";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -91,6 +92,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Billing />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/integrations"
+        element={
+          <ProtectedRoute>
+            <Integrations />
           </ProtectedRoute>
         }
       />

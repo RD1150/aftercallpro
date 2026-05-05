@@ -10,17 +10,20 @@ from google.oauth2.credentials import Credentials
 
 appointments_bp = Blueprint('appointments', __name__, url_prefix='/api/appointments')
 
-# Google OAuth configuration
+# Google OAuth configuration. Default points at the live route below; override
+# via GOOGLE_REDIRECT_URI env var for local dev.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI', 'http://localhost:5000/api/appointments/oauth2callback')
+REDIRECT_URI = os.getenv(
+    'GOOGLE_REDIRECT_URI',
+    'https://aftercallpro.com/api/appointments/calendar/oauth2callback',
+)
 
 @appointments_bp.route('/', methods=['GET'])
 def get_appointments():
     """Get all appointments for the business"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -56,8 +59,7 @@ def get_appointment(appointment_id):
     """Get a specific appointment"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -78,8 +80,7 @@ def create_appointment():
     """Create a new appointment"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -151,8 +152,7 @@ def update_appointment(appointment_id):
     """Update an appointment"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -223,8 +223,7 @@ def delete_appointment(appointment_id):
     """Delete/cancel an appointment"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -254,8 +253,7 @@ def get_available_slots():
     """Get available time slots for a date"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -287,8 +285,7 @@ def get_calendar_settings():
     """Get calendar settings for the business"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -325,8 +322,7 @@ def update_calendar_settings():
     """Update calendar settings"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -358,8 +354,7 @@ def connect_google_calendar():
     """Initiate Google Calendar OAuth flow"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
@@ -441,10 +436,13 @@ def oauth2callback():
     settings.google_refresh_token = credentials.refresh_token
     settings.google_token_expiry = credentials.expiry
     settings.google_calendar_id = 'primary'
-    
+
     db.session.commit()
-    
-    return jsonify({'message': 'Google Calendar connected successfully'}), 200
+
+    # Redirect the user back into the SPA so they see a "Connected" state,
+    # not a JSON blob in the browser.
+    from flask import redirect
+    return redirect('/integrations?calendar=connected')
 
 
 @appointments_bp.route('/calendar/disconnect', methods=['POST'])
@@ -452,8 +450,7 @@ def disconnect_google_calendar():
     """Disconnect Google Calendar"""
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-    user_id = session['user_id']
-    business = Business.query.filter_by(user_id=user_id).first()
+    business = Business.query.get(session.get('business_id'))
     
     if not business:
         return jsonify({'error': 'Business not found'}), 404
