@@ -41,12 +41,12 @@ export default function SmsPolicy() {
           SMS Policy
         </h1>
         <p style={{ color: "#64748b", fontSize: "0.9rem", marginBottom: "3rem" }}>
-          Last updated: March 2026
+          Last updated: May 5, 2026
         </p>
 
         <Section title="Overview">
           <p>
-            AfterCallPro LLC ("AfterCallPro," "we," "us," or "our") operates a call answering and customer response service. As part of this service, AfterCallPro enables businesses ("Subscribers") to send SMS messages to individuals ("Recipients") who have contacted the business by phone.
+            MindRocket Systems LLC, doing business as AfterCallPro ("AfterCallPro," "we," "us," or "our"), operates a call answering and customer response service. As part of this service, AfterCallPro enables businesses ("Subscribers") to send SMS messages to individuals ("Recipients") who have contacted the business by phone.
           </p>
           <p style={{ marginTop: "0.75rem" }}>
             This SMS Policy explains how SMS communications are handled, including message types, consent, and opt-out options.
@@ -146,7 +146,7 @@ export default function SmsPolicy() {
             For questions regarding this policy, please contact:
           </p>
           <p style={{ marginTop: "0.75rem" }}>
-            <strong>AfterCallPro LLC</strong><br />
+            <strong>MindRocket Systems LLC</strong><br />
             Email: <a href="mailto:support@aftercallpro.com" style={{ color: GOLD }}>support@aftercallpro.com</a>
           </p>
         </Section>
@@ -164,7 +164,7 @@ export default function SmsPolicy() {
             <Link to="/sms-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>SMS Policy</Link>
           </div>
           <div style={{ color: "#334155", fontSize: "0.8rem" }}>
-            © {new Date().getFullYear()} AfterCallPro LLC
+            © {new Date().getFullYear()} MindRocket Systems LLC
           </div>
         </div>
       </footer>

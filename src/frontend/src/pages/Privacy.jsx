@@ -28,10 +28,10 @@ export default function Privacy() {
       {/* CONTENT */}
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "3rem 1.5rem 5rem" }}>
         <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#0b1524", marginBottom: "0.5rem" }}>Privacy Policy</h1>
-        <p style={{ color: "#64748b", fontSize: "0.9rem", marginBottom: "3rem" }}>Last updated: March 1, 2026</p>
+        <p style={{ color: "#64748b", fontSize: "0.9rem", marginBottom: "3rem" }}>Last updated: May 5, 2026</p>
 
         <Section title="1. Introduction">
-          <p>AfterCallPro LLC ("Company," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service at <a href="https://aftercallpro.com" style={{ color: GOLD }}>aftercallpro.com</a>.</p>
+          <p>MindRocket Systems LLC, a California limited liability company doing business as AfterCallPro ("Company," "we," "us," or "our"), is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service at <a href="https://aftercallpro.com" style={{ color: GOLD }}>aftercallpro.com</a>.</p>
           <p style={{ marginTop: "0.75rem" }}>By using the Service, you consent to the data practices described in this policy. If you do not agree, please do not use the Service.</p>
         </Section>
 
@@ -122,7 +122,7 @@ export default function Privacy() {
 
         <Section title="14. Contact Us">
           <p>If you have questions or concerns about this Privacy Policy, please contact us at:</p>
-          <p style={{ marginTop: "0.75rem" }}><strong>AfterCallPro LLC</strong><br />Email: <a href="mailto:support@aftercallpro.com" style={{ color: GOLD }}>support@aftercallpro.com</a><br />Website: <a href="https://aftercallpro.com" style={{ color: GOLD }}>aftercallpro.com</a></p>
+          <p style={{ marginTop: "0.75rem" }}><strong>MindRocket Systems LLC</strong> (d/b/a AfterCallPro)<br />Thousand Oaks, California<br />Email: <a href="mailto:support@aftercallpro.com" style={{ color: GOLD }}>support@aftercallpro.com</a><br />Website: <a href="https://aftercallpro.com" style={{ color: GOLD }}>aftercallpro.com</a></p>
         </Section>
       </div>
 
@@ -135,7 +135,7 @@ export default function Privacy() {
             <Link to="/privacy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Privacy</Link>
             <Link to="/sms-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>SMS Policy</Link>
           </div>
-          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} AfterCallPro LLC</div>
+          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} MindRocket Systems LLC</div>
         </div>
       </footer>
     </main>

@@ -427,10 +427,12 @@ export default function Home() {
       <footer style={{ background: "#060d18", borderTop: "1px solid rgba(255,255,255,0.06)", padding: "2rem 1.5rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "1rem" }}>
           <div style={{ color: TEXT_PRIMARY, fontWeight: 700 }}>AfterCall<span style={{ color: GOLD }}>Pro</span></div>
-          <div style={{ display: "flex", gap: "1.5rem" }}>
+          <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
+            <Link to="/pricing" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Pricing</Link>
             <a href="/terms" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Terms</a>
             <a href="/privacy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Privacy</a>
-            <Link to="/pricing" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Pricing</Link>
+            <a href="/sms-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>SMS Policy</a>
+            <a href="/billing-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Billing</a>
           </div>
           <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} MindRocket Systems LLC. AfterCallPro is a product of MindRocket Systems LLC.</div>
         </div>

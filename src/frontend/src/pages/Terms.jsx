@@ -28,10 +28,10 @@ export default function Terms() {
       {/* CONTENT */}
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "3rem 1.5rem 5rem" }}>
         <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#0b1524", marginBottom: "0.5rem" }}>Terms of Service</h1>
-        <p style={{ color: "#64748b", fontSize: "0.9rem", marginBottom: "3rem" }}>Last updated: March 1, 2026</p>
+        <p style={{ color: "#64748b", fontSize: "0.9rem", marginBottom: "3rem" }}>Last updated: May 5, 2026</p>
 
         <Section title="1. Acceptance of Terms">
-          <p>By accessing or using AfterCallPro ("Service"), operated by AfterCallPro LLC ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.</p>
+          <p>By accessing or using AfterCallPro ("Service"), operated by MindRocket Systems LLC, a California limited liability company doing business as AfterCallPro ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.</p>
           <p style={{ marginTop: "0.75rem" }}>These Terms apply to all users of the Service, including businesses and individuals who register for an account.</p>
         </Section>
 
@@ -57,7 +57,7 @@ export default function Terms() {
             <li>Subscriptions automatically renew unless cancelled before the renewal date.</li>
             <li>You may cancel your subscription at any time through your account dashboard.</li>
             <li>Cancellation takes effect at the end of the current billing period; no partial refunds are issued for unused time.</li>
-            <li>We offer a 14-day money-back guarantee for new subscribers. Requests must be submitted within 14 days of the initial charge.</li>
+            <li>Annual subscriptions are eligible for a 14-day refund window from the initial charge. Monthly subscriptions are non-refundable; cancellation stops future renewals but does not refund the current period.</li>
           </ul>
         </Section>
 
@@ -84,13 +84,13 @@ export default function Terms() {
         </Section>
 
         <Section title="8. Intellectual Property">
-          <p>All content, features, and functionality of the Service — including but not limited to software, text, graphics, logos, and icons — are the exclusive property of AfterCallPro LLC and are protected by applicable intellectual property laws.</p>
+          <p>All content, features, and functionality of the Service — including but not limited to software, text, graphics, logos, and icons — are the exclusive property of MindRocket Systems LLC and are protected by applicable intellectual property laws.</p>
           <p style={{ marginTop: "0.75rem" }}>You retain ownership of all data and content you upload or generate through the Service. By using the Service, you grant us a limited license to process and store your data solely for the purpose of providing the Service.</p>
         </Section>
 
         <Section title="9. Limitation of Liability">
-          <p>To the maximum extent permitted by law, AfterCallPro LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to lost profits, lost revenue, or lost data, arising out of or in connection with your use of the Service.</p>
-          <p style={{ marginTop: "0.75rem" }}>Our total liability to you for any claim arising from or related to these Terms or the Service shall not exceed the amount you paid us in the twelve (12) months preceding the claim.</p>
+          <p>To the maximum extent permitted by law, MindRocket Systems LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to lost profits, lost revenue, or lost data, arising out of or in connection with your use of the Service.</p>
+          <p style={{ marginTop: "0.75rem" }}>Our aggregate liability to you for any claim arising from or related to these Terms or the Service shall not exceed the greater of (a) the fees you paid us in the twelve (12) months preceding the claim, or (b) one hundred U.S. dollars ($100).</p>
         </Section>
 
         <Section title="10. Disclaimer of Warranties">
@@ -104,7 +104,7 @@ export default function Terms() {
         </Section>
 
         <Section title="12. Governing Law">
-          <p>These Terms shall be governed by and construed in accordance with the laws of the State of Texas, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be resolved exclusively in the state or federal courts located in Texas.</p>
+          <p>These Terms shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be resolved exclusively in the state or federal courts located in Ventura County, California, and you consent to the personal jurisdiction of such courts.</p>
         </Section>
 
         <Section title="13. Changes to Terms">
@@ -113,7 +113,7 @@ export default function Terms() {
 
         <Section title="14. Contact Us">
           <p>If you have any questions about these Terms, please contact us at:</p>
-          <p style={{ marginTop: "0.75rem" }}><strong>AfterCallPro LLC</strong><br />Email: <a href="mailto:support@aftercallpro.com" style={{ color: GOLD }}>support@aftercallpro.com</a><br />Website: <a href="https://aftercallpro.com" style={{ color: GOLD }}>aftercallpro.com</a></p>
+          <p style={{ marginTop: "0.75rem" }}><strong>MindRocket Systems LLC</strong> (d/b/a AfterCallPro)<br />Thousand Oaks, California<br />Email: <a href="mailto:support@aftercallpro.com" style={{ color: GOLD }}>support@aftercallpro.com</a><br />Website: <a href="https://aftercallpro.com" style={{ color: GOLD }}>aftercallpro.com</a></p>
         </Section>
       </div>
 
@@ -126,7 +126,7 @@ export default function Terms() {
             <Link to="/privacy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>Privacy</Link>
             <Link to="/sms-policy" style={{ color: "#475569", textDecoration: "none", fontSize: "0.85rem" }}>SMS Policy</Link>
           </div>
-          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} AfterCallPro LLC</div>
+          <div style={{ color: "#334155", fontSize: "0.8rem" }}>© {new Date().getFullYear()} MindRocket Systems LLC</div>
         </div>
       </footer>
     </main>

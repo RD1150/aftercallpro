@@ -10,8 +10,7 @@ export default function BillingPolicy() {
         </h1>
 
         <p className="text-slate-600 mb-8">
-          This Billing & Subscription Policy explains how AfterCallPro processes
-          payments, renewals, cancellations, and refunds for subscription plans.
+          This Billing & Subscription Policy explains how AfterCallPro, a service operated by MindRocket Systems LLC, processes payments, renewals, cancellations, and refunds for subscription plans.
         </p>
 
         {/* SECTION */}
@@ -32,9 +31,7 @@ export default function BillingPolicy() {
             2. Billing Cycle
           </h2>
           <p className="text-slate-600 leading-relaxed">
-            Subscriptions are billed monthly. Your billing date corresponds to the
-            day you activated your subscription. You will receive an email receipt
-            at the time of each charge.
+            Subscriptions are billed on either a monthly or annual cadence depending on the plan you select at checkout. Your billing date corresponds to the day you activated your subscription. You will receive an email receipt at the time of each charge.
           </p>
         </section>
 
@@ -81,9 +78,7 @@ export default function BillingPolicy() {
             6. Refund Policy
           </h2>
           <p className="text-slate-600 leading-relaxed">
-            Due to the digital nature of our service, all payments are final and
-            non-refundable. If you believe there has been a billing error, please
-            reach out to support for review.
+            Annual subscriptions are eligible for a full refund if cancellation is requested within fourteen (14) days of the initial annual charge. Monthly subscriptions are non-refundable; cancellation stops future renewals but does not refund the current billing period. If you believe there has been a billing error, please reach out to support for review.
           </p>
         </section>
 
@@ -113,7 +108,7 @@ export default function BillingPolicy() {
         </section>
 
         <p className="text-xs text-slate-500 mt-8">
-          Last updated: {new Date().getFullYear()}
+          Last updated: May 5, 2026
         </p>
 
       </div>
