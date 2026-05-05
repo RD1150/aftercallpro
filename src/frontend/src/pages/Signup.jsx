@@ -85,26 +85,9 @@ export default function Signup() {
     }
   };
 
-  const isFounding = searchParams.get("plan") === "founding";
-
   return (
     <div style={styles.page}>
       <div style={styles.card}>
-        {isFounding && (
-          <div style={{
-            background: "linear-gradient(135deg, #0b1220 0%, #0f1c34 100%)",
-            border: "1px solid rgba(247,201,72,0.35)",
-            color: "#f7c948",
-            padding: "12px 14px",
-            borderRadius: "10px",
-            marginBottom: "16px",
-            fontSize: "13px",
-            fontWeight: 600,
-            textAlign: "center",
-          }}>
-            ★ Founding Member — 2 months free + 50% off forever applied at checkout
-          </div>
-        )}
         <h2 style={styles.title}>Create Your Account</h2>
         <p style={styles.subtitle}>Start capturing every call for free.</p>
 

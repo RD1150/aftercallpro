@@ -60,33 +60,22 @@ def create_checkout_session():
 
     try:
         base_url = request.host_url.rstrip('/')
-        checkout_kwargs = dict(
+        # allow_promotion_codes lets the customer enter a Stripe Promotion Code
+        # (e.g. one-use FOUNDING-* codes) at Checkout. Founding eligibility is
+        # determined by which code they redeem, not by anything we set here.
+        checkout_session = stripe.checkout.Session.create(
             customer_email=business.email,
             payment_method_types=['card'],
             line_items=[{'price': price_id, 'quantity': 1}],
             mode='subscription',
+            allow_promotion_codes=True,
             success_url=f"{base_url}/dashboard?subscription=success&session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{base_url}/pricing",
             metadata={
                 'business_id': str(business_id),
                 'plan': plan,
-                'founding_member': 'true' if business.founding_member else 'false',
             },
         )
-
-        # Founding members: 60-day trial + 50%-off-forever coupon. The coupon
-        # must exist in the Stripe dashboard (default ID "FOUNDING50",
-        # override with STRIPE_FOUNDING_COUPON_ID).
-        if business.founding_member:
-            checkout_kwargs['subscription_data'] = {
-                'trial_period_days': 60,
-                'metadata': {'founding_member': 'true'},
-            }
-            coupon_id = os.getenv('STRIPE_FOUNDING_COUPON_ID', 'FOUNDING50')
-            if coupon_id:
-                checkout_kwargs['discounts'] = [{'coupon': coupon_id}]
-
-        checkout_session = stripe.checkout.Session.create(**checkout_kwargs)
 
         return jsonify({'sessionId': checkout_session.id, 'url': checkout_session.url}), 200
 
@@ -180,6 +169,27 @@ def handle_checkout_completed(session_data):
         business.subscription_tier = plan
         business.monthly_minutes_limit = SUBSCRIPTION_PLANS.get(plan, {}).get('minutes', 500)
         business.subscription_status = 'active'
+
+        # Tag founding member if they redeemed a code tied to the founding
+        # coupon. The session payload has 'total_details.breakdown.discounts'
+        # listing every discount applied; we look up the coupon ID on the
+        # subscription as the source of truth.
+        founding_coupon_id = os.getenv('STRIPE_FOUNDING_COUPON_ID', 'FOUNDING50')
+        if subscription_id:
+            try:
+                sub = stripe.Subscription.retrieve(subscription_id, expand=['discount.coupon'])
+                applied_coupon = (
+                    (sub.get('discount') or {}).get('coupon') or {}
+                ).get('id')
+                if applied_coupon == founding_coupon_id:
+                    business.founding_member = True
+            except Exception as e:
+                import logging
+                logging.getLogger(__name__).warning(
+                    'Could not check founding-coupon status for sub %s: %s',
+                    subscription_id, e
+                )
+
         db.session.commit()
 
         # Trigger the onboarding automation (replaces GHL 'ACP – Paid' workflow)

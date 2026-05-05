@@ -56,7 +56,9 @@ def _do_register(data):
     db.session.add(user)
     db.session.flush()  # Get user ID
     
-    # Create business for the user
+    # Founding-member status is set by the Stripe webhook when a customer
+    # redeems a one-use FOUNDING-* promotion code at checkout — never by the
+    # signup URL, since URLs can be shared.
     business = Business(
         name=data['name'],
         phone_number=data['phone_number'],
@@ -69,7 +71,6 @@ def _do_register(data):
         industry=(data.get('industry') or '').strip() or None,
         subscription_tier=data.get('subscription_tier', 'starter'),
         monthly_minutes_limit=data.get('monthly_minutes_limit', 500),
-        founding_member=(data.get('plan') == 'founding'),
     )
     
     db.session.add(business)

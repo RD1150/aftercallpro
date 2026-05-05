@@ -28,7 +28,7 @@ export default function Home() {
     <main style={{ fontFamily: FONT, background: "#f8fafc", color: "#0f172a" }}>
 
       {/* FOUNDING MEMBER RIBBON */}
-      <Link to="/signup?plan=founding" style={{
+      <a href="mailto:mindrocketsystems@gmail.com?subject=Founding%20Member%20code%20request&body=Hi%20%E2%80%94%20I'd%20like%20to%20request%20a%20Founding%20Member%20code%20for%20AfterCallPro." style={{
         display: "block",
         background: `linear-gradient(90deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 50%, ${NAVY_DEEP} 100%)`,
         borderBottom: `1px solid ${GOLD_BORDER}`,
@@ -40,10 +40,10 @@ export default function Home() {
         fontWeight: 500,
         letterSpacing: "0.01em",
       }}>
-        <span style={{ color: GOLD, fontWeight: 700, marginRight: "0.5rem" }}>★ Founding Member offer</span>
-        <span style={{ color: TEXT_SECONDARY }}>2 months free + 50% off for life — limited to first 25 sign-ups.</span>
-        <span style={{ color: GOLD, marginLeft: "0.5rem", fontWeight: 600 }}>Claim →</span>
-      </Link>
+        <span style={{ color: GOLD, fontWeight: 700, marginRight: "0.5rem" }}>★ Founding Member: 50% off for life</span>
+        <span style={{ color: TEXT_SECONDARY }}>Only 25 slots — request your code.</span>
+        <span style={{ color: GOLD, marginLeft: "0.5rem", fontWeight: 600 }}>Email us →</span>
+      </a>
 
       {/* NAV */}
       <nav style={{
@@ -359,19 +359,19 @@ export default function Home() {
                 textTransform: "uppercase",
                 marginBottom: "0.75rem",
               }}>
-                ★ Founding Member
+                ★ Founding Member · 25 slots only
               </div>
               <h3 style={{ color: TEXT_PRIMARY, fontSize: "1.4rem", fontWeight: 700, margin: "0 0 0.5rem" }}>
-                First 25 customers — 2 months free, then 50% off forever.
+                First 25 customers lock in 50% off, forever.
               </h3>
               <p style={{ color: TEXT_SECONDARY, fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 1rem" }}>
-                Lock in <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. In exchange, share a short testimonial once you're set up.
+                <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. In exchange, share a short testimonial once you're set up. Each slot is a one-use code — email us to request yours.
               </p>
               <div style={{ color: TEXT_DIM, fontSize: "0.8rem" }}>
                 No contract · Cancel anytime · Your founding price never changes
               </div>
             </div>
-            <Link to="/signup?plan=founding" style={{
+            <a href="mailto:mindrocketsystems@gmail.com?subject=Founding%20Member%20code%20request&body=Hi%20%E2%80%94%20I'd%20like%20to%20request%20a%20Founding%20Member%20code%20for%20AfterCallPro." style={{
               background: GOLD,
               color: NAVY_DEEP,
               padding: "1rem 1.75rem",
@@ -382,8 +382,8 @@ export default function Home() {
               boxShadow: `0 8px 25px ${GOLD_GLOW}`,
               whiteSpace: "nowrap",
             }}>
-              Claim my spot
-            </Link>
+              Request my code
+            </a>
           </div>
         </div>
       </section>
