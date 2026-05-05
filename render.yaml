@@ -2,15 +2,25 @@ services:
   - type: web
     name: aftercallpro
     env: python
-    plan: free
+    plan: starter
     buildCommand: bash render-build.sh
     startCommand: gunicorn app:app --timeout 120 --workers 2
     envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: APP_BASE_URL
+        value: https://aftercallpro.com
+      - key: CORS_ORIGINS
+        value: https://aftercallpro.com,https://www.aftercallpro.com
+      - key: SMS_RATE_LIMIT_PER_HOUR
+        value: "200"
       - key: SECRET_KEY
-        generateValue: true
-      - key: STRIPE_SECRET_KEY
         sync: false
-      - key: STRIPE_WEBHOOK_SECRET
+      - key: ENCRYPTION_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: OPENAI_API_KEY
         sync: false
       - key: TWILIO_ACCOUNT_SID
         sync: false
@@ -18,17 +28,25 @@ services:
         sync: false
       - key: TWILIO_PHONE_NUMBER
         sync: false
-      - key: SMTP_USERNAME
+      - key: STRIPE_SECRET_KEY
         sync: false
-      - key: SMTP_PASSWORD
+      - key: STRIPE_WEBHOOK_SECRET
         sync: false
-      - key: FROM_EMAIL
+      - key: STRIPE_FOUNDING_COUPON_ID
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
         sync: false
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT
         sync: false
-      - key: OPENAI_API_KEY
+      - key: SMTP_USERNAME
         sync: false
-      - key: DATABASE_URL
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: FROM_EMAIL
         sync: false
