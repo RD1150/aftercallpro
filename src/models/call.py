@@ -36,6 +36,10 @@ class Business(db.Model):
     stripe_customer_id = db.Column(db.String(100), nullable=True)
     stripe_subscription_id = db.Column(db.String(100), nullable=True)
 
+    # Founding member: signed up via /signup?plan=founding. At checkout we
+    # apply a 60-day trial and a forever-50%-off coupon.
+    founding_member = db.Column(db.Boolean, default=False, nullable=False)
+
     # Twilio — dedicated number assigned to this business (ISV compliance)
     # Each business must have their own unique number per Twilio ISV requirements.
     twilio_number = db.Column(db.String(20), nullable=True, unique=True)
@@ -84,6 +88,7 @@ class Business(db.Model):
             'subscription_tier': self.subscription_tier,
             'monthly_minutes_limit': self.monthly_minutes_limit,
             'minutes_used': self.minutes_used,
+            'founding_member': self.founding_member,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
 

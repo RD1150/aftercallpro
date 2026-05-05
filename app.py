@@ -256,6 +256,8 @@ def run_migrations():
         # AI identity fields (added 2026-05-04)
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS principal_name VARCHAR(100)', 'businesses.principal_name'),
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS assistant_name VARCHAR(100)', 'businesses.assistant_name'),
+        # Founding member flag (added 2026-05-05) — drives 60-day trial + forever 50% coupon at checkout
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS founding_member BOOLEAN DEFAULT FALSE NOT NULL', 'businesses.founding_member'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)

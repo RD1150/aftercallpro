@@ -68,7 +68,8 @@ def _do_register(data):
         ai_voice=data.get('ai_voice', 'alloy'),
         industry=(data.get('industry') or '').strip() or None,
         subscription_tier=data.get('subscription_tier', 'starter'),
-        monthly_minutes_limit=data.get('monthly_minutes_limit', 500)
+        monthly_minutes_limit=data.get('monthly_minutes_limit', 500),
+        founding_member=(data.get('plan') == 'founding'),
     )
     
     db.session.add(business)

@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
     return data;
   };
 
-  const signup = async (email, password, name, phone_number) => {
+  const signup = async (email, password, name, phone_number, plan) => {
     const res = await fetch(`${API_BASE}/api/auth/register`, {
       method: "POST",
       credentials: "include",
@@ -64,6 +64,7 @@ export function AuthProvider({ children }) {
         password,
         name: name || email.split("@")[0],
         phone_number: phone_number || "0000000000",
+        ...(plan ? { plan } : {}),
       }),
     });
 

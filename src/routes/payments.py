@@ -59,23 +59,34 @@ def create_checkout_session():
         return jsonify({'error': f'Stripe price ID for plan "{plan}" ({billing}) is not configured.'}), 500
 
     try:
-        # Build success and cancel URLs relative to the request host
         base_url = request.host_url.rstrip('/')
-        checkout_session = stripe.checkout.Session.create(
+        checkout_kwargs = dict(
             customer_email=business.email,
             payment_method_types=['card'],
-            line_items=[{
-                'price': price_id,
-                'quantity': 1,
-            }],
+            line_items=[{'price': price_id, 'quantity': 1}],
             mode='subscription',
             success_url=f"{base_url}/dashboard?subscription=success&session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{base_url}/pricing",
             metadata={
                 'business_id': str(business_id),
-                'plan': plan
-            }
+                'plan': plan,
+                'founding_member': 'true' if business.founding_member else 'false',
+            },
         )
+
+        # Founding members: 60-day trial + 50%-off-forever coupon. The coupon
+        # must exist in the Stripe dashboard (default ID "FOUNDING50",
+        # override with STRIPE_FOUNDING_COUPON_ID).
+        if business.founding_member:
+            checkout_kwargs['subscription_data'] = {
+                'trial_period_days': 60,
+                'metadata': {'founding_member': 'true'},
+            }
+            coupon_id = os.getenv('STRIPE_FOUNDING_COUPON_ID', 'FOUNDING50')
+            if coupon_id:
+                checkout_kwargs['discounts'] = [{'coupon': coupon_id}]
+
+        checkout_session = stripe.checkout.Session.create(**checkout_kwargs)
 
         return jsonify({'sessionId': checkout_session.id, 'url': checkout_session.url}), 200
 
