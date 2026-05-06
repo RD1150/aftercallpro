@@ -21,6 +21,7 @@ import Billing from "./pages/Billing";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Integrations from "./pages/Integrations";
+import Calls from "./pages/Calls";
 import BusinessSettings from "./components/BusinessSettings";
 
 function ProtectedRoute({ children }) {
@@ -55,6 +56,15 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/calls"
+        element={
+          <ProtectedRoute>
+            <Calls />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/leads" element={<Navigate to="/calls" replace />} />
       <Route
         path="/appointments"
         element={

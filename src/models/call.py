@@ -118,7 +118,12 @@ class Call(db.Model):
     appointment_scheduled = db.Column(db.Boolean, default=False)
     forwarded_to_human = db.Column(db.Boolean, default=False)
     caller_intent = db.Column(db.String(200), nullable=True)
-    
+
+    # Subscriber-facing follow-up state. Lives on the call (no separate
+    # contacts table) — see aftercallpro_no_crm memory for the no-CRM stance.
+    handled_status = db.Column(db.String(20), default='new', nullable=False)
+    handled_at = db.Column(db.DateTime, nullable=True)
+
     # Timestamps
     started_at = db.Column(db.DateTime, default=datetime.utcnow)
     ended_at = db.Column(db.DateTime, nullable=True)
@@ -139,6 +144,8 @@ class Call(db.Model):
             'appointment_scheduled': self.appointment_scheduled,
             'forwarded_to_human': self.forwarded_to_human,
             'caller_intent': self.caller_intent,
+            'handled_status': self.handled_status,
+            'handled_at': self.handled_at.isoformat() if self.handled_at else None,
             'started_at': self.started_at.isoformat() if self.started_at else None,
             'ended_at': self.ended_at.isoformat() if self.ended_at else None
         }

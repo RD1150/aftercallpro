@@ -137,6 +137,12 @@ try:
 except Exception as e:
     print(f"Settings blueprint not loaded: {e}")
 
+try:
+    from src.routes.calls import calls_bp
+    app.register_blueprint(calls_bp, url_prefix="/api/calls")
+except Exception as e:
+    print(f"Calls blueprint not loaded: {e}")
+
 # -------------------------
 # HEALTH CHECK
 # -------------------------
@@ -258,6 +264,9 @@ def run_migrations():
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS assistant_name VARCHAR(100)', 'businesses.assistant_name'),
         # Founding member flag (added 2026-05-05) — drives 60-day trial + forever 50% coupon at checkout
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS founding_member BOOLEAN DEFAULT FALSE NOT NULL', 'businesses.founding_member'),
+        # Lead-log follow-up state on calls (added 2026-05-05) — subscriber marks new/called_back/done
+        ("ALTER TABLE calls ADD COLUMN IF NOT EXISTS handled_status VARCHAR(20) DEFAULT 'new' NOT NULL", 'calls.handled_status'),
+        ('ALTER TABLE calls ADD COLUMN IF NOT EXISTS handled_at TIMESTAMP', 'calls.handled_at'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)
