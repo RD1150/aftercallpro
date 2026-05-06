@@ -95,14 +95,27 @@ def twilio_webhook(f):
         urls = _candidate_urls()
         valid = any(validator.validate(u, params, signature) for u in urls)
 
-        if not valid:
-            logger.warning(
-                "Rejecting Twilio webhook: path=%s signature=%s tried=%s",
-                request.path, signature[:12] + "…" if signature else "<empty>", urls,
-            )
-            if _is_production():
-                abort(403)
-            logger.warning("Twilio signature invalid (dev): %s — passing through", request.path)
+        if valid:
+            return f(*args, **kwargs)
+
+        # Stopgap: TWILIO_SIGNATURE_REQUIRED=false lets us run with logging
+        # only (no enforcement) while we debug a Render-proxy URL mismatch
+        # that's blocking real calls. Default in production stays enforce.
+        enforce = os.environ.get("TWILIO_SIGNATURE_REQUIRED", "true").lower() != "false"
+
+        logger.warning(
+            "Twilio signature mismatch (enforce=%s): path=%s host=%s xfh=%s xfp=%s sig=%s tried=%s",
+            enforce,
+            request.path,
+            request.host,
+            request.headers.get("X-Forwarded-Host"),
+            request.headers.get("X-Forwarded-Proto"),
+            (signature[:12] + "…") if signature else "<empty>",
+            urls,
+        )
+
+        if _is_production() and enforce:
+            abort(403)
 
         return f(*args, **kwargs)
 
