@@ -147,6 +147,12 @@ try:
 except Exception as e:
     print(f"Integrations blueprint not loaded: {e}")
 
+try:
+    from src.routes.analytics import analytics_bp
+    app.register_blueprint(analytics_bp, url_prefix="/api")
+except Exception as e:
+    print(f"Analytics blueprint not loaded: {e}")
+
 # -------------------------
 # HEALTH CHECK
 # -------------------------
