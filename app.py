@@ -120,12 +120,6 @@ except Exception as e:
     print(f"Appointments blueprint not loaded: {e}")
 
 try:
-    from src.routes.business import business_bp
-    app.register_blueprint(business_bp, url_prefix="/api/business")
-except Exception as e:
-    print(f"Business blueprint not loaded: {e}")
-
-try:
     from src.routes.sms import sms_bp
     app.register_blueprint(sms_bp, url_prefix="/api/sms")
 except Exception as e:
