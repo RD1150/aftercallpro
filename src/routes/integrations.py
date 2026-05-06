@@ -14,7 +14,7 @@ from flask import Blueprint, jsonify, redirect, request, session
 from src.models.user import db
 from src.models.call import Business
 from src.models.integration import Integration
-from src.services import hubspot_service, webhook_service
+from src.services import hubspot_service, pipedrive_service, webhook_service
 
 logger = logging.getLogger(__name__)
 
@@ -51,6 +51,7 @@ def list_integrations():
         "integrations": payload,
         "available": {
             "hubspot": hubspot_service.is_configured(),
+            "pipedrive": pipedrive_service.is_configured(),
             "webhook": True,
         },
     }), 200
@@ -114,6 +115,65 @@ def hubspot_disconnect():
     ).first()
     if integration:
         hubspot_service.disconnect(integration)
+    return jsonify({"disconnected": True}), 200
+
+
+# --- Pipedrive -------------------------------------------------------------
+
+
+@integrations_bp.route("/pipedrive/connect", methods=["GET"])
+def pipedrive_connect():
+    business, err = _current_business()
+    if err:
+        return err
+    if not pipedrive_service.is_configured():
+        return jsonify({"error": "Pipedrive is not configured on this server."}), 503
+
+    state_token = secrets.token_urlsafe(16)
+    session["pipedrive_oauth_state"] = state_token
+    session["pipedrive_oauth_business_id"] = business.id
+    auth_url = pipedrive_service.get_authorization_url(state=state_token)
+    return jsonify({"authorization_url": auth_url}), 200
+
+
+@integrations_bp.route("/pipedrive/callback", methods=["GET"])
+def pipedrive_callback():
+    expected_state = session.pop("pipedrive_oauth_state", None)
+    business_id = session.pop("pipedrive_oauth_business_id", None)
+    state = request.args.get("state")
+    code = request.args.get("code")
+    err = request.args.get("error")
+
+    if err:
+        return redirect(f"/integrations?pipedrive=error&reason={err}")
+    if not expected_state or state != expected_state:
+        return redirect("/integrations?pipedrive=error&reason=state_mismatch")
+    if not code or not business_id:
+        return redirect("/integrations?pipedrive=error&reason=missing_code")
+
+    business = Business.query.get(business_id)
+    if not business:
+        return redirect("/integrations?pipedrive=error&reason=business_not_found")
+
+    try:
+        pipedrive_service.handle_oauth_callback(business, code)
+    except Exception:
+        logger.exception("pipedrive oauth callback failed")
+        return redirect("/integrations?pipedrive=error&reason=oauth_failed")
+
+    return redirect("/integrations?pipedrive=connected")
+
+
+@integrations_bp.route("/pipedrive/disconnect", methods=["POST"])
+def pipedrive_disconnect():
+    business, err = _current_business()
+    if err:
+        return err
+    integration = Integration.query.filter_by(
+        business_id=business.id, provider=pipedrive_service.PROVIDER
+    ).first()
+    if integration:
+        pipedrive_service.disconnect(integration)
     return jsonify({"disconnected": True}), 200
 
 

@@ -4,17 +4,11 @@ import { Plug, CheckCircle, AlertCircle } from "lucide-react";
 
 // CRM integrations not yet shipped — listed here so the user can request
 // access. Each "Request access" link opens a mailto so we can prioritize
-// by demand. HubSpot moved out of this list once it went live.
+// by demand. HubSpot + Pipedrive moved out of this list once they shipped.
 //
 // Real-estate CRMs (FollowUpBoss, kvCORE, Lofty, BoomTown) are intentionally
 // excluded — see memory: aftercallpro_no_crm + aftercallpro_icp.
 const CRM_GROUPS = [
-  {
-    label: "General",
-    items: [
-      { name: "Pipedrive", desc: "Drop callers into a Pipedrive deal pipeline." },
-    ],
-  },
   {
     label: "Trades & home services",
     items: [
@@ -55,6 +49,9 @@ export default function Integrations() {
   const [hubspotConnected, setHubspotConnected] = useState(false);
   const [hubspotError, setHubspotError] = useState("");
 
+  const [pipedriveConnected, setPipedriveConnected] = useState(false);
+  const [pipedriveError, setPipedriveError] = useState("");
+
   const [webhookSaved, setWebhookSaved] = useState(null); // null | {url, has_secret}
   const [webhookUrl, setWebhookUrl] = useState("");
   const [webhookSecret, setWebhookSecret] = useState("");
@@ -81,6 +78,9 @@ export default function Integrations() {
         if (list.some((i) => i.provider === "hubspot" && i.enabled)) {
           setHubspotConnected(true);
         }
+        if (list.some((i) => i.provider === "pipedrive" && i.enabled)) {
+          setPipedriveConnected(true);
+        }
         const wh = list.find((i) => i.provider === "webhook" && i.enabled);
         if (wh) {
           setWebhookSaved({ url: wh.url, has_secret: wh.has_secret });
@@ -94,6 +94,13 @@ export default function Integrations() {
       setHubspotConnected(true);
     } else if (hubspotParam === "error") {
       setHubspotError(params.get("reason") || "Could not finish connecting HubSpot.");
+    }
+
+    const pipedriveParam = params.get("pipedrive");
+    if (pipedriveParam === "connected") {
+      setPipedriveConnected(true);
+    } else if (pipedriveParam === "error") {
+      setPipedriveError(params.get("reason") || "Could not finish connecting Pipedrive.");
     }
   }, [params]);
 
@@ -150,6 +157,35 @@ export default function Integrations() {
         credentials: "include",
       });
       setHubspotConnected(false);
+    } catch (err) {
+      // ignore
+    }
+  };
+
+  const handlePipedriveConnect = async () => {
+    setPipedriveError("");
+    try {
+      const res = await fetch("/api/integrations/pipedrive/connect", {
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok || !data.authorization_url) {
+        setPipedriveError(data.error || "Could not start Pipedrive connection.");
+        return;
+      }
+      window.location.href = data.authorization_url;
+    } catch (err) {
+      setPipedriveError("Network error connecting to Pipedrive.");
+    }
+  };
+
+  const handlePipedriveDisconnect = async () => {
+    try {
+      await fetch("/api/integrations/pipedrive/disconnect", {
+        method: "POST",
+        credentials: "include",
+      });
+      setPipedriveConnected(false);
     } catch (err) {
       // ignore
     }
@@ -299,6 +335,47 @@ export default function Integrations() {
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
             >
               Connect HubSpot
+            </button>
+          )}
+        </div>
+
+        {/* PIPEDRIVE — real */}
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-6">
+          <div className="flex items-center gap-3 mb-4">
+            <Plug className="w-6 h-6 text-emerald-600" />
+            <h2 className="text-xl font-semibold text-slate-900">Pipedrive</h2>
+          </div>
+
+          <p className="text-slate-600 mb-4">
+            Push every captured caller into Pipedrive as a person, with the AI's
+            call summary attached as a note. Existing persons are matched by
+            phone number.
+          </p>
+
+          {pipedriveError && (
+            <div className="flex items-center gap-2 text-red-600 mb-3">
+              <AlertCircle className="w-5 h-5" /> {pipedriveError}
+            </div>
+          )}
+
+          {pipedriveConnected ? (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-green-600 font-medium">
+                <CheckCircle className="w-5 h-5" /> Connected
+              </div>
+              <button
+                onClick={handlePipedriveDisconnect}
+                className="text-sm text-slate-500 underline hover:text-slate-700"
+              >
+                Disconnect
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handlePipedriveConnect}
+              className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+            >
+              Connect Pipedrive
             </button>
           )}
         </div>
