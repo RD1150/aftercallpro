@@ -84,6 +84,10 @@ with app.app_context():
         from src.models.sms import SmsConsent, SmsSendLog
     except Exception:
         pass
+    try:
+        from src.models.integration import Integration
+    except Exception:
+        pass
     db.create_all()
 
 # -------------------------
@@ -136,6 +140,12 @@ try:
     app.register_blueprint(calls_bp, url_prefix="/api/calls")
 except Exception as e:
     print(f"Calls blueprint not loaded: {e}")
+
+try:
+    from src.routes.integrations import integrations_bp
+    app.register_blueprint(integrations_bp, url_prefix="/api/integrations")
+except Exception as e:
+    print(f"Integrations blueprint not loaded: {e}")
 
 # -------------------------
 # HEALTH CHECK

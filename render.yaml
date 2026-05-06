@@ -40,6 +40,10 @@ services:
         sync: false
       - key: GOOGLE_REDIRECT_URI
         sync: false
+      - key: HUBSPOT_CLIENT_ID
+        sync: false
+      - key: HUBSPOT_CLIENT_SECRET
+        sync: false
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT

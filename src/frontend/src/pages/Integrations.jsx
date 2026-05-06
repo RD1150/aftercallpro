@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Plug, CheckCircle, AlertCircle } from "lucide-react";
 
-// CRM integrations we plan to build, grouped by vertical. Each entry pings
-// support@ via a mailto when the user asks for early access — that's the
-// signal we use to prioritize which vertical to ship first.
+// CRM integrations not yet shipped — listed here so the user can request
+// access. Each "Request access" link opens a mailto so we can prioritize
+// by demand. HubSpot moved out of this list once it went live.
 //
 // Real-estate CRMs (FollowUpBoss, kvCORE, Lofty, BoomTown) are intentionally
 // excluded — see memory: aftercallpro_no_crm + aftercallpro_icp.
@@ -12,7 +12,6 @@ const CRM_GROUPS = [
   {
     label: "General",
     items: [
-      { name: "HubSpot", desc: "Push leads + call summaries into HubSpot contacts." },
       { name: "Pipedrive", desc: "Drop callers into a Pipedrive deal pipeline." },
     ],
   },
@@ -60,6 +59,9 @@ export default function Integrations() {
   const [calendarConnected, setCalendarConnected] = useState(false);
   const [calendarError, setCalendarError] = useState("");
 
+  const [hubspotConnected, setHubspotConnected] = useState(false);
+  const [hubspotError, setHubspotError] = useState("");
+
   useEffect(() => {
     fetch("/api/appointments/calendar/settings", { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
@@ -70,6 +72,23 @@ export default function Integrations() {
 
     if (params.get("calendar") === "connected") {
       setCalendarConnected(true);
+    }
+
+    fetch("/api/integrations", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const list = data?.integrations || [];
+        if (list.some((i) => i.provider === "hubspot" && i.enabled)) {
+          setHubspotConnected(true);
+        }
+      })
+      .catch(() => {});
+
+    const hubspotParam = params.get("hubspot");
+    if (hubspotParam === "connected") {
+      setHubspotConnected(true);
+    } else if (hubspotParam === "error") {
+      setHubspotError(params.get("reason") || "Could not finish connecting HubSpot.");
     }
   }, [params]);
 
@@ -102,6 +121,35 @@ export default function Integrations() {
     }
   };
 
+  const handleHubspotConnect = async () => {
+    setHubspotError("");
+    try {
+      const res = await fetch("/api/integrations/hubspot/connect", {
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok || !data.authorization_url) {
+        setHubspotError(data.error || "Could not start HubSpot connection.");
+        return;
+      }
+      window.location.href = data.authorization_url;
+    } catch (err) {
+      setHubspotError("Network error connecting to HubSpot.");
+    }
+  };
+
+  const handleHubspotDisconnect = async () => {
+    try {
+      await fetch("/api/integrations/hubspot/disconnect", {
+        method: "POST",
+        credentials: "include",
+      });
+      setHubspotConnected(false);
+    } catch (err) {
+      // ignore
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 p-10">
       <div className="max-w-4xl mx-auto">
@@ -110,11 +158,11 @@ export default function Integrations() {
           Connect your CRM, calendar, and automation tools.
         </p>
 
-        {/* CALENDAR CARD — real and working */}
-        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-10">
+        {/* CALENDAR — real */}
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-6">
           <div className="flex items-center gap-3 mb-4">
             <Plug className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-slate-900">Calendar Integration</h2>
+            <h2 className="text-xl font-semibold text-slate-900">Google Calendar</h2>
           </div>
 
           <p className="text-slate-600 mb-4">
@@ -151,9 +199,50 @@ export default function Integrations() {
           )}
         </div>
 
-        {/* CRM SECTION — coming soon, mailto request to gauge demand */}
+        {/* HUBSPOT — real */}
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-10">
+          <div className="flex items-center gap-3 mb-4">
+            <Plug className="w-6 h-6 text-orange-500" />
+            <h2 className="text-xl font-semibold text-slate-900">HubSpot</h2>
+          </div>
+
+          <p className="text-slate-600 mb-4">
+            Push every captured caller into HubSpot as a contact, with the AI's
+            call summary attached as a note. Existing contacts are matched by
+            phone number and updated.
+          </p>
+
+          {hubspotError && (
+            <div className="flex items-center gap-2 text-red-600 mb-3">
+              <AlertCircle className="w-5 h-5" /> {hubspotError}
+            </div>
+          )}
+
+          {hubspotConnected ? (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-green-600 font-medium">
+                <CheckCircle className="w-5 h-5" /> Connected
+              </div>
+              <button
+                onClick={handleHubspotDisconnect}
+                className="text-sm text-slate-500 underline hover:text-slate-700"
+              >
+                Disconnect
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleHubspotConnect}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            >
+              Connect HubSpot
+            </button>
+          )}
+        </div>
+
+        {/* CRM SECTION — coming soon */}
         <div className="mb-4">
-          <h2 className="text-xl font-semibold text-slate-900">Push leads to your CRM</h2>
+          <h2 className="text-xl font-semibold text-slate-900">More CRMs coming soon</h2>
           <p className="text-slate-600 mt-1">
             We're building these one at a time, prioritized by which gets the most
             requests. Tap "Request access" and we'll let you know when yours ships.

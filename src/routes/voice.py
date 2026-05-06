@@ -258,6 +258,14 @@ def call_status():
                     )
                 except Exception as e:
                     print(f"Missed call recovery automation failed: {e}")
+
+            # Push the captured lead to any connected CRMs. Best-effort —
+            # never let a CRM hiccup break the Twilio status callback.
+            try:
+                from src.services.integration_dispatch import push_call_to_integrations
+                push_call_to_integrations(business, call)
+            except Exception as e:
+                print(f"Integration push failed: {e}")
         
         db.session.commit()
     
