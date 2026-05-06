@@ -235,14 +235,9 @@ export default function Dashboard() {
         {/* Quick links */}
         <div style={styles.quickGrid}>
           <div style={styles.quickCard}>
-            <h3 style={styles.quickTitle}>📞 Call Log</h3>
-            <p style={styles.quickDesc}>View all incoming calls, transcripts, and AI summaries.</p>
-            <button style={styles.quickBtn} onClick={() => navigate("/calls")}>View Calls</button>
-          </div>
-          <div style={styles.quickCard}>
             <h3 style={styles.quickTitle}>👥 Leads</h3>
-            <p style={styles.quickDesc}>Manage captured leads and follow-up status.</p>
-            <button style={styles.quickBtn} onClick={() => navigate("/leads")}>View Leads</button>
+            <p style={styles.quickDesc}>Every captured caller — mark them as you follow up, send a retarget SMS, or call back.</p>
+            <button style={styles.quickBtn} onClick={() => navigate("/calls")}>View leads</button>
           </div>
           <div style={styles.quickCard}>
             <h3 style={styles.quickTitle}>📅 Appointments</h3>

@@ -5,6 +5,7 @@ from src.models.call import Business
 from src.services.calendar_service import CalendarService
 from src.models.user import db
 import os
+import secrets
 from google_auth_oauthlib.flow import Flow
 from google.oauth2.credentials import Credentials
 
@@ -379,11 +380,18 @@ def connect_google_calendar():
 
     flow.redirect_uri = REDIRECT_URI
 
+    # Random nonce verified on the callback — prevents an attacker from
+    # crafting a callback URL with a victim's business_id. We stash both the
+    # nonce and business_id in the session and require both to match.
+    state_nonce = secrets.token_urlsafe(24)
+    session['gcal_oauth_state'] = state_nonce
+    session['gcal_oauth_business_id'] = business.id
+
     authorization_url, _state = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true',
         prompt='consent',
-        state=str(business.id),
+        state=state_nonce,
     )
 
     return jsonify({'authorization_url': authorization_url}), 200
@@ -394,15 +402,16 @@ def oauth2callback():
     """Handle Google Calendar OAuth callback"""
     code = request.args.get('code')
     state = request.args.get('state')
-    
+
     if not code:
         return jsonify({'error': 'Authorization code not provided'}), 400
-    
-    try:
-        business_id = int(state)
-    except (ValueError, TypeError):
-        return jsonify({'error': 'Invalid state parameter'}), 400
-    
+
+    expected_state = session.pop('gcal_oauth_state', None)
+    business_id = session.pop('gcal_oauth_business_id', None)
+
+    if not expected_state or state != expected_state or not business_id:
+        return jsonify({'error': 'Invalid or missing state'}), 400
+
     business = Business.query.get(business_id)
     if not business:
         return jsonify({'error': 'Business not found'}), 404
