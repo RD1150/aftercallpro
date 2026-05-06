@@ -40,30 +40,55 @@ function StepIndicator({ current }) {
   );
 }
 
+function formatPhoneE164(p) {
+  if (!p) return "";
+  const d = p.replace(/\D/g, "");
+  if (d.length === 11 && d.startsWith("1")) {
+    return `(${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7)}`;
+  }
+  if (d.length === 10) {
+    return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+  }
+  return p;
+}
+
 export default function Onboarding() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [businessTwilioNumber, setBusinessTwilioNumber] = useState("");
 
   const [form, setForm] = useState({
     business_name: "",
     business_type: "",
-    website: "",
-    address: "",
     phone_number: "",
-    twilio_number: "",
-    ai_greeting: "Thank you for calling {business_name}. We're unable to take your call right now. Please leave your name and reason for calling and we'll get back to you shortly.",
+    ai_greeting: "Thank you for calling {business_name}. Sorry we missed your call — please tell me what you need and we'll get right back to you.",
     sms_template: "Hi, this is {business_name}. We missed your call. Please reply with your request or call us back. Reply STOP to opt out.",
     ai_voice: "nova",
   });
 
   useEffect(() => {
     if (!user) { navigate("/login"); return; }
-    // Pre-fill from user data
-    if (user.company_name) setForm(f => ({ ...f, business_name: user.company_name }));
-    if (user.phone) setForm(f => ({ ...f, phone_number: user.phone }));
+    // Pre-fill from user data + pull live business row so we can show the
+    // real provisioned Twilio number on the forwarding step.
+    fetch("/api/business/settings", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        const b = data?.business || data || {};
+        setForm((f) => ({
+          ...f,
+          business_name: b.name || f.business_name,
+          business_type: b.industry || f.business_type,
+          phone_number: b.phone_number || f.phone_number,
+          ai_greeting: b.greeting_message || f.ai_greeting,
+          sms_template: b.sms_template || f.sms_template,
+          ai_voice: b.ai_voice || f.ai_voice,
+        }));
+        if (b.twilio_number) setBusinessTwilioNumber(b.twilio_number);
+      })
+      .catch(() => {});
   }, [user]);
 
   const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -123,50 +148,71 @@ export default function Onboarding() {
               <label style={s.label}>Business Type</label>
               <select name="business_type" value={form.business_type} onChange={handleChange} style={s.input}>
                 <option value="">Select your industry…</option>
-                <option value="real_estate">Real Estate</option>
-                <option value="medical">Medical / Healthcare</option>
-                <option value="legal">Legal</option>
-                <option value="home_services">Home Services</option>
-                <option value="restaurant">Restaurant / Food</option>
-                <option value="retail">Retail</option>
-                <option value="financial">Financial Services</option>
+                <option value="home_services">Home services (HVAC, plumbing, electrical)</option>
+                <option value="contractor">General contractor / handyman</option>
+                <option value="cleaning">Cleaning / landscaping / pool</option>
+                <option value="locksmith">Locksmith / towing / roadside</option>
+                <option value="dental">Dental / medical / med spa</option>
+                <option value="legal">Legal / law firm</option>
+                <option value="financial">Financial / accounting / mortgage</option>
+                <option value="auto">Auto repair / body shop</option>
+                <option value="pet">Pet services (grooming, boarding, vet)</option>
                 <option value="other">Other</option>
               </select>
-            </div>
-            <div style={s.fieldGroup}>
-              <label style={s.label}>Website</label>
-              <input name="website" value={form.website} onChange={handleChange}
-                style={s.input} placeholder="https://yourbusiness.com" />
-            </div>
-            <div style={s.fieldGroup}>
-              <label style={s.label}>Business Address</label>
-              <input name="address" value={form.address} onChange={handleChange}
-                style={s.input} placeholder="123 Main St, City, State" />
             </div>
           </div>
         )}
 
-        {/* Step 2 — Phone Number */}
+        {/* Step 2 — Phone Forwarding */}
         {step === 2 && (
           <div style={s.stepCard}>
-            <h2 style={s.stepTitle}>Connect your phone number</h2>
-            <p style={s.stepDesc}>Enter the phone number you want AfterCallPro to manage. This is the number your customers call.</p>
+            <h2 style={s.stepTitle}>Forward your calls to AfterCallPro</h2>
+            <p style={s.stepDesc}>
+              We provisioned a dedicated AfterCallPro number for your business. Set up
+              call forwarding from your existing line so missed or after-hours calls
+              get sent here.
+            </p>
+
             <div style={s.fieldGroup}>
-              <label style={s.label}>Your Business Phone Number</label>
+              <label style={s.label}>Your business phone number</label>
               <input name="phone_number" value={form.phone_number} onChange={handleChange}
                 style={s.input} placeholder="+1 (555) 000-0000" />
             </div>
-            <div style={s.infoBox}>
-              <div style={s.infoTitle}>📞 How it works</div>
-              <div style={s.infoText}>
-                AfterCallPro uses a Twilio number to handle your calls. When a customer calls your number and you can't answer, the call is forwarded to your AfterCallPro AI receptionist which answers, takes a message, and sends an SMS follow-up.
+
+            <div style={{ ...s.fieldGroup, marginTop: "8px" }}>
+              <label style={s.label}>Your AfterCallPro number (forward calls to this)</label>
+              <div style={{
+                background: "#0f172a", color: "#fff", borderRadius: "10px",
+                padding: "16px 18px", fontSize: "20px", fontWeight: "700",
+                letterSpacing: "0.02em", textAlign: "center", fontFamily: "monospace",
+              }}>
+                {businessTwilioNumber
+                  ? formatPhoneE164(businessTwilioNumber)
+                  : "Provisioning…"}
               </div>
+              {!businessTwilioNumber && (
+                <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>
+                  If this stays "Provisioning…" for more than a minute, refresh the page or contact support.
+                </div>
+              )}
             </div>
-            <div style={s.fieldGroup}>
-              <label style={s.label}>AfterCallPro Number (assigned)</label>
-              <input name="twilio_number" value={form.twilio_number || "(844) 745-3471"}
-                onChange={handleChange} style={{ ...s.input, background: "#f8fafc", color: "#64748b" }}
-                readOnly />
+
+            <div style={s.infoBox}>
+              <div style={s.infoTitle}>📞 How to set up forwarding</div>
+              <div style={{ ...s.infoText, lineHeight: "1.7" }}>
+                <div style={{ marginBottom: "8px" }}>
+                  <strong>Conditional forwarding</strong> sends calls to AfterCallPro only when you're busy or don't answer. From the phone you want to forward:
+                </div>
+                <ul style={{ paddingLeft: "18px", margin: "8px 0" }}>
+                  <li><strong>iPhone (most carriers):</strong> Settings → Phone → Call Forwarding → toggle on, enter the AfterCallPro number above.</li>
+                  <li><strong>AT&amp;T / Verizon / T-Mobile:</strong> dial <code style={s.code}>*71{businessTwilioNumber || "<your AfterCallPro #>"}</code> then send. Confirms with a tone.</li>
+                  <li><strong>Google Voice / VoIP:</strong> add the AfterCallPro number under "Forwarding numbers" with "After unanswered" rules.</li>
+                  <li><strong>Office PBX (RingCentral, 8x8, etc.):</strong> set this number as the after-hours / overflow destination.</li>
+                </ul>
+                <div style={{ marginTop: "8px", fontSize: "12px", color: "#1e3a8a" }}>
+                  Not sure what your carrier wants? Email <a href="mailto:mindrocketsystems@gmail.com" style={{ color: "#1d4ed8" }}>mindrocketsystems@gmail.com</a> with your carrier name and we'll send the exact dial code.
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -228,25 +274,38 @@ export default function Onboarding() {
             <div style={{ fontSize: "64px", marginBottom: "16px" }}>🎉</div>
             <h2 style={{ ...s.stepTitle, textAlign: "center" }}>You're all set!</h2>
             <p style={{ ...s.stepDesc, textAlign: "center" }}>
-              AfterCallPro is now configured and ready to handle your calls. Your AI receptionist will answer missed calls, take messages, and send SMS follow-ups automatically.
+              Your AI receptionist is live. Two quick things will make sure it's actually working before your first real customer calls.
             </p>
-            <div style={s.successGrid}>
-              {[
-                { icon: "📞", label: "AI Call Answering", status: "Active" },
-                { icon: "💬", label: "SMS Follow-up", status: "Active" },
-                { icon: "📋", label: "Lead Tracking", status: "Active" },
-                { icon: "📅", label: "Appointment Booking", status: "Active" },
-              ].map(item => (
-                <div key={item.label} style={s.successItem}>
-                  <div style={{ fontSize: "24px" }}>{item.icon}</div>
-                  <div style={{ fontSize: "13px", fontWeight: "600", color: "#0f172a" }}>{item.label}</div>
-                  <div style={{ fontSize: "11px", color: "#16a34a", fontWeight: "600" }}>✓ {item.status}</div>
-                </div>
-              ))}
+
+            <div style={{ ...s.infoBox, textAlign: "left", marginTop: "16px" }}>
+              <div style={s.infoTitle}>📞 1. Make a test call</div>
+              <div style={s.infoText}>
+                From your cell phone, dial{" "}
+                <strong style={{ fontFamily: "monospace" }}>
+                  {businessTwilioNumber ? formatPhoneE164(businessTwilioNumber) : "your AfterCallPro number"}
+                </strong>{" "}
+                and have a 30-second conversation. The AI will answer with your greeting, take a message, and you'll see the call appear under <strong>Leads</strong> in your dashboard.
+              </div>
             </div>
-            <button onClick={() => navigate("/dashboard")} style={{ ...s.nextBtn, marginTop: "24px" }}>
-              Go to Dashboard →
-            </button>
+
+            <div style={{ ...s.infoBox, textAlign: "left", background: "#fef3c7", borderColor: "#fde68a" }}>
+              <div style={{ ...s.infoTitle, color: "#92400e" }}>🔌 2. (Optional) Connect a CRM</div>
+              <div style={{ ...s.infoText, color: "#78350f" }}>
+                Push every captured lead into your existing CRM via HubSpot, a webhook, or Zapier. Skip if you'd rather just use the built-in lead log.
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginTop: "20px", flexWrap: "wrap" }}>
+              <button onClick={() => navigate("/calls")} style={s.nextBtn}>
+                See my leads →
+              </button>
+              <button onClick={() => navigate("/integrations")} style={{ ...s.nextBtn, background: "#fff", color: "#0f172a", border: "1px solid #e2e8f0" }}>
+                Connect a CRM
+              </button>
+              <button onClick={() => navigate("/dashboard")} style={{ ...s.nextBtn, background: "transparent", color: "#64748b" }}>
+                Go to dashboard
+              </button>
+            </div>
           </div>
         )}
 

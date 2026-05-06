@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, session
 from src.models.call import db, Business
+from src.models.user import User
 from datetime import datetime
 
 settings_bp = Blueprint('settings', __name__)
@@ -76,49 +77,51 @@ def update_business_settings():
 
 @settings_bp.route('/business/onboarding', methods=['POST'])
 def complete_onboarding():
+    """Persist setup-wizard answers onto the business row.
+
+    User → Business is keyed on email (no FK), matching the pattern in
+    auth.register. The business is created at signup, so this endpoint
+    never needs to insert a new one.
+    """
     user_id = session.get('user_id')
     if not user_id:
         return jsonify({'error': 'Unauthorized'}), 401
 
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    business = Business.query.filter_by(email=user.email).first()
+    if not business:
+        return jsonify({'error': 'Business not found for this user'}), 404
+
     data = request.get_json() or {}
 
-    business = Business.query.filter_by(user_id=user_id).first()
-
-    if not business:
-        # Create new business
-        business = Business(
-            user_id=user_id,
-            name=data.get('business_name', 'My Business'),
-            phone_number=data.get('phone_number', ''),
-            email='',
-        )
-        db.session.add(business)
-
-    # Update all onboarding fields
     if data.get('business_name'):
         business.name = data['business_name']
     if data.get('phone_number'):
         business.phone_number = data['phone_number']
-    if data.get('website') and hasattr(business, 'website'):
-        business.website = data['website']
-    if data.get('address') and hasattr(business, 'address'):
-        business.address = data['address']
-    if data.get('business_type') and hasattr(business, 'business_type'):
-        business.business_type = data['business_type']
-    if data.get('ai_greeting') and hasattr(business, 'greeting_message'):
-        business.greeting_message = data['ai_greeting']
-    if data.get('ai_voice') and hasattr(business, 'ai_voice'):
-        business.ai_voice = data['ai_voice']
-    if data.get('sms_template') and hasattr(business, 'sms_template'):
-        business.sms_template = data['sms_template']
-    if hasattr(business, 'onboarding_completed'):
-        business.onboarding_completed = True
-    if hasattr(business, 'updated_at'):
-        business.updated_at = datetime.utcnow()
 
+    # Map the form's `business_type` (e.g. "home_services") onto the model's
+    # `industry` column. AI prompt reads this field.
+    if data.get('business_type'):
+        business.industry = data['business_type']
+
+    if data.get('ai_greeting'):
+        business.greeting_message = data['ai_greeting']
+    if data.get('ai_voice'):
+        business.ai_voice = data['ai_voice']
+    if data.get('sms_template'):
+        business.sms_template = data['sms_template']
+
+    business.updated_at = datetime.utcnow()
     db.session.commit()
 
-    return jsonify({'message': 'Onboarding complete', 'business_id': business.id}), 200
+    return jsonify({
+        'message': 'Onboarding complete',
+        'business_id': business.id,
+        'business': business.to_dict(),
+    }), 200
 
 
 @settings_bp.route('/appointments/<int:appt_id>/send-reminder', methods=['POST'])

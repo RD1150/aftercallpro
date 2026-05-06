@@ -77,7 +77,7 @@ export default function Signup() {
       if (plan) {
         navigate(`/pricing?plan=${encodeURIComponent(plan)}`);
       } else {
-        navigate("/dashboard");
+        navigate("/onboarding");
       }
     } catch (err) {
       setError(err.message || "Signup failed. Please try again.");
