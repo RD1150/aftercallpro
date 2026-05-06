@@ -8,12 +8,13 @@ the integration row (`last_error`) and never raised.
 import logging
 
 from src.models.integration import Integration
-from src.services import hubspot_service
+from src.services import hubspot_service, webhook_service
 
 logger = logging.getLogger(__name__)
 
 PROVIDER_PUSH = {
     hubspot_service.PROVIDER: hubspot_service.push_call,
+    webhook_service.PROVIDER: webhook_service.push_call,
 }
 
 

@@ -35,13 +35,6 @@ const CRM_GROUPS = [
       { name: "Dentrix", desc: "Push patient inquiries into Dentrix as new patient leads." },
     ],
   },
-  {
-    label: "Anything else",
-    items: [
-      { name: "Webhook", desc: "Fire a JSON POST to your URL on every captured call. Wire it to anything." },
-      { name: "Zapier", desc: "Trigger Zaps from new calls, captured leads, or booked appointments." },
-    ],
-  },
 ];
 
 const REQUEST_EMAIL = "mindrocketsystems@gmail.com";
@@ -62,6 +55,13 @@ export default function Integrations() {
   const [hubspotConnected, setHubspotConnected] = useState(false);
   const [hubspotError, setHubspotError] = useState("");
 
+  const [webhookSaved, setWebhookSaved] = useState(null); // null | {url, has_secret}
+  const [webhookUrl, setWebhookUrl] = useState("");
+  const [webhookSecret, setWebhookSecret] = useState("");
+  const [webhookError, setWebhookError] = useState("");
+  const [webhookTesting, setWebhookTesting] = useState(false);
+  const [webhookTestResult, setWebhookTestResult] = useState(null);
+
   useEffect(() => {
     fetch("/api/appointments/calendar/settings", { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
@@ -80,6 +80,11 @@ export default function Integrations() {
         const list = data?.integrations || [];
         if (list.some((i) => i.provider === "hubspot" && i.enabled)) {
           setHubspotConnected(true);
+        }
+        const wh = list.find((i) => i.provider === "webhook" && i.enabled);
+        if (wh) {
+          setWebhookSaved({ url: wh.url, has_secret: wh.has_secret });
+          setWebhookUrl(wh.url || "");
         }
       })
       .catch(() => {});
@@ -145,6 +150,64 @@ export default function Integrations() {
         credentials: "include",
       });
       setHubspotConnected(false);
+    } catch (err) {
+      // ignore
+    }
+  };
+
+  const handleWebhookSave = async (e) => {
+    e?.preventDefault?.();
+    setWebhookError("");
+    setWebhookTestResult(null);
+    try {
+      const res = await fetch("/api/integrations/webhook", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: webhookUrl,
+          secret: webhookSecret || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setWebhookError(data.error || "Could not save webhook.");
+        return;
+      }
+      setWebhookSaved({ url: data.url, has_secret: data.has_secret });
+      setWebhookSecret("");
+    } catch (err) {
+      setWebhookError("Network error saving webhook.");
+    }
+  };
+
+  const handleWebhookTest = async () => {
+    setWebhookTesting(true);
+    setWebhookTestResult(null);
+    try {
+      const res = await fetch("/api/integrations/webhook/test", {
+        method: "POST",
+        credentials: "include",
+      });
+      const data = await res.json();
+      setWebhookTestResult(data);
+    } catch (err) {
+      setWebhookTestResult({ sent: false, reason: "network_error" });
+    } finally {
+      setWebhookTesting(false);
+    }
+  };
+
+  const handleWebhookDisconnect = async () => {
+    try {
+      await fetch("/api/integrations/webhook", {
+        method: "DELETE",
+        credentials: "include",
+      });
+      setWebhookSaved(null);
+      setWebhookUrl("");
+      setWebhookSecret("");
+      setWebhookTestResult(null);
     } catch (err) {
       // ignore
     }
@@ -237,6 +300,107 @@ export default function Integrations() {
             >
               Connect HubSpot
             </button>
+          )}
+        </div>
+
+        {/* WEBHOOK — real, generic */}
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-10">
+          <div className="flex items-center gap-3 mb-4">
+            <Plug className="w-6 h-6 text-indigo-600" />
+            <h2 className="text-xl font-semibold text-slate-900">Webhook (Zapier, Make, custom)</h2>
+          </div>
+
+          <p className="text-slate-600 mb-4">
+            We POST a JSON payload to your URL on every captured call. Use it
+            with Zapier or Make to push leads into any CRM, with n8n or your own
+            server for custom workflows. Optional shared secret signs the
+            payload with HMAC-SHA256 in <code className="text-sm bg-slate-100 px-1 rounded">X-AfterCallPro-Signature</code>.
+          </p>
+
+          {webhookError && (
+            <div className="flex items-center gap-2 text-red-600 mb-3">
+              <AlertCircle className="w-5 h-5" /> {webhookError}
+            </div>
+          )}
+
+          {webhookSaved ? (
+            <div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-2 text-green-600 font-medium">
+                  <CheckCircle className="w-5 h-5" /> Connected
+                </div>
+                <span className="text-sm text-slate-500 font-mono break-all">
+                  {webhookSaved.url}
+                </span>
+                {webhookSaved.has_secret && (
+                  <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
+                    Signed
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleWebhookTest}
+                  disabled={webhookTesting}
+                  className="px-4 py-2 bg-slate-900 text-white text-sm rounded-lg hover:bg-slate-800 disabled:opacity-50"
+                >
+                  {webhookTesting ? "Sending…" : "Send test ping"}
+                </button>
+                <button
+                  onClick={handleWebhookDisconnect}
+                  className="text-sm text-slate-500 underline hover:text-slate-700"
+                >
+                  Disconnect
+                </button>
+                {webhookTestResult && (
+                  <span
+                    className={
+                      webhookTestResult.sent
+                        ? "text-sm text-green-700"
+                        : "text-sm text-red-600"
+                    }
+                  >
+                    {webhookTestResult.sent
+                      ? `Sent · ${webhookTestResult.status_code}`
+                      : `Failed · ${webhookTestResult.reason || "unknown"}`}
+                  </span>
+                )}
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleWebhookSave} className="space-y-3">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Destination URL
+                </label>
+                <input
+                  type="url"
+                  required
+                  placeholder="https://hooks.zapier.com/…"
+                  value={webhookUrl}
+                  onChange={(e) => setWebhookUrl(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Shared secret <span className="text-slate-400 font-normal">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Any random string — used to sign the payload"
+                  value={webhookSecret}
+                  onChange={(e) => setWebhookSecret(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <button
+                type="submit"
+                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+              >
+                Save webhook
+              </button>
+            </form>
           )}
         </div>
 

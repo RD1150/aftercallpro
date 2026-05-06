@@ -14,7 +14,7 @@ from flask import Blueprint, jsonify, redirect, request, session
 from src.models.user import db
 from src.models.call import Business
 from src.models.integration import Integration
-from src.services import hubspot_service
+from src.services import hubspot_service, webhook_service
 
 logger = logging.getLogger(__name__)
 
@@ -37,10 +37,21 @@ def list_integrations():
     if err:
         return err
     rows = Integration.query.filter_by(business_id=business.id).all()
+    # Pull the webhook URL into the public dict so the frontend can show
+    # masked-but-recognizable info on the connected card.
+    payload = []
+    for r in rows:
+        d = r.to_public_dict()
+        if r.provider == webhook_service.PROVIDER and r.settings:
+            d["url"] = r.settings.get("url")
+            d["has_secret"] = bool(r.access_token)
+        payload.append(d)
+
     return jsonify({
-        "integrations": [r.to_public_dict() for r in rows],
+        "integrations": payload,
         "available": {
             "hubspot": hubspot_service.is_configured(),
+            "webhook": True,
         },
     }), 200
 
@@ -103,4 +114,52 @@ def hubspot_disconnect():
     ).first()
     if integration:
         hubspot_service.disconnect(integration)
+    return jsonify({"disconnected": True}), 200
+
+
+# --- Generic webhook -------------------------------------------------------
+
+
+@integrations_bp.route("/webhook", methods=["POST"])
+def webhook_save():
+    business, err = _current_business()
+    if err:
+        return err
+    data = request.get_json(silent=True) or {}
+    url = (data.get("url") or "").strip()
+    secret = (data.get("secret") or "").strip() or None
+    try:
+        integration = webhook_service.upsert(business, url=url, secret=secret)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    out = integration.to_public_dict()
+    out["url"] = (integration.settings or {}).get("url")
+    out["has_secret"] = bool(integration.access_token)
+    return jsonify(out), 200
+
+
+@integrations_bp.route("/webhook/test", methods=["POST"])
+def webhook_test():
+    business, err = _current_business()
+    if err:
+        return err
+    integration = Integration.query.filter_by(
+        business_id=business.id, provider=webhook_service.PROVIDER
+    ).first()
+    if not integration:
+        return jsonify({"error": "Webhook not configured"}), 404
+    result = webhook_service.send_test(integration)
+    return jsonify(result), 200
+
+
+@integrations_bp.route("/webhook", methods=["DELETE"])
+def webhook_disconnect():
+    business, err = _current_business()
+    if err:
+        return err
+    integration = Integration.query.filter_by(
+        business_id=business.id, provider=webhook_service.PROVIDER
+    ).first()
+    if integration:
+        webhook_service.disconnect(integration)
     return jsonify({"disconnected": True}), 200
