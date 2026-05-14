@@ -67,8 +67,10 @@ Now: {datetime.now(ZoneInfo(self.business.timezone or 'America/Los_Angeles')).st
                 {'name': 'Appointment', 'duration': 60},
                 {'name': 'Consultation', 'duration': 30}
             ]
-            
-            types_str = ", ".join([f"{t['name']} ({t['duration']} min)" for t in appointment_types])
+
+            # Open houses are handled via take-a-message, not booking — never offer them as a bookable type.
+            bookable_types = [t for t in appointment_types if 'open house' not in t['name'].lower()]
+            types_str = ", ".join([f"{t['name']} ({t['duration']} min)" for t in bookable_types])
             
             base_prompt += f"""
 
@@ -80,6 +82,13 @@ When a caller wants to schedule an appointment:
 4. Use the check_availability function to verify the time slot
 5. If available, use the book_appointment function to schedule it
 6. Confirm the appointment details with the caller
+
+OPEN HOUSES — DO NOT BOOK:
+If the caller asks to attend an open house, walkthrough, or any pre-scheduled group event, do NOT use book_appointment and do NOT call check_availability. You cannot confirm whether an open house exists. Instead, take a message:
+1. "Which property's open house are you asking about?"
+2. "What date and time were you planning to come?"
+3. "Can I get your name and a callback number?"
+4. Then say: "I'll have [agent name] reach out to confirm the details." Do not promise the open house is happening.
 
 Always be helpful and flexible with scheduling."""
         else:
@@ -252,6 +261,13 @@ Taking a message — strict one-field-per-turn sequence:
                         customer_email=None, appointment_type=None,
                         duration_minutes=60, notes=None):
         """Book an appointment"""
+        # Open houses are pre-scheduled group events we can't verify exist from
+        # the agent's calendar alone — refuse to book and route to a message.
+        if appointment_type and 'open house' in appointment_type.lower():
+            return {
+                "success": False,
+                "message": "I can't confirm open house details over this line. Let me take your name, callback number, and which property you're asking about, and I'll have someone call you back to confirm."
+            }
         try:
             business_tz = self.business.timezone or 'America/Los_Angeles'
             tz = ZoneInfo(business_tz)

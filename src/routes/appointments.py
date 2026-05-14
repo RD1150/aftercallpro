@@ -308,8 +308,7 @@ def get_calendar_settings():
             },
             appointment_types=[
                 {'name': 'Property Showing', 'duration': 60},
-                {'name': 'Consultation', 'duration': 30},
-                {'name': 'Open House', 'duration': 120}
+                {'name': 'Consultation', 'duration': 30}
             ]
         )
         db.session.add(settings)
