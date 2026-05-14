@@ -1,5 +1,6 @@
 import os
 import json
+import traceback
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from openai import OpenAI
@@ -352,14 +353,15 @@ Taking a message — strict one-field-per-turn sequence:
         tools = self.get_available_functions()
         
         try:
-            # First API call. max_tokens caps response length so phone replies
-            # come back faster and stay concise.
+            # First API call. Tool calls need headroom for their JSON args —
+            # 80 tokens truncates the function arguments and json.loads then
+            # raises, surfacing as a generic "having trouble" reply.
             response = self.client.chat.completions.create(
                 model="gpt-4.1-mini",
                 messages=messages,
                 tools=tools if tools else None,
                 tool_choice="auto" if tools else None,
-                max_tokens=80,
+                max_tokens=300 if tools else 80,
                 temperature=0.7,
             )
             
@@ -406,6 +408,7 @@ Taking a message — strict one-field-per-turn sequence:
             return second_response.choices[0].message.content
             
         except Exception as e:
-            print(f"Error in AI processing: {str(e)}")
+            print(f"Error in AI processing: {type(e).__name__}: {str(e)}")
+            print(traceback.format_exc())
             return "I apologize, but I'm having trouble processing your request right now. Let me take your information and someone will get back to you shortly."
 
