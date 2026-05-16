@@ -47,8 +47,8 @@ class SmsService:
             business: Business model instance, or None for platform-level sends.
             idempotency_key: If provided and a prior send with the same
                 (business_id, key) exists, return its result without re-sending.
-            from_number: Override sender. Defaults to business.twilio_number,
-                then TWILIO_PHONE_NUMBER.
+            from_number: Override sender. Defaults to SMS_FROM_NUMBER (the
+                verified toll-free number), then TWILIO_PHONE_NUMBER.
 
         Returns:
             SmsResult dict with `sent`, `reason`, `twilio_sid`, `log_id`.
@@ -86,9 +86,16 @@ class SmsService:
                 )
                 return SmsResult(sent=False, reason="rate_limited")
 
+        # SMS must go out from a number that is registered/verified for
+        # messaging. business.twilio_number is the per-business LOCAL number —
+        # it's provisioned for VOICE only and has no A2P 10DLC registration, so
+        # sending SMS from it gets silently filtered by carriers (this is why
+        # reminders never arrived). Outbound SMS goes from the verified
+        # toll-free number instead. Recipients are identified by the message
+        # body, not the sender number.
         sender = (
             from_number
-            or (getattr(business, "twilio_number", None) if business else None)
+            or os.environ.get("SMS_FROM_NUMBER")
             or os.environ.get("TWILIO_PHONE_NUMBER")
         )
 

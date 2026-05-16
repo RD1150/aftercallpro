@@ -108,12 +108,6 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
     business_email = business.email
     business_id = business.id
 
-    # Use the business's dedicated Twilio number for ISV compliance.
-    # SMS must appear to come from the business, not from AfterCallPro.
-    business_twilio_number = None
-    if hasattr(business, 'get_sms_from_number'):
-        business_twilio_number = business.get_sms_from_number()
-
     # Use the business's custom SMS template if set, otherwise use a sensible default.
     if hasattr(business, 'format_sms_body'):
         sms_body = business.format_sms_body() + " Reply STOP to opt out."
@@ -148,13 +142,15 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
     </div>
     """
 
-    # Step 1: Wait 2 minutes, then send SMS to caller from the business's dedicated number
+    # Step 1: Wait 2 minutes, then SMS the caller. No from_number override —
+    # the per-business local number isn't registered for SMS, so SmsService
+    # sends from SMS_FROM_NUMBER (the verified toll-free number). The body
+    # names the business, so the caller still knows who it's from.
     _run_after(
         120,
         _send_sms,
         caller_number,
         sms_body,
-        from_number=business_twilio_number,
         business=business,
         idempotency_key=f"missed_call_recovery:{business_id}:{caller_number}",
     )
