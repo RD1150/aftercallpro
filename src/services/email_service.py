@@ -1,5 +1,6 @@
 import os
 import smtplib
+import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
@@ -8,7 +9,8 @@ class EmailService:
     """Service for sending email notifications"""
     
     def __init__(self):
-        self.smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+        # render.yaml declares SMTP_HOST; older config used SMTP_SERVER. Accept either.
+        self.smtp_server = os.getenv('SMTP_HOST') or os.getenv('SMTP_SERVER', 'smtp.gmail.com')
         self.smtp_port = int(os.getenv('SMTP_PORT', '587'))
         self.smtp_username = os.getenv('SMTP_USERNAME')
         self.smtp_password = os.getenv('SMTP_PASSWORD')
@@ -35,12 +37,20 @@ class EmailService:
             part2 = MIMEText(html_body, 'html')
             msg.attach(part2)
             
-            # Send email
-            with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
-                server.starttls()
-                server.login(self.smtp_username, self.smtp_password)
-                server.send_message(msg)
-            
+            # Send email. Port 465 is implicit TLS (SMTPS) -> SMTP_SSL;
+            # 587/25 are plaintext-then-STARTTLS. Using the wrong one hangs
+            # the connection until timeout ("Connection unexpectedly closed").
+            context = ssl.create_default_context()
+            if self.smtp_port == 465:
+                with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port, context=context) as server:
+                    server.login(self.smtp_username, self.smtp_password)
+                    server.send_message(msg)
+            else:
+                with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
+                    server.starttls(context=context)
+                    server.login(self.smtp_username, self.smtp_password)
+                    server.send_message(msg)
+
             return True
         except Exception as e:
             print(f"Error sending email: {e}")

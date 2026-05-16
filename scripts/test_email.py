@@ -41,9 +41,14 @@ def main():
         print("\nFAIL: SMTP_USERNAME / SMTP_PASSWORD not set on this environment.")
         return
 
-    print(f"\n=== Step 1: TCP connect to {host}:{port} ===")
+    # Port 465 = implicit TLS (SMTPS); 587/25 = plaintext then STARTTLS.
+    use_ssl = port == 465
+    print(f"\n=== Step 1: {'SMTPS' if use_ssl else 'TCP'} connect to {host}:{port} ===")
     try:
-        server = smtplib.SMTP(host, port, timeout=20)
+        if use_ssl:
+            server = smtplib.SMTP_SSL(host, port, timeout=20, context=ssl.create_default_context())
+        else:
+            server = smtplib.SMTP(host, port, timeout=20)
         print("OK: connection established")
     except Exception as e:
         print(f"FAIL at connect: {type(e).__name__}: {e}")
@@ -52,8 +57,11 @@ def main():
         return
 
     try:
-        print("\n=== Step 2: STARTTLS ===")
-        server.starttls(context=ssl.create_default_context())
+        if use_ssl:
+            print("\n=== Step 2: STARTTLS (skipped - port 465 is already TLS) ===")
+        else:
+            print("\n=== Step 2: STARTTLS ===")
+            server.starttls(context=ssl.create_default_context())
         print("OK: TLS negotiated")
 
         print("\n=== Step 3: login ===")
