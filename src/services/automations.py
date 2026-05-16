@@ -104,7 +104,7 @@ def _run_after(delay_seconds: int, fn, *args, **kwargs):
 # Workflow 1: Call Follow-Up
 # ──────────────────────────────────────────────────────────────────────────────
 
-def trigger_call_followup(business, caller_number: str, transcript: str, call_summary: str = ""):
+def trigger_call_followup(business, caller_number: str, transcript: str):
     """
     Re-engages a caller who hung up before finishing (a short call). The AI
     answered — this is a follow-up, not a missed-call recovery.
@@ -124,20 +124,6 @@ def trigger_call_followup(business, caller_number: str, transcript: str, call_su
             f"we can help with, just reply here and we'll take care of it. "
             f"Reply STOP to opt out."
         )
-
-    email_subject = f"📞 Following up on your call — {business_name}"
-    email_html = f"""
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-      <h2 style="color:#0f172a">Thanks for calling!</h2>
-      <p>Hi there,</p>
-      <p>Thanks for calling <strong>{business_name}</strong> &mdash; it looks like
-         we got disconnected. Our AI assistant captured your message and a team
-         member will be in touch soon.</p>
-      {"<h3>Call Summary:</h3><p>" + call_summary + "</p>" if call_summary else ""}
-      <p>If you need immediate assistance, please call us back or reply to this email.</p>
-      <p>Best regards,<br><strong>{business_name}</strong></p>
-    </div>
-    """
 
     internal_subject = f"[AfterCallPro] Short call from {caller_number} — follow-up needed"
     internal_html = f"""

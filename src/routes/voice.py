@@ -309,8 +309,7 @@ def call_status():
                     trigger_call_followup(
                         business=business,
                         caller_number=call.from_number,
-                        transcript=call.transcript or "",
-                        call_summary=call.summary or ""
+                        transcript=call.transcript or ""
                     )
                 except Exception as e:
                     print(f"Call follow-up automation failed: {e}")
