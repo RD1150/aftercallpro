@@ -23,6 +23,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Integrations from "./pages/Integrations";
 import Calls from "./pages/Calls";
 import BusinessSettings from "./components/BusinessSettings";
+import ChatWidget from "./components/ChatWidget";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -132,6 +133,7 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <AppRoutes />
+        <ChatWidget />
       </AuthProvider>
     </BrowserRouter>
   );

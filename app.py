@@ -153,6 +153,12 @@ try:
 except Exception as e:
     print(f"Analytics blueprint not loaded: {e}")
 
+try:
+    from src.routes.assistant import assistant_bp
+    app.register_blueprint(assistant_bp, url_prefix="/api/assistant")
+except Exception as e:
+    print(f"Assistant blueprint not loaded: {e}")
+
 # -------------------------
 # HEALTH CHECK
 # -------------------------
