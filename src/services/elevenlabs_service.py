@@ -21,10 +21,11 @@ logger = logging.getLogger(__name__)
 AUDIO_DIR = Path("/tmp/aftercallpro_audio")
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
-# Sensible defaults — Rachel (warm professional female), Turbo v2.5 model
-# (~250ms latency, decent quality, cheaper than the multilingual flagship).
+# Sensible defaults — Rachel (warm professional female), Turbo v2.5 model:
+# low-latency (~300ms) but, unlike Flash, it honours the `style` setting, which
+# is what makes the voice sound expressive and conversational rather than flat.
 DEFAULT_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "21m00Tcm4TlvDq8ikWAM")
-DEFAULT_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_flash_v2_5")
+DEFAULT_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_turbo_v2_5")
 ELEVENLABS_API = "https://api.elevenlabs.io/v1"
 
 
@@ -52,7 +53,15 @@ def synthesize_to_file(text: str, voice_id: str = None) -> str | None:
             json={
                 "text": text,
                 "model_id": DEFAULT_MODEL,
-                "voice_settings": {"stability": 0.5, "similarity_boost": 0.75},
+                "voice_settings": {
+                    # Lower stability = more expressive and varied (less
+                    # monotone/robotic); style adds conversational warmth;
+                    # speaker_boost firms up clarity over the phone line.
+                    "stability": 0.4,
+                    "similarity_boost": 0.85,
+                    "style": 0.35,
+                    "use_speaker_boost": True,
+                },
             },
             timeout=20,
         )

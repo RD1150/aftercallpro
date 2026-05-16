@@ -47,3 +47,6 @@ src/frontend/package-lock.json
 *.tar.gz
 *.zip
 
+
+# Local voice audition samples
+voice_audition/

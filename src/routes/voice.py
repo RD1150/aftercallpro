@@ -6,8 +6,53 @@ from src.services.elevenlabs_service import synthesize_to_file, AUDIO_DIR
 from src.utils.twilio_security import twilio_webhook
 from datetime import datetime
 import os
+import re
 
 voice_bp = Blueprint('voice', __name__)
+
+# How long Twilio waits for silence before deciding the caller finished
+# speaking. Lower = snappier replies; too low can clip slow speakers (e.g.
+# spelling out an email). Tunable via env so it can be adjusted without a deploy.
+SPEECH_TIMEOUT = int(os.environ.get("VOICE_SPEECH_TIMEOUT", "1"))
+
+# Words that show up in a caller's opening reply when they skipped the name
+# question and dove straight into their request. If the "name" we extract
+# starts with one of these, we don't trust it and greet them name-lessly.
+_NOT_A_NAME = {
+    "need", "want", "book", "booking", "schedule", "scheduling", "appointment",
+    "calling", "call", "question", "questions", "help", "like", "wondering",
+    "looking", "trying", "the", "and", "for", "with", "about", "just",
+    "have", "had", "get", "got", "make", "speak", "talk", "reach", "can",
+}
+
+
+def _extract_caller_name(speech: str) -> str:
+    """Best-effort first name from the caller's opening reply.
+
+    Returns "" when the reply doesn't look like a name, so the caller is
+    greeted name-lessly rather than with garbage like "Thanks for calling, I Need".
+    """
+    t = (speech or "").strip().lower()
+    # Drop conversational lead-ins: "hi, this is John", "yeah it's John".
+    t = re.sub(r"^(hi|hello|hey|yeah|yes|yep|um|uh|so|well)\b[\s,.!]*", "", t)
+    t = re.sub(r"^(this is|my name is|the name'?s|it'?s|i am|i'?m)\s+", "", t)
+    t = t.strip(" ,.!?")
+    name_words = []
+    for word in t.split()[:2]:
+        cw = word.strip(" ,.!?")
+        # A name word is alphabetic, 2-15 chars, and not an obvious non-name.
+        if not re.fullmatch(r"[a-z][a-z'\-]{1,14}", cw) or cw in _NOT_A_NAME:
+            break
+        name_words.append(cw)
+    return " ".join(w.capitalize() for w in name_words)
+
+
+def _first_turn_reply(speech: str) -> str:
+    """Scripted reply to the caller's name — no LLM call needed."""
+    name = _extract_caller_name(speech)
+    if name:
+        return f"Thanks for calling, {name}! How can I help you today?"
+    return "Thanks for calling! How can I help you today?"
 
 
 def _public_audio_url(filename: str) -> str:
@@ -91,7 +136,7 @@ def handle_incoming_call():
         action=f'/api/voice/process?call_id={call.id}',
         method='POST',
         timeout=10,
-        speech_timeout=2,
+        speech_timeout=SPEECH_TIMEOUT,
         action_on_empty_result=True,
     )
     speak(gather, business.greeting_message, business)
@@ -134,7 +179,7 @@ def process_speech():
             action=f'/api/voice/process?call_id={call.id}',
             method='POST',
             timeout=10,
-            speech_timeout=2,
+            speech_timeout=SPEECH_TIMEOUT,
             action_on_empty_result=True,
         )
         speak(gather, "Sorry, I didn't catch that. Could you say it again?", business)
@@ -142,31 +187,41 @@ def process_speech():
         response.redirect('/api/voice/no-input')
         return str(response)
 
+    # First caller turn = their name (the greeting asked for it). Detect this
+    # before we append the new line to the transcript.
+    first_turn = not (call.transcript and "AI:" in call.transcript)
+
     # Update call transcript
     if call.transcript:
         call.transcript += f"\nCaller: {speech_result}"
     else:
         call.transcript = f"Caller: {speech_result}"
-    
-    # Get AI response using enhanced AI service
-    from src.services.ai_service import AIService
-    
+
     business = call.business
-    ai_service = AIService(business, call)
-    
-    # Build conversation history from transcript
-    conversation_history = []
-    if call.transcript:
-        lines = call.transcript.split('\n')
-        for line in lines:
-            if line.startswith('Caller: '):
-                conversation_history.append({"role": "user", "content": line[8:]})
-            elif line.startswith('AI: '):
-                conversation_history.append({"role": "assistant", "content": line[4:]})
-    
+
     try:
-        # Get AI response with appointment booking capability
-        ai_response = ai_service.process_with_functions(speech_result, conversation_history)
+        if first_turn:
+            # The reply to the caller's name is fully scripted, so skip the
+            # OpenAI round-trip and template it directly — this is the gap the
+            # caller hears right after saying their name.
+            ai_response = _first_turn_reply(speech_result)
+        else:
+            from src.services.ai_service import AIService
+            ai_service = AIService(business, call)
+
+            # Build conversation history from prior turns. Drop the trailing
+            # caller line we just appended — process_with_functions adds the
+            # current message itself, so leaving it in would duplicate it.
+            conversation_history = []
+            for line in call.transcript.split('\n'):
+                if line.startswith('Caller: '):
+                    conversation_history.append({"role": "user", "content": line[8:]})
+                elif line.startswith('AI: '):
+                    conversation_history.append({"role": "assistant", "content": line[4:]})
+            if conversation_history and conversation_history[-1]["role"] == "user":
+                conversation_history.pop()
+
+            ai_response = ai_service.process_with_functions(speech_result, conversation_history)
         
         # Update transcript with AI response
         call.transcript += f"\nAI: {ai_response}"
@@ -188,7 +243,7 @@ def process_speech():
                 action=f'/api/voice/process?call_id={call.id}',
                 method='POST',
                 timeout=10,
-                speech_timeout=2,
+                speech_timeout=SPEECH_TIMEOUT,
                 action_on_empty_result=True,
             )
             speak(gather, ai_response, business)
