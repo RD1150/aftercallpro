@@ -63,12 +63,15 @@ class SmsService:
             business_id = getattr(business, "id", None) if business else None
 
         if idempotency_key:
+            # Only a prior *successful* send blocks a re-send. A failed or
+            # skipped attempt must be allowed to retry — otherwise one failure
+            # poisons that idempotency key forever and the SMS never sends.
             prior = SmsSendLog.query.filter_by(
-                business_id=business_id, idempotency_key=idempotency_key
+                business_id=business_id, idempotency_key=idempotency_key, status="sent"
             ).first()
             if prior:
                 return SmsResult(
-                    sent=prior.status == "sent",
+                    sent=True,
                     reason="idempotent_replay",
                     twilio_sid=prior.twilio_sid,
                     log_id=prior.id,
