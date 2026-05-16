@@ -42,13 +42,18 @@ logger = logging.getLogger(__name__)
 # Helpers
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _send_sms(to_number: str, body: str, from_number: str = None, business=None, idempotency_key: str = None):
-    """Send an SMS through SmsService (opt-out gated, rate-limited, idempotent)."""
+def _send_sms(to_number: str, body: str, from_number: str = None, business_id: int = None, idempotency_key: str = None):
+    """Send an SMS through SmsService (opt-out gated, rate-limited, idempotent).
+
+    Takes business_id (a plain int), never a Business ORM object — this runs in
+    a delayed background thread where a detached ORM instance would raise
+    DetachedInstanceError.
+    """
     from src.services.sms_service import SmsService
     result = SmsService.send(
         to=to_number,
         body=body,
-        business=business,
+        business_id=business_id,
         idempotency_key=idempotency_key,
         from_number=from_number,
     )
@@ -151,7 +156,7 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
         _send_sms,
         caller_number,
         sms_body,
-        business=business,
+        business_id=business_id,
         idempotency_key=f"missed_call_recovery:{business_id}:{caller_number}",
     )
 
@@ -221,7 +226,7 @@ def trigger_no_show_recovery(business, appointment, customer_email: str = "", cu
             _send_sms,
             customer_phone,
             sms_body,
-            business=business,
+            business_id=business.id,
             idempotency_key=f"no_show_sms:{business.id}:{getattr(appointment, 'id', '?')}",
         )
 
@@ -282,7 +287,7 @@ def trigger_payment_onboarding(business):
         _send_sms,
         business_phone,
         sms_body,
-        business=business,
+        business_id=business.id,
         idempotency_key=f"payment_onboarding_sms:{business.id}",
     )
 
@@ -336,7 +341,7 @@ def trigger_new_contact(business):
         _send_sms,
         business_phone,
         sms_body,
-        business=business,
+        business_id=business.id,
         idempotency_key=f"new_contact_sms:{business.id}",
     )
 

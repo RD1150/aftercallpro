@@ -36,6 +36,7 @@ class SmsService:
         to: str,
         body: str,
         business=None,
+        business_id: int = None,
         idempotency_key: str = None,
         from_number: str = None,
     ) -> SmsResult:
@@ -45,6 +46,8 @@ class SmsService:
             to: E.164 destination phone.
             body: Message body (caller is responsible for "Reply STOP to opt out" footer).
             business: Business model instance, or None for platform-level sends.
+            business_id: Business id directly — preferred for deferred/background
+                sends, where a detached ORM `business` object can't be read.
             idempotency_key: If provided and a prior send with the same
                 (business_id, key) exists, return its result without re-sending.
             from_number: Override sender. Defaults to SMS_FROM_NUMBER (the
@@ -53,7 +56,11 @@ class SmsService:
         Returns:
             SmsResult dict with `sent`, `reason`, `twilio_sid`, `log_id`.
         """
-        business_id = getattr(business, "id", None) if business else None
+        # business_id may be passed directly — preferred for deferred/background
+        # work, since a detached ORM `business` can't be read across a session
+        # boundary (raises DetachedInstanceError).
+        if business_id is None:
+            business_id = getattr(business, "id", None) if business else None
 
         if idempotency_key:
             prior = SmsSendLog.query.filter_by(

@@ -134,7 +134,7 @@ class EmailService:
     
     def send_new_call_notification(self, business, call):
         """Send notification about a new call"""
-        subject = f"New Call from {call.caller_number}"
+        subject = f"New Call from {call.from_number}"
         
         html_body = f"""
         <!DOCTYPE html>
@@ -156,8 +156,8 @@ class EmailService:
                 </div>
                 <div class="content">
                     <div class="call-details">
-                        <p><strong>Caller:</strong> {call.caller_number}</p>
-                        <p><strong>Time:</strong> {call.timestamp.strftime('%B %d, %Y at %I:%M %p')}</p>
+                        <p><strong>Caller:</strong> {call.from_number}</p>
+                        <p><strong>Time:</strong> {call.started_at.strftime('%B %d, %Y at %I:%M %p')}</p>
                         <p><strong>Duration:</strong> {call.duration} seconds</p>
                         <p><strong>Status:</strong> {call.status}</p>
                     </div>
@@ -175,8 +175,8 @@ class EmailService:
         text_body = f"""
         New Call Received
         
-        Caller: {call.caller_number}
-        Time: {call.timestamp.strftime('%B %d, %Y at %I:%M %p')}
+        Caller: {call.from_number}
+        Time: {call.started_at.strftime('%B %d, %Y at %I:%M %p')}
         Duration: {call.duration} seconds
         Status: {call.status}
         
@@ -233,8 +233,8 @@ class EmailService:
         for call in calls[:10]:  # Show up to 10 most recent calls
             calls_html += f"""
             <tr>
-                <td>{call.caller_number}</td>
-                <td>{call.timestamp.strftime('%I:%M %p')}</td>
+                <td>{call.from_number}</td>
+                <td>{call.started_at.strftime('%I:%M %p')}</td>
                 <td>{call.duration}s</td>
                 <td>{call.status}</td>
             </tr>
