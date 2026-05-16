@@ -120,8 +120,9 @@ def trigger_call_followup(business, caller_number: str, transcript: str, call_su
         sms_body = business.format_sms_body() + " Reply STOP to opt out."
     else:
         sms_body = (
-            f"Hi! Thanks for reaching out to {business_name} \u2014 sorry we got "
-            f"cut off. What can we help you with? Reply STOP to opt out."
+            f"Hi! Thanks for calling {business_name}. If there's anything else "
+            f"we can help with, just reply here and we'll take care of it. "
+            f"Reply STOP to opt out."
         )
 
     email_subject = f"📞 Following up on your call — {business_name}"
