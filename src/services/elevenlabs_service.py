@@ -21,10 +21,10 @@ logger = logging.getLogger(__name__)
 AUDIO_DIR = Path("/tmp/aftercallpro_audio")
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
-# Sensible defaults — Rachel (warm professional female), Turbo v2.5 model:
+# Sensible defaults — Hope (warm, expressive female), Turbo v2.5 model:
 # low-latency (~300ms) but, unlike Flash, it honours the `style` setting, which
 # is what makes the voice sound expressive and conversational rather than flat.
-DEFAULT_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "21m00Tcm4TlvDq8ikWAM")
+DEFAULT_VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "cVd39cx0VtXNC13y5Y7z")
 DEFAULT_MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_turbo_v2_5")
 ELEVENLABS_API = "https://api.elevenlabs.io/v1"
 
