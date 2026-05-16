@@ -3,9 +3,10 @@ automations.py — Native replacement for all GoHighLevel (GHL) workflows.
 
 This module replicates the following GHL workflows entirely within the app:
 
-1. Missed Call Recovery
+1. Call Follow-Up
    GHL: Trigger=Transcript Generated → Wait → SMS → Add Task → Email → Internal Notification
-   Here: Called after a call transcript is saved. Sends SMS + email follow-up to the caller.
+   Here: Called after a short call's transcript is saved (caller hung up before
+   finishing). Sends an SMS + email follow-up to re-engage the caller.
 
 2. No-Show Recovery
    GHL: Trigger=No Show → Check appointment status → Branch:
@@ -100,12 +101,13 @@ def _run_after(delay_seconds: int, fn, *args, **kwargs):
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Workflow 1: Missed Call Recovery
+# Workflow 1: Call Follow-Up
 # ──────────────────────────────────────────────────────────────────────────────
 
-def trigger_missed_call_recovery(business, caller_number: str, transcript: str, call_summary: str = ""):
+def trigger_call_followup(business, caller_number: str, transcript: str, call_summary: str = ""):
     """
-    Replaces: AfterCallPro – Missed Call Recovery
+    Re-engages a caller who hung up before finishing (a short call). The AI
+    answered — this is a follow-up, not a missed-call recovery.
     Trigger:  Transcript Generated (call ends and transcript is saved)
     Steps:    Wait 2 min → SMS → Add internal task → Email → Internal notification email
     """
@@ -118,27 +120,28 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
         sms_body = business.format_sms_body() + " Reply STOP to opt out."
     else:
         sms_body = (
-            f"Hi, this is {business_name} \u2014 sorry we missed your call. "
-            f"How can we help? Reply STOP to opt out."
+            f"Hi! Thanks for reaching out to {business_name} \u2014 sorry we got "
+            f"cut off. What can we help you with? Reply STOP to opt out."
         )
 
-    email_subject = f"📞 Missed Call Follow-Up — {business_name}"
+    email_subject = f"📞 Following up on your call — {business_name}"
     email_html = f"""
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-      <h2 style="color:#0f172a">We missed your call!</h2>
+      <h2 style="color:#0f172a">Thanks for calling!</h2>
       <p>Hi there,</p>
-      <p>We're sorry we missed your call to <strong>{business_name}</strong>. 
-         Our AI assistant captured your message and a team member will be in touch soon.</p>
+      <p>Thanks for calling <strong>{business_name}</strong> &mdash; it looks like
+         we got disconnected. Our AI assistant captured your message and a team
+         member will be in touch soon.</p>
       {"<h3>Call Summary:</h3><p>" + call_summary + "</p>" if call_summary else ""}
       <p>If you need immediate assistance, please call us back or reply to this email.</p>
       <p>Best regards,<br><strong>{business_name}</strong></p>
     </div>
     """
 
-    internal_subject = f"[AfterCallPro] Missed call from {caller_number} — follow-up needed"
+    internal_subject = f"[AfterCallPro] Short call from {caller_number} — follow-up needed"
     internal_html = f"""
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
-      <h2>Missed Call Alert</h2>
+      <h2>Call Follow-Up Needed</h2>
       <p><strong>Caller:</strong> {caller_number}</p>
       <p><strong>Business:</strong> {business_name}</p>
       <p><strong>Time:</strong> {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}</p>
@@ -157,7 +160,7 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
         caller_number,
         sms_body,
         business_id=business_id,
-        idempotency_key=f"missed_call_recovery:{business_id}:{caller_number}",
+        idempotency_key=f"call_followup:{business_id}:{caller_number}",
     )
 
     # Step 2: Wait 3 minutes, then send follow-up email to caller
@@ -165,7 +168,7 @@ def trigger_missed_call_recovery(business, caller_number: str, transcript: str, 
     # For now, send the internal notification email to the business owner
     _run_after(180, _send_email, business_email, internal_subject, internal_html)
 
-    logger.info("Missed call recovery triggered for business %s, caller %s", business_id, caller_number)
+    logger.info("Call follow-up triggered for business %s, caller %s", business_id, caller_number)
 
 
 # ──────────────────────────────────────────────────────────────────────────────

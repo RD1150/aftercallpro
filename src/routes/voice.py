@@ -300,19 +300,20 @@ def call_status():
             except Exception as e:
                 print(f"Failed to send email notification: {e}")
 
-            # Trigger missed call recovery automation if call was short (likely missed/unanswered)
-            # A call under 30 seconds with a transcript suggests the AI answered but caller hung up quickly
+            # Trigger a call follow-up if the call was short. The AI answers
+            # every call, so a sub-30s call means the caller hung up before
+            # finishing — re-engage them with a follow-up SMS + email.
             if int(call_duration) < 30:
                 try:
-                    from src.services.automations import trigger_missed_call_recovery
-                    trigger_missed_call_recovery(
+                    from src.services.automations import trigger_call_followup
+                    trigger_call_followup(
                         business=business,
                         caller_number=call.from_number,
                         transcript=call.transcript or "",
                         call_summary=call.summary or ""
                     )
                 except Exception as e:
-                    print(f"Missed call recovery automation failed: {e}")
+                    print(f"Call follow-up automation failed: {e}")
 
             # Push the captured lead to any connected CRMs. Best-effort —
             # never let a CRM hiccup break the Twilio status callback.
