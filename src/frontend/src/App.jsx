@@ -22,6 +22,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Integrations from "./pages/Integrations";
 import Calls from "./pages/Calls";
+import Admin from "./pages/Admin";
 import BusinessSettings from "./components/BusinessSettings";
 import ChatWidget from "./components/ChatWidget";
 
@@ -119,6 +120,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <BusinessSettings />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <Admin />
           </ProtectedRoute>
         }
       />

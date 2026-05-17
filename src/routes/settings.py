@@ -23,6 +23,8 @@ def get_business_settings():
         'phone_number': business.phone_number,
         'email': business.email,
         'timezone': getattr(business, 'timezone', None),
+        'twilio_number': getattr(business, 'twilio_number', None),
+        'twilio_number_provisioned': getattr(business, 'twilio_number_provisioned', False),
         'ai_greeting': getattr(business, 'greeting_message', None) or getattr(business, 'ai_greeting', None),
         'ai_voice': getattr(business, 'ai_voice', 'nova'),
         'after_hours_greeting': getattr(business, 'after_hours_greeting', None),

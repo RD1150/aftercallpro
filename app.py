@@ -159,6 +159,12 @@ try:
 except Exception as e:
     print(f"Assistant blueprint not loaded: {e}")
 
+try:
+    from src.routes.admin import admin_bp
+    app.register_blueprint(admin_bp, url_prefix="/api/admin")
+except Exception as e:
+    print(f"Admin blueprint not loaded: {e}")
+
 # -------------------------
 # HEALTH CHECK
 # -------------------------

@@ -59,6 +59,8 @@ export default function Onboarding() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [businessTwilioNumber, setBusinessTwilioNumber] = useState("");
+  const [subStatus, setSubStatus] = useState(null);
+  const [pollAttempts, setPollAttempts] = useState(0);
 
   const [form, setForm] = useState({
     business_name: "",
@@ -87,9 +89,33 @@ export default function Onboarding() {
           ai_voice: b.ai_voice || f.ai_voice,
         }));
         if (b.twilio_number) setBusinessTwilioNumber(b.twilio_number);
+        if (b.subscription_status) setSubStatus(b.subscription_status);
       })
       .catch(() => {});
   }, [user]);
+
+  // On the forwarding step, keep checking for the provisioned number so it
+  // appears automatically — provisioning finishes on the Stripe webhook,
+  // which can land after this page has already loaded. Stops once we have it.
+  useEffect(() => {
+    if (step !== 2 || businessTwilioNumber) return;
+    let cancelled = false;
+    const poll = () => {
+      setPollAttempts((n) => n + 1);
+      fetch("/api/business/settings", { credentials: "include" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (cancelled || !data) return;
+          const b = data?.business || data || {};
+          if (b.twilio_number) setBusinessTwilioNumber(b.twilio_number);
+          if (b.subscription_status) setSubStatus(b.subscription_status);
+        })
+        .catch(() => {});
+    };
+    poll();
+    const id = setInterval(poll, 5000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, [step, businessTwilioNumber]);
 
   const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -117,6 +143,13 @@ export default function Onboarding() {
     } catch (err) { setError(err.message); }
     finally { setSaving(false); }
   };
+
+  // Treat unknown status as "in progress" so a paid user is never wrongly
+  // told to go pay; only a known non-paid status shows the pending message.
+  const awaitingPayment = subStatus != null && !["active", "trialing"].includes(subStatus);
+  // ~12 polls at 5s each ≈ 1 min. Past that, provisioning genuinely failed —
+  // stop showing the "Provisioning…" dots, which would otherwise stay forever.
+  const provisionStuck = !businessTwilioNumber && !awaitingPayment && pollAttempts >= 12;
 
   const greetingPreview = form.ai_greeting.replace("{business_name}", form.business_name || "Your Business");
   const smsPreview = form.sms_template.replace("{business_name}", form.business_name || "Your Business");
@@ -177,6 +210,9 @@ export default function Onboarding() {
               <label style={s.label}>Your business phone number</label>
               <input name="phone_number" value={form.phone_number} onChange={handleChange}
                 style={s.input} placeholder="+1 (555) 000-0000" />
+              <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>
+                The number customers already call. This is the line you'll forward — not where calls go.
+              </div>
             </div>
 
             <div style={{ ...s.fieldGroup, marginTop: "8px" }}>
@@ -188,11 +224,19 @@ export default function Onboarding() {
               }}>
                 {businessTwilioNumber
                   ? formatPhoneE164(businessTwilioNumber)
-                  : "Provisioning…"}
+                  : awaitingPayment
+                    ? "Pending activation"
+                    : provisionStuck
+                      ? "Setup needed"
+                      : "Provisioning…"}
               </div>
               {!businessTwilioNumber && (
-                <div style={{ fontSize: "12px", color: "#64748b", marginTop: "6px" }}>
-                  If this stays "Provisioning…" for more than a minute, refresh the page or contact support.
+                <div style={{ fontSize: "12px", color: provisionStuck ? "#b45309" : "#64748b", marginTop: "6px" }}>
+                  {awaitingPayment
+                    ? "Your dedicated number is assigned once your subscription is active. Finish checkout and it will appear here automatically — no need to refresh."
+                    : provisionStuck
+                      ? "We couldn't finish setting up your number automatically. Email mindrocketsystems@gmail.com and we'll assign it by hand right away."
+                      : "We're setting up your dedicated number — this usually takes a few seconds. It will appear here automatically, no need to refresh."}
                 </div>
               )}
             </div>

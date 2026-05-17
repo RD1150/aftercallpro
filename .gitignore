@@ -50,3 +50,7 @@ src/frontend/package-lock.json
 
 # Local voice audition samples
 voice_audition/
+
+# Stray root-level node deps (real deps live in src/frontend)
+/node_modules/
+/package-lock.json
