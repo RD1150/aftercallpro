@@ -12,7 +12,13 @@ def get_business_settings():
     if not user_id:
         return jsonify({'error': 'Unauthorized'}), 401
 
-    business = Business.query.filter_by(user_id=user_id).first()
+    # User → Business is keyed on email (no FK column), matching the pattern
+    # in auth.register and complete_onboarding.
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    business = Business.query.filter_by(email=user.email).first()
     if not business:
         return jsonify({'error': 'Business not found'}), 404
 
@@ -44,7 +50,11 @@ def update_business_settings():
     if not user_id:
         return jsonify({'error': 'Unauthorized'}), 401
 
-    business = Business.query.filter_by(user_id=user_id).first()
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    business = Business.query.filter_by(email=user.email).first()
     if not business:
         return jsonify({'error': 'Business not found'}), 404
 
@@ -138,7 +148,8 @@ def send_appointment_reminder(appt_id):
         if not appt:
             return jsonify({'error': 'Appointment not found'}), 404
 
-        business = Business.query.filter_by(user_id=user_id).first()
+        user = User.query.get(user_id)
+        business = Business.query.filter_by(email=user.email).first() if user else None
         if not business or appt.business_id != business.id:
             return jsonify({'error': 'Unauthorized'}), 403
 
