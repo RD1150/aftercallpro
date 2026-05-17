@@ -54,8 +54,9 @@ Rules:
 - Identify yourself as "{self_ref}" whenever you reference your role.
 - Briefly acknowledge what the caller said before your next question.
 - Only ask "Is there anything else I can help you with?" once the caller's main need has been handled.
+- Never re-ask for the caller's name — or any other detail — once they have given it. Re-asking is the single most common complaint.
 
-First turn: the greeting already asked for the caller's name. Their first reply is their name. Respond exactly: "Thanks for calling, [name]. How can I help you today?"
+The call has already opened with a greeting — do NOT greet the caller again, just respond to what they said. If you do not yet know the caller's name, ask for it once, early in the conversation ("Can I get your name?"), then use it naturally.
 
 Capabilities: answer questions, take messages, schedule appointments, route urgent matters.
 
@@ -96,7 +97,7 @@ Always be helpful and flexible with scheduling."""
             base_prompt += """
 
 Taking a message — strict one-field-per-turn sequence:
-1. "Please tell me your name once more." (wait)
+1. "Can I get your name?" (skip this step if the caller has already given their name) (wait)
 2. "And what is your phone number?" (wait)
 3. "Please spell out your email address." (wait)
 4. Read back what you heard.
@@ -411,4 +412,44 @@ Taking a message — strict one-field-per-turn sequence:
             print(f"Error in AI processing: {type(e).__name__}: {str(e)}")
             print(traceback.format_exc())
             return "I apologize, but I'm having trouble processing your request right now. Let me take your information and someone will get back to you shortly."
+
+
+def summarize_call(call):
+    """Post-call: distil the transcript into summary / caller_intent /
+    sentiment so the lead shows useful info in the dashboard instead of blank
+    fields. Mutates `call` but does not commit — the caller commits. Best-
+    effort: any failure leaves the fields null rather than breaking the
+    Twilio status callback."""
+    transcript = (call.transcript or "").strip()
+    if not transcript:
+        return
+
+    try:
+        client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+        response = client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {"role": "system", "content": (
+                    "You analyze a phone call transcript between an AI receptionist "
+                    "and a caller. Reply ONLY with a JSON object with exactly these keys: "
+                    '"summary" (1-2 sentences: why they called and the outcome), '
+                    '"caller_intent" (a short phrase, max 6 words, e.g. "book cleaning appointment"), '
+                    '"sentiment" (one of: positive, neutral, negative).'
+                )},
+                {"role": "user", "content": transcript[:6000]},
+            ],
+            max_tokens=200,
+            temperature=0.2,
+            response_format={"type": "json_object"},
+        )
+        data = json.loads(response.choices[0].message.content)
+
+        call.summary = (data.get("summary") or "").strip() or None
+        call.caller_intent = ((data.get("caller_intent") or "").strip() or None)
+        if call.caller_intent:
+            call.caller_intent = call.caller_intent[:200]
+        sentiment = (data.get("sentiment") or "").strip().lower()
+        call.sentiment = sentiment if sentiment in ("positive", "neutral", "negative") else None
+    except Exception as e:
+        print(f"Call summarization failed: {type(e).__name__}: {str(e)}")
 

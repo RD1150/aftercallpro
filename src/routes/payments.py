@@ -184,18 +184,28 @@ def stripe_webhook():
 
     # Handle the event
     event_type = event['type']
-
-    if event_type == 'checkout.session.completed':
-        handle_checkout_completed(event['data']['object'])
-
-    elif event_type == 'customer.subscription.updated':
-        handle_subscription_updated(event['data']['object'])
-
-    elif event_type == 'customer.subscription.deleted':
-        handle_subscription_deleted(event['data']['object'])
-
-    elif event_type == 'invoice.payment_failed':
-        handle_payment_failed(event['data']['object'])
+    handlers = {
+        'checkout.session.completed': handle_checkout_completed,
+        'customer.subscription.updated': handle_subscription_updated,
+        'customer.subscription.deleted': handle_subscription_deleted,
+        'invoice.payment_failed': handle_payment_failed,
+    }
+    handler = handlers.get(event_type)
+    if handler:
+        try:
+            handler(event['data']['object'])
+        except Exception as e:
+            # Don't return 200 on a failed activation — a paying customer
+            # would silently get nothing. Roll back, alert ops, and return
+            # 500 so Stripe retries the webhook (it retries for ~3 days).
+            db.session.rollback()
+            import logging
+            logging.getLogger(__name__).error(
+                'Stripe webhook handler failed (%s, event %s): %s',
+                event_type, event.get('id'), e, exc_info=True,
+            )
+            _alert_webhook_failure(event_type, event.get('id'), e)
+            return jsonify({'error': 'Webhook handler failed'}), 500
 
     return jsonify({'status': 'success'}), 200
 
@@ -228,6 +238,30 @@ def _alert_provisioning_failure(business, error):
         logging.getLogger(__name__).error(
             'Could not send provisioning-failure alert for business %s: %s',
             business.id, e,
+        )
+
+
+def _alert_webhook_failure(event_type, event_id, error):
+    """A Stripe webhook handler threw. Stripe will retry, but email ops so a
+    human can confirm the customer was actually activated."""
+    import logging
+    try:
+        from src.services.email_service import email_service
+        ops_email = os.getenv('OPS_ALERT_EMAIL', 'support@aftercallpro.com')
+        email_service.send_email(
+            ops_email,
+            f'[AfterCallPro] Stripe webhook failed — {event_type}',
+            f'<p>A Stripe webhook handler raised an exception. Stripe will retry, '
+            f'but please verify the affected customer was activated correctly.</p>'
+            f'<ul>'
+            f'<li><strong>Event type:</strong> {event_type}</li>'
+            f'<li><strong>Event ID:</strong> {event_id}</li>'
+            f'<li><strong>Error:</strong> {error}</li>'
+            f'</ul>',
+        )
+    except Exception as e:
+        logging.getLogger(__name__).error(
+            'Could not send webhook-failure alert for %s: %s', event_id, e,
         )
 
 
