@@ -143,16 +143,38 @@ def release_number(phone_number_sid: str) -> bool:
         True if released successfully, False otherwise
     """
     try:
-        from twilio.rest import Client
+        import requests
 
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+        api_key_sid = os.getenv("TWILIO_API_KEY_SID")
+        api_key_secret = os.getenv("TWILIO_API_KEY_SECRET")
 
-        if not all([account_sid, auth_token]):
+        if api_key_sid and api_key_secret:
+            auth = (api_key_sid, api_key_secret)
+        elif account_sid and auth_token:
+            auth = (account_sid, auth_token)
+        else:
+            logger.warning("Twilio credentials not configured — cannot release number")
+            return False
+        if not account_sid:
+            logger.error("TWILIO_ACCOUNT_SID is required to release a number")
             return False
 
-        client = Client(account_sid, auth_token)
-        client.incoming_phone_numbers(phone_number_sid).delete()
+        # REST API directly, not the Twilio SDK — the SDK triggers a 'latin-1'
+        # codec error in this environment (see provision_number_for_business).
+        resp = requests.delete(
+            f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}"
+            f"/IncomingPhoneNumbers/{phone_number_sid}.json",
+            auth=auth,
+            timeout=15,
+        )
+        if not resp.ok:
+            logger.error(
+                "Failed to release number SID %s: %s %s",
+                phone_number_sid, resp.status_code, resp.text[:200],
+            )
+            return False
         logger.info("Released Twilio number SID: %s", phone_number_sid)
         return True
 
@@ -174,24 +196,47 @@ def update_number_webhooks(phone_number_sid: str, base_url: str = None) -> bool:
         True if updated successfully, False otherwise
     """
     try:
-        from twilio.rest import Client
+        import requests
 
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+        api_key_sid = os.getenv("TWILIO_API_KEY_SID")
+        api_key_secret = os.getenv("TWILIO_API_KEY_SECRET")
         base_url = base_url or os.getenv("APP_BASE_URL", "https://aftercallpro.onrender.com")
 
-        if not all([account_sid, auth_token]):
+        if api_key_sid and api_key_secret:
+            auth = (api_key_sid, api_key_secret)
+        elif account_sid and auth_token:
+            auth = (account_sid, auth_token)
+        else:
+            logger.warning("Twilio credentials not configured — cannot update webhooks")
+            return False
+        if not account_sid:
+            logger.error("TWILIO_ACCOUNT_SID is required to update webhooks")
             return False
 
-        client = Client(account_sid, auth_token)
-        client.incoming_phone_numbers(phone_number_sid).update(
-            voice_url=f"{base_url}/api/voice/incoming",
-            voice_method="POST",
-            sms_url=f"{base_url}/api/sms/incoming",
-            sms_method="POST",
-            status_callback=f"{base_url}/api/voice/status",
-            status_callback_method="POST",
+        # REST API directly, not the Twilio SDK — the SDK triggers a 'latin-1'
+        # codec error in this environment (see provision_number_for_business).
+        resp = requests.post(
+            f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}"
+            f"/IncomingPhoneNumbers/{phone_number_sid}.json",
+            auth=auth,
+            data={
+                "VoiceUrl": f"{base_url}/api/voice/incoming",
+                "VoiceMethod": "POST",
+                "SmsUrl": f"{base_url}/api/sms/incoming",
+                "SmsMethod": "POST",
+                "StatusCallback": f"{base_url}/api/voice/status",
+                "StatusCallbackMethod": "POST",
+            },
+            timeout=30,
         )
+        if not resp.ok:
+            logger.error(
+                "Failed to update webhooks for SID %s: %s %s",
+                phone_number_sid, resp.status_code, resp.text[:200],
+            )
+            return False
         logger.info("Updated webhooks for number SID: %s", phone_number_sid)
         return True
 
