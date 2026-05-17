@@ -152,6 +152,37 @@ def stripe_webhook():
     return jsonify({'status': 'success'}), 200
 
 
+def _alert_provisioning_failure(business, error):
+    """A paid customer's Twilio number could not be provisioned. Log it loudly
+    and email ops so a number can be assigned by hand before the customer
+    notices it isn't working."""
+    import logging
+    logging.getLogger(__name__).error(
+        'Twilio provisioning FAILED for paid business %s (%s): %s',
+        business.id, business.email, error,
+    )
+    try:
+        from src.services.email_service import email_service
+        ops_email = os.getenv('OPS_ALERT_EMAIL', 'support@aftercallpro.com')
+        email_service.send_email(
+            ops_email,
+            f'[AfterCallPro] ACTION NEEDED — number provisioning failed for {business.name}',
+            f'<p>A paying customer has no Twilio number. Provision one manually '
+            f'and set it on their business record before they try to use the service.</p>'
+            f'<ul>'
+            f'<li><strong>Business:</strong> {business.name} (id {business.id})</li>'
+            f'<li><strong>Email:</strong> {business.email}</li>'
+            f'<li><strong>Phone:</strong> {business.phone_number}</li>'
+            f'<li><strong>Error:</strong> {error}</li>'
+            f'</ul>',
+        )
+    except Exception as e:
+        logging.getLogger(__name__).error(
+            'Could not send provisioning-failure alert for business %s: %s',
+            business.id, e,
+        )
+
+
 def handle_checkout_completed(session_data):
     """Activate subscription after successful checkout."""
     business_id = session_data.get('metadata', {}).get('business_id')
@@ -191,6 +222,27 @@ def handle_checkout_completed(session_data):
                 )
 
         db.session.commit()
+
+        # Provision the business's dedicated Twilio number now that payment
+        # has cleared — done here, not at signup, so unpaid accounts never
+        # trigger a number purchase. The `if not business.twilio_number`
+        # guard makes this safe against Stripe delivering the webhook twice.
+        if not business.twilio_number:
+            try:
+                from src.services.twilio_provisioning import provision_number_for_business
+                biz_phone = business.phone_number or ''
+                area_code = biz_phone.lstrip('+').lstrip('1')[:3] or None
+                result = provision_number_for_business(business, area_code=area_code)
+                if result.get('success'):
+                    business.twilio_number = result['phone_number']
+                    business.twilio_number_sid = result['sid']
+                    business.twilio_number_provisioned = True
+                    db.session.commit()
+                else:
+                    _alert_provisioning_failure(business, result.get('error'))
+            except Exception as e:
+                db.session.rollback()
+                _alert_provisioning_failure(business, str(e))
 
         # Trigger the onboarding automation (replaces GHL 'ACP – Paid' workflow)
         try:
