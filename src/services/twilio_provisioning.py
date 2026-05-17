@@ -102,7 +102,7 @@ def provision_number_for_business(business, area_code: str = None) -> dict:
                 "PhoneNumber": chosen_number,
                 "VoiceUrl": f"{base_url}/api/voice/incoming",
                 "VoiceMethod": "POST",
-                "SmsUrl": f"{base_url}/api/voice/sms-incoming",
+                "SmsUrl": f"{base_url}/api/sms/incoming",
                 "SmsMethod": "POST",
                 "StatusCallback": f"{base_url}/api/voice/status",
                 "StatusCallbackMethod": "POST",
@@ -187,7 +187,7 @@ def update_number_webhooks(phone_number_sid: str, base_url: str = None) -> bool:
         client.incoming_phone_numbers(phone_number_sid).update(
             voice_url=f"{base_url}/api/voice/incoming",
             voice_method="POST",
-            sms_url=f"{base_url}/api/voice/sms-incoming",
+            sms_url=f"{base_url}/api/sms/incoming",
             sms_method="POST",
             status_callback=f"{base_url}/api/voice/status",
             status_callback_method="POST",
