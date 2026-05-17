@@ -32,7 +32,7 @@ export default function Home() {
       <SaleBanner />
 
       {/* FOUNDING MEMBER RIBBON */}
-      <a href="mailto:mindrocketsystems@gmail.com?subject=Founding%20Member%20code%20request&body=Hi%20%E2%80%94%20I'd%20like%20to%20request%20a%20Founding%20Member%20code%20for%20AfterCallPro." style={{
+      <Link to="/signup" style={{
         display: "block",
         background: `linear-gradient(90deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 50%, ${NAVY_DEEP} 100%)`,
         borderBottom: `1px solid ${GOLD_BORDER}`,
@@ -45,9 +45,9 @@ export default function Home() {
         letterSpacing: "0.01em",
       }}>
         <span style={{ color: GOLD, fontWeight: 700, marginRight: "0.5rem" }}>★ Founding Member: 50% off for life</span>
-        <span style={{ color: TEXT_SECONDARY }}>Only 25 slots — request your code.</span>
-        <span style={{ color: GOLD, marginLeft: "0.5rem", fontWeight: 600 }}>Email us →</span>
-      </a>
+        <span style={{ color: TEXT_SECONDARY }}>First 25 customers only — discount applied automatically at checkout.</span>
+        <span style={{ color: GOLD, marginLeft: "0.5rem", fontWeight: 600 }}>Claim your spot →</span>
+      </Link>
 
       {/* NAV */}
       <nav style={{
@@ -76,7 +76,7 @@ export default function Home() {
             fontSize: "0.9rem",
             boxShadow: `0 4px 15px ${GOLD_GLOW}`
           }}>
-            Start free
+            Get started
           </Link>
         </div>
       </nav>
@@ -141,7 +141,7 @@ export default function Home() {
               fontSize: "1rem",
               boxShadow: `0 8px 25px ${GOLD_GLOW}`
             }}>
-              Start free trial
+              Get started
             </Link>
             <a href="#pricing" style={{
               color: TEXT_SECONDARY,
@@ -157,7 +157,7 @@ export default function Home() {
 
           {/* Trust line */}
           <p style={{ marginTop: "1rem", fontSize: "0.82rem", color: TEXT_DIM }}>
-            No credit card required &nbsp;•&nbsp; Setup in under 5 minutes
+            Setup in under 5 minutes &nbsp;•&nbsp; Cancel anytime
           </p>
 
           {/* Micro icons */}
@@ -303,8 +303,8 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link to="/signup" style={{ display: "block", marginTop: "2rem", background: "#0b1524", color: "white", textAlign: "center", padding: "0.85rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none" }}>
-                Start free trial
+              <Link to="/signup?plan=core" style={{ display: "block", marginTop: "2rem", background: "#0b1524", color: "white", textAlign: "center", padding: "0.85rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none" }}>
+                Get Core
               </Link>
             </div>
 
@@ -326,14 +326,14 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link to="/signup" style={{ display: "block", marginTop: "2rem", background: GOLD, color: NAVY_DEEP, textAlign: "center", padding: "0.85rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none", boxShadow: `0 8px 25px ${GOLD_GLOW}` }}>
-                Start free trial
+              <Link to="/signup?plan=elite" style={{ display: "block", marginTop: "2rem", background: GOLD, color: NAVY_DEEP, textAlign: "center", padding: "0.85rem", borderRadius: "0.75rem", fontWeight: 700, textDecoration: "none", boxShadow: `0 8px 25px ${GOLD_GLOW}` }}>
+                Get Elite
               </Link>
             </div>
 
           </div>
           <p style={{ textAlign: "center", color: "#64748b", fontSize: "0.85rem", marginTop: "1.5rem" }}>
-            14-day free trial · No credit card required · Cancel anytime
+            14-day money-back guarantee · Cancel anytime · No contracts
           </p>
 
           {/* Founding member callout */}
@@ -369,13 +369,13 @@ export default function Home() {
                 First 25 customers lock in 50% off, forever.
               </h3>
               <p style={{ color: TEXT_SECONDARY, fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 1rem" }}>
-                <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. In exchange, share a short testimonial once you're set up. Each slot is a one-use code — email us to request yours.
+                <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. The discount is applied automatically at checkout for the first 25 customers — no code to request.
               </p>
               <div style={{ color: TEXT_DIM, fontSize: "0.8rem" }}>
                 No contract · Cancel anytime · Your founding price never changes
               </div>
             </div>
-            <a href="mailto:mindrocketsystems@gmail.com?subject=Founding%20Member%20code%20request&body=Hi%20%E2%80%94%20I'd%20like%20to%20request%20a%20Founding%20Member%20code%20for%20AfterCallPro." style={{
+            <Link to="/signup" style={{
               background: GOLD,
               color: NAVY_DEEP,
               padding: "1rem 1.75rem",
@@ -386,8 +386,8 @@ export default function Home() {
               boxShadow: `0 8px 25px ${GOLD_GLOW}`,
               whiteSpace: "nowrap",
             }}>
-              Request my code
-            </a>
+              Claim my spot
+            </Link>
           </div>
         </div>
       </section>
@@ -415,10 +415,10 @@ export default function Home() {
             fontSize: "1.05rem",
             boxShadow: `0 8px 25px ${GOLD_GLOW}`
           }}>
-            Start your free trial
+            Get started
           </Link>
           <p style={{ marginTop: "1rem", fontSize: "0.82rem", color: TEXT_DIM }}>
-            No credit card required &nbsp;•&nbsp; Setup in under 5 minutes
+            Setup in under 5 minutes &nbsp;•&nbsp; Cancel anytime
           </p>
         </div>
       </section>

@@ -11,6 +11,12 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
 # Subscription tier pricing — matches Pricing.jsx plans
 # Two paid plans: Core ($99/mo or $990/yr) and Elite ($297/mo or $2,970/yr)
+# Founding-member program: the first FOUNDING_SEATS businesses to complete
+# checkout lock in 50% off for life; everyone after gets 50% off their first
+# month. There is no free tier and no free trial — a card is required at
+# checkout for everyone.
+FOUNDING_SEATS = 25
+
 SUBSCRIPTION_PLANS = {
     'core': {
         'name': 'Core',
@@ -29,6 +35,30 @@ SUBSCRIPTION_PLANS = {
         'stripe_price_id_yearly':  'price_1T3AYpFdaiPvq2OfZZoxetL8',
     }
 }
+
+
+def _founding_status():
+    """Current state of the founding-member program. Eligibility is by count
+    of businesses already tagged `founding_member` — the first FOUNDING_SEATS
+    completed checkouts. After that the window closes and new customers get a
+    first-month discount instead."""
+    try:
+        taken = Business.query.filter_by(founding_member=True).count()
+    except Exception:
+        taken = 0
+    seats_left = max(0, FOUNDING_SEATS - taken)
+    return {
+        'founding_total': FOUNDING_SEATS,
+        'founding_taken': taken,
+        'seats_left': seats_left,
+        'window': 'founding' if seats_left > 0 else 'first_month',
+    }
+
+
+@payments_bp.route('/founding-status', methods=['GET'])
+def founding_status():
+    """Public — how many founding-member seats remain, for marketing copy."""
+    return jsonify(_founding_status()), 200
 
 
 @payments_bp.route('/create-checkout-session', methods=['POST'])
@@ -60,22 +90,40 @@ def create_checkout_session():
 
     try:
         base_url = request.host_url.rstrip('/')
-        # allow_promotion_codes lets the customer enter a Stripe Promotion Code
-        # (e.g. one-use FOUNDING-* codes) at Checkout. Founding eligibility is
-        # determined by which code they redeem, not by anything we set here.
-        checkout_session = stripe.checkout.Session.create(
+
+        # Decide which discount to auto-apply server-side. The customer never
+        # enters a code: founding members (first 25 by count) get the 50%-off-
+        # for-life coupon; everyone after gets the 50%-off-first-month coupon.
+        status = _founding_status()
+        if status['window'] == 'founding':
+            discount_coupon = os.getenv('STRIPE_FOUNDING_COUPON_ID', 'FOUNDING50')
+        else:
+            # Must be created in Stripe (50% off, duration=once). If unset,
+            # the #26+ customer simply pays full price rather than erroring.
+            discount_coupon = os.getenv('STRIPE_FIRSTMONTH_COUPON_ID')
+
+        session_kwargs = dict(
             customer_email=business.email,
             payment_method_types=['card'],
             line_items=[{'price': price_id, 'quantity': 1}],
             mode='subscription',
-            allow_promotion_codes=True,
             success_url=f"{base_url}/dashboard?subscription=success&session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{base_url}/pricing",
             metadata={
                 'business_id': str(business_id),
                 'plan': plan,
+                'founding_window': status['window'],
             },
         )
+        if discount_coupon:
+            # Stripe forbids combining `discounts` with `allow_promotion_codes`.
+            session_kwargs['discounts'] = [{'coupon': discount_coupon}]
+        else:
+            # No first-month coupon configured — fall back to letting the
+            # customer enter a promo code manually at Checkout.
+            session_kwargs['allow_promotion_codes'] = True
+
+        checkout_session = stripe.checkout.Session.create(**session_kwargs)
 
         return jsonify({'sessionId': checkout_session.id, 'url': checkout_session.url}), 200
 

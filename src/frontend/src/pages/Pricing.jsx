@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 
@@ -67,6 +67,16 @@ export default function Pricing() {
   const [billing, setBilling] = useState("monthly");
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState("");
+  const [founding, setFounding] = useState(null);
+
+  // Pull live founding-seat count so the banner copy is honest about which
+  // discount the customer will actually get at checkout.
+  useEffect(() => {
+    fetch(`${API_BASE}/api/payments/founding-status`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setFounding(d))
+      .catch(() => setFounding(null));
+  }, []);
 
   const handleSubscribe = async (planId) => {
     if (!user) {
@@ -141,6 +151,27 @@ export default function Pricing() {
 
       {error && <div style={styles.errorBanner}>{error}</div>}
 
+      {/* Founding-member / first-month discount banner — copy reflects the
+          discount the server will auto-apply at checkout (no code needed). */}
+      {founding && (
+        <div style={styles.foundingBanner}>
+          {founding.window === "founding" ? (
+            <>
+              <strong>★ Founding Member offer</strong> — only{" "}
+              {founding.seats_left} of {founding.founding_total} seats left.
+              Lock in <strong>50% off for life</strong>. Discount applied
+              automatically at checkout — no code needed.
+            </>
+          ) : (
+            <>
+              <strong>Welcome offer</strong> — new customers get{" "}
+              <strong>50% off their first month</strong>, applied automatically
+              at checkout.
+            </>
+          )}
+        </div>
+      )}
+
       <div style={styles.grid}>
         {PLANS.map((plan) => (
           <div
@@ -193,17 +224,10 @@ export default function Pricing() {
 
       <div style={styles.footer}>
         <p>
-          Not ready yet?{" "}
-          <span
-            onClick={() => navigate("/signup")}
-            style={styles.link}
-          >
-            Start free
-          </span>{" "}
-          — no credit card required. Upgrade anytime.
+          Every plan is backed by a <strong>14-day money-back guarantee</strong> —
+          cancel anytime. A payment method is required to start.
         </p>
         <p style={{ marginTop: "8px" }}>
-          14-day money-back guarantee on all paid plans.&nbsp;
           Questions? <a href="mailto:hello@aftercallpro.app" style={styles.link}>hello@aftercallpro.app</a>
         </p>
       </div>
@@ -275,6 +299,16 @@ const styles = {
     padding: "12px 16px",
     marginBottom: "24px",
     textAlign: "center",
+  },
+  foundingBanner: {
+    background: "#0f172a",
+    color: "#fde68a",
+    borderRadius: "10px",
+    padding: "14px 18px",
+    marginBottom: "28px",
+    textAlign: "center",
+    fontSize: "14px",
+    lineHeight: "1.6",
   },
   grid: {
     display: "grid",

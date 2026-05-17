@@ -86,11 +86,11 @@ export default function FAQ() {
           {/* Q7 */}
           <div>
             <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Can I try it before committing?
+              What if it's not the right fit?
             </h2>
             <p className="text-slate-600 leading-relaxed">
-              Yes — all plans come with a free trial so you can experience the full system
-              before subscribing.
+              Every plan is backed by a 14-day money-back guarantee — if AfterCallPro
+              isn't working for you within the first two weeks, email us for a full refund.
             </p>
           </div>
 

@@ -15,7 +15,7 @@ export default function SmsConsent() {
           <span style={{ color: "#6B7A90", fontSize: "0.65rem", fontWeight: 400 }}>by MindRocket Systems LLC</span>
         </Link>
         <Link to="/signup" style={{ background: GOLD, color: NAVY, padding: "0.5rem 1.1rem", borderRadius: "0.5rem", fontWeight: 700, textDecoration: "none", fontSize: "0.9rem" }}>
-          Start free
+          Get started
         </Link>
       </nav>
 
@@ -53,7 +53,7 @@ export default function SmsConsent() {
         {/* Signup form mockup */}
         <div style={{ background: "#fff", border: "2px solid #e2e8f0", borderRadius: "1.25rem", padding: "2rem", maxWidth: "460px", marginBottom: "2.5rem", boxShadow: "0 4px 20px rgba(0,0,0,0.06)" }}>
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#0f172a", marginBottom: "0.25rem" }}>Create Your Account</h3>
-          <p style={{ fontSize: "0.8rem", color: "#64748b", marginBottom: "1.25rem" }}>Start capturing every call for free.</p>
+          <p style={{ fontSize: "0.8rem", color: "#64748b", marginBottom: "1.25rem" }}>Create your account — you'll choose a plan next.</p>
 
           {["Business Name", "Email", "Phone Number", "Password"].map((label) => (
             <div key={label} style={{ marginBottom: "0.75rem" }}>
@@ -102,7 +102,7 @@ export default function SmsConsent() {
           </div>
 
           <div style={{ background: "#0f172a", color: "#fff", borderRadius: "0.5rem", padding: "0.7rem", textAlign: "center", fontSize: "0.85rem", fontWeight: 600 }}>
-            Create Free Account
+            Create Account
           </div>
         </div>
 

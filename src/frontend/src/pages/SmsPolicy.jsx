@@ -31,7 +31,7 @@ export default function SmsPolicy() {
           AfterCall<span style={{ color: GOLD }}>Pro</span>
         </Link>
         <Link to="/signup" style={{ background: GOLD, color: NAVY, padding: "0.5rem 1.1rem", borderRadius: "0.5rem", fontWeight: 700, textDecoration: "none", fontSize: "0.9rem" }}>
-          Start free
+          Get started
         </Link>
       </nav>
 

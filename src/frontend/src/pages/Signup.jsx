@@ -73,12 +73,11 @@ export default function Signup() {
         }
       }
 
+      // Account created — next step is choosing a plan and paying. There is
+      // no free tier, so we always route to /pricing (not /onboarding);
+      // onboarding starts after payment clears.
       const plan = searchParams.get("plan");
-      if (plan) {
-        navigate(`/pricing?plan=${encodeURIComponent(plan)}`);
-      } else {
-        navigate("/onboarding");
-      }
+      navigate(plan ? `/pricing?plan=${encodeURIComponent(plan)}` : "/pricing");
     } catch (err) {
       setError(err.message || "Signup failed. Please try again.");
       setLoading(false);
@@ -89,7 +88,7 @@ export default function Signup() {
     <div style={styles.page}>
       <div style={styles.card}>
         <h2 style={styles.title}>Create Your Account</h2>
-        <p style={styles.subtitle}>Start capturing every call for free.</p>
+        <p style={styles.subtitle}>Create your account — you'll choose a plan next.</p>
 
         {error && <div style={styles.error}>{error}</div>}
 
@@ -183,7 +182,7 @@ export default function Signup() {
             disabled={loading}
             style={{ ...styles.btn, ...(loading ? styles.btnDisabled : {}) }}
           >
-            {loading ? "Creating account…" : "Create Free Account"}
+            {loading ? "Creating account…" : "Create Account"}
           </button>
 
           <p style={styles.legalText}>
