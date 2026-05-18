@@ -19,6 +19,27 @@ def _public_audio_url(filename: str) -> str:
     return f"{base}/api/voice/audio/{filename}"
 
 
+# Subscription states in which we still answer calls. Anything else (cancelled,
+# past_due, unpaid, inactive, …) means the business is not paying — we must NOT
+# run the AI for them, since every answered call costs us Twilio + OpenAI money.
+_SERVICEABLE_STATUSES = {"active", "trialing"}
+
+
+def _service_blocked_reason(business):
+    """Return a short caller-facing message if this business should NOT have its
+    calls answered by the AI, else None. This is the inbound-call spend cap:
+    cancelled/over-quota accounts get a polite hangup instead of a paid call."""
+    status = (business.subscription_status or "").lower()
+    if status not in _SERVICEABLE_STATUSES:
+        return ("We're sorry, but service for this number is not currently "
+                "active. Please contact the business directly.")
+    limit = business.monthly_minutes_limit or 0
+    if limit and (business.minutes_used or 0) >= limit:
+        return ("We're sorry, but this business has reached its call capacity "
+                "for the month. Please try again later, or contact them directly.")
+    return None
+
+
 def speak(twiml_node, text: str, business):
     """Render `text` as audio onto a TwiML VoiceResponse or Gather node.
 
@@ -70,6 +91,29 @@ def handle_incoming_call():
         response.hangup()
         return str(response)
     
+    # Spend cap: if the business is cancelled/past_due or has used up its
+    # monthly minutes, do NOT run the AI — it would cost us money on a call we
+    # can't bill for. Log a 'rejected' call so the owner still sees it in the
+    # dashboard, then hang up with Twilio's built-in voice (no OpenAI TTS cost).
+    blocked_reason = _service_blocked_reason(business)
+    if blocked_reason:
+        rejected = Call(
+            business_id=business.id,
+            call_sid=call_sid,
+            from_number=from_number,
+            to_number=to_number,
+            status='rejected',
+            started_at=datetime.utcnow(),
+            ended_at=datetime.utcnow(),
+            duration=0,
+        )
+        db.session.add(rejected)
+        db.session.commit()
+        response = VoiceResponse()
+        response.say(blocked_reason)
+        response.hangup()
+        return str(response)
+
     # Create a new call record
     call = Call(
         business_id=business.id,
@@ -81,7 +125,7 @@ def handle_incoming_call():
     )
     db.session.add(call)
     db.session.commit()
-    
+
     # Create TwiML response
     response = VoiceResponse()
 

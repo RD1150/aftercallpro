@@ -73,8 +73,9 @@ def get_or_create_product(plan):
 def get_or_create_price(product, plan, interval, amount):
     """Find a recurring price matching interval + amount, else create one."""
     for pr in stripe.Price.list(product=product.id, active=True, limit=100).auto_paging_iter():
-        rec = pr.get("recurring") or {}
-        if rec.get("interval") == interval and pr.unit_amount == amount and pr.currency == "usd":
+        rec = getattr(pr, "recurring", None)
+        if (getattr(rec, "interval", None) == interval
+                and pr.unit_amount == amount and pr.currency == "usd"):
             print(f"    · price exists: {interval} ${amount / 100:.0f} ({pr.id})")
             return pr
     pr = stripe.Price.create(
@@ -118,7 +119,7 @@ def get_or_create_webhook():
         description="AfterCallPro subscription lifecycle",
     )
     print(f"  + webhook created: {w.id}")
-    return w, w.get("secret")
+    return w, getattr(w, "secret", None)
 
 
 def main():
@@ -129,9 +130,13 @@ def main():
     mode = "LIVE" if key.startswith("sk_live_") else "TEST"
 
     acct = stripe.Account.retrieve()
-    name = (acct.get("business_profile") or {}).get("name") or acct.get("email") or "?"
+    # Stripe response objects don't support .get() — use getattr (their
+    # __getattr__ resolves real fields; missing ones fall back to default).
+    acct_id = getattr(acct, "id", "?")
+    bp = getattr(acct, "business_profile", None)
+    name = getattr(bp, "name", None) or getattr(acct, "email", None) or "?"
     print(f"\n=== AfterCallPro Stripe setup — {mode} MODE ===")
-    print(f"Account: {acct.get('id')}  ({name})\n")
+    print(f"Account: {acct_id}  ({name})\n")
 
     # The LIVE run asks for confirmation interactively. Set STRIPE_SETUP_CONFIRM=yes
     # to skip the prompt when running unattended.
@@ -165,7 +170,7 @@ def main():
     with open(result_path, "w") as f:
         f.write(
             f"AfterCallPro Stripe setup — {mode} mode\n"
-            f"Account: {acct.get('id')}  ({name})\n\n"
+            f"Account: {acct_id}  ({name})\n\n"
             f"PRICE IDS:\n"
             f"  core  monthly: {price_ids['core']['monthly']}\n"
             f"  core  yearly:  {price_ids['core']['yearly']}\n"
