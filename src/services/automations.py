@@ -43,12 +43,17 @@ logger = logging.getLogger(__name__)
 # Helpers
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _send_sms(to_number: str, body: str, from_number: str = None, business_id: int = None, idempotency_key: str = None):
+def _send_sms(to_number: str, body: str, from_number: str = None, business_id: int = None,
+              idempotency_key: str = None, require_opt_in: bool = False):
     """Send an SMS through SmsService (opt-out gated, rate-limited, idempotent).
 
     Takes business_id (a plain int), never a Business ORM object — this runs in
     a delayed background thread where a detached ORM instance would raise
     DetachedInstanceError.
+
+    require_opt_in: when True, the send is dropped unless the recipient has an
+    explicit SMS opt-in on file. Used for messages to inbound callers, who have
+    not consented to be texted just by calling.
     """
     from src.services.sms_service import SmsService
     result = SmsService.send(
@@ -57,6 +62,7 @@ def _send_sms(to_number: str, body: str, from_number: str = None, business_id: i
         business_id=business_id,
         idempotency_key=idempotency_key,
         from_number=from_number,
+        require_opt_in=require_opt_in,
     )
     return result.sent
 
@@ -137,10 +143,14 @@ def trigger_call_followup(business, caller_number: str, transcript: str):
     </div>
     """
 
-    # Step 1: Wait 2 minutes, then SMS the caller. No from_number override —
-    # the per-business local number isn't registered for SMS, so SmsService
-    # sends from SMS_FROM_NUMBER (the verified toll-free number). The body
-    # names the business, so the caller still knows who it's from.
+    # Step 1: Wait 2 minutes, then SMS the caller — but ONLY if the caller has
+    # an explicit SMS opt-in on file. An inbound call is not consent to text
+    # the caller back, so require_opt_in=True; with no opt-in the send is
+    # dropped (the internal email steps below still run, so the owner can
+    # follow up by phone). No from_number override — the per-business local
+    # number isn't registered for SMS, so SmsService sends from
+    # SMS_FROM_NUMBER (the verified toll-free number). The body names the
+    # business, so the caller still knows who it's from.
     _run_after(
         120,
         _send_sms,
@@ -148,6 +158,7 @@ def trigger_call_followup(business, caller_number: str, transcript: str):
         sms_body,
         business_id=business_id,
         idempotency_key=f"call_followup:{business_id}:{caller_number}",
+        require_opt_in=True,
     )
 
     # Step 2: Wait 3 minutes, then send follow-up email to caller

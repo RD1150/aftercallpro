@@ -45,6 +45,20 @@ class SmsConsent(db.Model):
         return any(r.status == OPT_OUT for r in rows)
 
     @classmethod
+    def is_opted_in(cls, phone: str, business_id: int) -> bool:
+        """True only if an explicit opt-in row exists for this phone (for this
+        business or globally) AND it is not opted out. Used to gate messages to
+        people who never signed a consent form — e.g. an inbound caller. An
+        inbound call is NOT consent to text the caller back."""
+        if cls.is_opted_out(phone=phone, business_id=business_id):
+            return False
+        rows = cls.query.filter(
+            cls.phone == phone,
+            db.or_(cls.business_id == business_id, cls.business_id.is_(None)),
+        ).all()
+        return any(r.status == OPT_IN for r in rows)
+
+    @classmethod
     def record(cls, *, phone: str, business_id, status: str, consent_text: str = None, source: str = None):
         """Upsert a consent row for (phone, business_id)."""
         existing = cls.query.filter_by(phone=phone, business_id=business_id).first()

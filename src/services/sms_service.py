@@ -39,6 +39,7 @@ class SmsService:
         business_id: int = None,
         idempotency_key: str = None,
         from_number: str = None,
+        require_opt_in: bool = False,
     ) -> SmsResult:
         """Send an SMS, gated on consent + rate limit + idempotency.
 
@@ -80,6 +81,13 @@ class SmsService:
         if SmsConsent.is_opted_out(phone=to, business_id=business_id):
             logger.info("SMS to %s blocked: opted out (business=%s)", to, business_id)
             return SmsResult(sent=False, reason="opted_out")
+
+        # require_opt_in: for messages to people who never signed a consent
+        # form — e.g. an inbound caller. An inbound call is NOT consent to text
+        # the caller back, so these sends need an explicit opt-in on file.
+        if require_opt_in and not SmsConsent.is_opted_in(phone=to, business_id=business_id):
+            logger.info("SMS to %s blocked: no opt-in on file (business=%s)", to, business_id)
+            return SmsResult(sent=False, reason="no_opt_in")
 
         if business_id is not None:
             since = datetime.utcnow() - RATE_WINDOW
