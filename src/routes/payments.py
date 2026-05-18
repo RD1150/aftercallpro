@@ -174,26 +174,28 @@ def create_customer_portal_session():
 @payments_bp.route('/webhook', methods=['POST'])
 def stripe_webhook():
     """Handle Stripe webhook events for subscription lifecycle management."""
+    import json
     payload = request.data
     sig_header = request.headers.get('Stripe-Signature')
     webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
 
     if not webhook_secret:
-        # In development without a webhook secret, process events directly
-        import json
+        # In development without a webhook secret, process events directly.
         try:
             event = json.loads(payload)
         except Exception:
             return jsonify({'error': 'Invalid payload'}), 400
     else:
         try:
-            event = stripe.Webhook.construct_event(
-                payload, sig_header, webhook_secret
-            )
+            stripe.Webhook.construct_event(payload, sig_header, webhook_secret)
         except ValueError:
             return jsonify({'error': 'Invalid payload'}), 400
         except stripe.error.SignatureVerificationError:
             return jsonify({'error': 'Invalid signature'}), 400
+        # Signature verified. Use a plain-dict view of the payload — the event
+        # handlers call dict.get(), which Stripe's StripeObject does NOT
+        # support on modern SDK versions (it raises AttributeError).
+        event = json.loads(payload)
 
     # Handle the event
     event_type = event['type']
@@ -304,9 +306,10 @@ def handle_checkout_completed(session_data):
         if subscription_id:
             try:
                 sub = stripe.Subscription.retrieve(subscription_id, expand=['discount.coupon'])
-                applied_coupon = (
-                    (sub.get('discount') or {}).get('coupon') or {}
-                ).get('id')
+                # getattr, not .get() — `sub` is a StripeObject.
+                discount = getattr(sub, 'discount', None)
+                coupon = getattr(discount, 'coupon', None) if discount else None
+                applied_coupon = getattr(coupon, 'id', None) if coupon else None
                 if applied_coupon == founding_coupon_id:
                     business.founding_member = True
             except Exception as e:
