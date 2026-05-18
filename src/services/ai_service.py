@@ -60,6 +60,8 @@ The call has already opened with a greeting — do NOT greet the caller again, j
 
 Capabilities: answer questions, take messages, schedule appointments, route urgent matters.
 
+FOLLOW-UP TEXT CONSENT: Toward the end of the call, once the caller's need has been handled, ask exactly once — "Is it okay if we send you a quick follow-up text?" If the caller clearly says yes, call the record_sms_consent function. If they decline, hesitate, or are unclear, do NOT call it. Never ask more than once, and never assume consent — we may only text callers who said yes here.
+
 Now: {datetime.now(ZoneInfo(self.business.timezone or 'America/Los_Angeles')).strftime('%a %b %d %Y, %I:%M %p %Z')}
 """
         
@@ -107,16 +109,33 @@ Taking a message — strict one-field-per-turn sequence:
     
     def get_available_functions(self):
         """Get available functions for the AI"""
-        
+
         calendar_enabled = (
-            self.calendar_service.settings and 
+            self.calendar_service.settings and
             self.calendar_service.settings.google_calendar_enabled
         )
-        
+
+        # Always available, regardless of calendar setup: record the caller's
+        # spoken SMS opt-in so we're allowed to send the follow-up text.
+        functions = [
+            {
+                "type": "function",
+                "function": {
+                    "name": "record_sms_consent",
+                    "description": (
+                        "Record that the caller agreed to receive a follow-up "
+                        "text message. Call this ONLY after the caller has "
+                        "clearly said yes to being texted. Takes no arguments."
+                    ),
+                    "parameters": {"type": "object", "properties": {}},
+                },
+            },
+        ]
+
         if not calendar_enabled:
-            return []
-        
-        return [
+            return functions
+
+        functions.extend([
             {
                 "type": "function",
                 "function": {
@@ -211,8 +230,35 @@ Taking a message — strict one-field-per-turn sequence:
                     }
                 }
             }
-        ]
-    
+        ])
+        return functions
+
+    def record_sms_consent(self):
+        """Record an SMS opt-in for the caller after they verbally agreed on
+        the call to receive a follow-up text. Without this opt-in the
+        follow-up SMS is suppressed — an inbound call alone is not consent."""
+        from src.models.sms import SmsConsent, OPT_IN
+        from src.models.user import db
+        try:
+            phone = (self.call.from_number or "").strip()
+            if not phone:
+                return {"recorded": False, "message": "No caller number on file."}
+            SmsConsent.record(
+                phone=phone,
+                business_id=self.business.id,
+                status=OPT_IN,
+                source="in_call_voice_consent",
+                consent_text=(
+                    "Caller verbally agreed during a phone call with "
+                    f"{self.business.name}'s AI assistant to receive a "
+                    "follow-up text message. Reply STOP to opt out."
+                ),
+            )
+            db.session.commit()
+            return {"recorded": True, "message": "Follow-up text consent recorded."}
+        except Exception as e:
+            return {"recorded": False, "message": f"Could not record consent: {e}"}
+
     def check_availability(self, date, time, duration_minutes=60):
         """Check if a time slot is available"""
         try:
@@ -387,6 +433,8 @@ Taking a message — strict one-field-per-turn sequence:
                     function_response = self.get_available_slots(**function_args)
                 elif function_name == "book_appointment":
                     function_response = self.book_appointment(**function_args)
+                elif function_name == "record_sms_consent":
+                    function_response = self.record_sms_consent()
                 else:
                     function_response = {"error": "Unknown function"}
                 

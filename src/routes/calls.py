@@ -5,7 +5,7 @@ or threaded notes. Just enough to mark a call followed-up on and to send a
 retarget SMS via the existing SmsService chokepoint.
 """
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify, session
 from sqlalchemy import or_
 
@@ -15,6 +15,30 @@ from src.services.sms_service import SmsService
 calls_bp = Blueprint("calls", __name__)
 
 VALID_STATUSES = {"new", "called_back", "done"}
+
+# A call that never receives a terminal Twilio status callback stays stuck in a
+# non-terminal state forever. Anything older than this is reclassified to
+# 'abandoned' on the next dashboard load — a lazy sweep, no cron job needed.
+_STALE_CALL_AGE = timedelta(hours=2)
+_NON_TERMINAL_STATUSES = ("initiated", "queued", "ringing", "in-progress")
+
+
+def _sweep_stale_calls(business_id):
+    """Mark this business's non-terminal calls older than _STALE_CALL_AGE as
+    'abandoned' so the lead log isn't polluted by calls that never closed."""
+    cutoff = datetime.utcnow() - _STALE_CALL_AGE
+    stale = Call.query.filter(
+        Call.business_id == business_id,
+        Call.status.in_(_NON_TERMINAL_STATUSES),
+        Call.started_at < cutoff,
+    ).all()
+    if not stale:
+        return
+    for c in stale:
+        c.status = "abandoned"
+        if c.ended_at is None:
+            c.ended_at = c.started_at
+    db.session.commit()
 
 
 def _current_business():
@@ -34,6 +58,8 @@ def list_calls():
     business, err = _current_business()
     if err:
         return err
+
+    _sweep_stale_calls(business.id)
 
     status = request.args.get("status")
     q = (request.args.get("q") or "").strip()
