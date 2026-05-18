@@ -109,10 +109,23 @@ def create_checkout_session():
             mode='subscription',
             success_url=f"{base_url}/dashboard?subscription=success&session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{base_url}/pricing",
+            # `app: aftercallpro` tags every charge so AfterCallPro revenue can
+            # be separated from Amped / Primed inside the shared MindRocket
+            # Stripe account (all three are one legal entity, one account).
             metadata={
+                'app': 'aftercallpro',
                 'business_id': str(business_id),
                 'plan': plan,
                 'founding_window': status['window'],
+            },
+            # Stamp the subscription itself too — recurring-revenue reports
+            # group by subscription, not the one-off checkout session.
+            subscription_data={
+                'metadata': {
+                    'app': 'aftercallpro',
+                    'business_id': str(business_id),
+                    'plan': plan,
+                },
             },
         )
         if discount_coupon:
