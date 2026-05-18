@@ -21,6 +21,10 @@ src/database/*.db
 .env
 .env.local
 
+# Local Stripe setup — secret key + script output, NEVER commit
+scripts/.stripe-key
+scripts/.stripe-setup-result.txt
+
 # IDE
 .vscode/
 .idea/

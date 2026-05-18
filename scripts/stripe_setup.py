@@ -133,7 +133,9 @@ def main():
     print(f"\n=== AfterCallPro Stripe setup — {mode} MODE ===")
     print(f"Account: {acct.get('id')}  ({name})\n")
 
-    if mode == "LIVE":
+    # The LIVE run asks for confirmation interactively. Set STRIPE_SETUP_CONFIRM=yes
+    # to skip the prompt when running unattended.
+    if mode == "LIVE" and os.getenv("STRIPE_SETUP_CONFIRM", "").strip().lower() != "yes":
         confirm = input("This creates LIVE products/prices/coupons/webhook. Type 'yes' to continue: ")
         if confirm.strip().lower() != "yes":
             sys.exit("Aborted.")
@@ -153,23 +155,41 @@ def main():
     print("\nWebhook:")
     webhook, secret = get_or_create_webhook()
 
+    # Write full results — including the webhook signing secret — to a
+    # gitignored file, so secrets never land in stdout / logs / chat.
+    result_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".stripe-setup-result.txt")
+    secret_line = secret or (
+        f"(endpoint already existed — reveal it in Stripe → Developers "
+        f"→ Webhooks → {webhook.id})"
+    )
+    with open(result_path, "w") as f:
+        f.write(
+            f"AfterCallPro Stripe setup — {mode} mode\n"
+            f"Account: {acct.get('id')}  ({name})\n\n"
+            f"PRICE IDS:\n"
+            f"  core  monthly: {price_ids['core']['monthly']}\n"
+            f"  core  yearly:  {price_ids['core']['yearly']}\n"
+            f"  elite monthly: {price_ids['elite']['monthly']}\n"
+            f"  elite yearly:  {price_ids['elite']['yearly']}\n\n"
+            f"RENDER ENV VARS (aftercallpro service):\n"
+            f"  STRIPE_SECRET_KEY           = (the {mode.lower()} secret key you used)\n"
+            f"  STRIPE_WEBHOOK_SECRET       = {secret_line}\n"
+            f"  STRIPE_FOUNDING_COUPON_ID   = FOUNDING50\n"
+            f"  STRIPE_FIRSTMONTH_COUPON_ID = FIRSTMONTH50\n"
+            f"  VITE_STRIPE_PUBLISHABLE_KEY = (matching pk_ key — Stripe → Developers → API keys)\n\n"
+            f"Webhook endpoint: {webhook.id} -> {WEBHOOK_URL}\n"
+        )
+
+    # stdout: non-secret summary only (price IDs are not secret).
     print("\n" + "=" * 62)
-    print("PASTE THESE 4 PRICE IDS BACK TO CLAUDE:")
+    print("Done. Price IDs (not secret — safe to share):")
     print(f"  core  monthly: {price_ids['core']['monthly']}")
     print(f"  core  yearly:  {price_ids['core']['yearly']}")
     print(f"  elite monthly: {price_ids['elite']['monthly']}")
     print(f"  elite yearly:  {price_ids['elite']['yearly']}")
-    print("\nRENDER ENV VARS (aftercallpro service):")
-    print(f"  STRIPE_SECRET_KEY           = (the {mode.lower()} secret key you used)")
-    if secret:
-        print(f"  STRIPE_WEBHOOK_SECRET       = {secret}")
-    else:
-        print(f"  STRIPE_WEBHOOK_SECRET       = (endpoint already existed — Stripe →")
-        print(f"                                 Developers → Webhooks → {webhook.id}")
-        print(f"                                 → reveal signing secret)")
-    print(f"  STRIPE_FOUNDING_COUPON_ID   = FOUNDING50")
-    print(f"  STRIPE_FIRSTMONTH_COUPON_ID = FIRSTMONTH50")
-    print(f"  VITE_STRIPE_PUBLISHABLE_KEY = (matching pk_ key — Stripe → Developers → API keys)")
+    print("\nFull results + webhook signing secret + Render env vars written to:")
+    print(f"  {result_path}")
+    print("(gitignored — open it for the values to paste into Render)")
     print("=" * 62)
 
 
