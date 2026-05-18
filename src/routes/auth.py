@@ -108,13 +108,29 @@ def login():
         return jsonify({'error': 'Email and password required'}), 400
     
     user = User.query.filter_by(email=data['email']).first()
-    
+
+    # Brute-force lockout: after 5 failed attempts the account locks for 30
+    # minutes (see User.record_failed_login). Checked before the password so a
+    # locked account can't be probed further.
+    if user and user.is_account_locked():
+        return jsonify({
+            'error': 'Account temporarily locked due to multiple failed login '
+                     'attempts. Please try again later or reset your password.'
+        }), 403
+
     if not user or not user.check_password(data['password']):
+        if user:
+            user.record_failed_login()
+            db.session.commit()
         return jsonify({'error': 'Invalid email or password'}), 401
-    
+
+    # Successful login — reset the failed-attempt counter and lock.
+    user.record_successful_login()
+    db.session.commit()
+
     # Find user's business
     business = Business.query.filter_by(email=user.email).first()
-    
+
     # Set session
     session['user_id'] = user.id
     if business:

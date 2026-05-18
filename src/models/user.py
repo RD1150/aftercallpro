@@ -106,7 +106,7 @@ class User(db.Model):
     
     def record_failed_login(self):
         """Record a failed login attempt and lock account if necessary"""
-        self.failed_login_attempts += 1
+        self.failed_login_attempts = (self.failed_login_attempts or 0) + 1
         if self.failed_login_attempts >= 5:
             # Lock account for 30 minutes after 5 failed attempts
             self.account_locked_until = datetime.utcnow() + timedelta(minutes=30)

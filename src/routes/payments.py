@@ -180,7 +180,16 @@ def stripe_webhook():
     webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
 
     if not webhook_secret:
-        # In development without a webhook secret, process events directly.
+        # No signing secret. In production this is unsafe — anyone could POST a
+        # forged checkout.session.completed to activate an account and trigger
+        # a Twilio number purchase — so fail CLOSED. Only process unverified
+        # events outside production (local dev).
+        if os.environ.get('FLASK_ENV') == 'production':
+            import logging
+            logging.getLogger(__name__).error(
+                'Stripe webhook rejected: STRIPE_WEBHOOK_SECRET not set in production.'
+            )
+            return jsonify({'error': 'Webhook not configured'}), 500
         try:
             event = json.loads(payload)
         except Exception:
