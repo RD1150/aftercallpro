@@ -304,19 +304,22 @@ def call_status():
             except Exception as e:
                 print(f"Failed to send email notification: {e}")
 
-            # Trigger a call follow-up if the call was short. The AI answers
-            # every call, so a sub-30s call means the caller hung up before
-            # finishing — re-engage them with a follow-up SMS + email.
-            if int(call_duration) < 30:
-                try:
+            # Send the follow-up text if the caller agreed to one during the
+            # call — the AI records an SMS opt-in via record_sms_consent when
+            # they say yes. Call duration is irrelevant: what matters is that
+            # they consented. (Previously this was gated on calls <30s, a dead
+            # rule — a caller who consents is always on a >30s call.)
+            try:
+                from src.models.sms import SmsConsent
+                if call.from_number and SmsConsent.is_opted_in(call.from_number, business.id):
                     from src.services.automations import trigger_call_followup
                     trigger_call_followup(
                         business=business,
                         caller_number=call.from_number,
                         transcript=call.transcript or ""
                     )
-                except Exception as e:
-                    print(f"Call follow-up automation failed: {e}")
+            except Exception as e:
+                print(f"Call follow-up automation failed: {e}")
 
             # Push the captured lead to any connected CRMs. Best-effort —
             # never let a CRM hiccup break the Twilio status callback.
