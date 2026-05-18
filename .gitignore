@@ -23,6 +23,7 @@ src/database/*.db
 
 # Local Stripe setup — secret key + script output, NEVER commit
 scripts/.stripe-key
+scripts/stripe-key.txt
 scripts/.stripe-setup-result.txt
 
 # IDE

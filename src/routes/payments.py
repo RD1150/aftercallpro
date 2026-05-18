@@ -23,16 +23,16 @@ SUBSCRIPTION_PLANS = {
         'price_monthly': 9900,    # $99.00/mo
         'price_yearly': 99000,    # $990.00/yr
         'minutes': 1500,
-        'stripe_price_id_monthly': 'price_1SdJ4iFdaiPvq2Of6qx8oK7G',
-        'stripe_price_id_yearly':  'price_1SdJ4iFdaiPvq2OfQQbvUxyV',
+        'stripe_price_id_monthly': 'price_1TYHAJPT8zsJs3qklPOTWbUI',
+        'stripe_price_id_yearly':  'price_1TYHAJPT8zsJs3qkOftvyXoI',
     },
     'elite': {
         'name': 'Elite',
         'price_monthly': 29700,   # $297.00/mo
         'price_yearly': 297000,   # $2,970.00/yr
         'minutes': 5000,
-        'stripe_price_id_monthly': 'price_1T3AYpFdaiPvq2OfEVuJYK2P',
-        'stripe_price_id_yearly':  'price_1T3AYpFdaiPvq2OfZZoxetL8',
+        'stripe_price_id_monthly': 'price_1TYHAKPT8zsJs3qkgMKUPm0t',
+        'stripe_price_id_yearly':  'price_1TYHAKPT8zsJs3qkU1GJh3Nj',
     }
 }
 

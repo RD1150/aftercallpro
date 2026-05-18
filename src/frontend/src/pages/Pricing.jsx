@@ -4,15 +4,15 @@ import { useAuth } from "../AuthProvider";
 
 const API_BASE = "";
 
-// Stripe Price IDs — confirmed live prices
+// Stripe Price IDs — live prices in the MindRocket Systems LLC account
 const PRICE_IDS = {
   core: {
-    monthly: "price_1SdJ4iFdaiPvq2Of6qx8oK7G",   // $99/mo
-    yearly:  "price_1SdJ4iFdaiPvq2OfQQbvUxyV",   // $990/yr
+    monthly: "price_1TYHAJPT8zsJs3qklPOTWbUI",   // $99/mo
+    yearly:  "price_1TYHAJPT8zsJs3qkOftvyXoI",   // $990/yr
   },
   elite: {
-    monthly: "price_1T3AYpFdaiPvq2OfEVuJYK2P",   // $297/mo
-    yearly:  "price_1T3AYpFdaiPvq2OfZZoxetL8",   // $2,970/yr
+    monthly: "price_1TYHAKPT8zsJs3qkgMKUPm0t",   // $297/mo
+    yearly:  "price_1TYHAKPT8zsJs3qkU1GJh3Nj",   // $2,970/yr
   },
 };
 
