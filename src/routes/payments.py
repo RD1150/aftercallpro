@@ -125,6 +125,7 @@ def create_checkout_session():
                     'app': 'aftercallpro',
                     'business_id': str(business_id),
                     'plan': plan,
+                    'founding_window': status['window'],
                 },
             },
         )
@@ -307,26 +308,16 @@ def handle_checkout_completed(session_data):
         business.monthly_minutes_limit = SUBSCRIPTION_PLANS.get(plan, {}).get('minutes', 500)
         business.subscription_status = 'active'
 
-        # Tag founding member if they redeemed a code tied to the founding
-        # coupon. The session payload has 'total_details.breakdown.discounts'
-        # listing every discount applied; we look up the coupon ID on the
-        # subscription as the source of truth.
-        founding_coupon_id = os.getenv('STRIPE_FOUNDING_COUPON_ID', 'FOUNDING50')
-        if subscription_id:
-            try:
-                sub = stripe.Subscription.retrieve(subscription_id, expand=['discount.coupon'])
-                # getattr, not .get() — `sub` is a StripeObject.
-                discount = getattr(sub, 'discount', None)
-                coupon = getattr(discount, 'coupon', None) if discount else None
-                applied_coupon = getattr(coupon, 'id', None) if coupon else None
-                if applied_coupon == founding_coupon_id:
-                    business.founding_member = True
-            except Exception as e:
-                import logging
-                logging.getLogger(__name__).warning(
-                    'Could not check founding-coupon status for sub %s: %s',
-                    subscription_id, e
-                )
+        # Tag founding member if this checkout was given the founding deal.
+        # create_checkout_session stamps metadata['founding_window']='founding'
+        # exactly when it auto-applies the founding (50%-off-for-life) coupon,
+        # so that stamp is the source of truth. Reading the coupon back off the
+        # Subscription is unreliable — the modern Stripe API replaced the
+        # singular `discount` field with a `discounts` array, so the old
+        # lookup silently found nothing and never tagged anyone.
+        founding_window = session_data.get('metadata', {}).get('founding_window')
+        if founding_window == 'founding':
+            business.founding_member = True
 
         db.session.commit()
 
