@@ -81,7 +81,7 @@ Now: {datetime.now(ZoneInfo(self.business.timezone or 'America/Los_Angeles')).st
 APPOINTMENT BOOKING:
 When a caller wants to schedule an appointment:
 1. Ask for their preferred date and time
-2. Confirm their name and contact information (phone and email)
+2. Confirm their name and phone number. Email is optional — only take it if the caller offers it; never ask them to spell out an email, phone-line speech recognition mangles it.
 3. Ask what type of appointment: {types_str}
 4. Use the check_availability function to verify the time slot
 5. If available, use the book_appointment function to schedule it
@@ -100,10 +100,13 @@ Always be helpful and flexible with scheduling."""
 
 Taking a message — strict one-field-per-turn sequence:
 1. "Can I get your name?" (skip this step if the caller has already given their name) (wait)
-2. "And what is your phone number?" (wait)
-3. "Please spell out your email address." (wait)
-4. Read back what you heard.
-5. Thank them; say someone will call back to confirm."""
+2. "And what's the best phone number to reach you?" (wait)
+3. Briefly read back the name and phone number so the caller can correct them.
+4. Thank them; say someone will call back to confirm.
+
+Email is OPTIONAL — only record it if the caller offers it themselves. Do NOT ask the caller for an email address and NEVER ask them to spell one out: phone-line speech recognition mangles emails and spelled-out letters, and chasing it frustrates callers. The phone number is the contact that matters.
+
+Never ask for the same piece of information more than twice. If speech recognition clearly garbled an answer, work with what you have and move on — repeating the question is the fastest way to lose the caller."""
         
         return base_prompt
     
