@@ -400,6 +400,7 @@ def get_subscription_info():
         'minutes_limit': business.monthly_minutes_limit or 0,
         'minutes_used': business.minutes_used or 0,
         'has_active_subscription': bool(business.stripe_customer_id),
+        'founding_member': bool(business.founding_member),
         'plans': {
             plan_id: {
                 'name': plan['name'],

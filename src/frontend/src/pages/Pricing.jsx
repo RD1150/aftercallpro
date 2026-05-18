@@ -157,10 +157,16 @@ export default function Pricing() {
         <div style={styles.foundingBanner}>
           {founding.window === "founding" ? (
             <>
-              <strong>★ Founding Member offer</strong> — only{" "}
-              {founding.seats_left} of {founding.founding_total} seats left.
-              Lock in <strong>50% off for life</strong>. Discount applied
-              automatically at checkout — no code needed.
+              <strong>★ Founding Member offer</strong> — be one of the first{" "}
+              {founding.founding_total} customers and lock in{" "}
+              <strong>50% off for life</strong>.
+              {founding.seats_left <= 10 && (
+                <>
+                  {" "}Only {founding.seats_left}{" "}
+                  {founding.seats_left === 1 ? "seat" : "seats"} left!
+                </>
+              )}
+              {" "}Discount applied automatically at checkout — no code needed.
             </>
           ) : (
             <>

@@ -5,11 +5,20 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 const API_BASE = "";
 
 const PLAN_LABELS = {
-  free:    { label: "No Active Plan",    color: "#64748b" },
-  starter: { label: "Starter",           color: "#0891b2" },
-  core:    { label: "Core — $99/mo",     color: "#2563eb" },
-  elite:   { label: "Elite — $297/mo",   color: "#7c3aed" },
+  free:    { name: "No Active Plan", price: 0,   color: "#64748b" },
+  starter: { name: "Starter",        price: 49,  color: "#0891b2" },
+  core:    { name: "Core",           price: 99,  color: "#2563eb" },
+  elite:   { name: "Elite",          price: 297, color: "#7c3aed" },
 };
+
+// Founding members pay 50% off for life — show the rate they actually pay,
+// not the list price, so the dashboard matches their card statement.
+function planLabel(planInfo, plan, isFounding) {
+  if (!planInfo || !planInfo.price) return planInfo?.name || plan;
+  const price = isFounding ? planInfo.price / 2 : planInfo.price;
+  const shown = Number.isInteger(price) ? price : price.toFixed(2);
+  return `${planInfo.name} — $${shown}/mo`;
+}
 
 const STATUS_LABELS = {
   active:    { label: "Active",    color: "#16a34a", bg: "#dcfce7" },
@@ -158,8 +167,13 @@ export default function Dashboard() {
                 <div>
                   <p style={styles.label}>Current Plan</p>
                   <p style={{ ...styles.planName, color: planInfo?.color }}>
-                    {planInfo?.label || subInfo.plan}
+                    {planLabel(planInfo, subInfo.plan, subInfo.founding_member)}
                   </p>
+                  {subInfo.founding_member && (
+                    <p style={{ fontSize: "0.78rem", color: "#b45309", fontWeight: 600, marginTop: "0.15rem" }}>
+                      ★ Founding Member — 50% off for life
+                    </p>
+                  )}
                 </div>
                 <div>
                   <p style={styles.label}>Status</p>
