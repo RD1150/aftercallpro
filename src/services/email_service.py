@@ -55,7 +55,75 @@ class EmailService:
         except Exception as e:
             print(f"Error sending email: {e}")
             return False
-    
+
+    def send_monthly_roi(self, business, period_label, data):
+        """Send the monthly 'here's what AfterCallPro caught for you' recap."""
+        base_url = os.environ.get('APP_BASE_URL', 'https://aftercallpro.com').rstrip('/')
+        subject = f"Your {period_label} recap — AfterCallPro caught {data['calls_answered']} calls"
+
+        if data.get('estimated_value') is not None:
+            appts = data['appointments_booked']
+            value_block = (
+                f"<p style='font-size:30px;font-weight:800;color:#16a34a;margin:0'>"
+                f"${data['estimated_value']:,}</p>"
+                f"<p style='font-size:13px;color:#64748b;margin:4px 0 0'>"
+                f"estimated booked value — {appts} appointment{'' if appts == 1 else 's'} "
+                f"&times; ${data['avg_job_value']:,} avg job</p>"
+            )
+        else:
+            value_block = (
+                "<p style='font-size:13px;color:#64748b;margin:0'>"
+                "Set your average job value in the dashboard to see the estimated "
+                "revenue this represents.</p>"
+            )
+
+        def tile(num, label):
+            return (
+                "<td width='25%' style='padding:6px'>"
+                "<div style='background:#f8fafc;border-radius:10px;padding:16px 8px;text-align:center'>"
+                f"<div style='font-size:26px;font-weight:700;color:#2563eb'>{num}</div>"
+                f"<div style='font-size:11px;color:#64748b;margin-top:4px'>{label}</div>"
+                "</div></td>"
+            )
+
+        html_body = f"""
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#0f172a">
+          <div style="background:#0f172a;color:#fff;padding:24px;border-radius:12px 12px 0 0">
+            <h2 style="margin:0;font-size:20px">What AfterCallPro caught for you</h2>
+            <p style="margin:4px 0 0;color:#94a3b8;font-size:14px">{period_label}</p>
+          </div>
+          <div style="background:#fff;border:1px solid #e2e8f0;border-top:none;padding:24px;border-radius:0 0 12px 12px">
+            <p style="margin:0 0 16px">Hi {business.name}, here's what your AI receptionist handled last month:</p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:separate">
+              <tr>
+                {tile(data['calls_answered'], 'Calls answered')}
+                {tile(data['after_hours_calls'], 'After-hours caught')}
+                {tile(data['leads_captured'], 'Leads captured')}
+                {tile(data['appointments_booked'], 'Appointments booked')}
+              </tr>
+            </table>
+            <div style="border-top:1px solid #f1f5f9;margin-top:20px;padding-top:20px">
+              {value_block}
+            </div>
+            <div style="text-align:center;margin-top:24px">
+              <a href="{base_url}/dashboard" style="display:inline-block;background:#2563eb;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:600">View your dashboard</a>
+            </div>
+          </div>
+          <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:16px">AfterCallPro — your 24/7 AI receptionist</p>
+        </div>
+        """
+
+        text_body = (
+            f"What AfterCallPro caught for you — {period_label}\n\n"
+            f"Calls answered: {data['calls_answered']}\n"
+            f"After-hours calls caught: {data['after_hours_calls']}\n"
+            f"Leads captured: {data['leads_captured']}\n"
+            f"Appointments booked: {data['appointments_booked']}\n\n"
+            f"View your dashboard: {base_url}/dashboard\n"
+        )
+
+        return self.send_email(business.email, subject, html_body, text_body)
+
     def send_welcome_email(self, business):
         """Send welcome email to new customer"""
         subject = "Welcome to AfterCallPro! 🎉"

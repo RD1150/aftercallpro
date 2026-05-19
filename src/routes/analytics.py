@@ -197,6 +197,49 @@ def _is_after_hours(call, business):
         return False
 
 
+def compute_roi(business, since, until=None):
+    """ROI metrics for a business over [since, until). Shared by the dashboard
+    endpoint and the monthly-summary email so they never disagree."""
+    call_q = Call.query.filter(
+        Call.business_id == business.id,
+        Call.started_at >= since,
+    )
+    if until:
+        call_q = call_q.filter(Call.started_at < until)
+    calls = call_q.all()
+
+    # 'rejected' calls (spend cap — cancelled/over-quota) were never answered
+    # by the AI, so they don't count toward what AfterCallPro caught.
+    answered = [c for c in calls if (c.status or "").lower() != "rejected"]
+    after_hours_calls = sum(1 for c in answered if _is_after_hours(c, business))
+    leads_captured = len({c.from_number for c in answered if c.from_number})
+
+    appointments_booked = 0
+    try:
+        from src.models.appointment import Appointment
+        appt_q = Appointment.query.filter(
+            Appointment.business_id == business.id,
+            Appointment.created_at >= since,
+        )
+        if until:
+            appt_q = appt_q.filter(Appointment.created_at < until)
+        appointments_booked = appt_q.count()
+    except Exception:
+        pass
+
+    avg_job_value = business.avg_job_value or 0
+    estimated_value = appointments_booked * avg_job_value if avg_job_value else None
+
+    return {
+        "calls_answered": len(answered),
+        "after_hours_calls": after_hours_calls,
+        "leads_captured": leads_captured,
+        "appointments_booked": appointments_booked,
+        "avg_job_value": avg_job_value or None,
+        "estimated_value": estimated_value,
+    }
+
+
 @analytics_bp.route("/analytics/roi-summary", methods=["GET"])
 def get_roi_summary():
     """ROI snapshot for the dashboard — what AfterCallPro caught for the
@@ -216,42 +259,7 @@ def get_roi_summary():
         since = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
         period_label = now.strftime("%B %Y")
 
-    calls = Call.query.filter(
-        Call.business_id == business.id,
-        Call.started_at >= since,
-    ).all()
-
-    # 'rejected' calls (spend cap — cancelled/over-quota) were never answered
-    # by the AI, so they don't count toward what AfterCallPro caught.
-    answered = [c for c in calls if (c.status or "").lower() != "rejected"]
-    calls_answered = len(answered)
-    after_hours_calls = sum(1 for c in answered if _is_after_hours(c, business))
-    leads_captured = len({c.from_number for c in answered if c.from_number})
-
-    appointments_booked = 0
-    try:
-        from src.models.appointment import Appointment
-        appointments_booked = (
-            Appointment.query.filter(
-                Appointment.business_id == business.id,
-                Appointment.created_at >= since,
-            ).count()
-        )
-    except Exception:
-        pass
-
-    avg_job_value = business.avg_job_value or 0
-    estimated_value = appointments_booked * avg_job_value if avg_job_value else None
-
-    return jsonify({
-        "period_label": period_label,
-        "calls_answered": calls_answered,
-        "after_hours_calls": after_hours_calls,
-        "leads_captured": leads_captured,
-        "appointments_booked": appointments_booked,
-        "avg_job_value": avg_job_value or None,
-        "estimated_value": estimated_value,
-    }), 200
+    return jsonify({"period_label": period_label, **compute_roi(business, since)}), 200
 
 
 @analytics_bp.route("/analytics/avg-job-value", methods=["POST"])
