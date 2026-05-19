@@ -304,6 +304,14 @@ def call_status():
             except Exception as e:
                 print(f"Failed to send email notification: {e}")
 
+            # Real-time lead alert — text the owner the captured call right
+            # away so they can call the lead back fast (speed to lead wins).
+            try:
+                from src.services.automations import notify_owner_new_lead
+                notify_owner_new_lead(business, call)
+            except Exception as e:
+                print(f"Lead alert failed: {e}")
+
             # Send the follow-up text if the caller agreed to one during the
             # call — the AI records an SMS opt-in via record_sms_consent when
             # they say yes. Call duration is irrelevant: what matters is that

@@ -106,6 +106,45 @@ def _run_after(delay_seconds: int, fn, *args, **kwargs):
     t.start()
 
 
+def notify_owner_new_lead(business, call):
+    """Text the business owner the instant a call is captured, so they can
+    call the lead back fast — speed to lead wins the job. Sent to the
+    business's own phone number. Best-effort.
+
+    The SMS body is built here (synchronously, while `call` is a live ORM
+    object); only plain strings are handed to the background sender.
+    """
+    owner_number = getattr(business, "phone_number", None)
+    if not owner_number:
+        return
+
+    caller = call.from_number or "Unknown caller"
+    intent = (call.caller_intent or call.summary or "").strip()
+    if len(intent) > 140:
+        intent = intent[:140].rstrip() + "…"
+
+    lines = [
+        f"New lead — AfterCallPro caught a call for {business.name}.",
+        f"Caller: {caller}",
+    ]
+    if intent:
+        lines.append(intent)
+    lines.append("Tap the number above to call them back.")
+    body = "\n".join(lines)
+
+    # Fire near-immediately (a tiny delay keeps the Twilio status webhook
+    # snappy). Idempotency-keyed on the call so duplicate status callbacks
+    # never double-text the owner.
+    _run_after(
+        2,
+        _send_sms,
+        owner_number,
+        body,
+        business_id=business.id,
+        idempotency_key=f"lead_alert:{call.id}",
+    )
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Workflow 1: Call Follow-Up
 # ──────────────────────────────────────────────────────────────────────────────
