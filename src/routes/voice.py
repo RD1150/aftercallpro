@@ -222,7 +222,28 @@ def process_speech():
         # Update transcript with AI response
         call.transcript += f"\nAI: {ai_response}"
         db.session.commit()
-        
+
+        # Urgent call → bridge the caller straight to the owner's phone.
+        # The AI sets transfer_requested via the transfer_to_human tool.
+        if (getattr(ai_service, "transfer_requested", False)
+                and business.forward_urgent_calls
+                and business.forward_phone_number):
+            call.forwarded_to_human = True
+            db.session.commit()
+            response = VoiceResponse()
+            speak(response, ai_response, business)  # the AI's hand-off line
+            dial_kwargs = {
+                "timeout": 25,
+                "action": "/api/voice/transfer-status",
+                "method": "POST",
+            }
+            # callerId must be a number the account owns — use the business's
+            # Twilio number so the owner recognizes it as an AfterCallPro call.
+            if business.twilio_number:
+                dial_kwargs["caller_id"] = business.twilio_number
+            response.dial(business.forward_phone_number, **dial_kwargs)
+            return str(response)
+
         # Create TwiML response
         response = VoiceResponse()
 
@@ -262,6 +283,22 @@ def no_input():
     """Handle when caller doesn't provide input"""
     response = VoiceResponse()
     response.say("I didn't hear anything. Thank you for calling. Goodbye!")
+    response.hangup()
+    return str(response)
+
+
+@voice_bp.route('/transfer-status', methods=['POST'])
+@twilio_webhook
+def transfer_status():
+    """Twilio hits this when an urgent-transfer <Dial> finishes. If the owner
+    didn't pick up, give the caller a graceful close instead of dead air."""
+    dial_status = (request.form.get('DialCallStatus') or '').lower()
+    response = VoiceResponse()
+    if dial_status != 'completed':
+        response.say(
+            "I'm sorry, I couldn't reach someone right now. Please call back "
+            "and we'll help you as soon as possible. Goodbye."
+        )
     response.hangup()
     return str(response)
 

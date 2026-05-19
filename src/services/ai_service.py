@@ -16,7 +16,11 @@ class AIService:
         self.call = call
         self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
         self.calendar_service = CalendarService(business.id)
-        
+        # Set True by the transfer_to_human tool when the AI judges the call
+        # urgent — voice.py checks it and emits <Dial> TwiML to bridge the
+        # caller to the owner.
+        self.transfer_requested = False
+
     def get_system_prompt(self):
         """Generate system prompt with appointment booking capability"""
         
@@ -109,7 +113,12 @@ Taking a message — strict one-field-per-turn sequence:
 During message-taking, capture name and phone number only — do NOT ask for email here. Email is handled at the very end of the call (see FOLLOW-UP CONTACT) and only if the caller declines a follow-up text. Never ask a caller to spell out an email letter by letter — phone-line speech recognition mangles spelled-out letters; have them say it normally and read it back instead.
 
 Never ask for the same piece of information more than twice. If speech recognition clearly garbled an answer, work with what you have and move on — repeating the question is the fastest way to lose the caller."""
-        
+
+        if self.business.forward_urgent_calls and self.business.forward_phone_number:
+            base_prompt += """
+
+URGENT CALLS: If the caller describes a genuine emergency or an urgent problem that truly cannot wait for a callback, call the transfer_to_human function to connect them to a real person right now. Use it ONLY for real urgency — never for routine questions or scheduling. Briefly reassure the caller first ("Let me connect you with someone right away")."""
+
         return base_prompt
     
     def get_available_functions(self):
@@ -136,6 +145,30 @@ Never ask for the same piece of information more than twice. If speech recogniti
                 },
             },
         ]
+
+        # Urgent live-transfer — only offered when the business has set a
+        # forwarding number to receive transferred emergency calls.
+        if self.business.forward_urgent_calls and self.business.forward_phone_number:
+            functions.append({
+                "type": "function",
+                "function": {
+                    "name": "transfer_to_human",
+                    "description": (
+                        "Connect the caller to a real person immediately. Call "
+                        "this ONLY when the caller has a genuine emergency or "
+                        "urgent situation that cannot wait for a callback."
+                    ),
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "reason": {
+                                "type": "string",
+                                "description": "Brief reason the call is urgent",
+                            },
+                        },
+                    },
+                },
+            })
 
         if not calendar_enabled:
             return functions
@@ -263,6 +296,17 @@ Never ask for the same piece of information more than twice. If speech recogniti
             return {"recorded": True, "message": "Follow-up text consent recorded."}
         except Exception as e:
             return {"recorded": False, "message": f"Could not record consent: {e}"}
+
+    def transfer_to_human(self, reason=None):
+        """Flag this call for an immediate live transfer to a human. voice.py
+        checks self.transfer_requested after process_with_functions and emits
+        the <Dial> TwiML that bridges the caller to the forwarding number."""
+        self.transfer_requested = True
+        self.transfer_reason = (reason or "").strip()
+        return {
+            "status": "transferring",
+            "message": "Connecting the caller to a team member now.",
+        }
 
     def check_availability(self, date, time, duration_minutes=60):
         """Check if a time slot is available"""
@@ -440,6 +484,8 @@ Never ask for the same piece of information more than twice. If speech recogniti
                     function_response = self.book_appointment(**function_args)
                 elif function_name == "record_sms_consent":
                     function_response = self.record_sms_consent()
+                elif function_name == "transfer_to_human":
+                    function_response = self.transfer_to_human(**function_args)
                 else:
                     function_response = {"error": "Unknown function"}
                 
