@@ -25,6 +25,9 @@ class Business(db.Model):
     assistant_name = db.Column(db.String(100), nullable=True)  # the AI's name (e.g. "Sarah")
     # Average value of a closed job — owner-set, drives the ROI revenue estimate.
     avg_job_value = db.Column(db.Integer, nullable=True)
+    # Public Google review URL — owner-set; drives the post-appointment
+    # review-request SMS. No review requests go out until this is set.
+    review_link = db.Column(db.String(500), nullable=True)
     forward_urgent_calls = db.Column(db.Boolean, default=False)
     forward_phone_number = db.Column(db.String(20), nullable=True)
     
@@ -92,6 +95,7 @@ class Business(db.Model):
             'minutes_used': self.minutes_used,
             'founding_member': self.founding_member,
             'avg_job_value': self.avg_job_value,
+            'review_link': self.review_link,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
 

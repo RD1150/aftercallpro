@@ -18,6 +18,7 @@ export default function BusinessSettings() {
     ai_greeting: "",
     forward_urgent_calls: false,
     forward_phone_number: "",
+    review_link: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,7 @@ export default function BusinessSettings() {
           ai_greeting: data.ai_greeting || "",
           forward_urgent_calls: !!data.forward_urgent_calls,
           forward_phone_number: data.forward_phone_number || "",
+          review_link: data.review_link || "",
         });
       } catch {
         setError("Couldn't load your settings. You can still save new values below.");
@@ -147,6 +149,24 @@ export default function BusinessSettings() {
                 rows="4"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Google review link
+              </label>
+              <input
+                type="url"
+                name="review_link"
+                value={form.review_link}
+                onChange={handleChange}
+                placeholder="https://g.page/r/..."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="text-xs text-slate-500 mt-1">
+                After an appointment, AfterCallPro texts the customer asking for a
+                review at this link. Leave blank to skip review requests.
+              </p>
             </div>
 
             <div className="border-t border-gray-200 pt-6">

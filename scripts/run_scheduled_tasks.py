@@ -7,10 +7,9 @@ Everything here is idempotent — per-row flags (reminder_sent) and the
 monthly hour-guard mean re-running never double-sends.
 
   1. Appointment reminders — SMS ~24h before the appointment.
-  2. Monthly ROI summary emails — once, on the 1st of the month at 13:00 UTC.
-
-(Review requests, roadmap #4c, will be added here once the review-link
-field exists.)
+  2. Review requests — SMS a few hours after the appointment (only for
+     businesses that have set a Google review link).
+  3. Monthly ROI summary emails — once, on the 1st of the month at 13:00 UTC.
 """
 
 import os
@@ -75,6 +74,45 @@ def send_appointment_reminders(now):
     return sent
 
 
+def send_review_requests(now):
+    """Text a review request 3-72h after the appointment, for businesses that
+    have set a Google review link. review_requested dedupes; appointments
+    naturally age out of the 72h window if no link is ever configured."""
+    rows = Appointment.query.filter(
+        Appointment.review_requested.isnot(True),
+        Appointment.status.in_(["scheduled", "confirmed", "completed"]),
+        Appointment.appointment_datetime > now - timedelta(hours=72),
+        Appointment.appointment_datetime <= now - timedelta(hours=3),
+    ).all()
+    sent = 0
+    for appt in rows:
+        if not appt.customer_phone:
+            continue
+        biz = Business.query.get(appt.business_id)
+        if not biz:
+            continue
+        link = (getattr(biz, "review_link", None) or "").strip()
+        if not link:
+            continue  # no review link configured — skip, leave un-flagged
+        body = (
+            f"Thanks for choosing {biz.name}! If you have a moment, a quick "
+            f"review would mean a lot: {link}"
+        )
+        result = SmsService.send(
+            to=appt.customer_phone,
+            body=body,
+            business_id=biz.id,
+            idempotency_key=f"appt_review:{appt.id}",
+        )
+        if getattr(result, "sent", False):
+            appt.review_requested = True
+            appt.review_requested_at = datetime.utcnow()
+            db.session.commit()
+            sent += 1
+            print(f"  review request -> {appt.customer_phone} (appt {appt.id})")
+    return sent
+
+
 def run_monthly_summaries_if_due(now):
     """On the 1st of the month at 13:00 UTC, email each active business its
     prior month's ROI recap. The hour guard makes an hourly cron fire this
@@ -106,8 +144,10 @@ def main():
         now = datetime.utcnow()
         print(f"Scheduled tasks @ {now.isoformat()}Z")
         reminders = send_appointment_reminders(now)
+        reviews = send_review_requests(now)
         monthly = run_monthly_summaries_if_due(now)
-        print(f"done — {reminders} reminder(s), {monthly} monthly summary email(s)")
+        print(f"done — {reminders} reminder(s), {reviews} review request(s), "
+              f"{monthly} monthly summary email(s)")
 
 
 if __name__ == "__main__":

@@ -34,7 +34,9 @@ class Appointment(db.Model):
     confirmation_sent_at = db.Column(db.DateTime, nullable=True)
     reminder_sent = db.Column(db.Boolean, default=False)
     reminder_sent_at = db.Column(db.DateTime, nullable=True)
-    
+    review_requested = db.Column(db.Boolean, default=False)
+    review_requested_at = db.Column(db.DateTime, nullable=True)
+
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
