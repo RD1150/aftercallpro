@@ -40,6 +40,7 @@ def get_business_settings():
         'forward_urgent_calls': getattr(business, 'forward_urgent_calls', False),
         'forward_phone_number': getattr(business, 'forward_phone_number', None),
         'review_link': getattr(business, 'review_link', None),
+        'knowledge_base': getattr(business, 'knowledge_base', None),
         'subscription_tier': getattr(business, 'subscription_tier', 'starter'),
         'subscription_status': getattr(business, 'subscription_status', 'active'),
         'minutes_used': getattr(business, 'minutes_used', 0),
@@ -78,6 +79,7 @@ def update_business_settings():
         'forward_urgent_calls': 'forward_urgent_calls',
         'forward_phone_number': 'forward_phone_number',
         'review_link': 'review_link',
+        'knowledge_base': 'knowledge_base',
     }
 
     for frontend_key, model_key in field_map.items():

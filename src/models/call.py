@@ -28,6 +28,9 @@ class Business(db.Model):
     # Public Google review URL — owner-set; drives the post-appointment
     # review-request SMS. No review requests go out until this is set.
     review_link = db.Column(db.String(500), nullable=True)
+    # Owner-authored facts the AI uses to answer caller questions —
+    # services, pricing, service area, FAQs. Fed into the system prompt.
+    knowledge_base = db.Column(db.Text, nullable=True)
     forward_urgent_calls = db.Column(db.Boolean, default=False)
     forward_phone_number = db.Column(db.String(20), nullable=True)
     
@@ -96,6 +99,7 @@ class Business(db.Model):
             'founding_member': self.founding_member,
             'avg_job_value': self.avg_job_value,
             'review_link': self.review_link,
+            'knowledge_base': self.knowledge_base,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
 

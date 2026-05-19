@@ -301,6 +301,8 @@ def run_migrations():
         ('ALTER TABLE appointments ADD COLUMN IF NOT EXISTS review_requested BOOLEAN DEFAULT FALSE', 'appointments.review_requested'),
         ('ALTER TABLE appointments ADD COLUMN IF NOT EXISTS review_requested_at TIMESTAMP', 'appointments.review_requested_at'),
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS review_link VARCHAR(500)', 'businesses.review_link'),
+        # Owner-authored AI knowledge base (added 2026-05-19) — feature #5
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS knowledge_base TEXT', 'businesses.knowledge_base'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)

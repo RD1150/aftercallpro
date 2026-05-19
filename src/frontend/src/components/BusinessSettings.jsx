@@ -16,6 +16,7 @@ export default function BusinessSettings() {
     phone_number: "",
     timezone: "",
     ai_greeting: "",
+    knowledge_base: "",
     forward_urgent_calls: false,
     forward_phone_number: "",
     review_link: "",
@@ -37,6 +38,7 @@ export default function BusinessSettings() {
           phone_number: data.phone_number || "",
           timezone: data.timezone || "",
           ai_greeting: data.ai_greeting || "",
+          knowledge_base: data.knowledge_base || "",
           forward_urgent_calls: !!data.forward_urgent_calls,
           forward_phone_number: data.forward_phone_number || "",
           review_link: data.review_link || "",
@@ -149,6 +151,23 @@ export default function BusinessSettings() {
                 rows="4"
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                What should your AI know about your business?
+              </label>
+              <textarea
+                name="knowledge_base"
+                value={form.knowledge_base}
+                onChange={handleChange}
+                rows="6"
+                placeholder="Services you offer, pricing or rate ranges, service area, common questions and answers — anything the AI should be able to tell callers. Keep it concise."
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="text-xs text-slate-500 mt-1">
+                Your AI uses this to answer caller questions accurately instead of guessing.
+              </p>
             </div>
 
             <div>

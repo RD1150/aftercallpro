@@ -114,6 +114,13 @@ During message-taking, capture name and phone number only — do NOT ask for ema
 
 Never ask for the same piece of information more than twice. If speech recognition clearly garbled an answer, work with what you have and move on — repeating the question is the fastest way to lose the caller."""
 
+        knowledge = (getattr(self.business, "knowledge_base", None) or "").strip()
+        if knowledge:
+            base_prompt += f"""
+
+ABOUT THIS BUSINESS — use these facts to answer caller questions accurately. If a caller asks something not covered here, do NOT guess: take a message and say someone will follow up.
+{knowledge}"""
+
         if self.business.forward_urgent_calls and self.business.forward_phone_number:
             base_prompt += """
 
