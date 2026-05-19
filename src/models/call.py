@@ -23,6 +23,8 @@ class Business(db.Model):
     industry = db.Column(db.String(100), nullable=True)  # e.g. "real estate", "plumbing", "law firm"
     principal_name = db.Column(db.String(100), nullable=True)  # the human the AI works for (e.g. "Reena")
     assistant_name = db.Column(db.String(100), nullable=True)  # the AI's name (e.g. "Sarah")
+    # Average value of a closed job — owner-set, drives the ROI revenue estimate.
+    avg_job_value = db.Column(db.Integer, nullable=True)
     forward_urgent_calls = db.Column(db.Boolean, default=False)
     forward_phone_number = db.Column(db.String(20), nullable=True)
     
@@ -89,6 +91,7 @@ class Business(db.Model):
             'monthly_minutes_limit': self.monthly_minutes_limit,
             'minutes_used': self.minutes_used,
             'founding_member': self.founding_member,
+            'avg_job_value': self.avg_job_value,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
 

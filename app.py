@@ -286,6 +286,8 @@ def run_migrations():
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS assistant_name VARCHAR(100)', 'businesses.assistant_name'),
         # Founding member flag (added 2026-05-05) — drives 60-day trial + forever 50% coupon at checkout
         ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS founding_member BOOLEAN DEFAULT FALSE NOT NULL', 'businesses.founding_member'),
+        # Average job value (added 2026-05-18) — owner-set, drives the ROI revenue estimate
+        ('ALTER TABLE businesses ADD COLUMN IF NOT EXISTS avg_job_value INTEGER', 'businesses.avg_job_value'),
         # Lead-log follow-up state on calls (added 2026-05-05) — subscriber marks new/called_back/done
         ("ALTER TABLE calls ADD COLUMN IF NOT EXISTS handled_status VARCHAR(20) DEFAULT 'new' NOT NULL", 'calls.handled_status'),
         ('ALTER TABLE calls ADD COLUMN IF NOT EXISTS handled_at TIMESTAMP', 'calls.handled_at'),

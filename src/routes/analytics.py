@@ -177,3 +177,102 @@ def get_analytics():
         "minutes_used": minutes_used,
         "minutes_limit": minutes_limit,
     }), 200
+
+
+def _is_after_hours(call, business):
+    """True if the call started outside the business's stated hours, in the
+    business's local timezone. Best-effort — any parse problem counts as
+    in-hours so a bad config never breaks the ROI endpoint."""
+    if not call.started_at:
+        return False
+    try:
+        from zoneinfo import ZoneInfo
+        tz = ZoneInfo(business.timezone or "America/New_York")
+        local = call.started_at.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz)
+        sh, sm = (int(x) for x in (business.business_hours_start or "09:00").split(":"))
+        eh, em = (int(x) for x in (business.business_hours_end or "17:00").split(":"))
+        minute_of_day = local.hour * 60 + local.minute
+        return minute_of_day < (sh * 60 + sm) or minute_of_day >= (eh * 60 + em)
+    except Exception:
+        return False
+
+
+@analytics_bp.route("/analytics/roi-summary", methods=["GET"])
+def get_roi_summary():
+    """ROI snapshot for the dashboard — what AfterCallPro caught for the
+    business. Defaults to the current calendar month; ?days=N for a rolling
+    window."""
+    business, err = _current_business()
+    if err:
+        return err
+
+    now = datetime.utcnow()
+    days_param = request.args.get("days", type=int)
+    if days_param:
+        days = max(1, min(days_param, 365))
+        since = now - timedelta(days=days)
+        period_label = f"Last {days} days"
+    else:
+        since = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        period_label = now.strftime("%B %Y")
+
+    calls = Call.query.filter(
+        Call.business_id == business.id,
+        Call.started_at >= since,
+    ).all()
+
+    # 'rejected' calls (spend cap — cancelled/over-quota) were never answered
+    # by the AI, so they don't count toward what AfterCallPro caught.
+    answered = [c for c in calls if (c.status or "").lower() != "rejected"]
+    calls_answered = len(answered)
+    after_hours_calls = sum(1 for c in answered if _is_after_hours(c, business))
+    leads_captured = len({c.from_number for c in answered if c.from_number})
+
+    appointments_booked = 0
+    try:
+        from src.models.appointment import Appointment
+        appointments_booked = (
+            Appointment.query.filter(
+                Appointment.business_id == business.id,
+                Appointment.created_at >= since,
+            ).count()
+        )
+    except Exception:
+        pass
+
+    avg_job_value = business.avg_job_value or 0
+    estimated_value = appointments_booked * avg_job_value if avg_job_value else None
+
+    return jsonify({
+        "period_label": period_label,
+        "calls_answered": calls_answered,
+        "after_hours_calls": after_hours_calls,
+        "leads_captured": leads_captured,
+        "appointments_booked": appointments_booked,
+        "avg_job_value": avg_job_value or None,
+        "estimated_value": estimated_value,
+    }), 200
+
+
+@analytics_bp.route("/analytics/avg-job-value", methods=["POST"])
+def set_avg_job_value():
+    """Set the business's average job value — feeds the ROI revenue estimate."""
+    business, err = _current_business()
+    if err:
+        return err
+
+    data = request.get_json(silent=True) or {}
+    raw = data.get("avg_job_value")
+    if raw in (None, ""):
+        business.avg_job_value = None
+    else:
+        try:
+            value = int(float(raw))
+        except (TypeError, ValueError):
+            return jsonify({"error": "avg_job_value must be a number"}), 400
+        if value < 0 or value > 10_000_000:
+            return jsonify({"error": "avg_job_value out of range"}), 400
+        business.avg_job_value = value
+
+    db.session.commit()
+    return jsonify({"avg_job_value": business.avg_job_value}), 200

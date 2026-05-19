@@ -38,12 +38,16 @@ export default function Dashboard() {
   const [upgradeLoading, setUpgradeLoading] = useState(null);
   const [error, setError]               = useState("");
   const [successMsg, setSuccessMsg]     = useState("");
+  const [roi, setRoi]                   = useState(null);
+  const [jobValueInput, setJobValueInput]   = useState("");
+  const [savingJobValue, setSavingJobValue] = useState(false);
 
   useEffect(() => {
     if (searchParams.get("subscription") === "success") {
       setSuccessMsg("🎉 Subscription activated! Welcome aboard.");
     }
     fetchSubInfo();
+    fetchRoi();
   }, []);
 
   const fetchSubInfo = async () => {
@@ -60,6 +64,38 @@ export default function Dashboard() {
       console.error("Failed to load subscription info", err);
     } finally {
       setSubLoading(false);
+    }
+  };
+
+  const fetchRoi = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/analytics/roi-summary`, {
+        credentials: "include",
+      });
+      if (res.ok) setRoi(await res.json());
+    } catch (err) {
+      console.error("Failed to load ROI summary", err);
+    }
+  };
+
+  const saveJobValue = async () => {
+    if (!jobValueInput) return;
+    setSavingJobValue(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/analytics/avg-job-value`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ avg_job_value: jobValueInput }),
+      });
+      if (res.ok) {
+        setJobValueInput("");
+        await fetchRoi();   // refresh so the estimate shows
+      }
+    } catch (err) {
+      console.error("Failed to save job value", err);
+    } finally {
+      setSavingJobValue(false);
     }
   };
 
@@ -246,6 +282,74 @@ export default function Dashboard() {
           )}
         </div>
 
+        {/* ROI card — what AfterCallPro caught this period */}
+        {roi && subInfo?.has_active_subscription && (
+          <div style={styles.card}>
+            <div style={styles.cardHeader}>
+              <h2 style={styles.cardTitle}>What AfterCallPro caught for you</h2>
+              <span style={styles.roiPeriod}>{roi.period_label}</span>
+            </div>
+
+            <div style={styles.roiGrid}>
+              <div style={styles.roiTile}>
+                <p style={styles.roiNum}>{roi.calls_answered}</p>
+                <p style={styles.roiTileLabel}>Calls answered</p>
+              </div>
+              <div style={styles.roiTile}>
+                <p style={styles.roiNum}>{roi.after_hours_calls}</p>
+                <p style={styles.roiTileLabel}>After-hours calls caught</p>
+              </div>
+              <div style={styles.roiTile}>
+                <p style={styles.roiNum}>{roi.leads_captured}</p>
+                <p style={styles.roiTileLabel}>Leads captured</p>
+              </div>
+              <div style={styles.roiTile}>
+                <p style={styles.roiNum}>{roi.appointments_booked}</p>
+                <p style={styles.roiTileLabel}>Appointments booked</p>
+              </div>
+            </div>
+
+            <div style={styles.roiValueRow}>
+              {roi.estimated_value != null ? (
+                <>
+                  <p style={styles.roiBigValue}>
+                    ${roi.estimated_value.toLocaleString()}
+                  </p>
+                  <p style={styles.roiValueCaption}>
+                    estimated booked value — {roi.appointments_booked} appointment
+                    {roi.appointments_booked === 1 ? "" : "s"} × $
+                    {roi.avg_job_value.toLocaleString()} avg job
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p style={styles.roiValueCaption}>
+                    Set your average job value to see estimated revenue:
+                  </p>
+                  <div style={styles.jobValueForm}>
+                    <span style={{ fontWeight: 700, color: "#0f172a" }}>$</span>
+                    <input
+                      type="number"
+                      min="0"
+                      value={jobValueInput}
+                      onChange={(e) => setJobValueInput(e.target.value)}
+                      placeholder="e.g. 850"
+                      style={styles.jobValueInput}
+                    />
+                    <button
+                      onClick={saveJobValue}
+                      disabled={savingJobValue || !jobValueInput}
+                      style={styles.jobValueBtn}
+                    >
+                      {savingJobValue ? "Saving…" : "Save"}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Quick links */}
         <div style={styles.quickGrid}>
           <div style={styles.quickCard}>
@@ -358,6 +462,73 @@ const styles = {
     padding: "28px",
     marginBottom: "28px",
     boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+  },
+  roiPeriod: {
+    fontSize: "13px",
+    color: "#64748b",
+    fontWeight: "500",
+  },
+  roiGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "16px",
+    marginBottom: "20px",
+  },
+  roiTile: {
+    background: "#f8fafc",
+    border: "1px solid #f1f5f9",
+    borderRadius: "12px",
+    padding: "16px",
+    textAlign: "center",
+  },
+  roiNum: {
+    fontSize: "28px",
+    fontWeight: "700",
+    color: "#2563eb",
+    margin: 0,
+  },
+  roiTileLabel: {
+    fontSize: "12px",
+    color: "#64748b",
+    marginTop: "4px",
+  },
+  roiValueRow: {
+    borderTop: "1px solid #f1f5f9",
+    paddingTop: "20px",
+  },
+  roiBigValue: {
+    fontSize: "32px",
+    fontWeight: "800",
+    color: "#16a34a",
+    margin: 0,
+  },
+  roiValueCaption: {
+    fontSize: "13px",
+    color: "#64748b",
+    marginTop: "4px",
+  },
+  jobValueForm: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    marginTop: "8px",
+  },
+  jobValueInput: {
+    width: "120px",
+    padding: "8px 10px",
+    border: "1px solid #cbd5e1",
+    borderRadius: "8px",
+    fontSize: "14px",
+  },
+  jobValueBtn: {
+    background: "#2563eb",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "8px",
+    padding: "8px 16px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
   },
   cardHeader: {
     display: "flex",
