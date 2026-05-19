@@ -37,6 +37,8 @@ def get_business_settings():
         'after_hours_enabled': getattr(business, 'after_hours_enabled', False),
         'language': getattr(business, 'language', 'en-US'),
         'sms_template': getattr(business, 'sms_template', None),
+        'forward_urgent_calls': getattr(business, 'forward_urgent_calls', False),
+        'forward_phone_number': getattr(business, 'forward_phone_number', None),
         'subscription_tier': getattr(business, 'subscription_tier', 'starter'),
         'subscription_status': getattr(business, 'subscription_status', 'active'),
         'minutes_used': getattr(business, 'minutes_used', 0),
@@ -72,6 +74,8 @@ def update_business_settings():
         'business_name': 'name',
         'phone_number': 'phone_number',
         'timezone': 'timezone',
+        'forward_urgent_calls': 'forward_urgent_calls',
+        'forward_phone_number': 'forward_phone_number',
     }
 
     for frontend_key, model_key in field_map.items():

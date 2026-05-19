@@ -16,6 +16,8 @@ export default function BusinessSettings() {
     phone_number: "",
     timezone: "",
     ai_greeting: "",
+    forward_urgent_calls: false,
+    forward_phone_number: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -34,6 +36,8 @@ export default function BusinessSettings() {
           phone_number: data.phone_number || "",
           timezone: data.timezone || "",
           ai_greeting: data.ai_greeting || "",
+          forward_urgent_calls: !!data.forward_urgent_calls,
+          forward_phone_number: data.forward_phone_number || "",
         });
       } catch {
         setError("Couldn't load your settings. You can still save new values below.");
@@ -44,7 +48,8 @@ export default function BusinessSettings() {
   }, []);
 
   const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setForm((prev) => ({ ...prev, [e.target.name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -143,6 +148,46 @@ export default function BusinessSettings() {
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
               />
             </div>
+
+            <div className="border-t border-gray-200 pt-6">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="forward_urgent_calls"
+                  checked={form.forward_urgent_calls}
+                  onChange={handleChange}
+                  className="h-4 w-4 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span>
+                  <span className="text-sm font-medium text-slate-700">
+                    Transfer urgent calls to a real person
+                  </span>
+                  <span className="block text-xs text-slate-500 mt-0.5">
+                    When the AI detects a genuine emergency, it connects the caller
+                    straight to the number below instead of taking a message.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            {form.forward_urgent_calls && (
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">
+                  Urgent transfer number
+                </label>
+                <input
+                  type="tel"
+                  name="forward_phone_number"
+                  value={form.forward_phone_number}
+                  onChange={handleChange}
+                  placeholder="+1 805 555 0123"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-slate-500 mt-1">
+                  Where urgent calls ring — usually your cell. Include the country code (e.g. +1).
+                </p>
+              </div>
+            )}
 
             <button
               type="submit"
