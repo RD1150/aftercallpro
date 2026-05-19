@@ -291,6 +291,12 @@ def run_migrations():
         # Lead-log follow-up state on calls (added 2026-05-05) — subscriber marks new/called_back/done
         ("ALTER TABLE calls ADD COLUMN IF NOT EXISTS handled_status VARCHAR(20) DEFAULT 'new' NOT NULL", 'calls.handled_status'),
         ('ALTER TABLE calls ADD COLUMN IF NOT EXISTS handled_at TIMESTAMP', 'calls.handled_at'),
+        # Appointment notification flags (added 2026-05-18) — confirmation +
+        # reminder SMS state. IF NOT EXISTS makes this a no-op where present.
+        ('ALTER TABLE appointments ADD COLUMN IF NOT EXISTS confirmation_sent BOOLEAN DEFAULT FALSE', 'appointments.confirmation_sent'),
+        ('ALTER TABLE appointments ADD COLUMN IF NOT EXISTS confirmation_sent_at TIMESTAMP', 'appointments.confirmation_sent_at'),
+        ('ALTER TABLE appointments ADD COLUMN IF NOT EXISTS reminder_sent BOOLEAN DEFAULT FALSE', 'appointments.reminder_sent'),
+        ('ALTER TABLE appointments ADD COLUMN IF NOT EXISTS reminder_sent_at TIMESTAMP', 'appointments.reminder_sent_at'),
     ]
     
     # Only run on PostgreSQL (not SQLite which uses different syntax)
