@@ -417,15 +417,38 @@ URGENT CALLS: If the caller describes a genuine emergency or an urgent problem t
                 appointment.google_calendar_event_id = event_id
             
             db.session.commit()
-            
+
             # Mark that appointment was scheduled
             self.call.appointment_scheduled = True
             db.session.commit()
-            
+
+            # Text the customer a confirmation. Transactional — they booked
+            # this appointment on the call and gave their number for it — so
+            # it isn't gated on a separate SMS opt-in.
+            try:
+                from src.services.sms_service import SmsService
+                appt_str = appointment_datetime.strftime('%A, %B %-d at %-I:%M %p')
+                result = SmsService.send(
+                    to=customer_phone,
+                    body=(
+                        f"Hi {customer_name}, your {appointment_type or 'appointment'} "
+                        f"with {self.business.name} is confirmed for {appt_str}. "
+                        f"Need to change it? Just call us back."
+                    ),
+                    business_id=self.business.id,
+                    idempotency_key=f"appt_confirm:{appointment.id}",
+                )
+                if getattr(result, "sent", False):
+                    appointment.confirmation_sent = True
+                    appointment.confirmation_sent_at = datetime.utcnow()
+                    db.session.commit()
+            except Exception as e:
+                print(f"Appointment confirmation SMS failed: {e}")
+
             return {
                 "success": True,
                 "appointment_id": appointment.id,
-                "message": f"Great! I've scheduled your {appointment_type or 'appointment'} for {date} at {time}. You'll receive a confirmation shortly."
+                "message": f"Great! I've scheduled your {appointment_type or 'appointment'} for {date} at {time}. You'll get a text confirmation shortly."
             }
             
         except Exception as e:
