@@ -23,7 +23,7 @@ const CONTROL_MODES = [
 const FAQS = [
   { q: "Do I need a new phone number?", a: "No. AfterCallPro works with the business number you already use. Nothing changes for your customers — they call the same number they always have." },
   { q: "I'm not techy. Is this hard to set up?", a: "Setup takes under 5 minutes and we walk you through every step. If you can send a text, you can run this." },
-  { q: "What happens after the 25 founding spots fill up?", a: "The price moves to full rate once all 25 founding spots are claimed. Founding members stay at their locked rate for as long as they're a customer — the lock never expires." },
+  { q: "What happens after the founding spots fill up?", a: "The price moves to full rate once the limited founding spots are claimed. Founding members stay at their locked rate for as long as they're a customer — the lock never expires." },
   { q: "Can I cancel anytime?", a: "Yes. No contracts, no lock-in, month to month. We'd rather earn your business with captured leads than trap you in a contract." },
   { q: "Does the AI sound robotic?", a: "No — it sounds natural and friendly, like a real receptionist. Callers won't know it's AI unless you tell them. It uses your business name and handles the conversation naturally." },
   { q: "Which CRMs does it connect to?", a: "AfterCallPro syncs with the most popular field-service CRMs. If yours is connected, leads drop in automatically. If not, you still get every lead via text, email, and your dashboard." },
@@ -62,7 +62,7 @@ export default function Home() {
         letterSpacing: "0.01em",
       }}>
         <span style={{ color: GOLD, fontWeight: 700, marginRight: "0.5rem" }}>★ Founding Member: 50% off for life</span>
-        <span style={{ color: TEXT_SECONDARY }}>First 25 customers only — discount applied automatically at checkout.</span>
+        <span style={{ color: TEXT_SECONDARY }}>Limited founding spots — discount applied automatically at checkout.</span>
         <span style={{ color: GOLD, marginLeft: "0.5rem", fontWeight: 600 }}>Claim your spot →</span>
       </Link>
 
@@ -480,13 +480,13 @@ export default function Home() {
                 textTransform: "uppercase",
                 marginBottom: "0.75rem",
               }}>
-                ★ Founding Member · 25 slots only
+                ★ Founding Member · limited spots
               </div>
               <h3 style={{ color: TEXT_PRIMARY, fontSize: "1.4rem", fontWeight: 700, margin: "0 0 0.5rem" }}>
-                First 25 customers lock in 50% off, forever.
+                Founding customers lock in 50% off, forever.
               </h3>
               <p style={{ color: TEXT_SECONDARY, fontSize: "0.95rem", lineHeight: 1.6, margin: "0 0 1rem" }}>
-                <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. The discount is applied automatically at checkout for the first 25 customers — no code to request.
+                <span style={{ color: GOLD, fontWeight: 700 }}>${foundingCorePrice}/mo Core</span> or <span style={{ color: GOLD, fontWeight: 700 }}>${foundingElitePrice}/mo Elite</span> for the lifetime of your subscription. The discount is applied automatically at checkout for founding customers — no code to request.
               </p>
               <div style={{ color: TEXT_DIM, fontSize: "0.8rem" }}>
                 No contract · Cancel anytime · Your founding price never changes
