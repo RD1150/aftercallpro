@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.models.user import db, User
 from src.models.call import Business
+from src.utils.security import validate_password_strength
 from functools import wraps
 
 auth_bp = Blueprint('auth', __name__)
@@ -36,6 +37,11 @@ def _do_register(data):
         if field not in data:
             return jsonify({'error': f'Missing required field: {field}'}), 400
     
+    # Enforce password strength (8+ chars, upper, lower, number, special char)
+    pw_ok, pw_error = validate_password_strength(data['password'])
+    if not pw_ok:
+        return jsonify({'error': pw_error}), 400
+
     # Check if user already exists
     existing_user = User.query.filter_by(email=data['email']).first()
     if existing_user:
@@ -227,9 +233,10 @@ def reset_password():
     if not user.verify_reset_token(data['token']):
         return jsonify({'error': 'Invalid or expired reset token'}), 400
     
-    # Validate new password
-    if len(data['new_password']) < 6:
-        return jsonify({'error': 'Password must be at least 6 characters'}), 400
+    # Validate new password (same strength rules as signup)
+    pw_ok, pw_error = validate_password_strength(data['new_password'])
+    if not pw_ok:
+        return jsonify({'error': pw_error}), 400
     
     # Set new password
     user.set_password(data['new_password'])

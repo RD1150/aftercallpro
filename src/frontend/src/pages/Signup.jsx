@@ -3,6 +3,16 @@ import React, { useState } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 
+// Mirrors backend validate_password_strength (src/utils/security.py)
+function validatePassword(pw) {
+  if (pw.length < 8) return "Password must be at least 8 characters long";
+  if (!/[A-Z]/.test(pw)) return "Password must contain at least one uppercase letter";
+  if (!/[a-z]/.test(pw)) return "Password must contain at least one lowercase letter";
+  if (!/[0-9]/.test(pw)) return "Password must contain at least one number";
+  if (!/[!@#$%^&*()_+\-=[\]{}|;:,.<>?]/.test(pw)) return "Password must contain at least one special character";
+  return null;
+}
+
 export default function Signup() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -28,6 +38,12 @@ export default function Signup() {
 
     if (!smsConsent) {
       setError("Please check the SMS consent box to continue.");
+      return;
+    }
+
+    const pwError = validatePassword(formData.password);
+    if (pwError) {
+      setError(pwError);
       return;
     }
 
@@ -140,10 +156,13 @@ export default function Signup() {
               value={formData.password}
               onChange={handleChange}
               required
-              minLength={6}
-              placeholder="Min. 6 characters"
+              minLength={8}
+              placeholder="Min. 8 characters"
               style={styles.input}
             />
+            <p style={{ fontSize: "0.78rem", color: "#64748b", marginTop: "0.4rem", lineHeight: 1.4 }}>
+              At least 8 characters, with one uppercase letter, one number, and one symbol.
+            </p>
           </div>
 
           {/* SMS CONSENT CHECKBOX */}

@@ -22,9 +22,15 @@ export default function ResetPassword() {
       return;
     }
 
-    // Validate password length
-    if (newPassword.length < 6) {
-      setError('Password must be at least 6 characters');
+    // Validate password strength (matches backend)
+    if (
+      newPassword.length < 8 ||
+      !/[A-Z]/.test(newPassword) ||
+      !/[a-z]/.test(newPassword) ||
+      !/[0-9]/.test(newPassword) ||
+      !/[!@#$%^&*()_+\-=[\]{}|;:,.<>?]/.test(newPassword)
+    ) {
+      setError('Password must be 8+ characters with an uppercase letter, a number, and a symbol');
       return;
     }
 

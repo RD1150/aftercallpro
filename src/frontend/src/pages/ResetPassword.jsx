@@ -24,8 +24,14 @@ export default function ResetPassword() {
     e.preventDefault();
     setError("");
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters.");
+    if (
+      password.length < 8 ||
+      !/[A-Z]/.test(password) ||
+      !/[a-z]/.test(password) ||
+      !/[0-9]/.test(password) ||
+      !/[!@#$%^&*()_+\-=[\]{}|;:,.<>?]/.test(password)
+    ) {
+      setError("Password must be 8+ characters with an uppercase letter, a number, and a symbol.");
       return;
     }
     if (password !== confirm) {
