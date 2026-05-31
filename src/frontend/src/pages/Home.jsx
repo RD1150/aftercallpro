@@ -14,8 +14,25 @@ const TEXT_SECONDARY = "#9BA8B8";
 const TEXT_DIM = "#6B7A90";
 const FONT = "'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
 
+const CONTROL_MODES = [
+  { tab: "Available", ic: "📱", title: "You answer first", desc: "Calls ring your phone like normal. AfterCallPro only steps in if you don't pick up — so you never miss a lead, but you still take the calls you want to take." },
+  { tab: "On a job", ic: "🔧", title: "AI handles everything", desc: "One tap when your hands are full. The AI answers every call instantly, books the lead, follows up, and texts you the details — so you can stay heads-down on the job." },
+  { tab: "Off-hours", ic: "🌙", title: "Around-the-clock cover", desc: "Nights, weekends, vacation. AfterCallPro answers every call 24/7 and has every new lead waiting for you — captured and in your CRM — by morning." },
+];
+
+const FAQS = [
+  { q: "Do I need a new phone number?", a: "No. AfterCallPro works with the business number you already use. Nothing changes for your customers — they call the same number they always have." },
+  { q: "I'm not techy. Is this hard to set up?", a: "Setup takes under 5 minutes and we walk you through every step. If you can send a text, you can run this." },
+  { q: "What happens after the 25 founding spots fill up?", a: "The price moves to full rate once all 25 founding spots are claimed. Founding members stay at their locked rate for as long as they're a customer — the lock never expires." },
+  { q: "Can I cancel anytime?", a: "Yes. No contracts, no lock-in, month to month. We'd rather earn your business with captured leads than trap you in a contract." },
+  { q: "Does the AI sound robotic?", a: "No — it sounds natural and friendly, like a real receptionist. Callers won't know it's AI unless you tell them. It uses your business name and handles the conversation naturally." },
+  { q: "Which CRMs does it connect to?", a: "AfterCallPro syncs with the most popular field-service CRMs. If yours is connected, leads drop in automatically. If not, you still get every lead via text, email, and your dashboard." },
+];
+
 export default function Home() {
   const [annual, setAnnual] = useState(false);
+  const [controlMode, setControlMode] = useState(0);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const corePrice = annual ? 79 : 99;
   const elitePrice = annual ? 237 : 297;
@@ -201,6 +218,106 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* AI VOICE PHONE DEMO */}
+      <section style={{ background: `linear-gradient(135deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 100%)` }}>
+        <div className="phone-demo-section">
+          <div className="phone-demo-text">
+            <div className="kicker">See it in action</div>
+            <h2>Your AI picks up. <span className="gold">The customer never waits.</span></h2>
+            <p>While you're on the job, AfterCallPro answers in your business's name, captures what they need, then texts and emails the customer <em>and</em> you — and drops the lead straight into your CRM. No missed calls. No lost jobs.</p>
+          </div>
+
+          <div className="phone-wrap">
+            <div className="phone-mock">
+              <div className="phone-screen">
+                {/* Live call header */}
+                <div className="call-active">
+                  <span className="live-dot"></span>
+                  <div>
+                    <small>AI answering · live</small>
+                    <b>(805) 555-0162</b>
+                  </div>
+                  <span className="timer">0:42</span>
+                </div>
+
+                {/* Animated sound wave */}
+                <div className="sound-wave">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+
+                {/* Call transcript */}
+                <div className="transcript-row">
+                  <span className="who">Caller</span>
+                  <div className="chat-bubble">My water heater's leaking bad — can someone come today??</div>
+                </div>
+                <div className="transcript-row outgoing">
+                  <span className="who gold">AfterCallPro AI</span>
+                  <div className="chat-bubble ai">Absolutely — I can get a tech to you this afternoon. What's the best number and address?</div>
+                </div>
+
+                {/* Status tags */}
+                <div className="status-tag green">📲 Follow-up text + email sent to customer</div>
+                <div className="status-tag green">🔔 You &amp; your team alerted — text + email</div>
+                <div className="status-tag green">💾 Lead synced straight to your CRM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* YOU'RE IN CONTROL */}
+      <section style={{ background: `linear-gradient(135deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 100%)` }}>
+        <div className="control-section">
+          <div className="kicker">You're in control</div>
+          <h2>Take the calls you want. <span className="gold">Let AfterCallPro catch the rest.</span></h2>
+          <p className="lead">It's not all-or-nothing. You decide when the AI answers — flip it on when you're slammed, off when you're free. Set it once and it runs itself.</p>
+
+          <div className="control-grid">
+            <div>
+              <div className="mode-tabs">
+                {CONTROL_MODES.map((m, i) => (
+                  <button
+                    key={m.tab}
+                    className={controlMode === i ? "active" : ""}
+                    onClick={() => setControlMode(i)}
+                  >
+                    {m.tab}
+                  </button>
+                ))}
+              </div>
+              <div className="schedule-note">
+                ⏱️ <span><b>Or set business hours once</b> and AfterCallPro switches automatically — flip it any time with one tap from your phone.</span>
+              </div>
+            </div>
+
+            <div className="mode-card">
+              <div className="mode-icon">{CONTROL_MODES[controlMode].ic}</div>
+              <h3>{CONTROL_MODES[controlMode].title}</h3>
+              <p>{CONTROL_MODES[controlMode].desc}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section style={{ background: `linear-gradient(135deg, ${NAVY_DEEP} 0%, ${NAVY_MID} 100%)` }}>
+        <div className="faq-section">
+          <div className="kicker">Straight answers</div>
+          <h2>Questions, handled.</h2>
+
+          {FAQS.map((f, i) => (
+            <div
+              key={f.q}
+              className={`faq-item ${openFaq === i ? "open" : ""}`}
+              onClick={() => setOpenFaq(openFaq === i ? null : i)}
+            >
+              <div className="faq-q">{f.q} <span className="toggle-icon">+</span></div>
+              <div className="faq-a">{f.a}</div>
+            </div>
+          ))}
         </div>
       </section>
 
