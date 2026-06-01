@@ -137,6 +137,22 @@ def create_checkout_session():
             # customer enter a promo code manually at Checkout.
             session_kwargs['allow_promotion_codes'] = True
 
+        # Testimonial pilots: a short, time-boxed free month, then the customer
+        # rolls automatically to whatever coupon applied above (founding =
+        # $49.50/mo forever). Enrolled by email via the PILOT_TRIAL_EMAILS env
+        # var (comma-separated) — NOT a URL, so it can't be shared/abused. The
+        # card is still collected at checkout, so the rollover needs no chasing.
+        pilot_emails = {
+            e.strip().lower()
+            for e in os.getenv('PILOT_TRIAL_EMAILS', '').split(',')
+            if e.strip()
+        }
+        if business.email and business.email.lower() in pilot_emails:
+            session_kwargs['subscription_data']['trial_period_days'] = 30
+            # Require the card during the free trial so the paid rollover after
+            # 30 days is automatic — no day-30 chase, no lapse.
+            session_kwargs['payment_method_collection'] = 'always'
+
         checkout_session = stripe.checkout.Session.create(**session_kwargs)
 
         return jsonify({'sessionId': checkout_session.id, 'url': checkout_session.url}), 200
