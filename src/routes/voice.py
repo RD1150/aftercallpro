@@ -40,6 +40,29 @@ def _service_blocked_reason(business):
     return None
 
 
+def _humanize_numbers_for_speech(text):
+    """Space out phone-number digit runs so TTS enunciates each digit clearly.
+    Only touches sequences that clean to 7, 10, or 11 digits; leaves times,
+    prices, and short numbers alone."""
+    import re
+    if not text:
+        return text
+    pattern = re.compile(r'\+?\d[\d\-\.\(\)\s]{5,}\d')
+    def _repl(m):
+        raw = m.group(0)
+        digits = re.sub(r'\D', '', raw)
+        if len(digits) == 11 and digits.startswith('1'):
+            digits = digits[1:]
+        if len(digits) == 10:
+            groups = [digits[0:3], digits[3:6], digits[6:10]]
+        elif len(digits) == 7:
+            groups = [digits[0:3], digits[3:7]]
+        else:
+            return raw
+        return ', '.join(' '.join(g) for g in groups)
+    return pattern.sub(_repl, text)
+
+
 def speak(twiml_node, text: str, business):
     """Render `text` as audio onto a TwiML VoiceResponse or Gather node.
 
@@ -48,6 +71,7 @@ def speak(twiml_node, text: str, business):
     """
     if not text:
         return
+    text = _humanize_numbers_for_speech(text)
     filename = synthesize_to_file(text)
     if filename:
         twiml_node.play(_public_audio_url(filename))
@@ -377,4 +401,3 @@ def call_status():
         db.session.commit()
     
     return jsonify({'status': 'success'}), 200
-
