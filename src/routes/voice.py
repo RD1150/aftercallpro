@@ -12,7 +12,8 @@ voice_bp = Blueprint('voice', __name__)
 # How long Twilio waits for silence before deciding the caller finished
 # speaking. Lower = snappier replies; too low can clip slow speakers (e.g.
 # spelling out an email). Tunable via env so it can be adjusted without a deploy.
-SPEECH_TIMEOUT = int(os.environ.get("VOICE_SPEECH_TIMEOUT", "1"))
+_raw_speech_timeout = os.environ.get("VOICE_SPEECH_TIMEOUT", "auto")
+SPEECH_TIMEOUT = _raw_speech_timeout if _raw_speech_timeout == "auto" else int(_raw_speech_timeout)
 
 def _public_audio_url(filename: str) -> str:
     base = os.environ.get("APP_BASE_URL", "https://aftercallpro.onrender.com").rstrip("/")
