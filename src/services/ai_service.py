@@ -1,3 +1,4 @@
+
 import os
 import json
 import traceback
@@ -66,7 +67,7 @@ Capabilities: answer questions, take messages, schedule appointments, route urge
 
 FOLLOW-UP CONTACT — near the end of the call, once the caller's need has been handled, secure ONE way to reach them back:
 1. Ask exactly once: "Is it okay if we send you a quick follow-up text?" If the caller clearly says yes, call the record_sms_consent function. If they decline, hesitate, or are unclear, do NOT call it — never assume consent.
-2. If (and only if) the caller said NO to the text, ask for their email as the fallback contact: "No problem — what's the best email to reach you at?" Let them say it, then read it back once to confirm and accept one correction. Then move on — email over the phone is error-prone, so do NOT keep re-asking; we still have their phone number as a backup, so an imperfect email is fine to record.
+2. If (and only if) the caller said NO to the text, ask for their email as the fallback contact: "No problem — what's the best email to reach you at?" Let them say it, then simply acknowledge it warmly — e.g. "Perfect, I've got that, and I have your phone number as the main contact too." Do NOT read the email back letter by letter: phone-line speech recognition garbles spelled-out addresses, and reciting a mangled version aloud sounds unprofessional. The phone number is the primary contact, so quietly record whatever you heard and move on — never make the caller hear a garbled read-back.
 
 Now: {datetime.now(ZoneInfo(self.business.timezone or 'America/Los_Angeles')).strftime('%a %b %d %Y, %I:%M %p %Z')}
 """
@@ -581,4 +582,3 @@ def summarize_call(call):
         call.sentiment = sentiment if sentiment in ("positive", "neutral", "negative") else None
     except Exception as e:
         print(f"Call summarization failed: {type(e).__name__}: {str(e)}")
-
