@@ -44,7 +44,7 @@ def synthesize_to_file(text: str, voice_id: str = None) -> str | None:
     voice_id = voice_id or DEFAULT_VOICE_ID
     try:
         resp = requests.post(
-            f"{ELEVENLABS_API}/text-to-speech/{voice_id}",
+            f"{ELEVENLABS_API}/text-to-speech/{voice_id}?optimize_streaming_latency=4&output_format=mp3_22050_32",
             headers={
                 "xi-api-key": api_key,
                 "Content-Type": "application/json",
