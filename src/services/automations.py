@@ -107,9 +107,10 @@ def _run_after(delay_seconds: int, fn, *args, **kwargs):
 
 
 def notify_owner_new_lead(business, call):
-    """Text the business owner the instant a call is captured, so they can
-    call the lead back fast — speed to lead wins the job. Sent to the
-    business's own phone number. Best-effort.
+    """Text the business owner the instant a call ends so they can call the
+    lead back fast — speed to lead wins the job. Sent to the business's own
+    phone number. Best-effort. Copy adapts: a captured call reads "new lead",
+    a silent hang-up reads "missed call" so the owner isn't oversold.
 
     The SMS body is built here (synchronously, while `call` is a live ORM
     object); only plain strings are handed to the background sender.
@@ -123,13 +124,30 @@ def notify_owner_new_lead(business, call):
     if len(intent) > 140:
         intent = intent[:140].rstrip() + "…"
 
-    lines = [
-        f"New lead — AfterCallPro caught a call for {business.name}.",
-        f"Caller: {caller}",
-    ]
-    if intent:
-        lines.append(intent)
-    lines.append("Tap the number above to call them back.")
+    # Did the caller actually say anything, or did they hang up before the AI
+    # could help? A true hang-up has no caller turns in the transcript. Texting
+    # the owner "new lead — caught a call" for a silent hang-up oversells it, so
+    # we send an honest "missed call" alert instead. Same single text either way.
+    transcript = call.transcript or ""
+    caller_spoke = any(
+        line.startswith("Caller: ") and line[len("Caller: "):].strip()
+        for line in transcript.split("\n")
+    )
+
+    if caller_spoke:
+        lines = [
+            f"New lead — AfterCallPro caught a call for {business.name}.",
+            f"Caller: {caller}",
+        ]
+        if intent:
+            lines.append(intent)
+        lines.append("Tap the number above to call them back.")
+    else:
+        lines = [
+            f"Missed call for {business.name} — caller hung up before our AI could help.",
+            f"Caller: {caller}",
+            "No details captured. Tap the number above to call them back fast.",
+        ]
     body = "\n".join(lines)
 
     # Fire near-immediately (a tiny delay keeps the Twilio status webhook
